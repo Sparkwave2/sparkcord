@@ -36,6 +36,10 @@ pnpm_cmd() {
 }
 
 compose() {
+	# Secret the tracker signs short-lived TURN credentials with (P2P file sharing).
+	if [ -f "$STACK_DIR/.env" ] && [ -z "$(get_env SPARKCORD_TURN_SECRET)" ]; then
+		set_env SPARKCORD_TURN_SECRET "$(openssl rand -hex 32)"
+	fi
 	local files=(-f docker-compose.yml -f "$DEV_DIR/docker-compose.sparkcord.yml")
 	# While `dev.sh watch` runs, the app proxy serves fluxer_app/dist from the host.
 	[ -f "$STACK_DIR/.watching" ] && files+=(-f "$DEV_DIR/docker-compose.watch.yml")
@@ -168,7 +172,7 @@ cmd_up() {
 	[ -f "$STACK_DIR/.env" ] || cmd_setup
 	# The edge loads extra routes from caddy.d; add the P2P tracker routes.
 	cp "$DEV_DIR/tracker/tracker.caddy" "$STACK_DIR/caddy.d/sparkcord-tracker.caddy"
-	compose up -d --build tracker
+	compose up -d --build tracker turn
 	compose up -d
 	compose restart edge >/dev/null
 	echo

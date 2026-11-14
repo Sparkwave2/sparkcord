@@ -6,6 +6,7 @@
 //   :8000  WebSocket tracker   (edge: /tracker)
 //   :8001  GET /ice -> {iceServers} (edge: /tracker-ice)
 
+import {createHmac} from 'node:crypto';
 import http from 'node:http';
 import Server from 'bittorrent-tracker/server';
 
@@ -37,18 +38,44 @@ function turnEntries(raw) {
 	}
 }
 
-const iceServers = [
+const staticIceServers = [
 	stunEntry(process.env.STUN_PRIMARY),
 	stunEntry(process.env.STUN_SECONDARY),
 	...turnEntries(process.env.TURN_SERVERS),
 ].filter(Boolean);
-const iceBody = JSON.stringify({iceServers});
+
+const TURN_SECRET = process.env.TURN_SECRET || '';
+const TURN_PORT = process.env.TURN_PORT || '3478';
+const TURN_TTL_SECONDS = 24 * 60 * 60;
+
+/**
+ * Sparkcord's own TURN relay (coturn, --use-auth-secret): time-limited credentials per
+ * the TURN REST convention, so no fixed password is handed out. The relay is reached on
+ * the same host name the browser used for Sparkcord.
+ */
+function sparkcordTurn(req) {
+	if (!TURN_SECRET) return [];
+	const host = (process.env.TURN_HOST || String(req.headers['x-forwarded-host'] || req.headers.host || ''))
+		.split(',')[0]
+		.trim()
+		.replace(/:\d+$/, '');
+	if (!host) return [];
+	const username = `${Math.floor(Date.now() / 1000) + TURN_TTL_SECONDS}:sparkcord`;
+	const credential = createHmac('sha1', TURN_SECRET).update(username).digest('base64');
+	return [
+		{
+			urls: [`turn:${host}:${TURN_PORT}?transport=udp`, `turn:${host}:${TURN_PORT}?transport=tcp`],
+			username,
+			credential,
+		},
+	];
+}
 
 http
 	.createServer((req, res) => {
 		if (req.url === '/ice' || req.url?.startsWith('/ice?')) {
-			res.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300'});
-			res.end(iceBody);
+			res.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=300'});
+			res.end(JSON.stringify({iceServers: [...staticIceServers, ...sparkcordTurn(req)]}));
 			return;
 		}
 		if (req.url === '/_health') {
@@ -57,7 +84,9 @@ http
 		}
 		res.writeHead(404).end();
 	})
-	.listen(ICE_PORT, () => console.log(`ICE config on :${ICE_PORT} (${iceServers.length} servers)`));
+	.listen(ICE_PORT, () =>
+		console.log(`ICE config on :${ICE_PORT} (${staticIceServers.length} static, TURN relay ${TURN_SECRET ? 'on' : 'off'})`),
+	);
 
 const tracker = new Server({udp: false, http: false, ws: true, stats: false, trustProxy: true});
 tracker.on('error', (err) => console.error('tracker error:', err.message));

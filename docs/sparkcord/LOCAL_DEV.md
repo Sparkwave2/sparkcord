@@ -87,6 +87,10 @@ is uploaded to the server. The stack runs a small tracker container
 (`sparkcord/dev/tracker`), which the edge serves at `/tracker`. Its `/tracker-ice`
 route hands out the voice server's STUN/TURN settings (`FLUXER_LIVEKIT_STUN_*`,
 `FLUXER_LIVEKIT_TURN_SERVERS`). Files are shared only while the sender's tab is open.
+When two browsers can't reach each other directly (same computer, strict routers),
+they relay through the stack's TURN server (coturn, port 3478 UDP/TCP).
+`/tracker-ice` hands out credentials for it that expire after 24 hours, signed with
+`SPARKCORD_TURN_SECRET`; `dev.sh` writes that secret to `.env` on first use.
 Set `SPARKCORD_TRACKER_DEBUG=bittorrent-tracker:server` when running `dev.sh up` to
 log announces, offers and answers.
 

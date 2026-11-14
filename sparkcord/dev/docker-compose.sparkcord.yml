@@ -26,3 +26,30 @@ services:
       STUN_SECONDARY: ${FLUXER_LIVEKIT_STUN_SECONDARY:-stun1.l.google.com:19302}
       TURN_SERVERS: ${FLUXER_LIVEKIT_TURN_SERVERS:-[]}
       DEBUG: ${SPARKCORD_TRACKER_DEBUG:-}
+      TURN_SECRET: ${SPARKCORD_TURN_SECRET:-}
+      TURN_PORT: ${SPARKCORD_TURN_PORT:-3478}
+  # TURN relay for peer-to-peer file sharing, for when two browsers can't reach each
+  # other directly (same computer, strict routers). Both sides relay through it, so only
+  # the listening port is published. Credentials are short-lived, made by the tracker's
+  # /tracker-ice from SPARKCORD_TURN_SECRET (written to .env by dev.sh up).
+  turn:
+    image: coturn/coturn:4.6.3-alpine
+    restart: ${FLUXER_RESTART_POLICY:-unless-stopped}
+    networks: [fluxer]
+    ports:
+      - "${SPARKCORD_TURN_PORT:-3478}:3478/udp"
+      - "${SPARKCORD_TURN_PORT:-3478}:3478/tcp"
+    command:
+      - -n
+      - --log-file=stdout
+      - --listening-port=3478
+      - --min-port=49160
+      - --max-port=49200
+      - --use-auth-secret
+      - --static-auth-secret=${SPARKCORD_TURN_SECRET:?run sparkcord/dev/dev.sh up}
+      - --realm=sparkcord
+      - --fingerprint
+      - --no-tls
+      - --no-dtls
+      - --no-cli
+      - --no-multicast-peers
