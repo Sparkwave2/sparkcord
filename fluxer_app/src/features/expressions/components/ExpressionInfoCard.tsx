@@ -123,11 +123,11 @@ const JOIN_CONFIRM_GUILD_ICON_SIZE_PX = 80;
 
 const PERSONAL_EXPRESSION_DESCRIPTORS: Record<ExpressionKind, MessageDescriptor> = {
 	emoji: msg({
-		message: 'A personal emoji. Its owner can use it anywhere.',
+		message: 'A personal emoji.',
 		comment: 'Description in the emoji info card for a personal (user-owned) emoji.',
 	}),
 	sticker: msg({
-		message: 'A personal sticker. Its owner can use it anywhere.',
+		message: 'A personal sticker.',
 		comment: 'Description in the sticker info card for a personal (user-owned) sticker.',
 	}),
 };

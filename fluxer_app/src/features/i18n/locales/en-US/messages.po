@@ -2936,13 +2936,13 @@ msgstr "A number is added after your username, like {example}. You can change bo
 
 #. Description in the emoji info card for a personal (user-owned) emoji.
 #: src/features/expressions/components/ExpressionInfoCard.tsx
-msgid "A personal emoji. Its owner can use it anywhere."
-msgstr "A personal emoji. Its owner can use it anywhere."
+msgid "A personal emoji."
+msgstr "A personal emoji."
 
 #. Description in the sticker info card for a personal (user-owned) sticker.
 #: src/features/expressions/components/ExpressionInfoCard.tsx
-msgid "A personal sticker. Its owner can use it anywhere."
-msgstr "A personal sticker. Its owner can use it anywhere."
+msgid "A personal sticker."
+msgstr "A personal sticker."
 
 #. Description for has:poll. Sentence case, no trailing punctuation.
 #: src/features/search/utils/SearchUtils.ts
