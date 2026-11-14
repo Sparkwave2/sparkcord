@@ -204,10 +204,19 @@ const FROSTED_PANELS = [
 const FLOATING_CARDS = ['ProfileCardLayout.module__profileCard', 'TupperCard.module__card'];
 
 /**
- * Settings screens (user and community settings) are full of small text and controls,
- * so they get the most solid tint and the heaviest blur.
+ * Settings screens (user and community settings): one tinted, heavily blurred layer.
+ * Their nested wrappers each paint a see-through colour too, which stacked up to an
+ * almost solid panel, so those are made clear and only the sidebar keeps a light tint.
  */
-const SETTINGS_SURFACES = ['SettingsModalLayout.module__container'];
+const SETTINGS_SURFACE = ['SettingsModalLayout.module__container'];
+const SETTINGS_CLEAR = [
+	'Modal.module__fullscreen',
+	'SettingsModalLayout.module__desktopContent',
+	'SettingsModalLayout.module__desktopHeader',
+];
+const SETTINGS_SIDEBAR = ['SettingsModalLayout.module__desktopSidebar'];
+/** The dark layer behind modals (85% black by default), which hid the artwork. */
+const MODAL_BACKDROP = ['Modal.module__modalBackdrop'];
 
 /** How much clearer than the base opacities the panels are (user preference: show the art). */
 const PANEL_CLEARNESS = 0.12;
@@ -273,9 +282,21 @@ ${byModuleClass(FLOATING_CARDS)} {
 	backdrop-filter: blur(32px) saturate(1.3);
 }
 
-${byModuleClass(SETTINGS_SURFACES)} {
-	background-color: rgba(${p}, ${light ? 0.88 : 0.86}) !important;
+${byModuleClass(MODAL_BACKDROP)} {
+	opacity: 0.35 !important;
+}
+
+${byModuleClass(SETTINGS_CLEAR)} {
+	background: transparent !important;
+}
+
+${byModuleClass(SETTINGS_SURFACE)} {
+	background-color: rgba(${p}, ${light ? 0.55 : 0.5}) !important;
 	backdrop-filter: blur(40px) saturate(1.3);
+}
+
+${byModuleClass(SETTINGS_SIDEBAR)} {
+	background: rgba(${p}, ${light ? 0.25 : 0.22}) !important;
 }
 `;
 }
