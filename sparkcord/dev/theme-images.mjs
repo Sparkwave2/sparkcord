@@ -30,6 +30,7 @@ const PRESET_IDS = [
 	'blue-diva',
 	'red-diva',
 ];
+const MAX_BACKGROUND_BYTES = 600 * 1024;
 const EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif', '.tif', '.tiff'];
 
 mkdirSync(OUT_DIR, {recursive: true});
@@ -46,11 +47,15 @@ for (const id of PRESET_IDS) {
 	const input = join(SOURCE_DIR, source);
 	const background = join(OUT_DIR, `${id}.webp`);
 	const thumb = join(OUT_DIR, `${id}-thumb.webp`);
-	await sharp(input, {animated: false})
-		.rotate()
-		.resize({width: 2560, height: 1600, fit: 'inside', withoutEnlargement: true})
-		.webp({quality: 80, effort: 5})
-		.toFile(background);
+	// Detailed photos can be huge at full quality; step quality down until it fits.
+	for (const [width, quality] of [[2560, 80], [2560, 70], [2560, 60], [1920, 60], [1920, 50]]) {
+		await sharp(input, {animated: false})
+			.rotate()
+			.resize({width, height: Math.round(width / 1.6), fit: 'inside', withoutEnlargement: true})
+			.webp({quality, effort: 5})
+			.toFile(background);
+		if (statSync(background).size <= MAX_BACKGROUND_BYTES) break;
+	}
 	await sharp(input, {animated: false})
 		.rotate()
 		.resize({width: 480, height: 270, fit: 'cover', position: 'attention'})
