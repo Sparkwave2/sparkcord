@@ -16,7 +16,7 @@ const HELP = [
 	'**Tupper commands** (only you see these replies)',
 	'`tp!register <name> <tag>` create a tupper, e.g. `tp!register Kai k:text` or `tp!register "Mira Moon" [text]`',
 	'`tp!list` list your tuppers',
-	'`tp!tags <name> <tag> [tag…]` replace proxy tags',
+	'`tp!tags <name> <tag> [tag…]` replace proxy tags. Quote a tag that has spaces: `tp!tags Kai "Kai: text"`',
 	'`tp!avatar <name> <url>` set the avatar',
 	'`tp!rename <name> <new name>` rename',
 	'`tp!displayname <name> <display name|clear>` name shown on messages',

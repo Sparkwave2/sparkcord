@@ -1,8 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
-import {setTupperNames} from '@app/features/tupper/TupperNames';
-import {formatProxyTag, parseProxyTagLines, type TupperWire} from '@app/features/tupper/TupperShared';
+import {setTupperNames, setTupperSettings} from '@app/features/tupper/TupperNames';
+import {
+	formatProxyTag,
+	parseProxyTagLines,
+	type TupperSettingsWire,
+	type TupperWire,
+} from '@app/features/tupper/TupperShared';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {Button} from '@app/features/ui/button/Button';
@@ -18,14 +23,6 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 const logger = new Logger('Tuppers');
 
-interface TupperSettingsWire {
-	system_name: string | null;
-	system_tag: string | null;
-	proxy_enabled: boolean;
-	autoproxy_mode: 'off' | 'front' | 'latch';
-	autoproxy_tupper_id: string | null;
-	latch_tupper_id: string | null;
-}
 
 interface ImportResultWire {
 	source: 'tupperbox' | 'pluralkit';
@@ -212,6 +209,7 @@ const TuppersTab: React.FC = observer(() => {
 			]);
 			setTuppers(list.body);
 			setSettings(current.body);
+			setTupperSettings(current.body);
 			setLoadError(null);
 		} catch (error) {
 			logger.error('Failed to load tuppers', error);
@@ -227,6 +225,7 @@ const TuppersTab: React.FC = observer(() => {
 		try {
 			const response = await http.patch<TupperSettingsWire>(Endpoints.USER_TUPPER_SETTINGS, {body: patch});
 			setSettings(response.body);
+			setTupperSettings(response.body);
 		} catch (error) {
 			ToastCommands.error(errorMessage(error));
 		}

@@ -28640,9 +28640,9 @@ msgstr "Inserisci l'ID utente o il nome utente della persona che stai segnalando
 msgid "Proxy my messages"
 msgstr ""
 
-#. Slash-command option for tupper proxy tags. "text" is a literal placeholder word and must stay in English; examples k:text and [text] must not be translated.
+#. Slash-command option for a tupper proxy tag. "text" is a literal placeholder word and must stay in English; examples k:text, [text] and Kai: text must not be translated.
 #: src/features/tupper/TupperSlashCommands.ts
-msgid "Proxy tag with the word text where the message goes, e.g. k:text or [text]. Separate several with spaces."
+msgid "Proxy tag with the word text where the message goes, e.g. k:text, [text] or Kai: text. Spaces are kept."
 msgstr ""
 
 #: src/features/user/components/modals/tabs/TuppersTab.tsx

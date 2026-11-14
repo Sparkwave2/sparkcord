@@ -12,6 +12,7 @@ import {formatUploadingAttachmentSummary} from '@app/features/messaging/utils/Up
 import Permission from '@app/features/permissions/state/Permission';
 import {ComponentBus} from '@app/features/platform/utils/ComponentBus';
 import * as SlowmodeCommands from '@app/features/slowmode/commands/SlowmodeCommands';
+import {predictTupperProxy} from '@app/features/tupper/TupperNames';
 import {SlowmodeRateLimitedModal} from '@app/features/slowmode/components/alerts/SlowmodeRateLimitedModal';
 import Slowmode from '@app/features/slowmode/state/Slowmode';
 import RollingTypingSender from '@app/features/typing/rolling/RollingTypingSender';
@@ -157,8 +158,12 @@ export const useMessageSubmission = ({
 				},
 				uploadingAttachments,
 			);
+			// Sparkcord: show the message as the tupper it will be proxied as right away; the
+			// original text (with proxy tags) is still what gets sent.
+			const predicted = predictTupperProxy(message.content, hasAttachmentsFinal);
 			MessageCommands.createOptimistic(channel.id, {
 				...message.toJSON(),
+				...(predicted ? {content: predicted.content, proxy: predicted.proxy} : {}),
 				referenced_message: referencedMessage?.toJSON(),
 			});
 			SlowmodeCommands.prepareMessageSend(channel.id);

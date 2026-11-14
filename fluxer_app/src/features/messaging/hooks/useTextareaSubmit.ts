@@ -51,6 +51,7 @@ import {msg} from '@lingui/core/macro';
 import type React from 'react';
 import {useCallback} from 'react';
 import {isTupperCommand} from '@app/features/tupper/TupperShared';
+import {plainTupperCommandText} from '@app/features/tupper/TupperSlashCommands';
 
 const COULDN_T_RUN_THAT_COMMAND_DESCRIPTOR = msg({
 	message: "Couldn't run that command: {detail}",
@@ -490,10 +491,19 @@ export const useTextareaSubmit = ({
 			MessageCommands.stopReply(channelId);
 			return;
 		}
-		// Sparkcord: tupper chat commands run locally and reply privately; nothing is posted.
-		if (editingMessage === null && uploadAttachmentsLength === 0 && isTupperCommand(actualContent)) {
+		// Sparkcord: tupper commands (tp!…, /tp-… typed or picked) run locally and reply
+		// privately; nothing is posted.
+		const tupperCommandText =
+			parsedCommand?.type === 'tupper'
+				? parsedCommand.content
+				: isTupperCommand(actualContent)
+					? actualContent
+					: plainTupperCommandText(actualContent);
+		if (editingMessage === null && uploadAttachmentsLength === 0 && tupperCommandText !== null) {
 			// Loaded on demand so the composer doesn't pull the command module into its import graph.
-			void import('@app/features/tupper/TupperChatCommands').then((m) => m.runTupperCommand(channelId, actualContent));
+			void import('@app/features/tupper/TupperChatCommands').then((m) =>
+				m.runTupperCommand(channelId, tupperCommandText),
+			);
 			setValue('');
 			clearSegments();
 			DraftCommands.deleteDraft(draftOwner, channelId);

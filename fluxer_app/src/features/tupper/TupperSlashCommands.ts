@@ -15,7 +15,7 @@ import {useMemo} from 'react';
 type ArgKind =
 	| 'name' // an existing tupper, picked from the user's list; quoted
 	| 'text' // free text; quoted so spaces survive
-	| 'raw' // passed as typed (proxy tags: several tags are separated by spaces)
+	| 'raw' // passed as typed (single word, e.g. a URL)
 	| 'choice'; // fixed choices
 
 interface TupperOptionSpec {
@@ -42,10 +42,10 @@ const NAME_OPTION: TupperOptionSpec = {
 };
 
 const TAGS_DESCRIPTION = msg({
-	message: 'Proxy tag with the word text where the message goes, e.g. k:text or [text]. Separate several with spaces.',
+	message: 'Proxy tag with the word text where the message goes, e.g. k:text, [text] or Kai: text. Spaces are kept.',
 	comment:
-		'Slash-command option for tupper proxy tags. "text" is a literal placeholder word and must stay in English; examples k:text and [text] must not be translated.',
-});
+		'Slash-command option for a tupper proxy tag. "text" is a literal placeholder word and must stay in English; examples k:text, [text] and Kai: text must not be translated.',
+})
 
 export const TUPPER_SLASH_COMMANDS: Readonly<Record<string, TupperCommandSpec>> = {
 	'/tp-help': {
@@ -71,7 +71,7 @@ export const TUPPER_SLASH_COMMANDS: Readonly<Record<string, TupperCommandSpec>> 
 				required: true,
 				description: msg({message: "The tupper's name.", comment: 'Slash-command option for a new tupper name.'}),
 			},
-			{name: 'tags', kind: 'raw', required: true, description: TAGS_DESCRIPTION},
+			{name: 'tags', kind: 'text', required: true, description: TAGS_DESCRIPTION},
 		],
 	},
 	'/tp-tags': {
@@ -80,7 +80,7 @@ export const TUPPER_SLASH_COMMANDS: Readonly<Record<string, TupperCommandSpec>> 
 			message: "Replace a tupper's proxy tags.",
 			comment: 'Slash-command description for /tp-tags.',
 		}),
-		options: [NAME_OPTION, {name: 'tags', kind: 'raw', required: true, description: TAGS_DESCRIPTION}],
+		options: [NAME_OPTION, {name: 'tags', kind: 'text', required: true, description: TAGS_DESCRIPTION}],
 	},
 	'/tp-avatar': {
 		sub: 'avatar',

@@ -59,3 +59,45 @@ export function parseProxyTagLines(value: string): Array<ProxyTag> {
 	}
 	return tags;
 }
+
+export interface TupperSettingsWire {
+	system_name: string | null;
+	system_tag: string | null;
+	proxy_enabled: boolean;
+	autoproxy_mode: 'off' | 'front' | 'latch';
+	autoproxy_tupper_id: string | null;
+	latch_tupper_id: string | null;
+}
+
+/**
+ * Client copy of the server's proxy-tag matcher (fluxer_api TupperProxyMatcher), used to
+ * show a sent message as the tupper immediately. Keep the two in step: longest tag wins,
+ * case-insensitive, leading backslash escapes, keep_proxy keeps the tags.
+ */
+export function matchProxyTagsLocal(
+	content: string,
+	tuppers: ReadonlyArray<TupperWire>,
+	allowEmptyContent: boolean,
+): {tupper: TupperWire; content: string} | null {
+	if (content.startsWith('\\')) return null;
+	const trimmed = content.trim();
+	const ordered: Array<{tupper: TupperWire; prefix: string; suffix: string}> = [];
+	for (const tupper of tuppers) {
+		for (const tag of tupper.proxy_tags) {
+			const prefix = tag.prefix ?? '';
+			const suffix = tag.suffix ?? '';
+			if (prefix !== '' || suffix !== '') ordered.push({tupper, prefix, suffix});
+		}
+	}
+	ordered.sort((a, b) => b.prefix.length + b.suffix.length - (a.prefix.length + a.suffix.length));
+	const lower = trimmed.toLowerCase();
+	for (const {tupper, prefix, suffix} of ordered) {
+		if (trimmed.length < prefix.length + suffix.length) continue;
+		if (prefix && !lower.startsWith(prefix.toLowerCase())) continue;
+		if (suffix && !lower.endsWith(suffix.toLowerCase())) continue;
+		const inner = trimmed.slice(prefix.length, trimmed.length - suffix.length).trim();
+		if (inner.length === 0 && !allowEmptyContent) continue;
+		return {tupper, content: tupper.keep_proxy ? trimmed : inner};
+	}
+	return null;
+}
