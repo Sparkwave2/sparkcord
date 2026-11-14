@@ -256,6 +256,7 @@ async function applyThemeCssRequest(applier: ThemeCssApplier, request: ThemeCssR
 			mediaEndpoint: request.mediaEndpoint,
 			objectUrls: new Set(objectUrls),
 			trustedSites: new Set(request.trustedSites),
+			allowPresetBackgrounds: true,
 		};
 		const gated = gateThemeCss(resolved.css, policy);
 		for (const url of gated.blocked) request.onBlockedUrl(url);

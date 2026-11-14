@@ -69,7 +69,11 @@ export interface ThemeCssGatePolicy {
 	readonly objectUrls: ReadonlySet<string>;
 	readonly instanceOrigins?: ReadonlySet<string>;
 	readonly trustedSites?: ReadonlySet<string>;
+	/** Sparkcord: allow the bundled preset theme backgrounds (/assets/theme-presets/*.webp). */
+	readonly allowPresetBackgrounds?: boolean;
 }
+
+const PRESET_BACKGROUND_PATH_PATTERN = /^\/assets\/theme-presets\/[a-z0-9-]+\.webp$/;
 
 export interface ThemeCssGateResult {
 	readonly css: string;
@@ -193,6 +197,7 @@ function allowedValue(rawValue: string, inFontFace: boolean, policy: ThemeCssGat
 	if (DATA_URL_PATTERN.test(value)) return value;
 	if (/^blob:/i.test(value)) return policy.objectUrls.has(value) ? value : null;
 	if (isInstanceUrl(value, policy.instanceOrigins)) return value;
+	if (!inFontFace && policy.allowPresetBackgrounds && PRESET_BACKGROUND_PATH_PATTERN.test(value)) return value;
 	if (inFontFace) return isFontFile(value) ? value : null;
 	const site = trustableSiteOf(value);
 	if (site !== null && policy.trustedSites?.has(site)) return value;

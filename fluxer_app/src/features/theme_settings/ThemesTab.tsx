@@ -4,6 +4,7 @@ import {SettingsTabContainer, SettingsTabContent} from '@app/features/app/compon
 import AccountThemeMode from '@app/features/theme/state/AccountThemeMode';
 import ThemeLibrary from '@app/features/theme/state/ThemeLibrary';
 import {AssetsSection} from '@app/features/theme_settings/components/AssetsSection';
+import {PresetThemesSection} from '@app/features/theme_presets/PresetThemesSection';
 import {BaseThemeSection} from '@app/features/theme_settings/components/BaseThemeSection';
 import {ColorsAndFontsSection} from '@app/features/theme_settings/components/ColorsAndFontsSection';
 import {DesktopWindowSection} from '@app/features/theme_settings/components/DesktopWindowSection';
@@ -27,6 +28,7 @@ const ThemesSections: React.FC = observer(() => {
 				<ThisAccountSection data-flx="theme-settings.themes-tab.themes-sections.this-account-section" />
 			) : null}
 			<BaseThemeSection data-flx="theme-settings.themes-tab.themes-sections.base-theme-section" />
+			<PresetThemesSection />
 			<YourThemesSection data-flx="theme-settings.themes-tab.themes-sections.your-themes-section" />
 			<ColorsAndFontsSection data-flx="theme-settings.themes-tab.themes-sections.colors-and-fonts-section" />
 			<AssetsSection data-flx="theme-settings.themes-tab.themes-sections.assets-section" />

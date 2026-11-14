@@ -10,6 +10,7 @@
 #   sparkcord/dev/dev.sh build-app   build the web app image (~3 min after the first build)
 #   sparkcord/dev/dev.sh watch       rebuild the web app on file changes and serve it (fast)
 #   sparkcord/dev/dev.sh sync-wasm   refresh the host's WASM modules after Rust changes
+#   sparkcord/dev/dev.sh theme-images convert sparkcord/theme-images/* for the preset themes
 #   sparkcord/dev/dev.sh up          start everything on http://localhost:8090
 #   sparkcord/dev/dev.sh down        stop (keeps data)
 #   sparkcord/dev/dev.sh logs [svc]  follow logs
@@ -186,11 +187,12 @@ case "${1:-}" in
 	build-app) cmd_build_app ;;
 	watch) cmd_watch ;;
 	sync-wasm) cmd_sync_wasm ;;
+	theme-images) node "$DEV_DIR/theme-images.mjs" ;;
 	up) cmd_up ;;
 	down) compose down ;;
 	logs) shift; compose logs -f --tail=100 "$@" ;;
 	ps) compose ps ;;
 	token) get_env FLUXER_SETUP_TOKEN ;;
 	clean) cmd_clean ;;
-	*) sed -n '4,19p' "$0"; exit 1 ;;
+	*) sed -n '4,20p' "$0"; exit 1 ;;
 esac

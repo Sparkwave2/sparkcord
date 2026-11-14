@@ -64,3 +64,10 @@
 
 # Sparkcord local dev stack (downloaded bundle, secrets, data)
 /sparkcord/dev/stack/
+
+# Sparkcord theme preset images: your originals, and the generated WebP files.
+# Kept out of git by default; commit them only if you have the rights to publish them.
+/sparkcord/theme-images/*
+!/sparkcord/theme-images/README.md
+/fluxer_app/assets/assets/theme-presets/*
+!/fluxer_app/assets/assets/theme-presets/.gitkeep

@@ -70,6 +70,8 @@ COPY packages/markdown_parser/rust/src/ ./packages/markdown_parser/rust/src/
 COPY tools/ci/ ./tools/ci/
 COPY fluxer_app/index.html fluxer_app/lingui.config.js fluxer_app/package.json fluxer_app/postcss.config.js fluxer_app/rspack.config.mjs fluxer_app/tsconfig.base.json fluxer_app/tsconfig.json ./fluxer_app/
 COPY fluxer_app/inline_scripts/ ./fluxer_app/inline_scripts/
+# Sparkcord: static files copied into the build (theme preset images live here).
+COPY fluxer_app/assets/ ./fluxer_app/assets/
 COPY fluxer_app/pkgs/livekit-client/ ./fluxer_app/pkgs/livekit-client/
 COPY fluxer_app/rust/ ./fluxer_app/rust/
 COPY Cargo.lock ./
