@@ -45,7 +45,16 @@ const logger = new Logger('MarkdownRenderers');
 export const parse = parseMarkdownContent;
 const MAX_INTERACTIVE_EMOJI_COUNT = 100;
 
-const renderers = {
+// Sparkcord: built on first use, not at module init. The renderer modules sit in import
+// cycles, and with parallel chunk loading this module can run before LinkRenderer's does,
+// which made startup fail intermittently with "Cannot access '...' before initialization".
+let renderersCache: Record<NodeType, React.ComponentType<RendererProps>> | null = null;
+function getRenderers(): Record<NodeType, React.ComponentType<RendererProps>> {
+	renderersCache ??= createRenderers();
+	return renderersCache;
+}
+
+const createRenderers = () => ({
 	[NodeType.Sequence]: SequenceRenderer,
 	[NodeType.Text]: TextRenderer,
 	[NodeType.Strong]: StrongRenderer,
@@ -67,10 +76,10 @@ const renderers = {
 	[NodeType.TableRow]: () => null,
 	[NodeType.TableCell]: () => null,
 	[NodeType.Alert]: AlertRenderer,
-} as Record<NodeType, React.ComponentType<RendererProps>>;
+}) as Record<NodeType, React.ComponentType<RendererProps>>;
 
 function renderNode(node: Node, id: string, options: MarkdownRenderOptions): React.ReactNode {
-	const renderer = renderers[node.type];
+	const renderer = getRenderers()[node.type];
 	if (!renderer) {
 		logger.warn(`No renderer found for node type: ${node.type}`);
 		return null;

@@ -38,12 +38,26 @@ stays unhealthy, run `sparkcord/dev/dev.sh up` again.
 2. Sign-up and sign-in use a proof-of-work CAPTCHA. For scripted testing, turn it off in the
    admin panel (Captcha → provider "none").
 
+## Fast web-app iteration (watch mode)
+
+```bash
+sparkcord/dev/dev.sh watch
+```
+
+This builds the web app on your machine with rspack in watch mode and serves it straight from
+`fluxer_app/dist` through the running stack. The first build takes about 1.5 minutes; after
+that, saving a file rebuilds in ~20 seconds and restarts the app proxy, then you refresh the
+browser. Ctrl+C stops it and switches back to the web app baked into the image.
+
+The WASM modules (Rust) are built in Docker once and copied into `fluxer_app/pkgs`. If you
+change Rust code under `fluxer_app/rust`, run `sparkcord/dev/dev.sh sync-wasm`.
+
 ## Iterating
 
 | Changed                       | Run                                                   |
 |-------------------------------|-------------------------------------------------------|
 | `fluxer_api/**`               | `dev.sh build-api && dev.sh up`                      |
-| `fluxer_app/**`               | `dev.sh build-app && dev.sh up`                      |
+| `fluxer_app/**`               | `dev.sh watch` (or `dev.sh build-app && dev.sh up`)  |
 | Unit tests (matcher/importer) | `cd fluxer_api && pnpm vitest run src/api/tupper`    |
 
 ## End-to-end smoke test
