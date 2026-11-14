@@ -68,6 +68,9 @@ export function isNewMessageGroup(
 	if (currentMessage.webhookId && prevMessage.author.username !== currentMessage.author.username) {
 		return true;
 	}
+	if ((currentMessage.proxy?.tupper_id ?? null) !== (prevMessage.proxy?.tupper_id ?? null)) {
+		return true;
+	}
 	if (!prevMessage.timestamp || !currentMessage.timestamp) {
 		return true;
 	}

@@ -42,6 +42,10 @@ const AUTHORIZED_APPLICATIONS_DESCRIPTOR = msg({
 	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',
 });
 
+const TUPPERS_DESCRIPTOR = msg({
+	message: 'Tuppers',
+	comment: 'Settings section for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.',
+});
 const SIGNED_IN_DEVICES_DESCRIPTOR = msg({
 	message: 'Signed-in devices',
 	comment: 'Settings section label for account sessions and devices.',
@@ -134,6 +138,7 @@ export const generalSettingsSections = [
 		keywords: [],
 		isAdvanced: false,
 	},
+	{id: 'tuppers', tabType: 'tuppers', label: TUPPERS_DESCRIPTOR, keywords: [], isAdvanced: false},
 	{id: 'signed-in-devices', tabType: 'devices', label: SIGNED_IN_DEVICES_DESCRIPTOR, keywords: [], isAdvanced: false},
 	{
 		id: 'language-settings',

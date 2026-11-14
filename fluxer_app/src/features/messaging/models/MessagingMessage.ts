@@ -23,6 +23,7 @@ import type {
 	MessageAttachment,
 	MessageCall,
 	MessageMention,
+	MessageProxyResponse,
 	MessageReaction,
 	MessageReference,
 	MessageSnapshot,
@@ -141,6 +142,10 @@ interface MessageRecordOptions {
 	skipReactionHydration?: boolean;
 }
 
+export function getProxyDisplayName(proxy: Pick<MessageProxyResponse, 'name' | 'system_tag'>): string {
+	return proxy.system_tag ? `${proxy.name} ${proxy.system_tag}` : proxy.name;
+}
+
 export class Message {
 	readonly instanceId: string;
 	readonly id: string;
@@ -148,6 +153,10 @@ export class Message {
 	readonly guildId?: string;
 	readonly author: User;
 	readonly webhookId?: string;
+	/** Sparkcord: set when the message was sent through a tupper (proxy member). */
+	readonly proxy: MessageProxyResponse | null;
+	/** Sparkcord: the real account behind a proxied message (author holds the tupper identity). */
+	readonly proxyOwner: User | null;
 	readonly type: number;
 	readonly flags: number;
 	readonly pinned: boolean;
@@ -190,8 +199,15 @@ export class Message {
 			}
 		}
 		const isBlocked = Relationships.isBlocked(message.author.id);
+		this.proxy = message.webhook_id ? null : (message.proxy ?? null);
 		if (message.webhook_id) {
 			this.author = new User(message.author, {instanceId: this.instanceId});
+		} else if (this.proxy) {
+			const proxyName = getProxyDisplayName(this.proxy);
+			this.author = new User(
+				{...message.author, username: proxyName, global_name: proxyName, avatar: null},
+				{instanceId: this.instanceId},
+			);
 		} else {
 			this.author = Users.getUser(message.author.id) || new User(message.author, {instanceId: this.instanceId});
 		}
@@ -199,6 +215,9 @@ export class Message {
 		this.channelId = message.channel_id;
 		this.guildId = message.guild_id;
 		this.webhookId = message.webhook_id;
+		this.proxyOwner = this.proxy
+			? Users.getUser(message.author.id) || new User(message.author, {instanceId: this.instanceId})
+			: null;
 		this.type = message.type;
 		this.flags = message.flags;
 		this.pinned = message.pinned;
@@ -318,8 +337,9 @@ export class Message {
 				id: this.id,
 				channel_id: this.channelId,
 				guild_id: updates.guild_id ?? this.guildId,
-				author: updates.author ?? this.author.toJSON(),
+				author: updates.author ?? (this.proxyOwner ?? this.author).toJSON(),
 				webhook_id: updates.webhook_id ?? this.webhookId,
+				proxy: 'proxy' in updates ? (updates.proxy ?? null) : this.proxy,
 				type: updates.type ?? this.type,
 				flags: updates.flags ?? this.flags,
 				pinned: updates.pinned ?? this.pinned,
@@ -382,6 +402,7 @@ export class Message {
 		if (this.nonce !== other.nonce) return false;
 		if (this.blocked !== other.blocked) return false;
 		if (this.webhookId !== other.webhookId) return false;
+		if (this.proxy?.tupper_id !== other.proxy?.tupper_id || this.proxy?.name !== other.proxy?.name) return false;
 		if (this.timestamp.getTime() !== other.timestamp.getTime()) return false;
 		if (this.editedTimestamp?.getTime() !== other.editedTimestamp?.getTime()) return false;
 		if (!this.author.equals(other.author)) return false;
@@ -497,8 +518,9 @@ export class Message {
 			id: this.id,
 			channel_id: this.channelId,
 			guild_id: this.guildId,
-			author: this.author.toJSON(),
+			author: (this.proxyOwner ?? this.author).toJSON(),
 			webhook_id: this.webhookId,
+			proxy: this.proxy,
 			type: this.type,
 			flags: this.flags,
 			pinned: this.pinned,

@@ -7,7 +7,7 @@ import {PreloadableUserPopout} from '@app/features/channel/components/Preloadabl
 import type {Guild} from '@app/features/guild/models/Guild';
 import {isKeyboardActivationKey} from '@app/features/input/utils/KeyboardUtils';
 import type {GuildMember} from '@app/features/member/models/GuildMember';
-import type {Message} from '@app/features/messaging/models/MessagingMessage';
+import {getProxyDisplayName, type Message} from '@app/features/messaging/models/MessagingMessage';
 import styles from '@app/features/theme/styles/Message.module.css';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
 import KeyboardMode from '@app/features/ui/state/KeyboardMode';
@@ -39,8 +39,17 @@ export const MessageUsername = observer(
 	}) => {
 		const usernameRef = useRef<HTMLSpanElement | null>(null);
 		const contextMenuOpen = useContextMenuHoverState(usernameRef);
-		const displayName = previewName || NicknameUtils.getNickname(user, guild?.id, message.channelId);
-		const color = previewColor || member?.getColorString();
+		const proxy = message.proxy;
+		const displayName =
+			previewName ||
+			(proxy ? getProxyDisplayName(proxy) : NicknameUtils.getNickname(user, guild?.id, message.channelId));
+		const color =
+			previewColor ||
+			(proxy
+				? proxy.color != null
+					? `#${proxy.color.toString(16).padStart(6, '0')}`
+					: undefined
+				: member?.getColorString());
 		const onPopoutToggle = useMaybeMessageViewContext()?.onPopoutToggle;
 		const handlePopoutOpen = useCallback(() => onPopoutToggle?.(true), [onPopoutToggle]);
 		const handlePopoutClose = useCallback(() => onPopoutToggle?.(false), [onPopoutToggle]);

@@ -78,6 +78,7 @@ import {
 	TranslateIcon,
 	UserIcon,
 	UserListIcon,
+	UsersThreeIcon,
 } from '@phosphor-icons/react';
 import type React from 'react';
 
@@ -209,6 +210,15 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 		category: 'user_settings',
 		label: BLOCKED_USERS_DESCRIPTOR,
 		icon: ProhibitIcon,
+	},
+	{
+		type: 'tuppers',
+		category: 'user_settings',
+		label: msg({
+			message: 'Tuppers',
+			comment: 'Settings tab for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.',
+		}),
+		icon: UsersThreeIcon,
 	},
 	{
 		type: 'devices',

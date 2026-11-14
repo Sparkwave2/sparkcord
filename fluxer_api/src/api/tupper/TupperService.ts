@@ -38,6 +38,7 @@ export interface TupperResponse {
 	name: string;
 	display_name: string | null;
 	avatar_url: string | null;
+	avatar_proxy_url: string | null;
 	proxy_tags: Array<ProxyTag>;
 	keep_proxy: boolean;
 	description: string | null;
@@ -156,6 +157,7 @@ export function toTupperResponse(row: TupperRow): TupperResponse {
 		name: row.name,
 		display_name: row.display_name,
 		avatar_url: row.avatar_url,
+		avatar_proxy_url: proxiedAvatarUrl(row.avatar_url),
 		proxy_tags: parseTags(row.proxy_tags),
 		keep_proxy: row.keep_proxy,
 		description: row.description,

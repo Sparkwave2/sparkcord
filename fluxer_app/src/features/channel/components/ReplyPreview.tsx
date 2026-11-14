@@ -6,7 +6,7 @@ import {PreloadableUserPopout} from '@app/features/channel/components/Preloadabl
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
-import type {Message} from '@app/features/messaging/models/MessagingMessage';
+import {getProxyDisplayName, type Message} from '@app/features/messaging/models/MessagingMessage';
 import MessageReferences, {MessageReferenceState} from '@app/features/messaging/state/MessageReferences';
 import {goToMessage} from '@app/features/messaging/utils/MessageNavigator';
 import LocalUserSpamOverride from '@app/features/moderation/state/LocalUserSpamOverride';
@@ -185,7 +185,8 @@ export const ReplyPreview = observer(
 							user={referencedMessage.author}
 							size={16}
 							className={styles.repliedAvatar}
-							guildId={resolvedGuildId}
+							guildId={referencedMessage.proxy ? undefined : resolvedGuildId}
+							avatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
 							data-user-id={referencedMessage.author.id}
 							data-guild-id={resolvedGuildId}
 							data-flx="channel.reply-preview.replied-avatar"
@@ -215,17 +216,18 @@ export const ReplyPreview = observer(
 						className={styles.repliedUsername}
 						style={
 							{
-								'--replied-username-color': GuildMembers.getMember(
-									resolvedGuildId ?? '',
-									referencedMessage.author.id,
-								)?.getColorString(),
+								'--replied-username-color': referencedMessage.proxy
+									? referencedMessage.proxy.color != null
+										? `#${referencedMessage.proxy.color.toString(16).padStart(6, '0')}`
+										: undefined
+									: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
 							} as CSSProperties
 						}
 						data-user-id={referencedMessage.author.id}
 						data-guild-id={resolvedGuildId}
 						data-flx="channel.reply-preview.replied-username"
 					>
-						{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
+						{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
 					</span>
 				</PreloadableUserPopout>
 				<FocusRing offset={-2} data-flx="channel.reply-preview.focus-ring">

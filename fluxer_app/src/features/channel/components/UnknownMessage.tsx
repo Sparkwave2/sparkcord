@@ -29,7 +29,8 @@ export const UnknownMessage = observer(() => {
 	const {message, channel, shouldGroup, isHovering, messageDisplayCompact, previewContext, previewOverrides} =
 		useMessageViewContext();
 	const userAuthor = Users.getUser(message.author.id);
-	const author = message.webhookId != null ? message.author : (userAuthor ?? message.author);
+	const author =
+		message.webhookId != null || message.proxy ? message.author : (userAuthor ?? message.author);
 	const formattedDate = DateUtils.getRelativeDateString(message.timestamp, i18n);
 	const guild = Guilds.getGuild(channel.guildId ?? '');
 	const member = GuildMembers.getMember(guild?.id ?? '', author?.id ?? '');

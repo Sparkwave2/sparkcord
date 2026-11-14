@@ -21,6 +21,7 @@ import GiftInventoryTab from '@app/features/user/components/modals/tabs/GiftInve
 import KeybindsTab from '@app/features/user/components/modals/tabs/KeybindsTab';
 import LanguageTab from '@app/features/user/components/modals/tabs/LanguageTab';
 import LinkedAccountsTab from '@app/features/user/components/modals/tabs/LinkedAccountsTab';
+import TuppersTab from '@app/features/user/components/modals/tabs/TuppersTab';
 import MyProfileTab from '@app/features/user/components/modals/tabs/MyProfileTab';
 import {NotificationsInlineContent} from '@app/features/user/components/modals/tabs/NotificationsTab';
 import {PlutoniumInlineTab} from '@app/features/user/components/modals/tabs/PlutoniumTab';
@@ -81,6 +82,7 @@ const INLINE_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Component
 	applications: ApplicationsTab,
 	keybinds: KeybindsTab,
 	linked_accounts: LinkedAccountsTab,
+	tuppers: TuppersTab,
 	advanced_settings: AdvancedSettingsInlineContent,
 };
 const getInlineTabComponent = (tab: SettingsTab): React.ComponentType<Record<string, unknown>> | null => {

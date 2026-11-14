@@ -268,6 +268,11 @@ export const Endpoints = {
 	VOICE_CHANNEL_ENTRANCE_SOUND: (channelId: string) => `/voice/channels/${channelId}/entrance-sound`,
 	VOICE_P2P_CONNECTION_REPORTS: '/voice/p2p/connection-reports',
 	USER_FAVORITE_MEMES: (query = ME) => `/users/${query}/memes`,
+	USER_TUPPERS: '/users/@me/tuppers',
+	USER_TUPPER: (tupperId: string) => `/users/@me/tuppers/${tupperId}`,
+	USER_TUPPER_SETTINGS: '/users/@me/tuppers/settings',
+	USER_TUPPERS_IMPORT: '/users/@me/tuppers/import',
+	USER_TUPPERS_EXPORT: '/users/@me/tuppers/export',
 	USER_FAVORITE_MEME: (query = ME, memeId: string) => `/users/${query}/memes/${memeId}`,
 	USER_FAVORITE_GIFS_RESOLVE: (query = ME) => `/users/${query}/favorite-gifs/resolve`,
 	CHANNEL_MESSAGE_FAVORITE_MEMES: (channelId: string, messageId: string) =>

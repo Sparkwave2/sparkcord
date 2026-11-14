@@ -17,6 +17,7 @@ export const TupperResponse = z.object({
 	name: z.string().describe('Name, unique per user'),
 	display_name: z.string().nullable().describe('Name shown on proxied messages, if different'),
 	avatar_url: z.string().nullable().describe('Avatar image URL'),
+	avatar_proxy_url: z.string().nullable().describe('Avatar URL through the media proxy, for display'),
 	proxy_tags: z.array(TupperProxyTagResponse),
 	keep_proxy: z.boolean().describe('Keep the proxy tags in the sent message'),
 	description: z.string().nullable(),

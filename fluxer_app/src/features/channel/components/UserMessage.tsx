@@ -119,7 +119,8 @@ export const UserMessage = observer(() => {
 	} = useMessageViewContext();
 	const isEditing = MessageEdit.isEditing(message.channelId, message.id);
 	const userAuthor = Users.getUser(message.author.id);
-	const author = message.webhookId != null ? message.author : (userAuthor ?? message.author);
+	const author =
+		message.webhookId != null || message.proxy ? message.author : (userAuthor ?? message.author);
 	const formattedDate = DateUtils.getRelativeDateString(message.timestamp, i18n);
 	const jumpHeadingLabel = useMemo(() => {
 		const displayName = previewOverrides?.displayName ?? NicknameUtils.getDisplayName(message.author);
