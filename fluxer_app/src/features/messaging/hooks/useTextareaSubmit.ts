@@ -50,6 +50,7 @@ import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import type React from 'react';
 import {useCallback} from 'react';
+import {isTupperCommand, runTupperCommand} from '@app/features/tupper/TupperChatCommands';
 
 const COULDN_T_RUN_THAT_COMMAND_DESCRIPTOR = msg({
 	message: "Couldn't run that command: {detail}",
@@ -487,6 +488,15 @@ export const useTextareaSubmit = ({
 			DraftCommands.deleteDraft(draftOwner, channelId);
 			RollingTypingSender.stopTyping(channelId);
 			MessageCommands.stopReply(channelId);
+			return;
+		}
+		// Sparkcord: tupper chat commands run locally and reply privately; nothing is posted.
+		if (editingMessage === null && uploadAttachmentsLength === 0 && isTupperCommand(actualContent)) {
+			void runTupperCommand(channelId, actualContent);
+			setValue('');
+			clearSegments();
+			DraftCommands.deleteDraft(draftOwner, channelId);
+			RollingTypingSender.stopTyping(channelId);
 			return;
 		}
 		if (

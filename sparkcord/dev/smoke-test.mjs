@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 //
 // End-to-end check of tuppers against the local stack started by dev.sh.
-// Creates (once) a local test admin account using the setup token, stores its
-// generated credentials in sparkcord/dev/stack/test-account.json (git-ignored),
-// then exercises create/import/proxy/export over the real API and gateway.
+// Signs in with a test account you created (see ensureAccount), then exercises
+// tupper create/import/proxy/latch/edit/export over the real API and gateway.
+// Note: it deletes that account's existing tuppers first.
 //
 //   node sparkcord/dev/smoke-test.mjs
 
-import {randomBytes} from 'node:crypto';
-import {existsSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -18,12 +17,6 @@ const ACCOUNT_FILE = join(STACK_DIR, 'test-account.json');
 const ORIGIN = process.env.SPARKCORD_ORIGIN ?? 'http://localhost:8090';
 const API = `${ORIGIN}/api/v1`;
 
-function envValue(key) {
-	const line = readFileSync(join(STACK_DIR, '.env'), 'utf8')
-		.split('\n')
-		.findLast((l) => l.startsWith(`${key}=`));
-	return line?.slice(key.length + 1).trim();
-}
 
 let token = null;
 let failures = 0;
@@ -53,23 +46,27 @@ function check(label, condition, detail) {
 	}
 }
 
+/**
+ * Signs in with a test account you created in the browser. Sign-up and sign-in are
+ * CAPTCHA-protected, so this script doesn't create accounts; turn the CAPTCHA off in
+ * the admin panel (Admin → Captcha → provider "none") on your local instance first.
+ */
 async function ensureAccount() {
-	if (existsSync(ACCOUNT_FILE)) {
-		const account = JSON.parse(readFileSync(ACCOUNT_FILE, 'utf8'));
-		const login = await api('POST', '/auth/login', {login: account.username, password: account.password});
-		return login.token;
+	let account = null;
+	if (process.env.SPARKCORD_TEST_LOGIN && process.env.SPARKCORD_TEST_PASSWORD) {
+		account = {username: process.env.SPARKCORD_TEST_LOGIN, password: process.env.SPARKCORD_TEST_PASSWORD};
+	} else if (existsSync(ACCOUNT_FILE)) {
+		account = JSON.parse(readFileSync(ACCOUNT_FILE, 'utf8'));
 	}
-	const account = {username: `tester${randomBytes(3).toString('hex')}`, password: randomBytes(18).toString('base64url')};
-	const registered = await api('POST', '/auth/register', {
-		username: account.username,
-		global_name: 'Sparkcord Tester',
-		password: account.password,
-		date_of_birth: '1990-01-01',
-		consent: true,
-		setup_token: envValue('FLUXER_SETUP_TOKEN'),
-	});
-	writeFileSync(ACCOUNT_FILE, JSON.stringify(account, null, 2));
-	return registered.token;
+	if (!account?.username || !account?.password) {
+		throw new Error(
+			`No test account. Create one at ${ORIGIN}, then set SPARKCORD_TEST_LOGIN and SPARKCORD_TEST_PASSWORD ` +
+				`or write {"username": "...", "password": "..."} to ${ACCOUNT_FILE}.`,
+		);
+	}
+	const login = await api('POST', '/auth/login', {login: account.username, password: account.password});
+	if (!login.token) throw new Error(`Sign-in needs another step (MFA?): ${JSON.stringify(login).slice(0, 200)}`);
+	return login.token;
 }
 
 /** Identifies on the gateway once, which marks the session as started (required before sending). */
@@ -102,6 +99,7 @@ async function main() {
 	console.log(`Sparkcord smoke test against ${ORIGIN}`);
 	token = await ensureAccount();
 	check('signed in', typeof token === 'string');
+	const me = await api('GET', '/users/@me');
 	const ws = await startGatewaySession();
 	check('gateway session started', true);
 
@@ -143,7 +141,7 @@ async function main() {
 	const proxied = await api('POST', `/channels/${channel.id}/messages`, {content: 'e: hello from Echo'});
 	check('proxied: tag stripped', proxied.content === 'hello from Echo', proxied.content);
 	check('proxied: proxy object on send response', proxied.proxy?.name === 'Echo', proxied.proxy);
-	check('proxied: real author kept', proxied.author.username.startsWith('tester'), proxied.author);
+	check('proxied: real author kept', proxied.author.id === me.id, proxied.author);
 	check('proxied: system tag', proxied.proxy?.system_tag === '| TC', proxied.proxy);
 
 	const bracket = await api('POST', `/channels/${channel.id}/messages`, {content: '[bracketed Kai]'});
