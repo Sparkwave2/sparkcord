@@ -279,6 +279,17 @@ fn parse_inline_with_context(
             }
         }
 
+        if matches!(current, b'=' | b'^' | b'~' | b'$' | b'!' | b'[')
+            && crate::extended::enabled(parser.flags())
+            && let Some(result) =
+                parse_extended_inline(parser, &mut scan, position, base_offset + position, context)?
+        {
+            flush_accumulated_text(&mut nodes, &mut accumulated);
+            nodes.push(result.node);
+            position += result.advance;
+            continue;
+        }
+
         if current >= 0x80 {
             let char_len = remaining.chars().next().map_or(1, char::len_utf8);
             accumulated.push_str(&text[position..position + char_len]);
@@ -747,9 +758,196 @@ fn is_plain_text_byte(byte: u8) -> bool {
         && !matches!(
             byte,
             b'\\' | b'h' | b'f' | b'_' | b'<' | b':' | b'@' | b'*' | b'~' | b'|' | b'`' | b'['
+                | b'=' | b'^' | b'$' | b'!'
         )
 }
 
 fn is_formatting_char(char: u8) -> bool {
     matches!(char, b'*' | b'_' | b'~' | b'|' | b'`')
+}
+
+// Sparkcord extended inline syntax: ==highlight==, ^sup^, ~sub~, $math$, $$math$$,
+// ![alt](url) and [^footnote] references.
+fn parse_extended_inline(
+    parser: &mut MarkdownParser,
+    scan: &mut Lookahead<'_>,
+    position: usize,
+    base_offset: usize,
+    context: &mut FormattingContext,
+) -> Result<Option<ParserResult>, ParseError> {
+    let text = scan.text;
+    let rest = &text[position..];
+    let bytes = rest.as_bytes();
+    let next = bytes.get(1).copied().unwrap_or(0);
+    match bytes[0] {
+        b'=' if next == b'=' && bytes.get(2) != Some(&b'=') => {
+            parse_wrapped(parser, rest, "==", b'=', false, base_offset, context, |children| {
+                Node::Highlight { children }
+            })
+        }
+        b'^' => parse_wrapped(parser, rest, "^", b'^', true, base_offset, context, |children| {
+            Node::Superscript { children }
+        }),
+        b'~' if next != b'~' && (position == 0 || text.as_bytes()[position - 1] != b'~') => {
+            parse_wrapped(parser, rest, "~", b'~', true, base_offset, context, |children| {
+                Node::Subscript { children }
+            })
+        }
+        b'$' => Ok(parse_inline_math(rest)),
+        b'!' if next == b'[' => {
+            if !ParserFlags::has(parser.flags(), ParserFlags::ALLOW_MASKED_LINKS) {
+                return Ok(None);
+            }
+            let Some(result) =
+                links::parse_masked_link(parser, scan, position + 1, base_offset + 1)?
+            else {
+                return Ok(None);
+            };
+            let Node::Link { text, url, .. } = result.node else {
+                return Ok(None);
+            };
+            if !(url.starts_with("https://") || url.starts_with("http://")) {
+                return Ok(None);
+            }
+            let mut alt = String::new();
+            if let Some(text) = text.as_deref() {
+                crate::extended::plain_text(text, &mut alt);
+            }
+            Ok(Some(ParserResult {
+                node: Node::Image { alt, url },
+                advance: result.advance + 1,
+            }))
+        }
+        b'[' if next == b'^' => {
+            let Some(close) = rest.find(']') else {
+                return Ok(None);
+            };
+            let id = &rest[2..close];
+            if !crate::extended::is_footnote_id(id) {
+                return Ok(None);
+            }
+            Ok(Some(ParserResult {
+                node: Node::FootnoteRef {
+                    id: id.to_owned(),
+                    index: 0,
+                },
+                advance: close + 1,
+            }))
+        }
+        _ => Ok(None),
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn parse_wrapped(
+    parser: &mut MarkdownParser,
+    rest: &str,
+    marker: &str,
+    delimiter: u8,
+    tight: bool,
+    base_offset: usize,
+    context: &mut FormattingContext,
+    make: impl FnOnce(Vec<Node>) -> Node,
+) -> Result<Option<ParserResult>, ParseError> {
+    if !context.can_enter(delimiter, false) {
+        return Ok(None);
+    }
+    let len = marker.len();
+    let after = &rest[len..];
+    let bytes = after.as_bytes();
+    if bytes.first().is_none_or(|byte| byte.is_ascii_whitespace()) {
+        return Ok(None);
+    }
+    let mut index = 0usize;
+    while index < bytes.len() {
+        let byte = bytes[index];
+        if byte == b'\n' || (tight && (byte == b' ' || byte == b'\t')) {
+            return Ok(None);
+        }
+        if byte == b'\\' {
+            index += 2;
+            continue;
+        }
+        if bytes[index..].starts_with(marker.as_bytes()) {
+            if delimiter == b'~' && bytes.get(index + 1) == Some(&b'~') {
+                index += 2;
+                continue;
+            }
+            if index == 0 {
+                return Ok(None);
+            }
+            let inner = &after[..index];
+            if inner.ends_with(char::is_whitespace) {
+                return Ok(None);
+            }
+            if tight && !inner.chars().any(char::is_alphanumeric) {
+                return Ok(None);
+            }
+            let mut inner_context = context.clone();
+            inner_context.push(delimiter, false);
+            let children =
+                parse_inline_with_context(parser, inner, base_offset + len, &mut inner_context)?;
+            return Ok(Some(ParserResult {
+                node: make(children),
+                advance: len * 2 + index,
+            }));
+        }
+        index += 1;
+    }
+    Ok(None)
+}
+
+fn parse_inline_math(rest: &str) -> Option<ParserResult> {
+    let display = rest.as_bytes().get(1) == Some(&b'$');
+    let len = if display { 2 } else { 1 };
+    let after = &rest[len..];
+    let bytes = after.as_bytes();
+    if bytes.first().is_none_or(|byte| byte.is_ascii_whitespace()) {
+        return None;
+    }
+    let mut index = 0usize;
+    while index < bytes.len() {
+        let byte = bytes[index];
+        if byte == b'\n' && !display {
+            return None;
+        }
+        if byte == b'\\' {
+            index += 2;
+            continue;
+        }
+        if byte == b'$' {
+            if display {
+                if bytes.get(index + 1) == Some(&b'$') {
+                    let inner = after[..index].trim();
+                    if inner.is_empty() {
+                        return None;
+                    }
+                    return Some(ParserResult {
+                        node: Node::Math {
+                            content: inner.to_owned(),
+                            display: true,
+                        },
+                        advance: len * 2 + index,
+                    });
+                }
+            } else if index > 0
+                && !bytes[index - 1].is_ascii_whitespace()
+                && !bytes.get(index + 1).is_some_and(u8::is_ascii_digit)
+            {
+                return Some(ParserResult {
+                    node: Node::Math {
+                        content: after[..index].to_owned(),
+                        display: false,
+                    },
+                    advance: len * 2 + index,
+                });
+            }
+            if !display {
+                // A stray `$` (e.g. "$5 and $10") cancels inline math.
+                return None;
+            }
+        }
+        index += 1;
+    }
+    None
 }

@@ -89,6 +89,37 @@ pub(crate) fn parse_block(state: &mut RuntimeState<'_>) -> Result<BlockParseResu
     let trimmed = trim_start(&line);
     let trimmed_offset = line_offset + (line.len() - trimmed.len());
 
+    if crate::extended::enabled(state.parser.flags()) {
+        if crate::extended::is_rule_line(trimmed) {
+            return Ok(BlockParseResult {
+                node: Some(Node::Rule),
+                new_line_index: current + 1,
+                new_node_count: state.parser.node_count + 1,
+                extra_nodes: None,
+            });
+        }
+        if crate::extended::is_math_block_start(trimmed)
+            && let Some((node, next)) = crate::extended::parse_math_block(&state.lines, current)
+        {
+            return Ok(BlockParseResult {
+                node: Some(node),
+                new_line_index: next,
+                new_node_count: state.parser.node_count + 1,
+                extra_nodes: None,
+            });
+        }
+        if let Some(node) =
+            crate::extended::parse_footnote_definition(state.parser, trimmed, trimmed_offset)?
+        {
+            return Ok(BlockParseResult {
+                node: Some(node),
+                new_line_index: current + 1,
+                new_node_count: state.parser.node_count + 1,
+                extra_nodes: None,
+            });
+        }
+    }
+
     if starts_with(trimmed, ">>> ") {
         if !ParserFlags::has(
             state.parser.flags(),
@@ -1349,6 +1380,7 @@ pub(crate) fn is_block_start(line: &str, flags: u32) -> bool {
         || (ParserFlags::has(flags, ParserFlags::ALLOW_CODE_BLOCKS) && starts_with(line, "```"))
         || (ParserFlags::has(flags, ParserFlags::ALLOW_LISTS) && match_list_item(line).is_some())
         || is_blockquote_start(line, flags)
+        || crate::extended::is_block_start(line, flags)
 }
 
 pub(crate) fn opens_code_block_midline(

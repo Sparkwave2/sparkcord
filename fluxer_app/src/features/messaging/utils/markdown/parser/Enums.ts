@@ -22,6 +22,7 @@ export const ParserFlags = {
 	ALLOW_TABLES: 1 << 14,
 	ALLOW_ALERTS: 1 << 15,
 	ALLOW_AUTOLINKS: 1 << 16,
+	ALLOW_EXTENDED: 1 << 17,
 } as const;
 
 export type ParserFlags = ValueOf<typeof ParserFlags>;
@@ -48,6 +49,16 @@ export const NodeType = {
 	TableRow: 'TableRow',
 	TableCell: 'TableCell',
 	Alert: 'Alert',
+	Rule: 'Rule',
+	Highlight: 'Highlight',
+	Superscript: 'Superscript',
+	Subscript: 'Subscript',
+	Math: 'Math',
+	Image: 'Image',
+	TaskMarker: 'TaskMarker',
+	FootnoteRef: 'FootnoteRef',
+	FootnoteDefinition: 'FootnoteDefinition',
+	Footnotes: 'Footnotes',
 } as const;
 
 export type NodeType = ValueOf<typeof NodeType>;

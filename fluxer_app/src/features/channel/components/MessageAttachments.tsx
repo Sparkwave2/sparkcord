@@ -5,6 +5,7 @@ import {SpoilerOverlay} from '@app/features/app/components/shared/SpoilerOverlay
 import {Attachment} from '@app/features/channel/components/embeds/attachments/Attachment';
 import {AttachmentMosaic} from '@app/features/channel/components/embeds/attachments/AttachmentMosaic';
 import {Embed} from '@app/features/channel/components/embeds/ChannelEmbed';
+import {getInlineImageUrls, isInlineImageEmbed} from '@app/features/messaging/utils/markdown/InlineImageUtils';
 import {GiftEmbed} from '@app/features/channel/components/GiftEmbed';
 import {InviteEmbed} from '@app/features/channel/components/InviteEmbed';
 import {getAttachmentRenderingState} from '@app/features/channel/components/MessageAttachmentStateUtils';
@@ -604,6 +605,7 @@ export const MessageAttachments = observer(() => {
 			gifts: buildSpoileredCodeLinkMap(GiftCodeUtils.findSpoileredGifts(embeddableCodeLinkContent), 'gift'),
 		};
 	}, [message.content]);
+	const inlineImageUrls = useMemo(() => getInlineImageUrls(message.content), [message.content]);
 	return (
 		<>
 			{message.messageSnapshots && message.messageSnapshots.length > 0 && (
@@ -702,6 +704,7 @@ export const MessageAttachments = observer(() => {
 			{UserSettings.renderEmbeds &&
 				!message.suppressEmbeds &&
 				message.embeds.map((embed, index) => {
+					if (inlineImageUrls.size > 0 && isInlineImageEmbed(embed, inlineImageUrls)) return null;
 					const embedKey = `${embed.id}-${index}`;
 					return (
 						<Embed

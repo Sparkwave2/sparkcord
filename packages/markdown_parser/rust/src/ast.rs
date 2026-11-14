@@ -22,6 +22,8 @@ impl ParserFlags {
     pub const ALLOW_TABLES: u32 = 1 << 14;
     pub const ALLOW_ALERTS: u32 = 1 << 15;
     pub const ALLOW_AUTOLINKS: u32 = 1 << 16;
+    /// Sparkcord: rules, task lists, images, highlight, super/subscript, math, footnotes.
+    pub const ALLOW_EXTENDED: u32 = 1 << 17;
 
     pub const ALL: u32 = Self::ALLOW_SPOILERS
         | Self::ALLOW_HEADINGS
@@ -131,6 +133,40 @@ pub enum Node {
         #[serde(rename = "alertType")]
         alert_type: AlertType,
         children: Vec<Node>,
+    },
+    // Sparkcord extended markdown.
+    Rule,
+    Highlight {
+        children: Vec<Node>,
+    },
+    Superscript {
+        children: Vec<Node>,
+    },
+    Subscript {
+        children: Vec<Node>,
+    },
+    Math {
+        content: String,
+        display: bool,
+    },
+    Image {
+        alt: String,
+        url: String,
+    },
+    TaskMarker {
+        checked: bool,
+    },
+    FootnoteRef {
+        id: String,
+        index: usize,
+    },
+    FootnoteDefinition {
+        id: String,
+        index: usize,
+        children: Vec<Node>,
+    },
+    Footnotes {
+        items: Vec<Node>,
     },
 }
 
@@ -252,6 +288,16 @@ impl Node {
             Self::TableRow { .. } => "TableRow",
             Self::TableCell { .. } => "TableCell",
             Self::Alert { .. } => "Alert",
+            Self::Rule => "Rule",
+            Self::Highlight { .. } => "Highlight",
+            Self::Superscript { .. } => "Superscript",
+            Self::Subscript { .. } => "Subscript",
+            Self::Math { .. } => "Math",
+            Self::Image { .. } => "Image",
+            Self::TaskMarker { .. } => "TaskMarker",
+            Self::FootnoteRef { .. } => "FootnoteRef",
+            Self::FootnoteDefinition { .. } => "FootnoteDefinition",
+            Self::Footnotes { .. } => "Footnotes",
         }
     }
 }

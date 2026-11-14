@@ -204,6 +204,9 @@ pub fn is_escapable_character(byte: u8) -> bool {
             | b':'
             | b'<'
             | b'>'
+            | b'='
+            | b'^'
+            | b'$'
     )
 }
 

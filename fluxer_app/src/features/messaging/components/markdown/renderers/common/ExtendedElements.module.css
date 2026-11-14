@@ -1,0 +1,119 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.rule {
+	margin: 8px 0;
+	border: none;
+	border-top: 1px solid var(--background-modifier-accent);
+	max-width: 100%;
+}
+
+.highlight {
+	padding: 0 2px;
+	border-radius: 3px;
+	color: inherit;
+	background: rgb(250 204 21 / 0.35);
+}
+
+.mathInline {
+	display: inline-block;
+	max-width: 100%;
+	overflow-x: auto;
+	vertical-align: middle;
+}
+
+.mathBlock {
+	margin: 4px 0;
+	max-width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.imageWrap {
+	display: inline-block;
+	max-width: min(100%, 400px);
+	vertical-align: middle;
+}
+
+.image {
+	display: block;
+	max-width: 100%;
+	max-height: 300px;
+	width: auto;
+	height: auto;
+	border-radius: 6px;
+}
+
+.imageLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	vertical-align: middle;
+}
+
+.task {
+	display: inline-flex;
+	vertical-align: -3px;
+	margin-right: 6px;
+	color: var(--text-secondary);
+}
+
+.taskChecked {
+	color: var(--brand-primary, #5865f2);
+}
+
+/* Task items replace the bullet with the checkbox. */
+li:has(> .task:first-child) {
+	list-style: none;
+}
+
+li:has(> .task:first-child)::marker,
+li:has(> .task:first-child)::before {
+	content: none;
+}
+
+.footnoteRef {
+	font-size: 0.7em;
+	line-height: 0;
+}
+
+.footnoteRef a::before {
+	content: '[';
+}
+
+.footnoteRef a::after {
+	content: ']';
+}
+
+.footnotes {
+	margin-top: 8px;
+	padding-top: 6px;
+	border-top: 1px solid var(--background-modifier-accent);
+	font-size: 0.85em;
+	color: var(--text-secondary);
+}
+
+.footnoteList {
+	margin: 0;
+	padding-left: 1.6em;
+}
+
+.footnote {
+	border-radius: 4px;
+}
+
+.footnoteBack {
+	text-decoration: none;
+}
+
+.flash {
+	animation: footnoteFlash 1.2s ease-out;
+}
+
+@keyframes footnoteFlash {
+	from {
+		background: rgb(250 204 21 / 0.35);
+	}
+	to {
+		background: transparent;
+	}
+}

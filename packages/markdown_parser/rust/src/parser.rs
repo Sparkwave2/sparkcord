@@ -140,6 +140,9 @@ impl RuntimeState<'_> {
             self.parse_inline_line(&mut ast)?;
             self.current_line += 1;
         }
+        if crate::extended::enabled(self.parser.flags()) {
+            crate::extended::finalize(&mut ast);
+        }
         for node in &mut ast {
             apply_text_presentation_node(node);
         }

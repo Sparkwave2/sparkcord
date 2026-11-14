@@ -5,6 +5,7 @@ pub mod binary;
 pub mod block;
 pub mod constants;
 pub mod emoji;
+mod extended;
 pub mod inline;
 pub mod json;
 pub mod links;

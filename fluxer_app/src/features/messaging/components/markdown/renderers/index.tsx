@@ -20,6 +20,18 @@ import {
 	StrongRenderer,
 	UnderlineRenderer,
 } from '@app/features/messaging/components/markdown/renderers/common/FormattingElements';
+import {
+	FootnoteDefinitionRenderer,
+	FootnoteRefRenderer,
+	FootnotesRenderer,
+	HighlightRenderer,
+	ImageRenderer,
+	MathRenderer,
+	RuleRenderer,
+	SubscriptRenderer,
+	SuperscriptRenderer,
+	TaskMarkerRenderer,
+} from '@app/features/messaging/components/markdown/renderers/common/ExtendedElements';
 import {EmojiRenderer} from '@app/features/messaging/components/markdown/renderers/EmojiRenderer';
 import {LinkRenderer} from '@app/features/messaging/components/markdown/renderers/LinkRenderer';
 import {MentionRenderer} from '@app/features/messaging/components/markdown/renderers/MentionRenderer';
@@ -76,6 +88,16 @@ const createRenderers = () => ({
 	[NodeType.TableRow]: () => null,
 	[NodeType.TableCell]: () => null,
 	[NodeType.Alert]: AlertRenderer,
+	[NodeType.Rule]: RuleRenderer,
+	[NodeType.Highlight]: HighlightRenderer,
+	[NodeType.Superscript]: SuperscriptRenderer,
+	[NodeType.Subscript]: SubscriptRenderer,
+	[NodeType.Math]: MathRenderer,
+	[NodeType.Image]: ImageRenderer,
+	[NodeType.TaskMarker]: TaskMarkerRenderer,
+	[NodeType.FootnoteRef]: FootnoteRefRenderer,
+	[NodeType.FootnoteDefinition]: FootnoteDefinitionRenderer,
+	[NodeType.Footnotes]: FootnotesRenderer,
 }) as Record<NodeType, React.ComponentType<RendererProps>>;
 
 function renderNode(node: Node, id: string, options: MarkdownRenderOptions): React.ReactNode {
@@ -105,6 +127,8 @@ function childNodesOf(node: Node): ReadonlyArray<Node> {
 			return [node.header, ...node.rows].flatMap((row) => row.cells.flatMap((cell) => cell.children));
 		case NodeType.Link:
 			return node.text ? [node.text] : [];
+		case NodeType.Footnotes:
+			return node.items;
 		default:
 			return 'children' in node ? node.children : [];
 	}

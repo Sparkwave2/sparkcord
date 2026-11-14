@@ -117,7 +117,60 @@ export interface SpoilerNode extends BaseNode {
 	isBlock: boolean;
 }
 
+// Sparkcord extended markdown.
+export interface RuleNode extends BaseNode {
+	type: 'Rule';
+}
+
+export interface ExtendedFormattingNode extends BaseNode {
+	type: 'Highlight' | 'Superscript' | 'Subscript';
+	children: Array<Node>;
+}
+
+export interface MathNode extends BaseNode {
+	type: 'Math';
+	content: string;
+	display: boolean;
+}
+
+export interface ImageNode extends BaseNode {
+	type: 'Image';
+	alt: string;
+	url: string;
+}
+
+export interface TaskMarkerNode extends BaseNode {
+	type: 'TaskMarker';
+	checked: boolean;
+}
+
+export interface FootnoteRefNode extends BaseNode {
+	type: 'FootnoteRef';
+	id: string;
+	index: number;
+}
+
+export interface FootnoteDefinitionNode extends BaseNode {
+	type: 'FootnoteDefinition';
+	id: string;
+	index: number;
+	children: Array<Node>;
+}
+
+export interface FootnotesNode extends BaseNode {
+	type: 'Footnotes';
+	items: Array<FootnoteDefinitionNode>;
+}
+
 export type Node =
+	| RuleNode
+	| ExtendedFormattingNode
+	| MathNode
+	| ImageNode
+	| TaskMarkerNode
+	| FootnoteRefNode
+	| FootnoteDefinitionNode
+	| FootnotesNode
 	| TextNode
 	| BlockquoteNode
 	| FormattingNode

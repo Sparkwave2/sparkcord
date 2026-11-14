@@ -159,6 +159,47 @@ fn write_node(out: &mut String, node: &Node) {
             let _ = write!(out, "\"{alert_type:?}\"");
             write_children(out, children);
         }
+        Node::Rule => {}
+        Node::Highlight { children }
+        | Node::Superscript { children }
+        | Node::Subscript { children } => write_children(out, children),
+        Node::Math { content, display } => {
+            out.push_str(key!("content"));
+            write_str(out, content);
+            out.push_str(key!("display"));
+            write_bool(out, *display);
+        }
+        Node::Image { alt, url } => {
+            out.push_str(key!("alt"));
+            write_str(out, alt);
+            out.push_str(key!("url"));
+            write_str(out, url);
+        }
+        Node::TaskMarker { checked } => {
+            out.push_str(key!("checked"));
+            write_bool(out, *checked);
+        }
+        Node::FootnoteRef { id, index } => {
+            out.push_str(key!("id"));
+            write_str(out, id);
+            out.push_str(key!("index"));
+            write_number(out, *index as u64);
+        }
+        Node::FootnoteDefinition {
+            id,
+            index,
+            children,
+        } => {
+            out.push_str(key!("id"));
+            write_str(out, id);
+            out.push_str(key!("index"));
+            write_number(out, *index as u64);
+            write_children(out, children);
+        }
+        Node::Footnotes { items } => {
+            out.push_str(key!("items"));
+            write_nodes(out, items);
+        }
     }
     out.push('}');
 }

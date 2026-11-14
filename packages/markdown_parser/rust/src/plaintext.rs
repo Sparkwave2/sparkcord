@@ -183,6 +183,60 @@ fn render_node_to_plaintext(node: &Node, options: &PlaintextOptions) -> String {
         }
         Node::TableRow { cells } => render_table_row_to_plaintext(cells, options),
         Node::TableCell { children } => render_table_cell_to_plaintext(children, options),
+        Node::Rule => {
+            if options.preserve_markdown {
+                "---".to_owned()
+            } else {
+                String::new()
+            }
+        }
+        Node::Highlight { children } => render_formatting_node(children, "==", options),
+        Node::Superscript { children } => render_formatting_node(children, "^", options),
+        Node::Subscript { children } => render_formatting_node(children, "~", options),
+        Node::Math { content, display } => {
+            if options.preserve_markdown {
+                let marker = if *display { "$$" } else { "$" };
+                format!("{marker}{content}{marker}")
+            } else {
+                content.clone()
+            }
+        }
+        Node::Image { alt, url } => {
+            if options.preserve_markdown {
+                format!("![{alt}]({url})")
+            } else if alt.is_empty() {
+                url.clone()
+            } else {
+                alt.clone()
+            }
+        }
+        Node::TaskMarker { checked } => {
+            if *checked { "[x] ".to_owned() } else { "[ ] ".to_owned() }
+        }
+        Node::FootnoteRef { id, index } => {
+            if options.preserve_markdown {
+                format!("[^{id}]")
+            } else {
+                format!("[{index}]")
+            }
+        }
+        Node::FootnoteDefinition {
+            id,
+            index,
+            children,
+        } => {
+            let content = render_nodes_to_plaintext(children, options);
+            if options.preserve_markdown {
+                format!("[^{id}]: {content}")
+            } else {
+                format!("[{index}] {content}")
+            }
+        }
+        Node::Footnotes { items } => items
+            .iter()
+            .map(|item| render_node_to_plaintext(item, options))
+            .collect::<Vec<_>>()
+            .join("\n"),
     }
 }
 

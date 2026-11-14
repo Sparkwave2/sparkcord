@@ -159,8 +159,9 @@ export const UserMessage = observer(() => {
 			messageId: message.id,
 			channelId: message.channelId,
 			mentionChannels: message.mentionChannels,
+			embeds: message.embeds,
 		}),
-		[message.id, message.channelId, message.mentionChannels],
+		[message.id, message.channelId, message.mentionChannels, message.embeds],
 	);
 	const contentCopyText = useMemo(
 		() =>

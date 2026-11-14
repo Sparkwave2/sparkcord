@@ -26,6 +26,10 @@ pub fn normalize_node(node: &mut Node) {
         | Node::Subtext { children }
         | Node::Sequence { children }
         | Node::TableCell { children }
+        | Node::Highlight { children }
+        | Node::Superscript { children }
+        | Node::Subscript { children }
+        | Node::FootnoteDefinition { children, .. }
         | Node::Alert { children, .. } => normalize_child_nodes(children, false),
         Node::Spoiler { children, .. } => normalize_child_nodes(children, false),
         Node::Heading { children, .. } => normalize_child_nodes(children, false),
@@ -51,11 +55,21 @@ pub fn normalize_node(node: &mut Node) {
                 normalize_node(cell);
             }
         }
+        Node::Footnotes { items } => {
+            for item in items {
+                normalize_node(item);
+            }
+        }
         Node::CodeBlock { .. }
         | Node::InlineCode { .. }
         | Node::Mention { .. }
         | Node::Timestamp { .. }
-        | Node::Emoji { .. } => {}
+        | Node::Emoji { .. }
+        | Node::Rule
+        | Node::Math { .. }
+        | Node::Image { .. }
+        | Node::TaskMarker { .. }
+        | Node::FootnoteRef { .. } => {}
     }
 }
 
@@ -69,6 +83,10 @@ pub fn apply_text_presentation_node(node: &mut Node) {
         | Node::Subtext { children }
         | Node::Sequence { children }
         | Node::TableCell { children }
+        | Node::Highlight { children }
+        | Node::Superscript { children }
+        | Node::Subscript { children }
+        | Node::FootnoteDefinition { children, .. }
         | Node::Alert { children, .. } => {
             for child in children {
                 apply_text_presentation_node(child);
@@ -116,7 +134,17 @@ pub fn apply_text_presentation_node(node: &mut Node) {
         | Node::InlineCode { .. }
         | Node::Mention { .. }
         | Node::Timestamp { .. }
-        | Node::Emoji { .. } => {}
+        | Node::Emoji { .. }
+        | Node::Rule
+        | Node::Math { .. }
+        | Node::Image { .. }
+        | Node::TaskMarker { .. }
+        | Node::FootnoteRef { .. } => {}
+        Node::Footnotes { items } => {
+            for item in items {
+                apply_text_presentation_node(item);
+            }
+        }
     }
 }
 

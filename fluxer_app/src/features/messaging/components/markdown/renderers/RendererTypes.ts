@@ -2,6 +2,7 @@
 
 import type {Node} from '@app/features/messaging/utils/markdown/parser/Nodes';
 import type {ValueOf} from '@fluxer/constants/src/ValueOf';
+import type {MessageEmbed} from '@fluxer/schema/src/domains/message/EmbedSchemas';
 import type {ChannelMention} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
 import type {I18n} from '@lingui/core';
 import type React from 'react';
@@ -31,6 +32,8 @@ export interface MarkdownParseOptions {
 	messageId?: string;
 	guildId?: string;
 	mentionChannels?: ReadonlyArray<ChannelMention>;
+	/** Sparkcord: the message's embeds, used to show `![alt](url)` images via the media proxy. */
+	embeds?: ReadonlyArray<MessageEmbed>;
 }
 
 export interface MarkdownRenderOptions extends MarkdownParseOptions {

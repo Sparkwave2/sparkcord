@@ -149,6 +149,52 @@ fn write_node(out: &mut Vec<u8>, node: &Node) {
             out.push(alert_code(*alert_type));
             write_nodes(out, children);
         }
+        Node::Rule => out.push(21),
+        Node::Highlight { children } => {
+            out.push(22);
+            write_nodes(out, children);
+        }
+        Node::Superscript { children } => {
+            out.push(23);
+            write_nodes(out, children);
+        }
+        Node::Subscript { children } => {
+            out.push(24);
+            write_nodes(out, children);
+        }
+        Node::Math { content, display } => {
+            out.push(25);
+            out.push(u8::from(*display));
+            write_str(out, content);
+        }
+        Node::Image { alt, url } => {
+            out.push(26);
+            write_str(out, alt);
+            write_str(out, url);
+        }
+        Node::TaskMarker { checked } => {
+            out.push(27);
+            out.push(u8::from(*checked));
+        }
+        Node::FootnoteRef { id, index } => {
+            out.push(28);
+            write_str(out, id);
+            write_varint(out, *index as u64);
+        }
+        Node::FootnoteDefinition {
+            id,
+            index,
+            children,
+        } => {
+            out.push(29);
+            write_str(out, id);
+            write_varint(out, *index as u64);
+            write_nodes(out, children);
+        }
+        Node::Footnotes { items } => {
+            out.push(30);
+            write_nodes(out, items);
+        }
     }
 }
 
