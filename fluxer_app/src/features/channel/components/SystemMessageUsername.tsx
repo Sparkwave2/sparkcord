@@ -12,6 +12,7 @@ import * as NicknameUtils from '@app/features/user/utils/NicknameUtils';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import React, {useRef} from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 export const SystemMessageUsername = observer(
 	React.forwardRef<
@@ -47,7 +48,7 @@ export const SystemMessageUsername = observer(
 					ref={usernameRef}
 					data-flx="channel.system-message-username.system-message-link"
 				>
-					<StyledName nameStyle={member?.getNameStyle()}>{NicknameUtils.getNickname(author, guild?.id)}</StyledName>
+					<NameFont userId={author.id} guildId={guild?.id ?? null}><StyledName nameStyle={member?.getNameStyle()}>{NicknameUtils.getNickname(author, guild?.id)}</StyledName></NameFont>
 				</span>
 			</PreloadableUserPopout>
 		);

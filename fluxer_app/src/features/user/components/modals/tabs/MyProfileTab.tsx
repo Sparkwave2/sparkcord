@@ -86,6 +86,7 @@ import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {NameFontPicker} from '@app/features/name_font/NameFontPicker';
 
 const COMMUNITY_PROFILE_UPDATED_DESCRIPTOR = msg({
 	message: 'Community profile updated',
@@ -882,6 +883,11 @@ const MyProfileTabComponent = observer(function MyProfileTabComponent({
 											disabled={isPronounsDisabled}
 										/>
 									</div>
+									<NameFontPicker
+										userId={user.id}
+										guildId={selectedGuildId}
+										previewName={(form.watch('global_name') as string | undefined) || user.displayName}
+									/>
 									{!isPerGuildProfile && (
 										<TimezoneProfileSettings
 											timezone={watchedTimezone}

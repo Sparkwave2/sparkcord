@@ -25,6 +25,7 @@ export const TupperResponse = z.object({
 	color: z.number().int().nullable(),
 	birthday: z.string().nullable().describe('YYYY-MM-DD'),
 	tag: z.string().nullable().describe('Tag shown after the name; overrides the system tag'),
+	font: z.string().nullish().describe('Sparkcord name font id, or null for the normal font'),
 	position: z.number().int(),
 	created_at: z.string(),
 });
@@ -44,6 +45,7 @@ export const TupperCardResponse = z.object({
 	birthday: z.string().nullable(),
 	system_name: z.string().nullable().describe("The owner's system name"),
 	system_tag: z.string().nullable().describe('Tag shown after the name (tupper tag or system tag)'),
+	font: z.string().nullish().describe('Sparkcord name font id'),
 });
 
 export type TupperCardResponse = z.infer<typeof TupperCardResponse>;
@@ -58,6 +60,7 @@ const TupperFields = {
 	color: z.number().int().min(0).max(0xffffff).nullish(),
 	birthday: z.string().max(10).nullish(),
 	tag: z.string().max(79).nullish(),
+	font: z.string().max(40).nullish(),
 	position: z.number().int().min(0).optional(),
 };
 

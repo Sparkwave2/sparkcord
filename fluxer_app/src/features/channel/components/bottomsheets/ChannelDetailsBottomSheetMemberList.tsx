@@ -40,6 +40,7 @@ import {useLingui} from '@lingui/react/macro';
 import clsx from 'clsx';
 import {observer} from 'mobx-react-lite';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 const COMMUNITY_OWNER_DESCRIPTOR = msg({
 	message: 'Community owner',
@@ -199,7 +200,7 @@ const MobileMemberListItem = observer(
 								style={{color: member.getColorString()}}
 								data-flx="channel.channel-details-bottom-sheet-member-list.mobile-member-list-item.member-name"
 							>
-								<StyledName nameStyle={member.getNameStyle()}>{displayName}</StyledName>
+								<NameFont userId={member.user.id} guildId={guild.id}><StyledName nameStyle={member.getNameStyle()}>{displayName}</StyledName></NameFont>
 							</span>
 							{guild.isOwner(member.user.id) && !guild.features.has(GuildFeatures.HIDE_OWNER_CROWN) && (
 								<div

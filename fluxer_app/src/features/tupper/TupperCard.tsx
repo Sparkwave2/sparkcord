@@ -10,6 +10,7 @@ import {Trans} from '@lingui/react/macro';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useState} from 'react';
+import {FontSpan} from '@app/features/name_font/NameFont';
 
 interface TupperCardWire {
 	id: string;
@@ -22,6 +23,7 @@ interface TupperCardWire {
 	birthday: string | null;
 	system_name: string | null;
 	system_tag: string | null;
+	font?: string | null;
 }
 
 /** Cards change rarely; keep them for the session so reopening a popout is instant. */
@@ -97,7 +99,7 @@ export const TupperCard = observer(function TupperCard({message, onClose, varian
 			<div className={styles.body}>
 				<div className={styles.nameRow}>
 					<span className={styles.name} style={color ? {color} : undefined}>
-						{name}
+						<FontSpan font={card?.font ?? proxy.font}>{name}</FontSpan>
 					</span>
 					<span className={styles.badge}>
 						<Trans comment="Badge on a tupper profile card marking it as a proxy member, not a real account">

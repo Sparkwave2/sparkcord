@@ -24,6 +24,7 @@ export interface TupperWire {
 	color: number | null;
 	birthday: string | null;
 	tag: string | null;
+	font?: string | null;
 	position: number;
 	created_at: string;
 }

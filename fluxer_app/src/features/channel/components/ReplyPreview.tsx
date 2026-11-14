@@ -23,6 +23,7 @@ import {useLingui} from '@lingui/react/macro';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {type CSSProperties, useCallback} from 'react';
+import {FontSpan, NameFont} from '@app/features/name_font/NameFont';
 
 const ORIGINAL_MESSAGE_WAS_DELETED_DESCRIPTOR = msg({
 	message: 'Original message was deleted',
@@ -227,7 +228,9 @@ export const ReplyPreview = observer(
 						data-guild-id={resolvedGuildId}
 						data-flx="channel.reply-preview.replied-username"
 					>
-						<StyledName
+						<FontSpan font={referencedMessage.proxy?.font}>
+<NameFont userId={referencedMessage.proxy ? null : referencedMessage.author.id} guildId={resolvedGuildId ?? null}>
+<StyledName
 							nameStyle={
 								referencedMessage.proxy
 									? null
@@ -236,6 +239,8 @@ export const ReplyPreview = observer(
 						>
 							{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
 						</StyledName>
+</NameFont>
+</FontSpan>
 					</span>
 				</PreloadableUserPopout>
 				<FocusRing offset={-2} data-flx="channel.reply-preview.focus-ring">

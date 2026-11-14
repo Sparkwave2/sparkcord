@@ -34,6 +34,7 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useMemo, useRef, useState} from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 const COMMUNITY_OWNER_DESCRIPTOR = msg({
 	message: 'Community owner',
@@ -187,7 +188,7 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 			style={nameStyle}
 			data-flx="channel.member-list-item.name"
 		>
-			<StyledName nameStyle={guildMember?.getNameStyle()}>{nickname}</StyledName>
+			<NameFont userId={user.id} guildId={guildId ?? null}><StyledName nameStyle={guildMember?.getNameStyle()}>{nickname}</StyledName></NameFont>
 		</span>
 	);
 	const content = (

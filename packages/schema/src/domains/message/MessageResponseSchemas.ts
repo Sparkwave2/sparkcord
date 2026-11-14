@@ -127,6 +127,7 @@ export const MessageProxyResponse = z
 		color: z.number().int().nullish().describe('The tupper colour as an RGB integer'),
 		pronouns: z.string().nullish().describe('The tupper pronouns'),
 		system_tag: z.string().nullish().describe('Tag shown after the tupper name'),
+		font: z.string().nullish().describe('Sparkcord name font id of the tupper'),
 	})
 	.describe('Sparkcord: present when the message was sent through a tupper (proxy member)');
 

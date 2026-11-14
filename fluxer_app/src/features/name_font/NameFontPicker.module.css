@@ -1,0 +1,85 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.description {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--text-secondary);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+	gap: 6px;
+	margin-top: 4px;
+	max-height: 280px;
+	overflow-y: auto;
+	padding: 2px;
+}
+
+.option {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+	min-width: 0;
+	padding: 8px 10px;
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-accent);
+	background: var(--background-secondary);
+	color: var(--text-primary);
+	cursor: pointer;
+	text-align: left;
+	font: inherit;
+}
+
+.option:hover:not(:disabled) {
+	background: var(--background-modifier-hover);
+}
+
+.optionSelected,
+.optionSelected:hover:not(:disabled) {
+	border-color: var(--brand-primary);
+	box-shadow: 0 0 0 1px var(--brand-primary);
+}
+
+.option:disabled {
+	cursor: default;
+	opacity: 0.7;
+}
+
+.sample {
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.optionLabel {
+	font-size: 0.6875rem;
+	color: var(--text-tertiary);
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.error {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--status-danger);
+}

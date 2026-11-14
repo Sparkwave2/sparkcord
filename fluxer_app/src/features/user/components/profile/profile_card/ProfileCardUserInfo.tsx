@@ -13,6 +13,7 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useRef} from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 type DisplayNameStyle = React.CSSProperties & {'--profile-display-name-length': number};
 
@@ -30,6 +31,8 @@ interface ProfileCardUserInfoProps {
 	usernameActions?: React.ReactNode;
 	/** Sparkcord: role name style of the member in this community, if any. */
 	nameStyle?: NameStyle | null;
+	/** Sparkcord: community whose name font override applies, if any. */
+	nameFontGuildId?: string | null;
 }
 
 export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
@@ -46,6 +49,7 @@ export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
 		actions,
 		usernameActions,
 		nameStyle,
+		nameFontGuildId,
 	}) => {
 		const displayNameRef = useRef<HTMLButtonElement>(null);
 		const isDisplayNameOverflowing = useTextOverflow(displayNameRef, {
@@ -64,7 +68,7 @@ export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
 				style={displayNameStyle}
 				data-flx="user.profile.profile-card.profile-card-user-info.name-button.display-name-click"
 			>
-				<StyledName nameStyle={nameStyle}>{displayName}</StyledName>
+				<NameFont userId={isWebhook ? null : user.id} guildId={nameFontGuildId ?? null}><StyledName nameStyle={nameStyle}>{displayName}</StyledName></NameFont>
 			</button>
 		);
 		const displayNameContent = isDisplayNameOverflowing ? (

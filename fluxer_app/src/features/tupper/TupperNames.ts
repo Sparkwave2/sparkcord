@@ -113,6 +113,7 @@ export function predictTupperProxy(
 			color: tupper.color,
 			pronouns: tupper.pronouns,
 			system_tag: tupper.tag ?? settings.system_tag,
+			font: tupper.font ?? null,
 		},
 	};
 }

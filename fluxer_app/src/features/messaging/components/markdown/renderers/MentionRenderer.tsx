@@ -33,6 +33,7 @@ import {msg} from '@lingui/core/macro';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 const UNKNOWN_ROLE_DESCRIPTOR = msg({
 	message: 'Unknown role',
@@ -190,9 +191,11 @@ export const MentionRenderer = observer(function MentionRenderer({
 							data-flx="messaging.markdown.renderers.mention-renderer.button.stop-propagation"
 						>
 							<MentionLabel data-flx="messaging.markdown.renderers.mention-renderer.mention-label--3">
-								<StyledName nameStyle={resolvedGuildId ? GuildMembers.getMember(resolvedGuildId, user.id)?.getNameStyle() : null}>
+								<NameFont userId={user.id} guildId={resolvedGuildId || null}>
+<StyledName nameStyle={resolvedGuildId ? GuildMembers.getMember(resolvedGuildId, user.id)?.getNameStyle() : null}>
 									{`@${name || user.displayName}`}
 								</StyledName>
+</NameFont>
 							</MentionLabel>
 						</span>
 					</FocusRing>

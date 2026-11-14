@@ -1,0 +1,13 @@
+Name fonts (Sparkcord)
+
+These font files are from Google Fonts and are licensed under the SIL Open Font
+License, Version 1.1 (https://openfontlicense.org). Each font remains the property
+of its authors:
+
+Bangers, Cherry Bomb One, Chicle, Creepster, Lobster, Monoton, Ribeye,
+Permanent Marker, Caveat, Pacifico, Sacramento, BioRhyme, Cinzel, Zilla Slab,
+Special Elite, MuseoModerno, Fredoka, Comfortaa, Orbitron, Pixelify Sans,
+Press Start 2P, Space Mono.
+
+Only the latin subset is included. Regenerate with: node sparkcord/dev/name-fonts.mjs
+(Permanent Marker and Special Elite are under the Apache License 2.0.)

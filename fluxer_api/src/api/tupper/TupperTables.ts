@@ -24,6 +24,8 @@ export interface TupperRow {
 	position: number;
 	created_at: Date;
 	updated_at: Date;
+	/** Sparkcord name font id, or null. */
+	font?: string | null;
 }
 
 export const TUPPER_COLUMNS = [
@@ -44,6 +46,7 @@ export const TUPPER_COLUMNS = [
 	'position',
 	'created_at',
 	'updated_at',
+	'font',
 ] as const satisfies ReadonlyArray<keyof TupperRow>;
 
 export type AutoproxyMode = 'off' | 'front' | 'latch';
@@ -81,6 +84,7 @@ export interface TupperMessageRow {
 	color: number | null;
 	pronouns: string | null;
 	system_tag: string | null;
+	font?: string | null;
 }
 
 export const TUPPER_MESSAGE_COLUMNS = [
@@ -93,6 +97,7 @@ export const TUPPER_MESSAGE_COLUMNS = [
 	'color',
 	'pronouns',
 	'system_tag',
+	'font',
 ] as const satisfies ReadonlyArray<keyof TupperMessageRow>;
 
 export const Tuppers = defineTable<TupperRow, 'user_id' | 'tupper_id', 'user_id'>({

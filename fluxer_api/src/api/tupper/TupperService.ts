@@ -29,6 +29,7 @@ import type {
 } from '@app/api/tupper/TupperTables';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
 import type {MessageResponse} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
+import {isNameFontId} from '@fluxer/constants/src/NameFonts';
 
 export const MAX_TUPPERS_PER_USER = 1000;
 const AUTOPROXY_MODES: ReadonlySet<string> = new Set(['off', 'front', 'latch']);
@@ -46,6 +47,7 @@ export interface TupperResponse {
 	color: number | null;
 	birthday: string | null;
 	tag: string | null;
+	font: string | null;
 	position: number;
 	created_at: string;
 }
@@ -66,6 +68,7 @@ export interface MessageProxyResponse {
 	color: number | null;
 	pronouns: string | null;
 	system_tag: string | null;
+	font: string | null;
 }
 
 export interface TupperInput {
@@ -79,6 +82,7 @@ export interface TupperInput {
 	color?: number | null;
 	birthday?: string | null;
 	tag?: string | null;
+	font?: string | null;
 	position?: number;
 }
 
@@ -165,6 +169,7 @@ export function toTupperResponse(row: TupperRow): TupperResponse {
 		color: row.color,
 		birthday: row.birthday,
 		tag: row.tag,
+		font: row.font ?? null,
 		position: row.position,
 		created_at: row.created_at.toISOString(),
 	};
@@ -181,6 +186,7 @@ export interface TupperCardResponse {
 	birthday: string | null;
 	system_name: string | null;
 	system_tag: string | null;
+	font: string | null;
 }
 
 export function toSettingsResponse(row: TupperSettingsRow): TupperSettingsResponse {
@@ -202,6 +208,7 @@ export function toMessageProxyResponse(row: TupperMessageRow): MessageProxyRespo
 		color: row.color,
 		pronouns: row.pronouns,
 		system_tag: row.system_tag,
+		font: row.font ?? null,
 	};
 }
 
@@ -236,6 +243,7 @@ export class TupperService {
 			birthday: row.birthday,
 			system_name: settings?.system_name ?? null,
 			system_tag: row.tag ?? settings?.system_tag ?? null,
+			font: row.font ?? null,
 		};
 	}
 
@@ -295,6 +303,10 @@ export class TupperService {
 			next.birthday = birthday;
 		}
 		if (input.tag !== undefined) next.tag = optionalText(input.tag, TUPPER_TAG_MAX_LENGTH);
+		if (input.font !== undefined) {
+			if (input.font !== null && !isNameFontId(input.font)) throw InputValidationError.create('font', 'Unknown font.');
+			next.font = input.font;
+		}
 		if (input.position !== undefined) next.position = Math.max(0, Math.trunc(input.position));
 		next.updated_at = new Date();
 		return next;
@@ -552,6 +564,7 @@ export class TupperService {
 			color: tupper.color,
 			pronouns: tupper.pronouns,
 			system_tag: tupper.tag ?? settings.system_tag,
+			font: tupper.font ?? null,
 		};
 	}
 

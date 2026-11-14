@@ -3156,6 +3156,11 @@ msgstr "Fiókadatok"
 msgid "Account details unavailable"
 msgstr "A fiók részletei nem érhetők el"
 
+#. Name font option in a community profile: use the font chosen for the whole account.
+#: src/features/name_font/NameFontPicker.tsx
+msgid "Account font"
+msgstr ""
+
 #. One line of the support email written for the user. accountId is the numeric account ID.
 #: src/features/user/utils/MessagingPausedHelpEmail.ts
 msgid "Account ID: {accountId}"
@@ -11378,6 +11383,11 @@ msgstr "Nem sikerült menteni a belépési hangot"
 msgid "Couldn't save the tag: {detail}"
 msgstr "Nem sikerült menteni a címkét: {detail}"
 
+#. Error under the name font picker in profile settings.
+#: src/features/name_font/NameFontPicker.tsx
+msgid "Couldn't save your name font. Try again."
+msgstr ""
+
 #. Toast when saving the Operators' wall settings or the welcome in #operators failed.
 #: src/features/premium/utils/PremiumMessageDescriptors.ts
 msgid "Couldn't save. Try again."
@@ -12659,6 +12669,7 @@ msgstr "Bejövő hívás elutasítása"
 msgid "Decorative divider"
 msgstr "Dekoratív elválasztó"
 
+#. Name font option: the normal app font.
 #. Option label representing the default value.
 #. Option label representing the default value.
 #. Pill rendered next to the default value of a filter (e.g. sort:timestamp). Title Case.
@@ -12666,9 +12677,11 @@ msgstr "Dekoratív elválasztó"
 #. Unread badges option in the community notification settings modal. Means inherit from the community notification level. Short standalone label.
 #: src/features/channel/components/message_search_bar/ValuesSection.tsx
 #: src/features/guild/components/modals/GuildNotificationSettingsModal.tsx
+#: src/features/name_font/NameFontPicker.tsx
 #: src/features/ui/action_menu/items/SearchMenuData.tsx
 #: src/features/ui/action_menu/items/SearchProviderMenuItems.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Default"
 msgstr "Alapértelmezett"
 
@@ -24150,6 +24163,11 @@ msgstr "nev"
 #: src/features/webhook/components/WebhookListItem.tsx
 msgid "Name"
 msgstr "Név"
+
+#: src/features/name_font/NameFontPicker.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Name font"
+msgstr ""
 
 #. Form validation error shown when the name field is empty.
 #. Form validation error shown when the name field is empty.
@@ -37109,6 +37127,14 @@ msgstr "A Fluxer iOS- és Android-alkalmazásai egy, a Fluxer által üzemeltete
 #: src/features/channel/components/modals/UnaddableRecipientsConfirmModal.tsx
 msgid "The following people can't be added to this group DM:"
 msgstr "A következő személyek nem adhatók hozzá ehhez a csoportos beszélgetéshez:"
+
+#: src/features/name_font/NameFontPicker.tsx
+msgid "The font your name is shown in, everywhere. Saves right away."
+msgstr ""
+
+#: src/features/name_font/NameFontPicker.tsx
+msgid "The font your name is shown in, in this community only. Saves right away."
+msgstr ""
 
 #. Sentence in the dialog that withdraws from a paid Plutonium gift. Withdrawing refunds the buyer, so the gift code no longer works and whoever redeemed it loses the Plutonium time it gave.
 #: src/features/premium/components/operator_pass/OperatorPassWithdrawModal.tsx

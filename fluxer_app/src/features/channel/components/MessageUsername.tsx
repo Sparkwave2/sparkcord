@@ -20,6 +20,7 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useRef} from 'react';
+import {FontSpan, NameFont} from '@app/features/name_font/NameFont';
 
 export const MessageUsername = observer(
 	({
@@ -75,7 +76,9 @@ export const MessageUsername = observer(
 					onKeyDown={handleKeyDown}
 					data-flx="channel.message-username.context-menu-underline.key-down"
 				>
-					<StyledName nameStyle={
+					<FontSpan font={proxy?.font}>
+						<NameFont userId={proxy ? null : user.id} guildId={guild?.id ?? null}>
+<StyledName nameStyle={
 							previewNameStyle !== undefined
 								? previewNameStyle
 								: proxy || previewColor
@@ -84,6 +87,8 @@ export const MessageUsername = observer(
 						}>
 						{displayName}
 					</StyledName>
+						</NameFont>
+					</FontSpan>
 				</span>
 			</FocusRing>
 		);

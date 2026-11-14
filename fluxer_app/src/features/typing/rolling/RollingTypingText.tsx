@@ -12,6 +12,7 @@ import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {Trans} from '@lingui/react/macro';
 import type {ReactNode} from 'react';
+import {NameFont} from '@app/features/name_font/NameFont';
 
 const ONE_TYPIST_DESCRIPTOR = msg({
 	message: '{a} is typing...',
@@ -44,9 +45,11 @@ function getTypingNames(typingUsers: ReadonlyArray<User>, channel: Channel): Rea
 			style={{color: GuildMembers.getMember(channel.guildId ?? '', user.id)?.getColorString()}}
 			data-flx="channel.typing-users.get-typing-text.username"
 		>
-			<StyledName nameStyle={GuildMembers.getMember(channel.guildId ?? '', user.id)?.getNameStyle()}>
+			<NameFont userId={user.id} guildId={channel.guildId ?? null}>
+<StyledName nameStyle={GuildMembers.getMember(channel.guildId ?? '', user.id)?.getNameStyle()}>
 				{getTypistName(user, channel)}
 			</StyledName>
+</NameFont>
 		</span>
 	));
 	if (typingUsers.length === 1) {

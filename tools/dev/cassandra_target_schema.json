@@ -11822,9 +11822,36 @@
 				{
 					"name": "user_id",
 					"type": "bigint"
+				},
+				{
+					"name": "font",
+					"type": "text"
 				}
 			],
 			"primary_key": "((channel_id), message_id)",
+			"options": ""
+		},
+		{
+			"name": "name_fonts",
+			"columns": [
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "scope_id",
+					"type": "bigint"
+				},
+				{
+					"name": "font",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id), scope_id)",
 			"options": ""
 		},
 		{
@@ -11936,6 +11963,10 @@
 				{
 					"name": "updated_at",
 					"type": "timestamp"
+				},
+				{
+					"name": "font",
+					"type": "text"
 				}
 			],
 			"primary_key": "((user_id), tupper_id)",

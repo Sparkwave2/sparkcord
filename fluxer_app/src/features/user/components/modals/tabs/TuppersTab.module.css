@@ -170,3 +170,26 @@
 	gap: 6px;
 	flex-shrink: 0;
 }
+
+.fontField {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-width: 0;
+}
+
+.fontLabel {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.fontSelect {
+	height: 40px;
+	padding: 0 10px;
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-accent);
+	background: var(--form-surface-background, var(--background-secondary));
+	color: var(--text-primary);
+	font-size: 0.9375rem;
+}

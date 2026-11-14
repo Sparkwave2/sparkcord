@@ -20,6 +20,8 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
+import {FontSpan, nameFontFamily} from '@app/features/name_font/NameFont';
+import {NAME_FONTS} from '@fluxer/constants/src/NameFonts';
 
 const logger = new Logger('Tuppers');
 
@@ -44,6 +46,7 @@ interface DraftState {
 	tag: string;
 	description: string;
 	keepProxy: boolean;
+	font: string;
 }
 
 const EMPTY_DRAFT: DraftState = {
@@ -57,6 +60,7 @@ const EMPTY_DRAFT: DraftState = {
 	tag: '',
 	description: '',
 	keepProxy: false,
+	font: '',
 };
 
 function toDraft(tupper: TupperWire): DraftState {
@@ -71,6 +75,7 @@ function toDraft(tupper: TupperWire): DraftState {
 		tag: tupper.tag ?? '',
 		description: tupper.description ?? '',
 		keepProxy: tupper.keep_proxy,
+		font: tupper.font ?? '',
 	};
 }
 
@@ -145,6 +150,23 @@ const TupperEditor: React.FC<{
 					onChange={(e) => set('tag', e.target.value)}
 					data-flx="user.tuppers-tab.editor.tag"
 				/>
+				<label className={styles.fontField}>
+					<span className={styles.fontLabel}>{t`Name font`}</span>
+					<select
+						className={styles.fontSelect}
+						value={draft.font}
+						onChange={(e) => set('font', e.target.value)}
+						style={{fontFamily: nameFontFamily(draft.font)}}
+						data-flx="user.tuppers-tab.editor.font"
+					>
+						<option value="">{t`Default`}</option>
+						{NAME_FONTS.map((font) => (
+							<option key={font.id} value={font.id} style={{fontFamily: nameFontFamily(font.id)}}>
+								{font.family}
+							</option>
+						))}
+					</select>
+				</label>
 			</div>
 			<Textarea
 				label={t`Proxy tags, one per line (write "text" where the message goes, e.g. [text] or k:text)`}
@@ -248,6 +270,7 @@ const TuppersTab: React.FC = observer(() => {
 			tag: draft.tag.trim() || null,
 			description: draft.description.trim() || null,
 			keep_proxy: draft.keepProxy,
+			font: draft.font || null,
 		};
 		setSaving(true);
 		try {
@@ -519,7 +542,7 @@ const TuppersTab: React.FC = observer(() => {
 												: undefined
 										}
 									>
-										{tupper.display_name ?? tupper.name}
+										<FontSpan font={tupper.font}>{tupper.display_name ?? tupper.name}</FontSpan>
 										{tupper.pronouns ? <span className={styles.pronouns}> ({tupper.pronouns})</span> : null}
 									</span>
 									<span className={styles.tags}>
