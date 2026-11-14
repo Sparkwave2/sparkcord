@@ -31,6 +31,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import type {ConnectableElement} from 'react-dnd';
 import {useDrag, useDrop} from 'react-dnd';
 import {getEmptyImage} from 'react-dnd-html5-backend';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const YOU_CANNOT_EDIT_THIS_ROLE_BECAUSE_IT_IS_DESCRIPTOR = msg({
 	message: 'You cannot edit this role because it is at or above your highest role',
@@ -241,7 +242,7 @@ export const RoleItem: React.FC<RoleItemProps> = observer(
 				>
 					<div
 						className={styles.roleDot}
-						style={{backgroundColor: role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color)}}
+						style={roleSwatchStyle(role, role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color))}
 						data-flx="guild.guild-tabs.guild-roles-tab.role-item.role-dot"
 					/>
 					{(hasIcon || reserveIconSlot) && (

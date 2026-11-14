@@ -34,6 +34,7 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useMemo, useState} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const REMOVE_ROLE_DESCRIPTOR = msg({
 	message: 'Remove role {roleName}',
@@ -70,7 +71,7 @@ const RoleBadge: React.FC<{
 	const roleIndicator = (
 		<span
 			className={styles.roleIndicator}
-			style={{backgroundColor: roleColor}}
+			style={roleSwatchStyle(role, roleColor)}
 			data-flx="guild.role-management.role-badge.role-indicator"
 		/>
 	);
@@ -241,7 +242,7 @@ const ManageRolesMenuContent: React.FC<ManageRolesMenuContentProps> = observer(f
 						>
 							<div
 								className={itemStyles.roleIcon}
-								style={{backgroundColor: ColorUtils.int2rgb(role.color)}}
+								style={roleSwatchStyle(role, ColorUtils.int2rgb(role.color))}
 								data-flx="guild.role-management.manage-roles-menu-content.div"
 							/>
 							<span
@@ -345,7 +346,7 @@ export const ManageRolesBottomSheet: React.FC<ManageRolesBottomSheetProps> = obs
 						icon: (
 							<div
 								className={styles.roleColorIndicator}
-								style={{backgroundColor: ColorUtils.int2rgb(role.color)}}
+								style={roleSwatchStyle(role, ColorUtils.int2rgb(role.color))}
 								data-flx="guild.role-management.menu-groups.role-color-indicator"
 							/>
 						),

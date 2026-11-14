@@ -24,6 +24,7 @@ import {matchSorter} from 'match-sorter';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useEffect, useMemo, useRef, useState} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const SEARCH_ROLES_OR_MEMBERS_DESCRIPTOR = msg({
 	message: 'Search roles or members…',
@@ -135,9 +136,7 @@ export const AddOverridePopout: React.FC<AddOverridePopoutProps> = observer(func
 				<>
 					<div
 						className={styles.roleIndicator}
-						style={{
-							backgroundColor: role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color),
-						}}
+						style={roleSwatchStyle(role, role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color))}
 						data-flx="app.add-override-popout.role-items.role-indicator"
 					/>
 					<span className={styles.itemLabel} data-flx="app.add-override-popout.role-items.item-label">

@@ -10,6 +10,8 @@ import {CaretRightIcon} from '@app/features/ui/icons/DirectionalIcons';
 import type {User} from '@app/features/user/models/User';
 import {UsersIcon} from '@phosphor-icons/react';
 import type React from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
+import Guilds from '@app/features/guild/state/Guilds';
 
 interface MobileOverrideRowProps {
 	overwrite: PermissionOverwrite;
@@ -37,9 +39,10 @@ export const MobileOverrideRow: React.FC<MobileOverrideRowProps> = ({
 		icon = (
 			<div
 				className={styles.roleDot}
-				style={{
-					backgroundColor: color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(color || 0),
-				}}
+				style={roleSwatchStyle(
+					roleId ? Guilds.getGuild(guildId)?.roles[roleId] : null,
+					color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(color || 0),
+				)}
 				data-flx="channel.channel-tabs.channel-permissions-tab.role-dot"
 			/>
 		);

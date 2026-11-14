@@ -24,6 +24,7 @@ import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useMemo} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 interface ManageRolesMenuItemProps {
 	guildId: string;
@@ -93,7 +94,7 @@ export const ManageRolesMenuItem: React.FC<ManageRolesMenuItemProps> = observer(
 										>
 											<div
 												className={itemStyles.roleIcon}
-												style={{backgroundColor: ColorUtils.int2rgb(role.color)}}
+												style={roleSwatchStyle(role, ColorUtils.int2rgb(role.color))}
 												data-flx="ui.action-menu.items.guild-member-menu-items.manage-roles-menu-item.div"
 											/>
 											<span
@@ -124,7 +125,7 @@ export const ManageRolesMenuItem: React.FC<ManageRolesMenuItemProps> = observer(
 										>
 											<div
 												className={itemStyles.roleIcon}
-												style={{backgroundColor: ColorUtils.int2rgb(role.color)}}
+												style={roleSwatchStyle(role, ColorUtils.int2rgb(role.color))}
 												data-flx="ui.action-menu.items.guild-member-menu-items.manage-roles-menu-item.div--3"
 											/>
 											<span

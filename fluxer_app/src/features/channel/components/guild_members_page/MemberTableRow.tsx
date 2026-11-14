@@ -29,6 +29,7 @@ import {DateTime} from 'luxon';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useMemo} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const COMMUNITY_CREATOR_DESCRIPTOR = msg({
 	message: 'Community creator',
@@ -234,9 +235,10 @@ export const MemberTableRow: React.FC<MemberTableRowProps> = observer(
 										>
 											<span
 												className={styles.readonlyRoleDot}
-												style={{
-													backgroundColor: role.color ? ColorUtils.int2rgb(role.color) : 'var(--text-tertiary)',
-												}}
+												style={roleSwatchStyle(
+													role,
+													role.color ? ColorUtils.int2rgb(role.color) : 'var(--text-tertiary)',
+												)}
 												data-flx="channel.guild-members-page.handle-overflow-roles-click.readonly-role-dot"
 											/>
 											<span data-flx="channel.guild-members-page.handle-overflow-roles-click.span">{role.name}</span>

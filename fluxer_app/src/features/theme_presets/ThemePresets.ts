@@ -203,6 +203,12 @@ const FROSTED_PANELS = [
  */
 const FLOATING_CARDS = ['ProfileCardLayout.module__profileCard', 'TupperCard.module__card'];
 
+/**
+ * Settings screens (user and community settings) are full of small text and controls,
+ * so they get the most solid tint and the heaviest blur.
+ */
+const SETTINGS_SURFACES = ['SettingsModalLayout.module__container'];
+
 /** How much clearer than the base opacities the panels are (user preference: show the art). */
 const PANEL_CLEARNESS = 0.12;
 
@@ -265,6 +271,11 @@ ${byModuleClass(FROSTED_PANELS)} {
 ${byModuleClass(FLOATING_CARDS)} {
 	background-color: rgba(${p}, ${light ? 0.8 : 0.78}) !important;
 	backdrop-filter: blur(32px) saturate(1.3);
+}
+
+${byModuleClass(SETTINGS_SURFACES)} {
+	background-color: rgba(${p}, ${light ? 0.88 : 0.86}) !important;
+	backdrop-filter: blur(40px) saturate(1.3);
 }
 `;
 }

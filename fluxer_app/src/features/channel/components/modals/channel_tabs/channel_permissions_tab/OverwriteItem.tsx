@@ -13,6 +13,8 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useRef} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
+import Guilds from '@app/features/guild/state/Guilds';
 
 interface OverwriteItemProps {
 	overwrite: PermissionOverwrite;
@@ -53,7 +55,10 @@ export const OverwriteItem: React.FC<OverwriteItemProps> = observer(
 			overwriteIcon = (
 				<div
 					className={styles.roleDot}
-					style={{backgroundColor: color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(color || 0)}}
+					style={roleSwatchStyle(
+						roleId ? Guilds.getGuild(guildId)?.roles[roleId] : null,
+						color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(color || 0),
+					)}
 					data-flx="channel.channel-tabs.channel-permissions-tab.overwrite-item.role-dot"
 				/>
 			);

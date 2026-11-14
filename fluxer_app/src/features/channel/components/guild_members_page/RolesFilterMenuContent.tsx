@@ -10,6 +10,7 @@ import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import type React from 'react';
 import {useCallback, useState} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const CLEAR_ALL_DESCRIPTOR = msg({
 	message: 'Clear all',
@@ -74,7 +75,7 @@ export function RolesFilterMenuContent({
 						>
 							<span
 								className={styles.roleFilterDot}
-								style={{backgroundColor: role.color ? ColorUtils.int2rgb(role.color) : 'var(--text-tertiary)'}}
+								style={roleSwatchStyle(role, role.color ? ColorUtils.int2rgb(role.color) : 'var(--text-tertiary)')}
 								data-flx="channel.guild-members-page.roles-filter-menu-content.role-filter-dot"
 							/>
 							{role.name}

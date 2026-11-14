@@ -293,6 +293,8 @@ class ThemeLibrary {
 				this.revision += 1;
 			});
 			this.refreshLinkedThemes();
+			// Sparkcord: keep installed preset themes on the current preset CSS.
+			void import('@app/features/theme_presets/ThemePresetCommands').then((m) => m.refreshInstalledPresets());
 		} catch (error) {
 			if (generation !== this.loadGeneration) {
 				return;

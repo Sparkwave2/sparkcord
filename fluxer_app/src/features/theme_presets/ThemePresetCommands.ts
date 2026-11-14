@@ -7,6 +7,7 @@ import {
 	buildPresetCss,
 	presetThemeId,
 	THEME_PRESET_ID_PREFIX,
+	THEME_PRESETS,
 	type ThemePreset,
 } from '@app/features/theme_presets/ThemePresets';
 
@@ -53,5 +54,21 @@ export async function turnOffPresets(): Promise<void> {
 		if (id.startsWith(THEME_PRESET_ID_PREFIX)) {
 			await ThemeProfileCommands.setThemeEnabled(id, false, target);
 		}
+	}
+}
+
+/**
+ * Updates installed preset themes whose saved CSS is from an older Sparkcord build, so
+ * changes to the presets reach people who already use one. Edited copies are made with
+ * "Duplicate", which gives them a different id, so they are left alone.
+ */
+export async function refreshInstalledPresets(): Promise<void> {
+	for (const preset of THEME_PRESETS) {
+		const id = presetThemeId(preset);
+		const installed = ThemeLibrary.themes.find((theme) => theme.id === id);
+		if (!installed) continue;
+		const css = buildPresetCss(preset);
+		if (installed.css === css) continue;
+		await ThemeLibrary.saveTheme({...installed, css, updatedAt: Date.now()});
 	}
 }

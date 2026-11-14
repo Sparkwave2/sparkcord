@@ -21,6 +21,7 @@ import {MagnifyingGlassIcon} from '@phosphor-icons/react';
 import {matchSorter} from 'match-sorter';
 import {observer} from 'mobx-react-lite';
 import {useEffect, useMemo, useState} from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 const SEARCH_MEMBERS_OR_ROLES_DESCRIPTOR = msg({
 	message: 'Search members or roles',
@@ -134,7 +135,7 @@ export const ChannelCreateAccessStep = observer(({guildId, selected, onChange}: 
 										<span className={styles.accessLabel} data-flx="channel.channel-create-access-step.role-label">
 											<span
 												className={styles.roleDot}
-												style={{backgroundColor: role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color)}}
+												style={roleSwatchStyle(role, role.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(role.color))}
 												data-flx="channel.channel-create-access-step.role-dot"
 											/>
 											{role.name}

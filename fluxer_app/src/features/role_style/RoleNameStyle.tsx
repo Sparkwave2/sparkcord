@@ -46,6 +46,33 @@ function glowColor(nameStyle: NameStyle): string | null {
 	return nameStyle.color ? intToHex(nameStyle.color) : 'currentColor';
 }
 
+/**
+ * Style for a role's colour dot/swatch: the plain colour, or the role's gradient,
+ * rainbow or colour stripes, plus a halo when the role glows. `fallback` is what the
+ * caller painted before (e.g. a default grey for roles without a colour).
+ */
+export function roleSwatchStyle(
+	role: {style: GuildRoleStyle | null; color: number} | null | undefined,
+	fallback: string | undefined,
+): React.CSSProperties {
+	const base: React.CSSProperties = {backgroundColor: fallback};
+	const nameStyle = roleNameStyle(role);
+	if (!nameStyle) return base;
+	const {style} = nameStyle;
+	const colors = fillColors(nameStyle);
+	if (style.type === 'gradient' || style.type === 'rainbow') {
+		base.backgroundImage = `linear-gradient(135deg, ${colors.join(', ')})`;
+	} else if (style.type === 'alternating') {
+		const step = 100 / colors.length;
+		base.backgroundImage = `linear-gradient(135deg, ${colors
+			.map((c, i) => `${c} ${(i * step).toFixed(2)}% ${((i + 1) * step).toFixed(2)}%`)
+			.join(', ')})`;
+	}
+	const glow = glowColor(nameStyle);
+	if (glow) base.boxShadow = `0 0 6px ${glow === 'currentColor' ? (fallback ?? 'currentColor') : glow}`;
+	return base;
+}
+
 function splitGraphemes(text: string): Array<string> {
 	const Segmenter = (Intl as unknown as {Segmenter?: typeof Intl.Segmenter}).Segmenter;
 	if (Segmenter) {

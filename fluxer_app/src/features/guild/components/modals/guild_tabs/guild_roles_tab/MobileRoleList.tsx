@@ -16,6 +16,7 @@ import {Trans, useLingui} from '@lingui/react/macro';
 import {LockIcon, PlusIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
+import {roleSwatchStyle} from '@app/features/role_style/RoleNameStyle';
 
 interface MobileRoleListProps {
 	roles: Array<GuildRole>;
@@ -64,10 +65,10 @@ export const MobileRoleList: React.FC<MobileRoleListProps> = observer(
 								>
 									<div
 										className={styles.roleDot}
-										style={{
-											backgroundColor:
-												roleWithUpdates.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(roleWithUpdates.color),
-										}}
+										style={roleSwatchStyle(
+											roleWithUpdates,
+											roleWithUpdates.color === 0 ? DEFAULT_ROLE_COLOR_HEX : getRoleColor(roleWithUpdates.color),
+										)}
 										data-flx="guild.guild-tabs.guild-roles-tab.role-dot"
 									/>
 									<span className={styles.mobileRoleName} data-flx="guild.guild-tabs.guild-roles-tab.mobile-role-name">

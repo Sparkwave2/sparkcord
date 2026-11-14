@@ -23,6 +23,7 @@ import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
+import {roleNameStyle, StyledName} from '@app/features/role_style/RoleNameStyle';
 
 const NOTIFY_EVERYONE_WHO_HAS_PERMISSION_TO_VIEW_THIS_DESCRIPTOR = msg({
 	message: 'Notify everyone who has permission to view this channel.',
@@ -159,7 +160,7 @@ export const AutocompleteMention = observer(function AutocompleteMention({
 				id={resolveOptionId(getOptionId, currentIndex)}
 				name={
 					<span style={{color: roleColor}} data-flx="channel.autocomplete-mention.render-role.span">
-						@{option.role.name}
+						<StyledName nameStyle={roleNameStyle(option.role)}>{`@${option.role.name}`}</StyledName>
 					</span>
 				}
 				description={i18n._(NOTIFY_USERS_WITH_THIS_ROLE_WHO_HAVE_PERMISSION_DESCRIPTOR)}
