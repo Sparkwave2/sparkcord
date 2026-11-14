@@ -312,12 +312,29 @@ html:root .modal-backdrop {
 	}
 }
 
-html.reduced-motion .modal-backdrop {
+/* Closing: the blur fades back out with the panel instead of vanishing at the end. */
+html:root .modal-backdrop[data-modal-closing] {
+	backdrop-filter: blur(0px) saturate(1);
+	animation: sparkcordModalBlurOut 0.25s ease-in both;
+}
+
+@keyframes sparkcordModalBlurOut {
+	from {
+		backdrop-filter: blur(40px) saturate(1.3);
+	}
+	to {
+		backdrop-filter: blur(0px) saturate(1);
+	}
+}
+
+html.reduced-motion .modal-backdrop,
+html.reduced-motion .modal-backdrop[data-modal-closing] {
 	animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	html:root .modal-backdrop {
+	html:root .modal-backdrop,
+	html:root .modal-backdrop[data-modal-closing] {
 		animation: none;
 	}
 }

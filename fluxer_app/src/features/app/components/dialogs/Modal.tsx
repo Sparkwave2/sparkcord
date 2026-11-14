@@ -31,7 +31,7 @@ import {FloatingFocusManager, FloatingOverlay, FloatingPortal, useFloating} from
 import {useLingui} from '@lingui/react/macro';
 import {XIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
-import {motion, type Transition} from 'framer-motion';
+import {motion, type Transition, useIsPresent} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
 import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
@@ -70,6 +70,9 @@ const RootComponent = React.forwardRef<HTMLDivElement, ModalProps>(
 		const portalHost = usePortalHost();
 		const modalDocument = portalHost?.ownerDocument ?? document;
 		const {stackIndex, isVisible, needsBackdrop, isTopmost, restoreFocusOnClose} = useContext(ModalStackContext);
+		// Sparkcord: marks the overlay while the modal plays its closing animation, so
+		// theme CSS can fade effects (e.g. the preset themes' background blur) out with it.
+		const isPresent = useIsPresent();
 		const {
 			isMobile,
 			isFullscreenOnMobile,
@@ -226,6 +229,7 @@ const RootComponent = React.forwardRef<HTMLDivElement, ModalProps>(
 					lockScroll={!isIOS && isInteractive}
 					className="modal-backdrop"
 					aria-hidden={!isInteractive}
+					data-modal-closing={isPresent ? undefined : 'true'}
 					style={overlayStyle}
 					onClick={handleBackdropClickEvent}
 					data-flx="app.modal.modal-backdrop.backdrop-click-event"
