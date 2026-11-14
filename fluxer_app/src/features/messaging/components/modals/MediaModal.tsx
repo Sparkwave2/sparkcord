@@ -518,6 +518,15 @@ export const MediaModal: FC<MediaModalProps> = observer(
 		const modalContent = (
 			<AnimatePresence data-flx="messaging.media-modal.animate-presence">
 				<div className={styles.modalOverlay} data-flx="messaging.media-modal.modal-overlay">
+					{/* Sparkcord: the blur gets its own layer. Firefox doesn't draw a backdrop blur on an element whose opacity is animating. */}
+					<motion.div
+						className={styles.modalBlur}
+						initial={{backdropFilter: 'blur(0px) saturate(1)'}}
+						animate={{backdropFilter: 'blur(20px) saturate(1.2)'}}
+						exit={{backdropFilter: 'blur(0px) saturate(1)'}}
+						transition={prefersReducedMotion ? {duration: 0} : {duration: 0.3, ease: 'easeOut'}}
+						aria-hidden="true"
+					/>
 					<motion.div
 						className={styles.modalBackdrop}
 						initial={{opacity: 0}}

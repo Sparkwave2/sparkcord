@@ -159,14 +159,46 @@
 	box-sizing: border-box;
 }
 
-/* Fade in/out like the image viewer; the backdrop's blur ramps separately (MediaModal.module.css). */
+/* Fade in/out like the image viewer. The blur and the tint are separate layers: Firefox
+   doesn't draw a backdrop blur on an element whose opacity is animating. */
+.fullscreenBlur {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	backdrop-filter: blur(20px) saturate(1.2);
+	animation: pdfBlurIn 0.3s ease-out both;
+}
+
+.fullscreenTint,
 .fullscreenFade {
 	animation: pdfFadeIn 0.2s ease-out both;
 }
 
-.fullscreenClosing .fullscreenFade,
-.fullscreenRoot.fullscreenClosing > [aria-hidden='true'] {
+.fullscreenClosing .fullscreenBlur {
+	animation: pdfBlurOut 0.2s ease-in both;
+}
+
+.fullscreenClosing .fullscreenTint,
+.fullscreenClosing .fullscreenFade {
 	animation: pdfFadeOut 0.2s ease-in both;
+}
+
+@keyframes pdfBlurIn {
+	from {
+		backdrop-filter: blur(0px) saturate(1);
+	}
+	to {
+		backdrop-filter: blur(20px) saturate(1.2);
+	}
+}
+
+@keyframes pdfBlurOut {
+	from {
+		backdrop-filter: blur(20px) saturate(1.2);
+	}
+	to {
+		backdrop-filter: blur(0px) saturate(1);
+	}
 }
 
 @keyframes pdfFadeIn {
@@ -181,39 +213,22 @@
 @keyframes pdfFadeOut {
 	from {
 		opacity: 1;
-		backdrop-filter: blur(1.25rem) saturate(1.2);
 	}
 	to {
 		opacity: 0;
-		backdrop-filter: blur(0) saturate(1);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.fullscreenFade,
-	.fullscreenClosing .fullscreenFade,
-	.fullscreenClosing > [aria-hidden='true'] {
-		animation-duration: 0.01s;
+	.fullscreenBlur,
+	.fullscreenTint,
+	.fullscreenFade {
+		animation-duration: 0.01s !important;
 	}
 }
 
-:global(html.reduced-motion) .fullscreenFade,
-:global(html.reduced-motion) .fullscreenClosing .fullscreenFade,
-:global(html.reduced-motion) .fullscreenClosing > [aria-hidden='true'] {
-	animation-duration: 0.01s;
-}
-
-.fullscreenRoot > [aria-hidden='true'] {
-	animation: pdfBackdropIn 0.3s ease-out both;
-}
-
-@keyframes pdfBackdropIn {
-	from {
-		opacity: 0;
-		backdrop-filter: blur(0) saturate(1);
-	}
-	to {
-		opacity: 1;
-		backdrop-filter: blur(1.25rem) saturate(1.2);
-	}
+:global(html.reduced-motion) .fullscreenBlur,
+:global(html.reduced-motion) .fullscreenTint,
+:global(html.reduced-motion) .fullscreenFade {
+	animation-duration: 0.01s !important;
 }

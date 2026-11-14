@@ -87,7 +87,9 @@ export function PdfFullscreenViewer({
 		<div
 			className={closing ? `${pdfStyles.fullscreenRoot} ${pdfStyles.fullscreenClosing}` : pdfStyles.fullscreenRoot}
 			role="dialog" aria-modal="true" aria-label={fileName}>
-			<div className={mediaStyles.modalBackdrop} aria-hidden="true" />
+			{/* Separate blur and tint layers: Firefox won't draw a blur on a layer that is also fading. */}
+			<div className={pdfStyles.fullscreenBlur} aria-hidden="true" />
+			<div className={`${mediaStyles.modalBackdrop} ${pdfStyles.fullscreenTint}`} aria-hidden="true" />
 			<div
 				ref={scrollRef}
 				tabIndex={-1}
