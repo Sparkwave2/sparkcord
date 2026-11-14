@@ -4,6 +4,7 @@ import Authentication from '@app/features/auth/state/Authentication';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
 import Relationships from '@app/features/relationship/state/Relationships';
 import {TYPING_ROLLING_EXPIRY_MS} from '@app/features/typing/rolling/TypingSendThrottle';
+import TypingPrivacy from '@app/features/typing/TypingPrivacy';
 import Users from '@app/features/user/state/Users';
 import {action, computed, type IComputedValue, makeObservable, type ObservableMap, observable} from 'mobx';
 
@@ -125,6 +126,10 @@ class RollingTypingStore {
 	}
 
 	private collectTypingUserIds(channelId: string): ReadonlyArray<string> {
+		// Sparkcord: the user turned off seeing typing indicators.
+		if (!TypingPrivacy.showTypingIndicators) {
+			return EMPTY_TYPING_USER_IDS;
+		}
 		const channelEntries = this.entries.get(channelId);
 		if (channelEntries === undefined) {
 			return EMPTY_TYPING_USER_IDS;

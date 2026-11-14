@@ -21370,6 +21370,11 @@ msgstr "ให้ผู้อื่นคัดลอกอิโมจิขอ
 msgid "Let others clone your stickers"
 msgstr "ให้ผู้อื่นคัดลอกสติกเกอร์ของคุณได้"
 
+#. Settings toggle. When off, the app never tells anyone that the user is typing.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Let others see when I'm typing"
+msgstr ""
+
 #. Placeholder of the guidelines field in forum settings.
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Let people know how to post in this forum"
@@ -34052,6 +34057,11 @@ msgstr "แสดงจำนวนข้อความที่ยังไม
 msgid "Show unread indicator on muted channels"
 msgstr "แสดงตัวบ่งชี้ข้อความที่ยังไม่ได้อ่านในช่องที่ปิดเสียง"
 
+#. Settings toggle. When off, typing indicators for other people are hidden everywhere.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Show when others are typing"
+msgstr ""
+
 #. Label in the avatar uploader.
 #: src/features/user/components/modals/tabs/my_profile_tab/AvatarUploader.tsx
 msgid "Show your global profile avatar in this community"
@@ -39821,6 +39831,11 @@ msgstr "เฉพาะตัวแสดงสถานะกำลังพิ
 msgid "Typing indicator, status: {effectiveStatusLabel}"
 msgstr "ตัวแสดงสถานะกำลังพิมพ์ สถานะ: {effectiveStatusLabel}"
 
+#. Settings section title for the Sparkcord toggles that control sending and seeing typing indicators.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Typing indicators"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/IndicatorsTab.tsx
 msgid "Typing state"
 msgstr "สถานะกำลังพิมพ์"
@@ -43171,6 +43186,16 @@ msgstr "เมื่อเปิดใช้งานตอนเข้าสู
 #: src/features/user/components/modals/tabs/DesktopSettingsTab.tsx
 msgid "When launched at login, start in the system tray instead of opening the window"
 msgstr "เมื่อเปิดใช้งานตอนเข้าสู่ระบบ ให้เริ่มในถาดระบบแทนการเปิดหน้าต่าง"
+
+#. Help text under the toggle that controls whether other people see that the user is typing.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "When off, nobody sees \"is typing…\" for you."
+msgstr ""
+
+#. Help text under the toggle that hides other people's typing indicators.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "When off, typing indicators are hidden in chats, the channel list and direct messages."
+msgstr ""
 
 #. Label in the display tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/DisplayTab.tsx

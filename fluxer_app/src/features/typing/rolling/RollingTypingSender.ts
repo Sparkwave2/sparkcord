@@ -6,6 +6,7 @@ import {http} from '@app/features/platform/transport/RestTransport';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {decideComposerTyping} from '@app/features/typing/rolling/RollingComposerTypingGate';
 import RollingTypingStore from '@app/features/typing/rolling/RollingTypingStore';
+import TypingPrivacy from '@app/features/typing/TypingPrivacy';
 import {
 	planTypingSend,
 	TYPING_ROLLING_SKIP_ABOVE_TRACKED,
@@ -42,6 +43,10 @@ class RollingTypingSender {
 	startTyping(channelId: string): void {
 		const userId = Authentication.currentUserId;
 		if (userId == null) {
+			return;
+		}
+		// Sparkcord: the user turned off sending typing indicators.
+		if (!TypingPrivacy.sendTypingIndicators) {
 			return;
 		}
 		const now = Date.now();
@@ -100,6 +105,7 @@ class RollingTypingSender {
 	}
 
 	private async postTyping(channelId: string): Promise<void> {
+		if (!TypingPrivacy.sendTypingIndicators) return;
 		try {
 			await http.post(Endpoints.CHANNEL_TYPING(channelId));
 		} catch (error) {

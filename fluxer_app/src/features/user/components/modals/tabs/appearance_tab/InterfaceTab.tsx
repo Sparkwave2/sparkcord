@@ -6,6 +6,8 @@ import {SettingsTabSection} from '@app/features/app/components/dialogs/shared/Se
 import {ChannelItemCore} from '@app/features/app/components/layout/ChannelItem';
 import channelItemSurfaceStyles from '@app/features/app/components/layout/ChannelItemSurface.module.css';
 import {Typing} from '@app/features/channel/components/ChannelTyping';
+import TypingPrivacy from '@app/features/typing/TypingPrivacy';
+import {Switch} from '@app/features/ui/components/form/FormSwitch';
 import {AvatarStack} from '@app/features/ui/avatars/AvatarStack';
 import {MockAvatar} from '@app/features/ui/components/MockAvatar';
 import type {RadioOption} from '@app/features/ui/radio_group/RadioGroup';
@@ -42,6 +44,26 @@ const HIDDEN_DESCRIPTOR = msg({
 const DON_T_SHOW_TYPING_INDICATORS_IN_THE_CHANNEL_DESCRIPTOR = msg({
 	message: "Don't show typing indicators in the channel list",
 	comment: 'Label in the interface tab.',
+});
+const TYPING_PRIVACY_SECTION_DESCRIPTOR = msg({
+	message: 'Typing indicators',
+	comment: 'Settings section title for the Sparkcord toggles that control sending and seeing typing indicators.',
+});
+const SEND_TYPING_INDICATORS_DESCRIPTOR = msg({
+	message: "Let others see when I'm typing",
+	comment: 'Settings toggle. When off, the app never tells anyone that the user is typing.',
+});
+const SEND_TYPING_INDICATORS_HELP_DESCRIPTOR = msg({
+	message: 'When off, nobody sees "is typing…" for you.',
+	comment: 'Help text under the toggle that controls whether other people see that the user is typing.',
+});
+const SHOW_TYPING_INDICATORS_DESCRIPTOR = msg({
+	message: 'Show when others are typing',
+	comment: 'Settings toggle. When off, typing indicators for other people are hidden everywhere.',
+});
+const SHOW_TYPING_INDICATORS_HELP_DESCRIPTOR = msg({
+	message: 'When off, typing indicators are hidden in chats, the channel list and direct messages.',
+	comment: "Help text under the toggle that hides other people's typing indicators.",
 });
 const CHANNEL_LIST_TYPING_INDICATORS_DESCRIPTOR = msg({
 	message: 'Channel list typing indicators',
@@ -141,6 +163,7 @@ export const InterfaceTabContent: React.FC = observer(() => {
 		},
 	];
 	return (
+		<>
 		<SettingsTabSection
 			title={i18n._(CHANNEL_LIST_TYPING_INDICATORS_DESCRIPTOR)}
 			data-flx="user.appearance-tab.interface-tab.interface-tab-content.settings-tab-section"
@@ -157,5 +180,23 @@ export const InterfaceTabContent: React.FC = observer(() => {
 				data-flx="user.appearance-tab.interface-tab.interface-tab-content.radio-group.update"
 			/>
 		</SettingsTabSection>
+		<SettingsTabSection
+			title={i18n._(TYPING_PRIVACY_SECTION_DESCRIPTOR)}
+			data-flx="user.appearance-tab.interface-tab.typing-privacy"
+		>
+			<Switch
+				label={i18n._(SEND_TYPING_INDICATORS_DESCRIPTOR)}
+				description={i18n._(SEND_TYPING_INDICATORS_HELP_DESCRIPTOR)}
+				value={TypingPrivacy.sendTypingIndicators}
+				onChange={TypingPrivacy.setSendTypingIndicators}
+			/>
+			<Switch
+				label={i18n._(SHOW_TYPING_INDICATORS_DESCRIPTOR)}
+				description={i18n._(SHOW_TYPING_INDICATORS_HELP_DESCRIPTOR)}
+				value={TypingPrivacy.showTypingIndicators}
+				onChange={TypingPrivacy.setShowTypingIndicators}
+			/>
+		</SettingsTabSection>
+		</>
 	);
 });

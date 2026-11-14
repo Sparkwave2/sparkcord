@@ -21370,6 +21370,11 @@ msgstr "允許其他人複製您的表情符號"
 msgid "Let others clone your stickers"
 msgstr "允許其他人複製您的貼圖"
 
+#. Settings toggle. When off, the app never tells anyone that the user is typing.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Let others see when I'm typing"
+msgstr ""
+
 #. Placeholder of the guidelines field in forum settings.
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Let people know how to post in this forum"
@@ -34052,6 +34057,11 @@ msgstr "收合時顯示未讀私訊數量"
 msgid "Show unread indicator on muted channels"
 msgstr "在已靜音的頻道上顯示未讀標記"
 
+#. Settings toggle. When off, typing indicators for other people are hidden everywhere.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Show when others are typing"
+msgstr ""
+
 #. Label in the avatar uploader.
 #: src/features/user/components/modals/tabs/my_profile_tab/AvatarUploader.tsx
 msgid "Show your global profile avatar in this community"
@@ -39821,6 +39831,11 @@ msgstr "只顯示輸入狀態"
 msgid "Typing indicator, status: {effectiveStatusLabel}"
 msgstr "輸入指示器，狀態：{effectiveStatusLabel}"
 
+#. Settings section title for the Sparkcord toggles that control sending and seeing typing indicators.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Typing indicators"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/IndicatorsTab.tsx
 msgid "Typing state"
 msgstr "輸入狀態"
@@ -43171,6 +43186,16 @@ msgstr "登入時啟動，改為在選單列中啟動，而非開啟視窗"
 #: src/features/user/components/modals/tabs/DesktopSettingsTab.tsx
 msgid "When launched at login, start in the system tray instead of opening the window"
 msgstr "登入時啟動，改為從系統匣啟動，而非開啟視窗"
+
+#. Help text under the toggle that controls whether other people see that the user is typing.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "When off, nobody sees \"is typing…\" for you."
+msgstr ""
+
+#. Help text under the toggle that hides other people's typing indicators.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "When off, typing indicators are hidden in chats, the channel list and direct messages."
+msgstr ""
 
 #. Label in the display tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/DisplayTab.tsx
