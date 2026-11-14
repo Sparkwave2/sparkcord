@@ -170,6 +170,19 @@ export function toTupperResponse(row: TupperRow): TupperResponse {
 	};
 }
 
+export interface TupperCardResponse {
+	id: string;
+	user_id: string;
+	name: string;
+	avatar_url: string | null;
+	description: string | null;
+	pronouns: string | null;
+	color: number | null;
+	birthday: string | null;
+	system_name: string | null;
+	system_tag: string | null;
+}
+
 export function toSettingsResponse(row: TupperSettingsRow): TupperSettingsResponse {
 	return {
 		system_name: row.system_name,
@@ -203,6 +216,27 @@ export class TupperService {
 		const row = await this.repo.findById(userId, parseTupperId(tupperId, 'tupper_id'));
 		if (!row) throw InputValidationError.create('tupper_id', 'Unknown tupper.');
 		return row;
+	}
+
+	/** Public card shown when someone clicks a proxied message. Readable by any signed-in user. */
+	async getCard(userId: UserID, tupperId: string): Promise<TupperCardResponse> {
+		const [row, settings] = await Promise.all([
+			this.repo.findById(userId, parseTupperId(tupperId, 'tupper_id')),
+			this.repo.getSettings(userId),
+		]);
+		if (!row) throw InputValidationError.create('tupper_id', 'Unknown tupper.');
+		return {
+			id: row.tupper_id.toString(),
+			user_id: userId.toString(),
+			name: row.display_name || row.name,
+			avatar_url: proxiedAvatarUrl(row.avatar_url),
+			description: row.description,
+			pronouns: row.pronouns,
+			color: row.color,
+			birthday: row.birthday,
+			system_name: settings?.system_name ?? null,
+			system_tag: row.tag ?? settings?.system_tag ?? null,
+		};
 	}
 
 	async findByName(userId: UserID, name: string): Promise<TupperRow | null> {

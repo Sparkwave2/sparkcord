@@ -2993,7 +2993,9 @@ msgstr "потребител"
 msgid "A11y"
 msgstr "A11y"
 
+#. Heading for a tupper's description on its profile card
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/tupper/TupperCard.tsx
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts
 msgid "About"
 msgstr "Относно"
@@ -3098,7 +3100,9 @@ msgstr "Достъпност"
 msgid "Accessible live region"
 msgstr "Достъпна активна област"
 
+#. Heading for the account that owns a tupper, on the tupper's profile card
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/tupper/TupperCard.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Account"
 msgstr "Акаунт"
@@ -5936,6 +5940,11 @@ msgstr "Автоматично възпроизвеждане"
 
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Autoproxy"
+msgstr ""
+
+#. Slash-command description for /tp-auto (autoproxy, like PluralKit).
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Autoproxy: send untagged messages as a tupper."
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -11637,6 +11646,11 @@ msgstr "Създаване на нов комплект за възстанов�
 msgid "Create a recovery kit to reset a forgotten password"
 msgstr "Създайте комплект за възстановяване, за да нулирате забравена парола"
 
+#. Slash-command description for /tp-register. A tupper is a proxy identity like in Tupperbox/PluralKit.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Create a tupper (a name you can send messages as)."
+msgstr ""
+
 #. Button that creates the administrator account in the setup wizard.
 #. Generic authentication action label for starting or submitting account creation.
 #: src/features/app/components/setup/SetupAccountStep.tsx
@@ -12820,6 +12834,11 @@ msgstr "Изтриване на {channelType}"
 #: src/features/theme_settings/components/AssetsSection.tsx
 msgid "Delete {fileName}"
 msgstr "Изтриване на {fileName}"
+
+#. Slash-command description for /tp-remove.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Delete a tupper."
+msgstr ""
 
 #. Destructive action or section label for permanently deleting the current account.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -19522,6 +19541,11 @@ msgstr "Размерите на изображението са извън до�
 msgid "Image dimensions must be between {min}x{min2} and {max}x{max2} pixels."
 msgstr "Размерите на изображението трябва да са между {min}x{min2} и {max}x{max2} пиксела."
 
+#. Slash-command option for a tupper avatar image URL.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Image link (http or https), or leave blank to remove it."
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Image lookup"
@@ -21107,6 +21131,11 @@ msgstr "Последна промяна: никога"
 msgid "Last used"
 msgstr "Последно използван"
 
+#. Autoproxy mode choice: latch.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Latch (last tupper used)"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Latch: keep the last tupper used"
 msgstr ""
@@ -21670,6 +21699,11 @@ msgstr "Списък"
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 msgid "List your community in Explore so others can find and join it."
 msgstr "Включи общността си в „Разглеждане“, за да могат другите да я намират и да се присъединяват към нея."
+
+#. Slash-command description for /tp-list.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "List your tuppers."
+msgstr ""
 
 #. Label for a community listed in Explore, where anyone can find it. Used in the community badge and as the community subtitle in expression info cards. Keep it concise.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -24111,6 +24145,11 @@ msgstr "Наименуване на ключа за достъп"
 msgid "Name passkey form"
 msgstr "Формуляр за наименуване на ключ за достъп"
 
+#. Slash-command option for a tupper display name.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Name shown on messages, or leave blank to use the tupper name."
+msgstr ""
+
 #. Setup wizard title for choosing the instance name.
 #: src/features/app/components/setup/SetupNameStep.tsx
 msgid "Name your instance"
@@ -25552,7 +25591,9 @@ msgid "Objects"
 msgstr "Обекти"
 
 #. Activity log value meaning the explicit content filter of a community is turned off.
+#. Autoproxy mode choice: off.
 #. Channel overview settings tab label, control, or validation message (name, topic, slowmode, voice region, mature content gate).
+#. Choice: turn tupper proxying off.
 #. Explicit content filter option in the community moderation settings tab. Short standalone label meaning disabled.
 #. Mature content option in the community moderation settings tab.
 #. Mature-content option that leaves this channel ungated.
@@ -25564,6 +25605,7 @@ msgstr "Обекти"
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/SlowmodeControl.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
+#: src/features/tupper/TupperSlashCommands.ts
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Off"
 msgstr "Изкл"
@@ -25572,6 +25614,11 @@ msgstr "Изкл"
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
 msgid "Off the wall while your badge and Operator role are removed."
 msgstr "Не си на стената, докато значката и ролята Operator са премахнати."
+
+#. Slash-command option for the autoproxy mode.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Off, latch (the last tupper you used), or always one tupper."
+msgstr ""
 
 #. Toast after offering an Operator Pass to someone. {name} is a display name.
 #: src/features/premium/components/operator_pass/OperatorPassPassItOnModal.tsx
@@ -25648,6 +25695,7 @@ msgstr "Най-стари"
 msgid "Oldest first"
 msgstr "Първо най-старите"
 
+#. Choice: turn tupper proxying on.
 #. Mature content option in the community moderation settings tab.
 #. Mature-content option that marks this channel for mature content.
 #. On state suffix appended to the reply bar mention toggle label.
@@ -25656,6 +25704,7 @@ msgstr "Първо най-старите"
 #: src/features/channel/components/ChannelReplyBar.tsx
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/MatureContentSection.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
+#: src/features/tupper/TupperSlashCommands.ts
 msgid "On"
 msgstr "Вкл"
 
@@ -25679,6 +25728,11 @@ msgstr "При щракване"
 msgctxt "code-editor"
 msgid "on line"
 msgstr "на ред"
+
+#. Slash-command option for turning proxying on/off.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "On or off."
+msgstr ""
 
 #. Heading in the "Reference" tab of the quick CSS editor, above the [data-flx] values of what the app shows right now.
 #: src/features/theme_settings/components/QuickCssReference.tsx
@@ -28586,6 +28640,11 @@ msgstr "Въведи ID на потребител или потребителс�
 msgid "Proxy my messages"
 msgstr ""
 
+#. Slash-command option for tupper proxy tags. "text" is a literal placeholder word and must stay in English; examples k:text and [text] must not be translated.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Proxy tag with the word text where the message goes, e.g. k:text or [text]. Separate several with spaces."
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Proxy tags, one per line (write \"text\" where the message goes, e.g. [text] or k:text)"
 msgstr ""
@@ -30041,6 +30100,11 @@ msgstr "Преименуване"
 msgid "Rename :{emojiName}:"
 msgstr "Преименуване на :{emojiName}:"
 
+#. Slash-command description for /tp-rename.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Rename a tupper."
+msgstr ""
+
 #. Permission description in the channel-scoped permissions editor for the Manage Channel permission. "This channel" refers to the channel currently being edited.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
 msgid "Rename and edit this channel's settings."
@@ -30094,6 +30158,11 @@ msgstr "Замени"
 msgctxt "code-editor"
 msgid "Replace"
 msgstr "Замени"
+
+#. Slash-command description for /tp-tags.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Replace a tupper's proxy tags."
+msgstr ""
 
 #. Text in the code editor of the quick CSS editor. Button that replaces every search match.
 #: src/features/theme_settings/editor/EditorPhrases.ts
@@ -32853,6 +32922,11 @@ msgstr "Задай парола, за да подаваш сигнали."
 msgid "Set a password to talk in this community."
 msgstr "Задай парола, за да общуваш в тази общност."
 
+#. Slash-command description for /tp-avatar.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Set a tupper's avatar."
+msgstr ""
+
 #. Video settings note shown when a streaming preset decides the screen share resolution and frame rate. preset is the Gaming or Screen share preset label, and Custom is the third preset label.
 #: src/features/user/components/modals/tabs/UserVideoTab.tsx
 msgid "Set by the {preset} preset. Picking a value here switches to Custom."
@@ -33081,6 +33155,11 @@ msgstr "Зададе местоименията на профила на чле�
 msgid "Set the message history threshold to {date}"
 msgstr "Зададе прага за историята на съобщенията на {date}"
 
+#. Slash-command description for /tp-displayname.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Set the name shown on messages, if different from the tupper name."
+msgstr ""
+
 #. Activity log detail line under a change to a member, for a nickname given to a member who had none. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. Do not write it as a command, a button label or in first or second person. Set is past tense here. {nick} is the new nickname. The app shows it in bold, so do not add ** or <b>.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogMemberMessages.ts
 msgid "Set the nickname to {nick}"
@@ -33100,6 +33179,11 @@ msgstr "Зададе иконата на ролята на {emoji}"
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogGuildMessages.ts
 msgid "Set the system channel to {channel}"
 msgstr "Зададе системния канал на {channel}"
+
+#. Slash-command description for /tp-systag (system tag, like PluralKit).
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Set the tag shown after every tupper name."
+msgstr ""
 
 #. Activity log detail row under a created or updated channel, giving its new topic. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. Do not write it as a command, a button label or in first or second person. Set is past tense here. {text} is the topic, shown as boxed text.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogChannelMessages.ts
@@ -33947,6 +34031,11 @@ msgstr "Показвай тази роля отделно"
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
 msgid "Show tray icon"
 msgstr "Показване на иконата в системния трей"
+
+#. Slash-command description for /tp-help.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Show tupper commands."
+msgstr ""
 
 #. Label in the interface tab.
 #: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
@@ -36281,8 +36370,10 @@ msgid "Syntax highlighting"
 msgstr "Синтактично оцветяване"
 
 #. Activity log name shown as the one who made a change when the app made it automatically and no person did. It fills the {actor} slot at the start of activity log sentences.
+#. Heading for the PluralKit/Tupperbox-style system a tupper belongs to, on its profile card
 #: src/features/channel/components/ChannelUserTag.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
+#: src/features/tupper/TupperCard.tsx
 msgid "System"
 msgstr "Система"
 
@@ -37039,6 +37130,11 @@ msgstr "Името беше върнато към предишното. Опит
 msgid "The new channel will reuse the permissions from <0>{channelLabel}</0>."
 msgstr "Новият канал ще използва същите разрешения като <0>{channelLabel}</0>."
 
+#. Slash-command option for renaming a tupper.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "The new name."
+msgstr ""
+
 #. Toast success shown when a move down to the current price was already scheduled by an earlier request. {effectiveDate} is the localized date the new price starts.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useSubscriptionActions.ts
 msgid "The new price is already scheduled for {effectiveDate}."
@@ -37182,6 +37278,16 @@ msgstr "Системата даде на {target} ролята {role}"
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogMemberMessages.ts
 msgid "The system removed the role {role} from {target}"
 msgstr "Системата премахна ролята {role} от {target}"
+
+#. Slash-command option.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "The tag, or leave blank to remove it."
+msgstr ""
+
+#. Slash-command option for a new tupper name.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "The tupper's name."
+msgstr ""
 
 #. Describes a CSS attribute in the "Reference" tab of the quick CSS editor. DEFAULT and REPLY are attribute values and stay in English.
 #: src/features/theme_settings/editor/AppSelectors.ts
@@ -38487,6 +38593,11 @@ msgstr "Тази нишка е затворена. Изпращането на �
 msgid "This thread is locked. Only moderators can send messages."
 msgstr "Тази тема е заключена. Само модератори могат да изпращат съобщения."
 
+#. Shown on a tupper profile card when the tupper was deleted after the message was sent
+#: src/features/tupper/TupperCard.tsx
+msgid "This tupper no longer exists."
+msgstr ""
+
 #: src/features/user/components/popouts/LimitedProfileNotice.tsx
 msgid "This user has limited their profile. Some details are hidden from people who aren't their friends."
 msgstr "Този потребител е ограничил профила си. Някои подробности са скрити от хора, които не са му приятели."
@@ -39388,6 +39499,11 @@ msgstr "Скорост на говор"
 msgid "Tune the processing yourself."
 msgstr "Настрой обработката сам."
 
+#. Badge on a tupper profile card marking it as a proxy member, not a real account
+#: src/features/tupper/TupperCard.tsx
+msgid "Tupper"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Tupper saved"
 msgstr ""
@@ -39537,6 +39653,11 @@ msgstr "Превръщане на текстовите усмивки в емо�
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 msgid "Turn this theme on to see your changes in the app."
 msgstr "Включете тази тема, за да видите промените си в приложението."
+
+#. Slash-command description for /tp-proxy.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Turn tupper proxying on or off."
+msgstr ""
 
 #. Activity log detail line under a community settings update, shown when the Mature content setting of the community was turned off. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. Do not write it as a command, a button label or in first or second person.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogGuildMessages.ts
@@ -43115,6 +43236,11 @@ msgstr "Кои общности"
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx
 msgid "Which conversations"
 msgstr "Кои разговори"
+
+#. Slash-command option: pick one of your tuppers by name.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Which tupper."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx
 msgid "While push-to-talk is on, your keybind controls your microphone, so the mute button is disabled."

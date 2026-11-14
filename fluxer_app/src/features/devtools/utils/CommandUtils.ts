@@ -12,6 +12,7 @@ import {
 	DEFAULT_BAN_DELETE_MESSAGE_SECONDS,
 } from '@app/features/moderation/constants/BanDeleteMessageOptions';
 import {Logger} from '@app/features/platform/utils/AppLogger';
+import {plainTupperCommandText} from '@app/features/tupper/TupperSlashCommands';
 import {User} from '@app/features/user/models/User';
 import Users from '@app/features/user/state/Users';
 import * as NicknameUtils from '@app/features/user/utils/NicknameUtils';
@@ -73,11 +74,20 @@ export type ParsedCommand =
 			query: string;
 	  }
 	| {
+			/** Sparkcord: a /tp-* slash command, converted to the equivalent tp! text. */
+			type: 'tupper';
+			content: string;
+	  }
+	| {
 			type: 'unknown';
 	  };
 
 export function parseCommand(content: string): ParsedCommand {
 	const trimmed = content.trim();
+	const tupperText = plainTupperCommandText(trimmed);
+	if (tupperText !== null) {
+		return {type: 'tupper', content: tupperText};
+	}
 	if (trimmed === '/nick') {
 		return {type: 'nick', nickname: ''};
 	}
@@ -184,6 +194,7 @@ export function transformWrappingCommands(content: string): string {
 export function isCommand(content: string): boolean {
 	const trimmed = content.trim();
 	return (
+		plainTupperCommandText(trimmed) !== null ||
 		trimmed === '/nick' ||
 		trimmed.startsWith('/nick ') ||
 		trimmed.startsWith('/kick ') ||
@@ -356,6 +367,11 @@ export async function executeCommand(
 			break;
 		}
 		case 'spoiler': {
+			break;
+		}
+		case 'tupper': {
+			const {runTupperCommand} = await import('@app/features/tupper/TupperChatCommands');
+			await runTupperCommand(channelId, command.content);
 			break;
 		}
 		case 'saved':

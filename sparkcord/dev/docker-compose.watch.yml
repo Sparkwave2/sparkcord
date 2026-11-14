@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# Used by `dev.sh watch`: serves the web app straight from the host's fluxer_app/dist
+# (rebuilt by rspack in watch mode) instead of the assets baked into the image.
+# Relative paths resolve from sparkcord/dev/stack, where the main compose file lives.
+
+services:
+  app-proxy:
+    volumes:
+      - ../../../fluxer_app/dist:/srv/app/static:ro

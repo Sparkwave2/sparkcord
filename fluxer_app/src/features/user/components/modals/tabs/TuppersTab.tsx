@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
+import {setTupperNames} from '@app/features/tupper/TupperNames';
 import {formatProxyTag, parseProxyTagLines, type TupperWire} from '@app/features/tupper/TupperShared';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {Logger} from '@app/features/platform/utils/AppLogger';
@@ -190,6 +191,10 @@ const TupperEditor: React.FC<{
 const TuppersTab: React.FC = observer(() => {
 	const {t} = useLingui();
 	const [tuppers, setTuppers] = useState<Array<TupperWire> | null>(null);
+	// Keep slash-command autocomplete in step with edits made here.
+	useEffect(() => {
+		if (tuppers) setTupperNames(tuppers);
+	}, [tuppers]);
 	const [settings, setSettings] = useState<TupperSettingsWire | null>(null);
 	const [draft, setDraft] = useState<DraftState | null>(null);
 	const [saving, setSaving] = useState(false);

@@ -10,6 +10,11 @@ import {$isSlashOptionalHintNode} from '@app/features/lexical/composer/nodes/Sla
 import {$isSlashSeparatorNode} from '@app/features/lexical/composer/nodes/SlashSeparatorNode';
 import {$isSlashSlotNode, type SlashSlotNode} from '@app/features/lexical/composer/nodes/SlashSlotNode';
 import {BAN_DELETE_MESSAGE_SECONDS_CHOICE_VALUES} from '@app/features/moderation/constants/BanDeleteMessageOptions';
+import {
+	buildTupperCommandText,
+	isTupperSlashCommand,
+	TUPPER_SLASH_COMMANDS,
+} from '@app/features/tupper/TupperSlashCommands';
 import {$getRoot, $isElementNode, $isTextNode, type LexicalNode} from 'lexical';
 
 export const LexicalMessageCommandResolutionStatus = Object.freeze({
@@ -173,6 +178,23 @@ function containsCommandNode(nodes: ReadonlyArray<LexicalNode>): boolean {
 function resolveCommand(structure: CommandStructure): Exclude<CommandUtils.ParsedCommand, {type: 'unknown'}> | null {
 	const name = structure.commandNode.getTextContent().trim();
 	const slots = structure.slots;
+	if (isTupperSlashCommand(name)) {
+		const spec = TUPPER_SLASH_COMMANDS[name]!;
+		if (!hasOnlySlots(slots, spec.options.map((option) => option.name))) return null;
+		const values = new Map<string, string | undefined>();
+		for (const option of spec.options) {
+			const slot = slots.get(option.name);
+			if (slot == null) continue;
+			const value =
+				slot.getOptionType() === 'choice'
+					? readChoiceSlot(slots, option.name)
+					: readStringSlot(slots, option.name, option.clearable ?? false);
+			if (value === null) return null;
+			values.set(option.name, value);
+		}
+		const content = buildTupperCommandText(name, values);
+		return content == null ? null : {type: 'tupper', content};
+	}
 	if (name === '/nick') {
 		if (!hasOnlySlots(slots, ['nickname'])) return null;
 		const nickname = readStringSlot(slots, 'nickname', true);

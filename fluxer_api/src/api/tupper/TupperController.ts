@@ -4,10 +4,13 @@ import {DefaultUserOnly, LoginRequired} from '@app/api/middleware/AuthMiddleware
 import {RateLimitMiddleware} from '@app/api/middleware/RateLimitMiddleware';
 import {OpenAPI} from '@app/api/middleware/ResponseTypeMiddleware';
 import {RateLimitConfigs} from '@app/api/RateLimitConfig';
+import {createUserID} from '@app/api/BrandedTypes';
 import {getTupperService, toSettingsResponse, toTupperResponse} from '@app/api/tupper/TupperService';
 import type {HonoApp} from '@app/api/types/HonoEnv';
 import {Validator} from '@app/api/Validator';
+import {SnowflakeType} from '@fluxer/schema/src/primitives/SchemaPrimitives';
 import {
+	TupperCardResponse,
 	TupperCreateRequest,
 	TupperImportRequest,
 	TupperImportResponse,
@@ -20,10 +23,31 @@ import {
 import {z} from 'zod';
 
 const TupperIdParam = z.object({tupper_id: z.string().regex(/^\d{1,20}$/)});
+const TupperCardParam = z.object({user_id: SnowflakeType, tupper_id: z.string().regex(/^\d{1,20}$/)});
 const security: Array<'bearerToken' | 'sessionToken'> = ['bearerToken', 'sessionToken'];
 const tags = ['Tuppers'];
 
 export function TupperController(app: HonoApp) {
+	app.get(
+		'/users/:user_id/tuppers/:tupper_id/card',
+		RateLimitMiddleware(RateLimitConfigs.TUPPER_READ),
+		LoginRequired,
+		Validator('param', TupperCardParam),
+		OpenAPI({
+			operationId: 'get_tupper_card',
+			summary: 'Get tupper card',
+			responseSchema: TupperCardResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description: "Gets a tupper's public card (name, avatar, pronouns, description, system) for profile popouts.",
+		}),
+		async (ctx) => {
+			const {user_id, tupper_id} = ctx.req.valid('param');
+			return ctx.json(await getTupperService().getCard(createUserID(user_id), tupper_id));
+		},
+	);
+
 	app.get(
 		'/users/@me/tuppers',
 		RateLimitMiddleware(RateLimitConfigs.TUPPER_READ),

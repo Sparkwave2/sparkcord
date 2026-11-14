@@ -7,7 +7,9 @@
 #   sparkcord/dev/dev.sh setup       download the compose bundle, write .env
 #   sparkcord/dev/dev.sh build       build-api + build-app
 #   sparkcord/dev/dev.sh build-api   bundle fluxer_api and build its image (fast)
-#   sparkcord/dev/dev.sh build-app   build the web app image (slow, ~10-20 min)
+#   sparkcord/dev/dev.sh build-app   build the web app image (~3 min after the first build)
+#   sparkcord/dev/dev.sh watch       rebuild the web app on file changes and serve it (fast)
+#   sparkcord/dev/dev.sh sync-wasm   refresh the host's WASM modules after Rust changes
 #   sparkcord/dev/dev.sh up          start everything on http://localhost:8090
 #   sparkcord/dev/dev.sh down        stop (keeps data)
 #   sparkcord/dev/dev.sh logs [svc]  follow logs
@@ -33,7 +35,10 @@ pnpm_cmd() {
 }
 
 compose() {
-	(cd "$STACK_DIR" && docker compose -p sparkcord -f docker-compose.yml -f "$DEV_DIR/docker-compose.sparkcord.yml" "$@")
+	local files=(-f docker-compose.yml -f "$DEV_DIR/docker-compose.sparkcord.yml")
+	# While `dev.sh watch` runs, the app proxy serves fluxer_app/dist from the host.
+	[ -f "$STACK_DIR/.watching" ] && files+=(-f "$DEV_DIR/docker-compose.watch.yml")
+	(cd "$STACK_DIR" && docker compose -p sparkcord "${files[@]}" "$@")
 }
 
 set_env() {
@@ -110,9 +115,52 @@ cmd_build_app() {
 	# the previous build; reusing one version can mix old and new chunks and break startup.
 	local version
 	version="sparkcord-dev-$(git -C "$REPO_DIR" rev-parse --short HEAD 2>/dev/null || echo local)-$(date +%s)"
-	docker build -f "$REPO_DIR/fluxer_app_proxy/Dockerfile" --target app-assets \
+	# app-dist is the raw build output: skips brotli precompression (~2 min) and keeps
+	# source maps. The app proxy serves uncompressed files when there's no .br sibling.
+	docker build -f "$REPO_DIR/fluxer_app_proxy/Dockerfile" --target app-dist \
 		--build-arg BUILD_VERSION="$version" -t "$ASSETS_IMAGE" "$REPO_DIR"
 	docker build -f "$DEV_DIR/Dockerfile.app" --build-arg ASSETS_IMAGE="$ASSETS_IMAGE" -t "$APP_IMAGE" "$DEV_DIR"
+}
+
+# Copies the WASM modules and generated sources that need Rust out of the Docker
+# build, so the web app can be built on the host. Rerun after changing Rust code.
+cmd_sync_wasm() {
+	echo "Building the WASM modules in Docker and copying them to fluxer_app..."
+	local image="sparkcord/app-build:tmp" cid
+	docker build -q -f "$REPO_DIR/fluxer_app_proxy/Dockerfile" --target app-build 		--build-arg BUILD_VERSION="sparkcord-dev-wasm" -t "$image" "$REPO_DIR" >/dev/null
+	cid="$(docker create "$image")"
+	for path in pkgs/libfluxcore pkgs/libfluxwebp pkgs/markdown_parser src/features/theme/styles/generated 		src/features/ui/components/SVGMasks.tsx src/features/ui/constants/AvatarStatusGeometry.ts; do
+		rm -rf "$REPO_DIR/fluxer_app/$path"
+		docker cp -q "$cid:/usr/src/app/fluxer_app/$path" "$REPO_DIR/fluxer_app/$path"
+	done
+	docker rm "$cid" >/dev/null
+	docker image rm "$image" >/dev/null
+}
+
+# Fast web-app iteration: rspack rebuilds fluxer_app/dist on the host when a file
+# changes (~25 s), and the app proxy serves it directly. Refresh the browser to see
+# changes. Ctrl+C stops watching and switches back to the image's built-in assets.
+cmd_watch() {
+	[ -f "$REPO_DIR/fluxer_app/pkgs/libfluxcore/libfluxcore.js" ] || cmd_sync_wasm
+	(cd "$REPO_DIR/fluxer_app" && npx --no-install lingui compile --strict >/dev/null)
+	mkdir -p "$REPO_DIR/fluxer_app/dist"
+	touch "$STACK_DIR/.watching"
+	trap 'rm -f "$STACK_DIR/.watching"; echo; echo "Restoring the built-in web app..."; compose up -d app-proxy' EXIT
+	compose up -d app-proxy
+	echo "Watching fluxer_app. The first build takes ~1.5 min; then refresh http://localhost:$PORT after each rebuild."
+	cd "$REPO_DIR/fluxer_app"
+	# The proxy reads index.html once at startup, so restart it after every rebuild.
+	BUILD_VERSION="sparkcord-watch-$(date +%s)" npx --no-install rspack build --mode production --watch -c "$DEV_DIR/rspack.watch.mjs" 2>&1 |
+		while IFS= read -r line; do
+			case "$line" in
+				*"Conflicting order"* | *"│"* | *"├"* | *"╰"* | *"╭"*) ;;
+				*"compiled"*)
+					echo "$line"
+					compose restart app-proxy >/dev/null 2>&1 && echo ">> Ready: refresh http://localhost:$PORT"
+					;;
+				*) echo "$line" ;;
+			esac
+		done
 }
 
 cmd_up() {
@@ -136,11 +184,13 @@ case "${1:-}" in
 	build) cmd_build_api && cmd_build_app ;;
 	build-api) cmd_build_api ;;
 	build-app) cmd_build_app ;;
+	watch) cmd_watch ;;
+	sync-wasm) cmd_sync_wasm ;;
 	up) cmd_up ;;
 	down) compose down ;;
 	logs) shift; compose logs -f --tail=100 "$@" ;;
 	ps) compose ps ;;
 	token) get_env FLUXER_SETUP_TOKEN ;;
 	clean) cmd_clean ;;
-	*) sed -n '4,17p' "$0"; exit 1 ;;
+	*) sed -n '4,19p' "$0"; exit 1 ;;
 esac

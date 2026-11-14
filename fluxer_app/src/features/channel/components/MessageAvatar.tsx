@@ -4,6 +4,7 @@ import {CrosspostCommunityPopout} from '@app/features/channel/components/Crosspo
 import {useMaybeMessageViewContext} from '@app/features/channel/components/MessageViewContext';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
+import {TupperPopout} from '@app/features/tupper/TupperPopout';
 import {Avatar} from '@app/features/ui/components/Avatar';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
 import type {User} from '@app/features/user/models/User';
@@ -53,6 +54,24 @@ export const MessageAvatar = observer(
 				</CrosspostCommunityPopout>
 			);
 		}
+		if (message.proxy) {
+			return (
+				<TupperPopout message={message} onPopoutOpen={handlePopoutOpen} onPopoutClose={handlePopoutClose}>
+					<FocusRing data-flx="channel.message-avatar.focus-ring--tupper">
+						<Avatar
+							user={user}
+							size={size}
+							className={className}
+							forceAnimate={isHovering}
+							avatarUrl={message.proxy.avatar_url ?? undefined}
+							hoverAvatarUrl={message.proxy.avatar_url ?? undefined}
+							data-user-id={user.id}
+							data-flx="channel.message-avatar.tupper-avatar"
+						/>
+					</FocusRing>
+				</TupperPopout>
+			);
+		}
 		return (
 			<PreloadableUserPopout
 				user={user}
@@ -72,9 +91,7 @@ export const MessageAvatar = observer(
 						size={size}
 						className={className}
 						forceAnimate={isHovering}
-						guildId={message.proxy ? undefined : guildId}
-						avatarUrl={message.proxy ? (message.proxy.avatar_url ?? undefined) : undefined}
-						hoverAvatarUrl={message.proxy ? (message.proxy.avatar_url ?? undefined) : undefined}
+						guildId={guildId}
 						data-user-id={user.id}
 						data-guild-id={guildId}
 						data-flx="channel.message-avatar.avatar"

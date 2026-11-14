@@ -4,6 +4,7 @@ import {useContextMenuHoverState} from '@app/features/app/hooks/useContextMenuHo
 import {CrosspostCommunityPopout} from '@app/features/channel/components/CrosspostCommunityPopout';
 import {useMaybeMessageViewContext} from '@app/features/channel/components/MessageViewContext';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
+import {TupperPopout} from '@app/features/tupper/TupperPopout';
 import type {Guild} from '@app/features/guild/models/Guild';
 import {isKeyboardActivationKey} from '@app/features/input/utils/KeyboardUtils';
 import type {GuildMember} from '@app/features/member/models/GuildMember';
@@ -84,6 +85,13 @@ export const MessageUsername = observer(
 				>
 					{usernameNode}
 				</CrosspostCommunityPopout>
+			);
+		}
+		if (message.proxy) {
+			return (
+				<TupperPopout message={message} onPopoutOpen={handlePopoutOpen} onPopoutClose={handlePopoutClose}>
+					{usernameNode}
+				</TupperPopout>
 			);
 		}
 		return (

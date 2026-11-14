@@ -4,6 +4,7 @@ import {Endpoints} from '@app/features/app/constants/Endpoints';
 import {createSystemMessage} from '@app/features/devtools/utils/CommandUtils';
 import * as MessageCommands from '@app/features/messaging/commands/MessageCommands';
 import {http} from '@app/features/platform/transport/RestTransport';
+import {refreshTupperNames} from '@app/features/tupper/TupperNames';
 import {
 	formatProxyTag,
 	parseProxyTagLines,
@@ -23,6 +24,7 @@ const HELP = [
 	'`tp!auto off|latch|<name>` autoproxy: off, keep the last tupper used, or always one tupper',
 	'`tp!systag <tag|clear>` tag shown after every tupper name',
 	'`tp!proxy on|off` turn proxying on or off',
+	'All of these also work as slash commands: type `/tp-` to pick one.',
 	'Start a message with `\\` to send it as yourself. Import Tupperbox/PluralKit files in Settings → Tuppers.',
 ].join('\n');
 
@@ -176,5 +178,7 @@ export async function runTupperCommand(channelId: string, content: string): Prom
 		}
 	} catch (error) {
 		reply(channelId, `⚠ ${errorText(error)}`);
+	} finally {
+		if (command !== 'help' && command !== 'list' && command !== '') void refreshTupperNames();
 	}
 }

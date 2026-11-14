@@ -33,6 +33,21 @@ export type TupperResponse = z.infer<typeof TupperResponse>;
 
 export const TupperListResponse = z.array(TupperResponse);
 
+export const TupperCardResponse = z.object({
+	id: z.string().describe('Tupper ID (snowflake)'),
+	user_id: z.string().describe('The account that owns this tupper'),
+	name: z.string().describe('Name shown on messages (display name if set)'),
+	avatar_url: z.string().nullable().describe('Avatar URL through the media proxy'),
+	description: z.string().nullable(),
+	pronouns: z.string().nullable(),
+	color: z.number().int().nullable(),
+	birthday: z.string().nullable(),
+	system_name: z.string().nullable().describe("The owner's system name"),
+	system_tag: z.string().nullable().describe('Tag shown after the name (tupper tag or system tag)'),
+});
+
+export type TupperCardResponse = z.infer<typeof TupperCardResponse>;
+
 const TupperFields = {
 	display_name: z.string().max(100).nullish(),
 	avatar_url: z.string().max(1024).nullish(),

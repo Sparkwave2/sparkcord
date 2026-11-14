@@ -2,6 +2,7 @@
 
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {BAN_DELETE_MESSAGE_OPTIONS} from '@app/features/moderation/constants/BanDeleteMessageOptions';
+import {useTupperSlashCommands} from '@app/features/tupper/TupperSlashCommands';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -117,6 +118,7 @@ export type Command = SimpleCommand | ActionCommand;
 export function useCommands(): Array<Command> {
 	const {i18n} = useLingui();
 	const directMessagesDisabled = RuntimeConfig.directMessagesDisabled;
+	const tupperCommands = useTupperSlashCommands();
 	return useMemo(() => {
 		const commands: Array<Command> = [
 			{type: 'simple', name: '/shrug', content: '¯\\_(ツ)_/¯', description: i18n._(APPENDS_TO_YOUR_MESSAGE_DESCRIPTOR)},
@@ -325,6 +327,7 @@ export function useCommands(): Array<Command> {
 				],
 			},
 		];
+		commands.push(...tupperCommands);
 		return directMessagesDisabled ? commands.filter((command) => command.name !== '/msg') : commands;
-	}, [i18n.locale, directMessagesDisabled]);
+	}, [i18n.locale, directMessagesDisabled, tupperCommands]);
 }

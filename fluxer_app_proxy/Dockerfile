@@ -9,7 +9,6 @@ ARG APP_ASSETS_PLATFORM=$BUILDPLATFORM
 # ---------- Stage 1: Build the SPA (fluxer_app) ----------
 FROM node:26-trixie-slim AS app-build
 
-ARG BUILD_VERSION
 ARG PUBLIC_ASSET_BASE_URL
 
 WORKDIR /usr/src/app
@@ -95,14 +94,29 @@ RUN printf '%s\n' \
 	'strip = true' \
 	> Cargo.toml \
 	&& cargo update --workspace
+
+# Sparkcord: install the pinned wasm-bindgen CLI in its own layer (it only depends on
+# Cargo.lock), so `pnpm build` finds it on PATH instead of compiling it on every build.
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+	--mount=type=cache,target=/usr/local/cargo/git \
+	version="$(awk '$0 == "name = \"wasm-bindgen\"" {getline; gsub(/version = |"/, ""); print; exit}' Cargo.lock)" \
+	&& test -n "$version" \
+	&& cargo install wasm-bindgen-cli --version "$version" --locked
 COPY fluxer_app/scripts/ ./fluxer_app/scripts/
 COPY fluxer_app/src/ ./fluxer_app/src/
 
+# Sparkcord: declared here rather than at the top of the stage, so a new version only
+# invalidates the steps below instead of the whole toolchain setup.
+ARG BUILD_VERSION
 ENV BUILD_VERSION=${BUILD_VERSION} \
 	PUBLIC_ASSET_BASE_URL=${PUBLIC_ASSET_BASE_URL}
 
+# Sparkcord: the Cargo target dirs are cache mounts so the WASM crates and the CI tool
+# rebuild incrementally instead of from scratch on every source change.
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
 	--mount=type=cache,target=/usr/local/cargo/git \
+	--mount=type=cache,target=/usr/src/app/target \
+	--mount=type=cache,target=/usr/src/app/tools/ci/target \
 	cd fluxer_app && pnpm build
 
 # ---------- Stage 2: The one canonical asset tree every architecture serves ----------
