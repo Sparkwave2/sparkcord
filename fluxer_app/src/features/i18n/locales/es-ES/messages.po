@@ -5934,6 +5934,10 @@ msgstr "Enviar GIF automáticamente al seleccionarlos"
 msgid "Autoplay"
 msgstr "Reproducción automática"
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Autoproxy"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
 msgid "Autoread"
@@ -5997,6 +6001,10 @@ msgstr "Selección del modo de avatar"
 #: src/features/user/components/modals/tabs/component_gallery_tab/IndicatorsTab.tsx
 msgid "Avatar stacks"
 msgstr "Pilas de avatares"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Avatar URL"
+msgstr ""
 
 #. Description text in the bot profile section.
 #: src/features/user/components/modals/tabs/applications_tab/application_detail/BotProfileSection.tsx
@@ -7241,6 +7249,7 @@ msgstr "No se pueden subir archivos aquí"
 #: src/features/user/components/modals/FluxerTagChangeModal.tsx
 #: src/features/user/components/modals/PasswordChangeModal.tsx
 #: src/features/user/components/modals/tabs/AuthorizedAppsTab.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/voice/components/modals/CameraPreviewModal.tsx
 msgid "Cancel"
 msgstr "Cancelar"
@@ -9259,6 +9268,14 @@ msgstr "Colores"
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Colors and fonts"
 msgstr "Colores y fuentes"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Colour"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Colour must look like #ff8800."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Combobox"
@@ -12755,6 +12772,7 @@ msgstr "Delaware"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Delete"
 msgstr "Eliminar"
@@ -12778,6 +12796,11 @@ msgstr "¿Eliminar \"{memeName}\"? No se podrá deshacer."
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
 msgid "Delete \"{stickerName}\"? Can't be undone."
 msgstr "¿Eliminar \"{stickerName}\"? No se podrá deshacer."
+
+#. placeholder {0}: tupper.name
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Delete {0}? Messages already sent keep their name and avatar."
+msgstr ""
 
 #. Channel details bottom sheet label or action (channel type, settings, toast, confirmation, or notification option).
 #. Confirm dialog body before deleting a channel.
@@ -13177,6 +13200,7 @@ msgstr "Describe de qué trata tu comunidad"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts
 msgid "Description"
 msgstr "Descripción"
@@ -13873,6 +13897,7 @@ msgstr "Nombre visible"
 #. Optional display-name field label in account registration forms.
 #: src/features/auth/flow/MockMinimalRegisterForm.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Display name (optional)"
 msgstr "Nombre visible (opcional)"
 
@@ -14492,6 +14517,7 @@ msgstr "Cancelación de eco"
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Edit"
 msgstr "Editar"
@@ -16126,6 +16152,10 @@ msgstr "Exporta todos los mensajes que hayas enviado, además de los ajustes de 
 msgid "Export GIF URLs"
 msgstr "Exportar URL de GIF"
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Export JSON"
+msgstr ""
+
 #. Row title and button in Settings > Themes that saves every theme and asset to one file, also used as its settings search entry.
 #: src/features/theme_settings/utils/ThemeSettingsMessageDescriptors.ts
 msgid "Export library"
@@ -17640,6 +17670,14 @@ msgstr "Nombre del remitente"
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
 msgid "From user"
 msgstr "De usuario"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Front: always proxy as one tupper"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Fronting tupper"
+msgstr ""
 
 #. Color name. Names a suggested theme color in the setup wizard branding step and is read out by screen readers.
 #: src/features/app/components/setup/SetupBrandingFields.tsx
@@ -19545,6 +19583,14 @@ msgstr "Importar plantilla de {theOtherPlatform}"
 msgid "Import a .css file to get started, or write your own CSS in quick CSS."
 msgstr "Importa un archivo .css para empezar, o escribe tu propio CSS en CSS rápido."
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Import a file from Tupperbox (tul!export) or PluralKit (pk;export). Tuppers with the same name are updated instead of duplicated."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Import and export"
+msgstr ""
+
 #. Completion text in the favorite GIF import modal. importedCount is the number added; skippedCount is the number skipped.
 #: src/features/channel/components/pickers/gif/ImportFavoriteGifsModal.tsx
 msgid "Import complete. Added {importedCount, plural, one {# GIF} other {# GIFs}}, skipped {skippedCount, number} (duplicates or over the limit)."
@@ -19577,6 +19623,10 @@ msgstr "Importar carpeta"
 #: src/features/channel/components/pickers/gif/GifPickerHeader.tsx
 msgid "Import GIFs"
 msgstr "Importar GIF"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Import JSON"
+msgstr ""
 
 #. Row title and button in Settings > Themes that adds themes and assets from a library file, also used as its settings search entry.
 #: src/features/theme_settings/utils/ThemeSettingsMessageDescriptors.ts
@@ -19630,6 +19680,13 @@ msgstr "Se {length, plural, one {importó # archivo de tema} other {importaron #
 #: src/features/theme_settings/components/ShareAndBackUpSection.tsx
 msgid "Imported {themes, plural, one {# theme} other {# themes}} and {assets, plural, one {# asset} other {# assets}}."
 msgstr "Se importaron {themes, plural, one {# tema} other {# temas}} y {assets, plural, one {# recurso} other {# recursos}}."
+
+#. placeholder {0}: response.body.source
+#. placeholder {1}: response.body.created
+#. placeholder {2}: response.body.updated
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Imported from {0}: {1} new, {2} updated"
+msgstr ""
 
 #. Progress text in the favorite GIF import modal. processedCount is completed URLs, totalCount is queued URLs, importedCount is successfully added GIFs.
 #: src/features/channel/components/pickers/gif/ImportFavoriteGifsModal.tsx
@@ -20833,6 +20890,10 @@ msgstr "Mantener a Neko quieto"
 msgid "Keep pass"
 msgstr "Conservar pase"
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Keep proxy tags in the message"
+msgstr ""
+
 #. Button that closes the withdrawal dialog without withdrawing. "Withdraw" means using the consumer right of withdrawal on an Operator Pass purchase for a full refund, before the certificate is delivered or, where the law keeps the right after delivery such as in Brazil, within the days it gives. Never a word for taking money out.
 #: src/features/premium/components/operator_pass/OperatorPassWithdrawModal.tsx
 msgid "Keep purchase"
@@ -21045,6 +21106,10 @@ msgstr "Últ. cambio: nunca"
 #: src/features/user/components/modals/tabs/DevicesTab.tsx
 msgid "Last used"
 msgstr "Último uso"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Latch: keep the last tupper used"
+msgstr ""
 
 #. Aria label on the signal-strength icon. {latency} is the integer millisecond latency.
 #: src/features/voice/components/SignalStrengthIcon.tsx
@@ -23987,6 +24052,7 @@ msgstr "nombre"
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx
 #: src/features/theme_settings/components/ThemeDetailsModal.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
 #: src/features/webhook/components/FollowedChannelListItem.tsx
 #: src/features/webhook/components/WebhookListItem.tsx
@@ -24347,6 +24413,10 @@ msgstr "Nuevo hilo"
 #: src/features/threads/utils/ThreadMessageDescriptors.ts
 msgid "New threads will stop showing in the channel list after this period of inactivity."
 msgstr "Los hilos nuevos dejarán de aparecer en la lista del canal tras este periodo de inactividad."
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "New tupper"
+msgstr ""
 
 #. Invite page subtext shown during raid protection. Explains that account actions still work, but joining is paused.
 #: src/features/invite/utils/InviteMessageDescriptors.ts
@@ -24860,6 +24930,10 @@ msgctxt "code-editor"
 msgid "No problems."
 msgstr "Sin problemas."
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "no proxy tags"
+msgstr ""
+
 #. Empty-state text in the notifications.
 #: src/features/user/components/modals/tabs/notifications_tab/Notifications.tsx
 msgid "No push subscriptions registered yet."
@@ -25024,6 +25098,10 @@ msgstr "Sin temporizador"
 #: src/features/channel/components/channel_header_components/developer_tools/ToolsMenu.tsx
 msgid "No trusted domains"
 msgstr "Sin dominios de confianza"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "No tuppers yet. Create one or import a file."
+msgstr ""
 
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
@@ -25486,6 +25564,7 @@ msgstr "Objetos"
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/SlowmodeControl.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Off"
 msgstr "Desactivado"
 
@@ -28479,6 +28558,7 @@ msgid "Prompt for new audio devices"
 msgstr "Preguntar al detectar nuevos dispositivos de audio"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Pronouns"
 msgstr "Pronombres"
@@ -28501,6 +28581,14 @@ msgstr "Proporciona al menos un ID de usuario o una etiqueta de usuario."
 #: src/features/moderation/components/pages/ReportPage.tsx
 msgid "Provide either a user ID or a username for the person you are reporting."
 msgstr "Introduce el ID de usuario o el nombre de usuario de la persona a la que quieres denunciar."
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Proxy my messages"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Proxy tags, one per line (write \"text\" where the message goes, e.g. [text] or k:text)"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
@@ -30013,6 +30101,10 @@ msgctxt "code-editor"
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Replace all existing tuppers"
+msgstr ""
+
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx
 msgid "Replace background"
@@ -30022,6 +30114,10 @@ msgstr "Reemplazar fondo"
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx
 msgid "Replace background?"
 msgstr "¿Reemplazar fondo?"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Replace mode deletes all your current tuppers before importing. Continue?"
+msgstr ""
 
 #. Accessible label of the button that replaces a stored API key. key is the field name, such as Klipy API key.
 #: src/features/app/components/setup/SetupServicesStep.tsx
@@ -30755,6 +30851,7 @@ msgstr "Se reanudaron las invitaciones"
 #. Button that retries a failed thread search.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/platform/components/loadable/LoadableComponent.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Retry"
 msgstr "Reintentar"
 
@@ -31203,6 +31300,7 @@ msgstr "Saturación"
 #: src/features/user/components/modals/NoteEditSheet.tsx
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Save"
 msgstr "Guardar"
 
@@ -36222,10 +36320,18 @@ msgstr ""
 msgid "System motion"
 msgstr "Movimiento del sistema"
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "System name"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "System reduced motion"
 msgstr "Reducción de movimiento del sistema"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "System tag (shown after every tupper name)"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/utils/UserMessageDescriptors.ts
@@ -36306,6 +36412,10 @@ msgstr "Tablas"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Tag"
 msgstr "Etiqueta"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Tag (overrides system tag)"
+msgstr ""
 
 #. Label of the name input in the forum tag editor.
 #: src/features/forum/utils/ForumMessageDescriptors.ts
@@ -36630,6 +36740,10 @@ msgstr "No parece una URL válida."
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "That doesn't look like an instance address. Try a domain such as {exampleInstanceDomain}."
 msgstr "Eso no parece una dirección de instancia. Prueba con un dominio como {exampleInstanceDomain}."
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "That file isn't valid JSON."
+msgstr ""
 
 #. Body of the accept-friend-request error modal when the request no longer exists.
 #: src/features/relationship/components/alerts/RelationshipErrorModalUtils.tsx
@@ -39273,6 +39387,22 @@ msgstr "Velocidad de TTS"
 #: src/features/voice/components/voice_connection_status/AudioProcessingModal.tsx
 msgid "Tune the processing yourself."
 msgstr "Ajusta el procesamiento tú mismo."
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Tupper saved"
+msgstr ""
+
+#. Settings section for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.
+#. Settings tab for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "Tuppers"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Tuppers let you post as different characters or system members. Start a message with a proxy tag, such as k: hello, and it is shown with that tupper's name and avatar. Start a message with \\ to skip proxying."
+msgstr ""
 
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
@@ -45100,6 +45230,11 @@ msgstr "El CSS de tu tema es demasiado grande para compartirlo. Recórtalo y vue
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Your themes"
 msgstr "Tus temas"
+
+#. placeholder {0}: tuppers.length
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Your tuppers ({0})"
+msgstr ""
 
 #. Tooltip on the disabled Change username button when the sign-in provider sets usernames. Keep the tone plain and specific.
 #: src/features/user/components/modals/tabs/my_profile_tab/MyProfileTabUsernameSection.tsx
