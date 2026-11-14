@@ -9038,7 +9038,9 @@ msgid "Cloning is turned off"
 msgstr "Клонирование отключено"
 
 #. Aria-label / button text for dismissing a modal, sheet, popout, or overlay. Short.
+#. Button that closes the fullscreen PDF viewer.
 #. Native Window menu item that closes the focused desktop window.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
@@ -9202,10 +9204,8 @@ msgstr "Коды"
 msgid "Codes from your authenticator app are your second step when you sign in."
 msgstr "Коды из вашего приложения-аутентификатора — это второй шаг при входе в систему."
 
-#. PDF preview button that makes the viewer smaller again.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
-#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Collapse"
 msgstr "Свернуть"
 
@@ -11404,6 +11404,11 @@ msgstr "Не удалось сохранить звук входа"
 msgid "Couldn't save the tag: {detail}"
 msgstr "Не удалось сохранить тег: {detail}"
 
+#. Error under the group chat name colour picker in profile settings.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Couldn't save your group chat colour. Try again."
+msgstr ""
+
 #. Error under the name font picker in profile settings.
 #: src/features/name_font/NameFontPicker.tsx
 msgid "Couldn't save your name font. Try again."
@@ -12144,6 +12149,11 @@ msgstr "Пользовательский"
 #: src/features/moderation/components/modals/BanMemberModal.tsx
 msgid "Custom ban duration (seconds)"
 msgstr "Длительность бана (в секундах)"
+
+#. Group chat name colour option: choose any colour.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Custom colour"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ThemesIndex.ts
@@ -16057,10 +16067,8 @@ msgstr "Выйти из режима «картинка в картинке»"
 msgid "Exit preview"
 msgstr "Выйти из предпросмотра"
 
-#. PDF preview button that makes the viewer taller.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
-#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Expand"
 msgstr "Развернуть"
 
@@ -18580,6 +18588,10 @@ msgstr "Добавлять в групповые чаты: только друз
 #: src/features/ui/action_menu/items/BulkSettingsMenuItems.tsx
 msgid "Group chat adds: nobody"
 msgstr "Добавлять в групповые чаты: никто"
+
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Group chat colour"
+msgstr ""
 
 #: src/features/user/components/modals/tabs/privacy_safety_tab/CommunicationTab.tsx
 msgid "Group chats"
@@ -26428,6 +26440,11 @@ msgstr "Открыть меню избранного"
 msgid "Open file link"
 msgstr "Открыть ссылку на файл"
 
+#. PDF preview button that opens the fullscreen viewer.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "Open fullscreen"
+msgstr ""
+
 #. Media context menu action that opens the GIF URL in an external browser.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx
 msgid "Open GIF link"
@@ -29183,6 +29200,11 @@ msgstr "Переключатели"
 #. Role name style option: rainbow colours across the name.
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
 msgid "Rainbow"
+msgstr ""
+
+#. Group chat name colour option: the colour assigned automatically.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Random (picked for you)"
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -37165,6 +37187,10 @@ msgstr "Предпросмотр камеры ещё останавливает�
 #: src/features/channel/components/ChannelLayout.tsx
 msgid "The channel you're looking for may have been deleted or you may not have access to it."
 msgstr "Канал, который вы ищете, возможно, был удален или у вас нет к нему доступа."
+
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "The colour your name is shown in inside group chats. Saves right away."
+msgstr ""
 
 #. Helper text under the Animate switch in the role name style editor.
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx

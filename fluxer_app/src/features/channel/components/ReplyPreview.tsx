@@ -5,6 +5,9 @@ import {useCollapsedMessageVisibility} from '@app/features/channel/components/Co
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
 import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import GuildMembers from '@app/features/member/state/GuildMembers';
+import Channels from '@app/features/channel/state/Channels';
+import {useGroupNameColor} from '@app/features/group_name_color/GroupNameColor';
+import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
@@ -74,6 +77,14 @@ export const ReplyPreview = observer(
 				});
 			}
 		}, [referenceChannelId, message.channelId, message.id, message.messageReference]);
+		// Sparkcord: name colours in group chats.
+		const referencedAuthorId =
+			resolution.state === MessageReferenceState.LOADED && !resolution.message?.proxy
+				? resolution.message?.author.id
+				: null;
+		const groupNameColor = useGroupNameColor(
+			Channels.getChannel(message.channelId)?.type === ChannelTypes.GROUP_DM ? referencedAuthorId : null,
+		);
 		if (!message.messageReference || message.isCrosspostCopy) {
 			return null;
 		}
@@ -230,7 +241,7 @@ export const ReplyPreview = observer(
 								{
 									'--replied-username-color': referencedMessage.proxy
 										? proxyColorString(referencedMessage.proxy.color)
-										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
+										: (groupNameColor ?? GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString()),
 								} as CSSProperties
 							}
 							data-user-id={referencedMessage.author.id}
@@ -270,7 +281,7 @@ export const ReplyPreview = observer(
 								{
 									'--replied-username-color': referencedMessage.proxy
 										? proxyColorString(referencedMessage.proxy.color)
-										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
+										: (groupNameColor ?? GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString()),
 								} as CSSProperties
 							}
 							data-user-id={referencedMessage.author.id}

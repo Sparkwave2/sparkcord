@@ -11855,6 +11855,25 @@
 			"options": ""
 		},
 		{
+			"name": "group_name_colors",
+			"columns": [
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "color",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id))",
+			"options": ""
+		},
+		{
 			"name": "tupper_settings",
 			"columns": [
 				{

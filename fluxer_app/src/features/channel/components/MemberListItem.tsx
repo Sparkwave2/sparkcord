@@ -35,6 +35,7 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useMemo, useRef, useState} from 'react';
 import {NameFont} from '@app/features/name_font/NameFont';
+import {useGroupNameColor} from '@app/features/group_name_color/GroupNameColor';
 
 const COMMUNITY_OWNER_DESCRIPTOR = msg({
 	message: 'Community owner',
@@ -151,9 +152,12 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 	const nickname = displayName || NicknameUtils.getNickname(user, guildId, channelId);
 	const nameRef = useRef<HTMLSpanElement>(null);
 	const isNameOverflowing = useTextOverflow(nameRef, {content: nickname, measureTextRange: true});
+	// Sparkcord: without a community this is a group DM member list; use group-chat colours.
+	const groupNameColor = useGroupNameColor(guildId === undefined ? user.id : null);
+	const nameColor = roleColor ?? groupNameColor;
 	const nameStyle = useMemo<MemberRoleColorStyle | undefined>(
-		() => (roleColor ? {'--member-role-color': roleColor} : undefined),
-		[roleColor],
+		() => (nameColor ? {'--member-role-color': nameColor} : undefined),
+		[nameColor],
 	);
 	const memberAvatarUrl = useMemo(() => {
 		if (!guildId || !guildMember) {
@@ -184,7 +188,7 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 	const nameContent = (
 		<span
 			ref={nameRef}
-			className={clsx(styles.name, roleColor && styles.nameRoleColored)}
+			className={clsx(styles.name, nameColor && styles.nameRoleColored)}
 			style={nameStyle}
 			data-flx="channel.member-list-item.name"
 		>

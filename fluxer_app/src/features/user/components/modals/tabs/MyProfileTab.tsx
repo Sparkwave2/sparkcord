@@ -87,6 +87,7 @@ import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {NameFontPicker} from '@app/features/name_font/NameFontPicker';
+import {GroupNameColorPicker} from '@app/features/group_name_color/GroupNameColorPicker';
 
 const COMMUNITY_PROFILE_UPDATED_DESCRIPTOR = msg({
 	message: 'Community profile updated',
@@ -888,6 +889,12 @@ const MyProfileTabComponent = observer(function MyProfileTabComponent({
 										guildId={selectedGuildId}
 										previewName={(form.watch('global_name') as string | undefined) || user.displayName}
 									/>
+									{!isPerGuildProfile && (
+										<GroupNameColorPicker
+											userId={user.id}
+											previewName={(form.watch('global_name') as string | undefined) || user.displayName}
+										/>
+									)}
 									{!isPerGuildProfile && (
 										<TimezoneProfileSettings
 											timezone={watchedTimezone}

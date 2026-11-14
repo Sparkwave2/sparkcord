@@ -9038,7 +9038,9 @@ msgid "Cloning is turned off"
 msgstr "Clonarea este dezactivată"
 
 #. Aria-label / button text for dismissing a modal, sheet, popout, or overlay. Short.
+#. Button that closes the fullscreen PDF viewer.
 #. Native Window menu item that closes the focused desktop window.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
@@ -9202,10 +9204,8 @@ msgstr "Coduri"
 msgid "Codes from your authenticator app are your second step when you sign in."
 msgstr "Codurile din aplicația dvs. de autentificare sunt al doilea pas la conectare."
 
-#. PDF preview button that makes the viewer smaller again.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
-#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Collapse"
 msgstr "Restrânge"
 
@@ -11404,6 +11404,11 @@ msgstr "Nu s-a putut salva sunetul de intrare"
 msgid "Couldn't save the tag: {detail}"
 msgstr "Nu am putut salva eticheta: {detail}"
 
+#. Error under the group chat name colour picker in profile settings.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Couldn't save your group chat colour. Try again."
+msgstr ""
+
 #. Error under the name font picker in profile settings.
 #: src/features/name_font/NameFontPicker.tsx
 msgid "Couldn't save your name font. Try again."
@@ -12144,6 +12149,11 @@ msgstr "Personalizat"
 #: src/features/moderation/components/modals/BanMemberModal.tsx
 msgid "Custom ban duration (seconds)"
 msgstr "Durată personalizată a interdicției (secunde)"
+
+#. Group chat name colour option: choose any colour.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Custom colour"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ThemesIndex.ts
@@ -16057,10 +16067,8 @@ msgstr "Ieși din modul imagine în imagine"
 msgid "Exit preview"
 msgstr "Ieși din previzualizare"
 
-#. PDF preview button that makes the viewer taller.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
-#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Expand"
 msgstr "Extinde"
 
@@ -18580,6 +18588,10 @@ msgstr "Adăugări în chatul de grup: doar prietenii"
 #: src/features/ui/action_menu/items/BulkSettingsMenuItems.tsx
 msgid "Group chat adds: nobody"
 msgstr "Adăugări în chatul de grup: nimeni"
+
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Group chat colour"
+msgstr ""
 
 #: src/features/user/components/modals/tabs/privacy_safety_tab/CommunicationTab.tsx
 msgid "Group chats"
@@ -26428,6 +26440,11 @@ msgstr "Deschide meniul de favorite"
 msgid "Open file link"
 msgstr "Deschide linkul fișierului"
 
+#. PDF preview button that opens the fullscreen viewer.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "Open fullscreen"
+msgstr ""
+
 #. Media context menu action that opens the GIF URL in an external browser.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx
 msgid "Open GIF link"
@@ -29183,6 +29200,11 @@ msgstr "Grup de butoane radio"
 #. Role name style option: rainbow colours across the name.
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
 msgid "Rainbow"
+msgstr ""
+
+#. Group chat name colour option: the colour assigned automatically.
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "Random (picked for you)"
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -37165,6 +37187,10 @@ msgstr "Previzualizarea camerei încă se oprește. Încearcă din nou să trans
 #: src/features/channel/components/ChannelLayout.tsx
 msgid "The channel you're looking for may have been deleted or you may not have access to it."
 msgstr "Canalul pe care îl cauți ar fi putut fi șters sau este posibil să nu ai acces la el."
+
+#: src/features/group_name_color/GroupNameColorPicker.tsx
+msgid "The colour your name is shown in inside group chats. Saves right away."
+msgstr ""
 
 #. Helper text under the Animate switch in the role name style editor.
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx

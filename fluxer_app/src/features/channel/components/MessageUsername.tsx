@@ -21,6 +21,9 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useRef} from 'react';
 import {FontSpan, NameFont} from '@app/features/name_font/NameFont';
+import Channels from '@app/features/channel/state/Channels';
+import {useGroupNameColor} from '@app/features/group_name_color/GroupNameColor';
+import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 
 export const MessageUsername = observer(
 	({
@@ -50,9 +53,13 @@ export const MessageUsername = observer(
 		const displayName =
 			previewName ||
 			(proxy ? getProxyDisplayName(proxy) : NicknameUtils.getNickname(user, guild?.id, message.channelId));
+		// Sparkcord: in group chats (no roles) names get the author's group-chat colour.
+		const groupNameColor = useGroupNameColor(
+			!guild && !proxy && Channels.getChannel(message.channelId)?.type === ChannelTypes.GROUP_DM ? user.id : null,
+		);
 		const color =
 			previewColor ||
-			(proxy ? proxyColorString(proxy.color) : member?.getColorString());
+			(proxy ? proxyColorString(proxy.color) : (member?.getColorString() ?? groupNameColor));
 		const onPopoutToggle = useMaybeMessageViewContext()?.onPopoutToggle;
 		const handlePopoutOpen = useCallback(() => onPopoutToggle?.(true), [onPopoutToggle]);
 		const handlePopoutClose = useCallback(() => onPopoutToggle?.(false), [onPopoutToggle]);
