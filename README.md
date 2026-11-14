@@ -21,6 +21,14 @@
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" alt="Get it on Flathub" height="60" /></a>
 </p>
 
+> [!NOTE]
+> **This is Sparkcord**, a fork of Fluxer that adds built-in **tuppers**: per-user proxy
+> identities like the Tupperbox and PluralKit Discord bots, including importing their JSON exports.
+> Proxied messages keep their real author and carry a native `proxy` field; no webhooks are used.
+> See [docs/sparkcord/TUPPERS.md](./docs/sparkcord/TUPPERS.md) for the design and
+> [docs/sparkcord/LOCAL_DEV.md](./docs/sparkcord/LOCAL_DEV.md) to run it locally.
+> Everything below is the upstream Fluxer README.
+
 # Fluxer
 
 > [!IMPORTANT]
