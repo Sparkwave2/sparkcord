@@ -197,7 +197,10 @@ const FROSTED_PANELS = [
 	'DMFriendsView.module__container',
 ];
 
-const byModuleClass = (names: ReadonlyArray<string>) =>
+/** How much clearer than the base opacities the panels are (user preference: show the art). */
+const PANEL_CLEARNESS = 0.12;
+
+const byModuleClass =(names: ReadonlyArray<string>) =>
 	names.map((name) => `html:root [class*="${name}___"]`).join(',\n');
 
 /**
@@ -207,7 +210,9 @@ const byModuleClass = (names: ReadonlyArray<string>) =>
 export function buildPresetCss(preset: ThemePreset): string {
 	const p = preset.panel;
 	const light = preset.base === 'light';
-	const a = (dark: number, lightValue: number) => (light ? lightValue : dark);
+	// Panels are kept fairly clear so the artwork stays recognisable; the light blur
+	// below is what keeps text readable over it.
+	const a = (dark: number, lightValue: number) => Math.round(((light ? lightValue : dark) - PANEL_CLEARNESS) * 100) / 100;
 	return `/* Sparkcord preset theme: ${preset.name}. Generated; duplicate it to customise. */
 html:root {
 	--sparkcord-preset-image: url("${presetImageUrl(preset)}");
@@ -229,8 +234,8 @@ html:root {
 	--composer-surface-color: rgba(${p}, ${a(0.62, 0.66)});
 	--outline-frame-background: transparent;
 	--background-channel-header: rgba(${p}, ${a(0.7, 0.74)});
-	--background-header-primary: rgba(${p}, 0.82);
-	--background-header-secondary: rgba(${p}, 0.86);
+	--background-header-primary: rgba(${p}, 0.76);
+	--background-header-secondary: rgba(${p}, 0.8);
 	--background-textarea: rgba(${p}, ${a(0.72, 0.8)});
 }
 
@@ -248,7 +253,7 @@ ${byModuleClass(TRANSPARENT_WRAPPERS)} {
 }
 
 ${byModuleClass(FROSTED_PANELS)} {
-	backdrop-filter: blur(14px) saturate(1.15);
+	backdrop-filter: blur(3px) saturate(1.1);
 }
 `;
 }
