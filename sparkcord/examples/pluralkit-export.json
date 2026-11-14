@@ -1,0 +1,43 @@
+{
+	"version": 2,
+	"id": "exmpl",
+	"name": "The Collective",
+	"description": "An example PluralKit system.",
+	"tag": "| TC",
+	"pronouns": null,
+	"avatar_url": null,
+	"color": "8855ff",
+	"created": "2024-01-01T00:00:00.000000Z",
+	"members": [
+		{
+			"id": "aaaaa",
+			"name": "Rin",
+			"display_name": null,
+			"color": "ff4477",
+			"birthday": "2000-05-06",
+			"pronouns": "she/her",
+			"avatar_url": "https://picsum.photos/seed/rin/256",
+			"webhook_avatar_url": null,
+			"description": "Likes tea.",
+			"created": "2024-01-01T00:00:00.000000Z",
+			"keep_proxy": false,
+			"proxy_tags": [{"prefix": "r;", "suffix": null}, {"prefix": "{", "suffix": "}"}]
+		},
+		{
+			"id": "bbbbb",
+			"name": "Sol",
+			"display_name": "Sol ☀",
+			"color": null,
+			"birthday": null,
+			"pronouns": "he/him",
+			"avatar_url": "https://picsum.photos/seed/sol/256",
+			"webhook_avatar_url": null,
+			"description": null,
+			"created": "2024-01-01T00:00:00.000000Z",
+			"keep_proxy": false,
+			"proxy_tags": [{"prefix": null, "suffix": "-s"}]
+		}
+	],
+	"groups": [],
+	"switches": []
+}

@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# Sparkcord API image: the released Fluxer API image with Sparkcord's API bundle
+# (fluxer_api/dist) on top. Build context is fluxer_api/dist after
+# `pnpm --filter fluxer_api run build`. Only the bundle changes, so the npm
+# dependencies of the base image are reused as they are.
+
+ARG BASE_IMAGE=ghcr.io/fluxerapp/fluxer-api@sha256:41599f5bfeb75e620ca91d3d7f71b278166faeeb97c0a00dfec9ec207ef90eab
+FROM ${BASE_IMAGE}
+
+USER root
+RUN rm -rf /usr/src/app/fluxer_api/dist
+COPY --chown=65532:65532 . /usr/src/app/fluxer_api/dist
+USER 65532:65532
+
+LABEL org.opencontainers.image.title="sparkcord-api"

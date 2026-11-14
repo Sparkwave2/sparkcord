@@ -61,3 +61,6 @@
 
 **/.DS_Store
 **/Thumbs.db
+
+# Sparkcord local dev stack (downloaded bundle, secrets, data)
+/sparkcord/dev/stack/

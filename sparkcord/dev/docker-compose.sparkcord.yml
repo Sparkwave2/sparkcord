@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# Swaps the API, worker and web app of the Fluxer compose bundle for the locally
+# built Sparkcord images. Every other service runs the released Fluxer image.
+
+services:
+  api:
+    image: ${SPARKCORD_API_IMAGE:-sparkcord/fluxer-api:dev}
+    pull_policy: never
+  worker:
+    image: ${SPARKCORD_API_IMAGE:-sparkcord/fluxer-api:dev}
+    pull_policy: never
+  app-proxy:
+    image: ${SPARKCORD_APP_IMAGE:-sparkcord/fluxer-app-proxy:dev}
+    pull_policy: never
