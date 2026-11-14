@@ -273,6 +273,11 @@ export class VoiceMeshEngine extends RTCEngine {
 		return Promise.resolve();
 	}
 
+	/** Sparkcord: sends a small app message to every connected peer (see SparkcordVoiceMessages). */
+	broadcastSparkcordMessage(message: unknown): void {
+		for (const peer of this.peers.values()) peer.send({t: 'sc', p: message});
+	}
+
 	syncSender(src: VoiceMeshSource): Promise<void> {
 		this.refreshTracks();
 		return Promise.all(Array.from(this.peers.values(), (peer) => peer.requestSenderSync(src))).then(() => undefined);

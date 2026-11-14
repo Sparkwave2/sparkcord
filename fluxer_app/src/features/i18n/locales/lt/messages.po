@@ -3368,6 +3368,7 @@ msgstr "Tikrasis dydis"
 #: src/features/expressions/components/modals/TagListField.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 #: src/features/relationship/components/modals/AddFriendsToGroupModal.tsx
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx
 #: src/features/user/components/modals/tabs/LanguageTab.tsx
 msgid "Add"
@@ -4096,6 +4097,10 @@ msgstr "Pridėta prie mėgstamiausių"
 #: src/features/expressions/commands/FavoriteMemeCommands.tsx
 msgid "Added to saved media"
 msgstr "Įtraukta į išsaugotą mediją"
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Adding…"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
@@ -8911,6 +8916,7 @@ msgstr "Aiškesnis tekstas"
 msgid "Clearing trusted domains..."
 msgstr "Valomi patikimi domenai..."
 
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Click again to delete"
 msgstr ""
@@ -12889,6 +12895,7 @@ msgstr "Delaveras"
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
 #: src/features/messaging/commands/MessageCommands.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
@@ -20791,6 +20798,10 @@ msgstr "Prisijungti prie bendruomenės"
 msgid "Join a P2P call?"
 msgstr "Prisijungti prie P2P skambučio?"
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Join a voice channel to play sounds"
+msgstr ""
+
 #. Action label in the DM channel header pill that joins an ongoing call.
 #. Primary CTA button in the mobile direct-call lobby bottom sheet. Joins the active call.
 #: src/features/channel/components/channel_view/dm_channel_view/shared.ts
@@ -22004,6 +22015,7 @@ msgid "Loading..."
 msgstr "Įkeliama..."
 
 #. Combobox popup status shown while options are loading.
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
 #: src/features/ui/components/Spinner.tsx
 msgid "Loading…"
@@ -25277,6 +25289,10 @@ msgstr "Nustatymų nerasta"
 msgid "No size limit. Keep Sparkcord open while people download."
 msgstr ""
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "No sounds yet."
+msgstr ""
+
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx
 msgid "No specific scopes requested."
 msgstr "Nepaprašyta jokių konkrečių prieigos teisių."
@@ -27804,6 +27820,7 @@ msgstr "Asmuo, apie kurį pranešate"
 
 #. Section in the emoji and sticker pickers for your own personal emojis/stickers.
 #: src/features/personal_expression/PersonalExpressionConstants.ts
+#: src/features/soundboard/SoundboardPopout.tsx
 msgid "Personal"
 msgstr ""
 
@@ -30363,6 +30380,7 @@ msgstr "Pašalinus leidimus, boto funkcijos gali būti apribotos."
 msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, react, and join voice channels again."
 msgstr "Panaikinus laikinąjį apribojimą, <0>{targetUserTag}</0> vėl galės siųsti žinutes, atlikti reakcijas ir prisijungti prie balso kanalų."
 
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
@@ -35251,6 +35269,15 @@ msgstr "Garsas šiai sričiai"
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Sound volume"
 msgstr "Garsumas"
+
+#: src/features/soundboard/SoundboardButton.tsx
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Soundboard"
+msgstr ""
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Soundboard volume"
+msgstr ""
 
 #. Section heading / tab label for the notification-sounds area.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -41000,6 +41027,10 @@ msgstr "Iki {max} per vieną pirkimą."
 msgid "Up to {maxParticipants, plural, one {# person} other {# people}}."
 msgstr "Iki {maxParticipants, plural, one {# asmens} other {# asmenų}}."
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Up to 10 seconds, 1 MB"
+msgstr ""
+
 #. Plutonium page comparison value for paid video quality. Keep 4K and FPS as written.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Up to 4K at 60 FPS"
@@ -42818,6 +42849,10 @@ msgstr "Didinti garsumą"
 #: src/features/messaging/commands/MessageCommands.tsx
 msgid "Wait a moment before deleting more messages."
 msgstr "Palaukite akimirką, prieš trindami daugiau žinučių."
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Wait a moment before playing another sound."
+msgstr ""
 
 #. Description under the slowmode slider in channel settings. bypassSlowmodePermissionLabel is the localized Bypass Slowmode permission name.
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/SlowmodeControl.tsx

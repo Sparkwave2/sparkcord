@@ -3368,6 +3368,7 @@ msgstr "實際大小"
 #: src/features/expressions/components/modals/TagListField.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 #: src/features/relationship/components/modals/AddFriendsToGroupModal.tsx
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx
 #: src/features/user/components/modals/tabs/LanguageTab.tsx
 msgid "Add"
@@ -4096,6 +4097,10 @@ msgstr "已加入我的最愛"
 #: src/features/expressions/commands/FavoriteMemeCommands.tsx
 msgid "Added to saved media"
 msgstr "已新增至已儲存的媒體"
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Adding…"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
@@ -8911,6 +8916,7 @@ msgstr "文字更清晰"
 msgid "Clearing trusted domains..."
 msgstr "正在清除信任的網域…"
 
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Click again to delete"
 msgstr ""
@@ -12889,6 +12895,7 @@ msgstr "德拉瓦州"
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
 #: src/features/messaging/commands/MessageCommands.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
@@ -20790,6 +20797,10 @@ msgstr "加入社群"
 msgid "Join a P2P call?"
 msgstr "加入 P2P 通話？"
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Join a voice channel to play sounds"
+msgstr ""
+
 #. Action label in the DM channel header pill that joins an ongoing call.
 #. Primary CTA button in the mobile direct-call lobby bottom sheet. Joins the active call.
 #: src/features/channel/components/channel_view/dm_channel_view/shared.ts
@@ -22003,6 +22014,7 @@ msgid "Loading..."
 msgstr "正在載入…"
 
 #. Combobox popup status shown while options are loading.
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
 #: src/features/ui/components/Spinner.tsx
 msgid "Loading…"
@@ -25276,6 +25288,10 @@ msgstr "找不到設定"
 msgid "No size limit. Keep Sparkcord open while people download."
 msgstr ""
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "No sounds yet."
+msgstr ""
+
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx
 msgid "No specific scopes requested."
 msgstr "未要求任何特定權限。"
@@ -27803,6 +27819,7 @@ msgstr "您要檢舉的對象"
 
 #. Section in the emoji and sticker pickers for your own personal emojis/stickers.
 #: src/features/personal_expression/PersonalExpressionConstants.ts
+#: src/features/soundboard/SoundboardPopout.tsx
 msgid "Personal"
 msgstr ""
 
@@ -30362,6 +30379,7 @@ msgstr "移除權限可能會限制機器人功能。"
 msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, react, and join voice channels again."
 msgstr "解除禁言後，<0>{targetUserTag}</0> 將能再次傳送訊息、新增反應和加入語音頻道。"
 
+#: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
@@ -35250,6 +35268,15 @@ msgstr "此範圍的音效"
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Sound volume"
 msgstr "音量"
+
+#: src/features/soundboard/SoundboardButton.tsx
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Soundboard"
+msgstr ""
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Soundboard volume"
+msgstr ""
 
 #. Section heading / tab label for the notification-sounds area.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -40999,6 +41026,10 @@ msgstr "每次購買最多 {max} 張。"
 msgid "Up to {maxParticipants, plural, one {# person} other {# people}}."
 msgstr "最多 {maxParticipants, plural, one {# 位使用者} other {# 位使用者}}."
 
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Up to 10 seconds, 1 MB"
+msgstr ""
+
 #. Plutonium page comparison value for paid video quality. Keep 4K and FPS as written.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Up to 4K at 60 FPS"
@@ -42817,6 +42848,10 @@ msgstr "提高音量"
 #: src/features/messaging/commands/MessageCommands.tsx
 msgid "Wait a moment before deleting more messages."
 msgstr "請稍候再刪除其他訊息。"
+
+#: src/features/soundboard/SoundboardPopout.tsx
+msgid "Wait a moment before playing another sound."
+msgstr ""
 
 #. Description under the slowmode slider in channel settings. bypassSlowmodePermissionLabel is the localized Bypass Slowmode permission name.
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/SlowmodeControl.tsx

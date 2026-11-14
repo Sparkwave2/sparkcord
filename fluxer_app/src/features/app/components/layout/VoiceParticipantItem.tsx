@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {SoundboardPlayingBadge} from '@app/features/soundboard/SoundboardButton';
 import {LongPressable} from '@app/features/app/components/LongPressable';
 import channelItemSurfaceStyles from '@app/features/app/components/layout/ChannelItemSurface.module.css';
 import {DragItemType} from '@app/features/app/components/layout/types/DndTypes';
@@ -285,6 +286,7 @@ export const VoiceParticipantItem = observer(function VoiceParticipantItem({
 						{displayName}
 					</span>
 				)}
+				<SoundboardPlayingBadge userId={user.id} />
 				{hasVoiceStateIcons && (
 					<div className={styles.iconsContainer} data-flx="app.voice-participant-item.icons-container">
 						<VoiceStateIcons

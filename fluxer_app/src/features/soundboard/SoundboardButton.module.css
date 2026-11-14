@@ -1,0 +1,48 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	flex-shrink: 1;
+	min-width: 0;
+	max-width: 120px;
+	margin-left: 6px;
+	padding: 1px 6px;
+	border-radius: 999px;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	line-height: 1.4;
+	color: #fff;
+	background: var(--brand-primary, #5865f2);
+	vertical-align: middle;
+	animation: soundboardBadgeIn 0.15s ease-out;
+}
+
+.badgeIcon {
+	flex-shrink: 0;
+}
+
+.badgeName {
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+@keyframes soundboardBadgeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.badge {
+		animation: none;
+	}
+}

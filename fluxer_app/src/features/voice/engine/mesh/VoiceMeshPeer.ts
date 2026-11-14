@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {emitSparkcordVoiceMessage} from '@app/features/voice/engine/SparkcordVoiceMessages';
 import {VoiceSignalSendResult} from '@app/features/gateway/transport/GatewaySocket';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import type {VoiceMeshEngine} from '@app/features/voice/engine/mesh/VoiceMeshEngine';
@@ -21,7 +22,7 @@ const SETUP_DEADLINE_MS = 15_000;
 const DISCONNECTED_GRACE_MS = 5_000;
 const RESTART_DEADLINE_MS = 10_000;
 
-type VoiceMeshNegotiationSignal = Exclude<VoiceMeshSignalData, {t: 'tracks'} | {t: 'want'}>;
+type VoiceMeshNegotiationSignal = Exclude<VoiceMeshSignalData, {t: 'tracks'} | {t: 'want'} | {t: 'sc'}>;
 
 function withMimeType(mimeType: string): (codec: RTCRtpCodec) => boolean {
 	return (codec) => codec.mimeType.toLowerCase() === mimeType;
@@ -126,6 +127,9 @@ export class VoiceMeshPeer {
 				return;
 			case 'want':
 				this.receiveWant(data.v, data.sids);
+				return;
+			case 'sc':
+				emitSparkcordVoiceMessage(this.userId, data.p);
 				return;
 			default:
 				void this.enqueue(() => this.negotiate(data));

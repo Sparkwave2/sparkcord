@@ -11936,6 +11936,92 @@
 			"options": ""
 		},
 		{
+			"name": "soundboard_sounds",
+			"columns": [
+				{
+					"name": "id",
+					"type": "bigint"
+				},
+				{
+					"name": "owner_id",
+					"type": "bigint"
+				},
+				{
+					"name": "owner_kind",
+					"type": "text"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "emoji",
+					"type": "text"
+				},
+				{
+					"name": "duration_ms",
+					"type": "int"
+				},
+				{
+					"name": "content_type",
+					"type": "text"
+				},
+				{
+					"name": "creator_id",
+					"type": "bigint"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((id))",
+			"options": ""
+		},
+		{
+			"name": "soundboard_sounds_by_owner",
+			"columns": [
+				{
+					"name": "id",
+					"type": "bigint"
+				},
+				{
+					"name": "owner_id",
+					"type": "bigint"
+				},
+				{
+					"name": "owner_kind",
+					"type": "text"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "emoji",
+					"type": "text"
+				},
+				{
+					"name": "duration_ms",
+					"type": "int"
+				},
+				{
+					"name": "content_type",
+					"type": "text"
+				},
+				{
+					"name": "creator_id",
+					"type": "bigint"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((owner_id), id)",
+			"options": ""
+		},
+		{
 			"name": "tupper_settings",
 			"columns": [
 				{

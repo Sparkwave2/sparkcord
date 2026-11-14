@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {SoundboardButton} from '@app/features/soundboard/SoundboardButton';
 import {Routes} from '@app/app/Routes';
 import type {Channel} from '@app/features/channel/models/Channel';
 import Channels from '@app/features/channel/state/Channels';
@@ -260,6 +261,7 @@ const ResolvedVoiceConnectionStatusInner = observer(function ResolvedVoiceConnec
 					className={styles.controls}
 					data-flx="voice.voice-connection-status.voice-connection-status-inner.controls"
 				>
+					<SoundboardButton />
 					<AudioProcessingButton
 						active={isProcessingActive}
 						label={noiseSuppressionTooltip}

@@ -25,7 +25,9 @@ export type VoiceMeshSignalData =
 	| {t: 'ice'; g: number; c: RTCIceCandidateInit | null}
 	| {t: 'need-offer'; g: number; restart?: true}
 	| {t: 'tracks'; v: number; tracks: Array<VoiceMeshTrackInfo>}
-	| {t: 'want'; v: number; sids: Array<string>};
+	| {t: 'want'; v: number; sids: Array<string>}
+	// Sparkcord: small app messages between call members (soundboard).
+	| {t: 'sc'; p: unknown};
 
 export interface VoiceMeshSignalTarget {
 	guildId: string | null;

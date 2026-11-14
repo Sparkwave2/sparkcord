@@ -178,6 +178,7 @@ function handleReadyInternal(data: ReadyPayload, context: GatewayHandlerContext,
 	void import('@app/features/personal_expression/PersonalExpressions').then((module) =>
 		module.default.handleGatewayReady(),
 	);
+	void import('@app/features/soundboard/Soundboard').then((module) => module.default.start());
 	Permission.handleGatewayReady();
 	MemberSearch.handleGatewayReady();
 	SavedMessages.handleGatewayReady();

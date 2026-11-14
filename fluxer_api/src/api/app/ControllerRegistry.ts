@@ -23,6 +23,7 @@ import {TupperController} from '@app/api/tupper/TupperController';
 import {NameFontController} from '@app/api/name_font/NameFontController';
 import {GroupNameColorController} from '@app/api/group_name_color/GroupNameColorController';
 import {PersonalExpressionController} from '@app/api/personal_expression/PersonalExpressionController';
+import {SoundboardController} from '@app/api/soundboard/SoundboardController';
 import {FavoriteMemeController} from '@app/api/favorite_meme/FavoriteMemeController';
 import {GatewayController} from '@app/api/gateway/GatewayController';
 import {GeolocationController} from '@app/api/geolocation/GeolocationController';
@@ -78,6 +79,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	NameFontController(routes);
 	GroupNameColorController(routes);
 	PersonalExpressionController(routes);
+	SoundboardController(routes);
 	InviteController(routes);
 	ReadStateController(routes);
 	ReportController(routes);
