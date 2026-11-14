@@ -1283,6 +1283,11 @@ msgstr "{count, plural, one {# Operator Pass} other {# Operator Pass}}"
 msgid "{count, plural, one {# other} other {# others}}"
 msgstr "{count, plural, one {# anden} other {# andre}}"
 
+#. Page count of a PDF attachment.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "{count, plural, one {# page} other {# pages}}"
+msgstr ""
+
 #: src/features/voice/components/VoiceCallView.tsx
 msgid "{count, plural, one {# participant in call} other {# participants in call}}"
 msgstr "{count, plural, one {# deltager i opkald} other {# deltagere i opkald}}"
@@ -9197,8 +9202,10 @@ msgstr "Koder"
 msgid "Codes from your authenticator app are your second step when you sign in."
 msgstr "Koder fra din godkendelsesapp er dit andet trin, når du logger ind."
 
+#. PDF preview button that makes the viewer smaller again.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Collapse"
 msgstr "Skjul"
 
@@ -11274,6 +11281,11 @@ msgstr "Kunne ikke åbne søgeresultat"
 #: src/features/premium/utils/PremiumMessageDescriptors.ts
 msgid "Couldn't open the billing portal"
 msgstr "Kunne ikke åbne faktureringsportalen"
+
+#. Shown when a PDF attachment preview fails.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "Couldn't preview this PDF."
+msgstr ""
 
 #. Title of the error modal shown when a cropped group icon cannot be processed.
 #: src/features/channel/components/modals/EditGroupModal.tsx
@@ -14252,8 +14264,10 @@ msgstr "Dobbeltklik på din egen besked for at redigere den, eller på en andens
 #. Button that downloads account backup codes as a text file.
 #. Generic action label that downloads an attachment / file.
 #. Native desktop dialog button that opens the download page for a new desktop version in the browser.
+#. PDF preview button.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -16043,8 +16057,10 @@ msgstr "Afslut billede-i-billede"
 msgid "Exit preview"
 msgstr "Afslut forhåndsvisning"
 
+#. PDF preview button that makes the viewer taller.
 #. Short label in the unread channels content.
 #: src/features/app/components/floating/UnreadChannelsContent.tsx
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Expand"
 msgstr "Udvid"
 
@@ -21870,6 +21886,11 @@ msgstr "Indlæs mere"
 msgid "Load older posts"
 msgstr "Indlæs ældre opslag"
 
+#. Button to load the preview of a large PDF attachment. {size} is the file size.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "Load preview ({size})"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Loading"
 msgstr "Indlæser"
@@ -21892,6 +21913,11 @@ msgstr "Indlæser destinationer…"
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Loading image"
 msgstr "Indlæser billede"
+
+#. Shown while a PDF attachment preview loads.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+msgid "Loading PDF…"
+msgstr ""
 
 #. Accessible label for the user profile skeleton while profile data is loading.
 #: src/features/user/components/profile/UserProfileLoadingSkeleton.tsx
@@ -45646,7 +45672,9 @@ msgstr "Zoom"
 #. Generic media-viewer action label that increases zoom.
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
 #. Native View menu item that increases UI zoom level.
+#. PDF preview button.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/input/state/input_keybind/shared.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -45657,7 +45685,9 @@ msgstr "Zoom ind"
 #. Generic media-viewer action label that decreases zoom.
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
 #. Native View menu item that decreases UI zoom level.
+#. PDF preview button.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/input/state/input_keybind/shared.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts

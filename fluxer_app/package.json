@@ -217,6 +217,7 @@
 		"mobx-react-lite": "catalog:",
 		"onnxruntime-web": "catalog:",
 		"pdf-lib": "catalog:",
+		"pdfjs-dist": "4.10.38",
 		"prettier": "^3.9.10",
 		"qrcode": "catalog:",
 		"react": "catalog:",

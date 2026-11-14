@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {PdfAttachmentPreview} from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview';
 import {TextualAttachmentPreview} from '@app/features/channel/components/embeds/attachments/TextualAttachmentPreview';
 import {splitFilename} from '@app/features/channel/components/embeds/EmbedUtils';
 import {canDeleteAttachmentUtil} from '@app/features/channel/components/MessageActionUtils';
@@ -61,6 +62,7 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 	const fileExtension = fileName.split('.').pop()?.toLowerCase() || '';
 	const {name: fileNameWithoutExt, extension: fileExt} = splitFilename(fileName);
 	const showTextPreview = !isPreview && shouldPreviewAttachment(attachment);
+	const showPdfPreview = !isPreview && !isExpired && !showTextPreview && fileExtension === 'pdf';
 	const getFileTypeIcon = () => {
 		const size = remFromPx(32);
 		const imageTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'];
@@ -173,7 +175,7 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 			maxWidth: '100%',
 			minWidth: 0,
 		};
-	} else if (showTextPreview) {
+	} else if (showTextPreview || showPdfPreview) {
 		containerStyles = {
 			display: 'grid',
 			width: '100%',
@@ -246,7 +248,9 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 					/>
 				</button>
 			)}
-			{showTextPreview ? (
+			{showPdfPreview ? (
+				<PdfAttachmentPreview attachment={attachment} spoilerHidden={spoilerHidden} />
+			) : showTextPreview ? (
 				<TextualAttachmentPreview
 					attachment={attachment}
 					spoilerHidden={spoilerHidden}
