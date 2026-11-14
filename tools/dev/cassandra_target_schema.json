@@ -6084,6 +6084,10 @@
 				{
 					"name": "version",
 					"type": "int"
+				},
+				{
+					"name": "style",
+					"type": "text"
 				}
 			],
 			"primary_key": "((guild_id), role_id)",

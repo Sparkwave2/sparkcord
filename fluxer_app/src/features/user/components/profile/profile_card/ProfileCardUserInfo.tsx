@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {UserTag} from '@app/features/channel/components/ChannelUserTag';
+import {type NameStyle, StyledName} from '@app/features/role_style/RoleNameStyle';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
 import {useTextOverflow} from '@app/features/ui/hooks/useTextOverflow';
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
@@ -27,6 +28,8 @@ interface ProfileCardUserInfoProps {
 	onUsernameClick?: () => void;
 	actions?: React.ReactNode;
 	usernameActions?: React.ReactNode;
+	/** Sparkcord: role name style of the member in this community, if any. */
+	nameStyle?: NameStyle | null;
 }
 
 export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
@@ -42,6 +45,7 @@ export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
 		onUsernameClick,
 		actions,
 		usernameActions,
+		nameStyle,
 	}) => {
 		const displayNameRef = useRef<HTMLButtonElement>(null);
 		const isDisplayNameOverflowing = useTextOverflow(displayNameRef, {
@@ -60,7 +64,7 @@ export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
 				style={displayNameStyle}
 				data-flx="user.profile.profile-card.profile-card-user-info.name-button.display-name-click"
 			>
-				{displayName}
+				<StyledName nameStyle={nameStyle}>{displayName}</StyledName>
 			</button>
 		);
 		const displayNameContent = isDisplayNameOverflowing ? (

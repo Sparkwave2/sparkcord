@@ -4,6 +4,7 @@ import {useContextMenuHoverState} from '@app/features/app/hooks/useContextMenuHo
 import {CrosspostCommunityPopout} from '@app/features/channel/components/CrosspostCommunityPopout';
 import {useMaybeMessageViewContext} from '@app/features/channel/components/MessageViewContext';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
+import {type NameStyle, StyledName} from '@app/features/role_style/RoleNameStyle';
 import {TupperPopout} from '@app/features/tupper/TupperPopout';
 import type {Guild} from '@app/features/guild/models/Guild';
 import {isKeyboardActivationKey} from '@app/features/input/utils/KeyboardUtils';
@@ -29,6 +30,7 @@ export const MessageUsername = observer(
 		className,
 		previewColor,
 		previewName,
+		previewNameStyle,
 	}: {
 		user: User;
 		message: Message;
@@ -38,6 +40,8 @@ export const MessageUsername = observer(
 		isPreview: boolean;
 		previewColor?: string;
 		previewName?: string;
+		/** Role editor preview: the style being edited. */
+		previewNameStyle?: NameStyle | null;
 	}) => {
 		const usernameRef = useRef<HTMLSpanElement | null>(null);
 		const contextMenuOpen = useContextMenuHoverState(usernameRef);
@@ -71,7 +75,15 @@ export const MessageUsername = observer(
 					onKeyDown={handleKeyDown}
 					data-flx="channel.message-username.context-menu-underline.key-down"
 				>
-					{displayName}
+					<StyledName nameStyle={
+							previewNameStyle !== undefined
+								? previewNameStyle
+								: proxy || previewColor
+									? null
+									: member?.getNameStyle()
+						}>
+						{displayName}
+					</StyledName>
 				</span>
 			</FocusRing>
 		);

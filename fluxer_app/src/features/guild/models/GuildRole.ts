@@ -2,7 +2,7 @@
 
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {noteText} from '@app/features/theme/fonts/ScriptFontLoader';
-import type {GuildRole as WireGuildRole} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
+import type {GuildRoleStyle, GuildRole as WireGuildRole} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
 
 interface GuildRoleRecordOptions {
 	instanceId?: string;
@@ -21,6 +21,8 @@ export class GuildRole {
 	readonly mentionable: boolean;
 	readonly icon: string | null;
 	readonly unicodeEmoji: string | null;
+	/** Sparkcord name style (gradient, rainbow, alternating, glow), or null for plain colour. */
+	readonly style: GuildRoleStyle | null;
 
 	constructor(guildId: string, guildRole: WireGuildRole, options?: GuildRoleRecordOptions) {
 		this.instanceId = options?.instanceId ?? RuntimeConfig.localInstanceDomain;
@@ -35,6 +37,7 @@ export class GuildRole {
 		this.mentionable = guildRole.mentionable;
 		this.icon = guildRole.icon ?? null;
 		this.unicodeEmoji = guildRole.unicode_emoji ?? null;
+		this.style = guildRole.style ?? null;
 		noteText(this.name);
 	}
 
@@ -56,6 +59,7 @@ export class GuildRole {
 				mentionable: updates.mentionable ?? this.mentionable,
 				icon: updates.icon !== undefined ? updates.icon : this.icon,
 				unicode_emoji: updates.unicode_emoji !== undefined ? updates.unicode_emoji : this.unicodeEmoji,
+				style: updates.style !== undefined ? updates.style : this.style,
 			},
 			{instanceId: this.instanceId},
 		);
@@ -77,6 +81,7 @@ export class GuildRole {
 			mentionable: this.mentionable,
 			icon: this.icon,
 			unicode_emoji: this.unicodeEmoji,
+			style: this.style,
 		};
 	}
 }

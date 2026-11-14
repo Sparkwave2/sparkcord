@@ -3,6 +3,7 @@
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import Authentication from '@app/features/auth/state/Authentication';
 import type {GuildRole} from '@app/features/guild/models/GuildRole';
+import type {NameStyle} from '@app/features/role_style/RoleNameStyle';
 import Guilds from '@app/features/guild/state/Guilds';
 import * as ColorUtils from '@app/features/theme/utils/ColorUtils';
 import {User} from '@app/features/user/models/User';
@@ -107,6 +108,19 @@ export class GuildMember {
 
 	getIconRole(): GuildRole | undefined {
 		return this.getDisplayRoles().find((role) => role.icon !== null || role.unicodeEmoji !== null);
+	}
+
+	/**
+	 * Sparkcord: the name style of the role that colours this member's name (the highest
+	 * display role with a colour or a style), or null for a plain colour.
+	 */
+	getNameStyle(): NameStyle | null {
+		for (const role of this.getDisplayRoles()) {
+			if (role.style) return {style: role.style, color: role.color};
+			if (role.color) return null;
+		}
+		const everyoneRole = Guilds.getGuild(this.guildId)?.roles[this.guildId];
+		return everyoneRole?.style ? {style: everyoneRole.style, color: everyoneRole.color} : null;
 	}
 
 	getColorString(): string | undefined {

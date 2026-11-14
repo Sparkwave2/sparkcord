@@ -17,6 +17,7 @@ import {
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import {SudoVerificationSchema} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {GuildFeatureSchema} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
+import {GuildRoleStyle} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
 import {TemplateSerializedGuild} from '@fluxer/schema/src/domains/guild/GuildTemplateSchemas';
 import {VanityURLCodeType} from '@fluxer/schema/src/primitives/ChannelValidators';
 import {UnicodeRoleEmojiType} from '@fluxer/schema/src/primitives/EmojiValidators';
@@ -219,6 +220,7 @@ export const GuildRoleUpdateRequest = z
 		hoist: z.boolean().optional().describe('Whether the role should be displayed separately in the member list'),
 		hoist_position: z.number().int().nullish().describe('The position of the role in the hoisted member list'),
 		mentionable: z.boolean().optional().describe('Whether the role can be mentioned by anyone'),
+		style: GuildRoleStyle.nullish().describe('Sparkcord name style, or null for the plain colour'),
 		...RoleIconFields,
 	})
 	.superRefine(requireExclusiveRoleIcon);

@@ -177,6 +177,8 @@ export interface GuildRoleRow {
 	hoist: boolean;
 	mentionable: boolean;
 	version: number;
+	/** Sparkcord: JSON of GuildRoleStyle, or null. */
+	style?: string | null;
 }
 
 export const GUILD_ROLE_COLUMNS = [
@@ -192,6 +194,7 @@ export const GUILD_ROLE_COLUMNS = [
 	'hoist',
 	'mentionable',
 	'version',
+	'style',
 ] as const satisfies ReadonlyArray<keyof GuildRoleRow>;
 
 export interface GuildBanRow {

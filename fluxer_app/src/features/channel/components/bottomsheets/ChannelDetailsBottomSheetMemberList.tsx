@@ -13,6 +13,7 @@ import {OFFLINE_DESCRIPTOR, ONLINE_DESCRIPTOR} from '@app/features/i18n/utils/Co
 import {resolveMemberListCustomStatus} from '@app/features/member/hooks/useMemberListCustomStatus';
 import {resolveMemberListMobile} from '@app/features/member/hooks/useMemberListMobile';
 import {resolveMemberListPresence} from '@app/features/member/hooks/useMemberListPresence';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import {useMemberListSubscription} from '@app/features/member/hooks/useMemberListSubscription';
 import type {GuildMember} from '@app/features/member/models/GuildMember';
 import MemberSidebar from '@app/features/member/state/MemberSidebar';
@@ -198,7 +199,7 @@ const MobileMemberListItem = observer(
 								style={{color: member.getColorString()}}
 								data-flx="channel.channel-details-bottom-sheet-member-list.mobile-member-list-item.member-name"
 							>
-								{displayName}
+								<StyledName nameStyle={member.getNameStyle()}>{displayName}</StyledName>
 							</span>
 							{guild.isOwner(member.user.id) && !guild.features.has(GuildFeatures.HIDE_OWNER_CROWN) && (
 								<div

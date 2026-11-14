@@ -1,0 +1,133 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 16px;
+}
+
+.label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.segmented {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	padding: 4px;
+	border-radius: 8px;
+	background: var(--background-tertiary);
+	width: fit-content;
+	max-width: 100%;
+}
+
+.segment {
+	border: none;
+	background: transparent;
+	color: var(--text-secondary);
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 500;
+	padding: 6px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.segment:hover:not(:disabled) {
+	color: var(--text-primary);
+	background: var(--background-modifier-hover);
+}
+
+.segmentActive,
+.segmentActive:hover:not(:disabled) {
+	background: var(--brand-primary);
+	color: var(--text-on-brand-primary);
+}
+
+.segment:disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.colors {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.colorRow {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+}
+
+.colorPicker {
+	flex: 1;
+	min-width: 0;
+}
+
+.iconButton,
+.addButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	border: 1px solid var(--background-modifier-accent);
+	background: transparent;
+	color: var(--text-secondary);
+	border-radius: 6px;
+	cursor: pointer;
+	font: inherit;
+}
+
+.iconButton {
+	width: 36px;
+	height: 36px;
+	flex-shrink: 0;
+}
+
+.addButton {
+	align-self: flex-start;
+	padding: 6px 10px;
+	font-size: 0.8125rem;
+}
+
+.iconButton:hover:not(:disabled),
+.addButton:hover:not(:disabled) {
+	color: var(--text-primary);
+	background: var(--background-modifier-hover);
+}
+
+.previewRow {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+}
+
+.preview {
+	padding: 12px 14px;
+	border-radius: 8px;
+	background: var(--background-primary);
+	color: var(--text-primary);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.previewName {
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+	.previewRow {
+		grid-template-columns: 1fr;
+	}
+}
+
+.hiddenHint {
+	display: none;
+}

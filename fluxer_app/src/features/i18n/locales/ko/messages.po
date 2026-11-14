@@ -3729,6 +3729,10 @@ msgstr "봇을 추가할 대상을 선택하세요"
 msgid "Add channel"
 msgstr "채널 추가"
 
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Add colour"
+msgstr ""
+
 #. Short label in the connection add connection modal.
 #: src/features/connection/components/modals/AddConnectionModal.tsx
 msgid "Add connection"
@@ -4069,6 +4073,11 @@ msgstr "저장된 미디어에 추가됨"
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Address"
 msgstr "주소"
+
+#. Helper text under the Glow switch in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Adds a soft glow around the name. Works with any style."
+msgstr ""
 
 #. Description for the custom profile option in the voice tab.
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx
@@ -4660,6 +4669,11 @@ msgstr "대체 텍스트는 500자 이하여야 합니다"
 msgid "Alt text updated"
 msgstr "대체 텍스트 업데이트됨"
 
+#. Role name style option: each letter takes the next colour in turn.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Alternating"
+msgstr ""
+
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Alternative"
@@ -4781,6 +4795,11 @@ msgstr "외 {remainingCount}개"
 #: src/features/devtools/components/NagbarControls.ts
 msgid "Android app nagbar"
 msgstr "Android 앱 알림 표시줄"
+
+#. Switch in the role name style editor: make the colours move.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Animate"
+msgstr ""
 
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
@@ -9282,6 +9301,11 @@ msgstr "색상 및 글꼴"
 msgid "Colour"
 msgstr ""
 
+#. Label of one colour in a role name gradient or pattern. {n} is 1-4.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Colour {n}"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Colour must look like #ff8800."
 msgstr ""
@@ -10889,6 +10913,11 @@ msgstr "그룹에 추가할 수 없습니다"
 msgid "Couldn't answer the offer. Try again."
 msgstr "제안에 응답할 수 없습니다. 다시 시도해 주세요."
 
+#. Toast when applying a preset theme fails.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Couldn't apply that theme."
+msgstr ""
+
 #. Body of the generic fallback block-user error modal.
 #: src/features/relationship/components/alerts/RelationshipErrorModalUtils.tsx
 msgid "Couldn't block this user. Try again."
@@ -12376,7 +12405,9 @@ msgid "Danish"
 msgstr "덴마크어"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#. Tells that a preset theme is based on the dark theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Dark"
 msgstr "어둡게"
@@ -18238,6 +18269,16 @@ msgstr "글로벌 이름"
 msgid "Global profile"
 msgstr "글로벌 프로필"
 
+#. Switch in the role name style editor: add a soft glow around the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Glow"
+msgstr ""
+
+#. Colour picker label for the role name glow.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Glow colour"
+msgstr ""
+
 #. Text in the code editor of the quick CSS editor. Button that moves to the line number typed in "Go to line".
 #: src/features/theme_settings/editor/EditorPhrases.ts
 msgctxt "code-editor"
@@ -18392,6 +18433,11 @@ msgstr "알겠습니다!"
 #: src/features/devtools/components/PremiumScenarioOptions.ts
 msgid "Grace period (still have access)"
 msgstr "유예 기간(계속 이용 가능)"
+
+#. Role name style option: colours blending across the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Gradient"
+msgstr ""
 
 #. Activity log detail line under a created or edited role, listing the permissions the role now gives its members. The actor in the summary granted them to the role. Do not write it as someone receiving them. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. Do not write it as a command, a button label or in first or second person. {permissions} is a list of permission names that the app joins with commas and the word for "and" in your language. When the list is long it ends with a count of the permissions not named, such as "3 more permissions".
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogRoleMessages.ts
@@ -19762,6 +19808,11 @@ msgstr "내가 관리하는 채널"
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "In the admin panel you can also set up a captcha, Bluesky sign-in, links to your terms and privacy policy, and more."
 msgstr "관리자 패널에서 captcha, Bluesky 로그인, 서비스 약관과 개인정보처리방침 링크 등도 설정할 수 있습니다."
+
+#. Badge on the preset theme card that is currently applied.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "In use"
+msgstr ""
 
 #: src/features/user/components/profile/VoiceActivityCard.tsx
 msgid "In voice"
@@ -21479,7 +21530,9 @@ msgid "Lifetime {premiumProductName}"
 msgstr "평생 {premiumProductName}"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#. Tells that a preset theme is based on the light theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Light"
 msgstr "밝게"
@@ -24153,6 +24206,11 @@ msgstr "패스키 이름 양식"
 #. Slash-command option for a tupper display name.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "Name shown on messages, or leave blank to use the tupper name."
+msgstr ""
+
+#. Accessible label for the role name style choices.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Name style"
 msgstr ""
 
 #. Setup wizard title for choosing the instance name.
@@ -27870,7 +27928,9 @@ msgstr "고정 메시지 팝업"
 msgid "PiP"
 msgstr "PIP"
 
+#. Role name style option: the plain role colour.
 #. Short label in the markdown tab. Keep it concise.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Plain"
 msgstr "일반 텍스트"
@@ -28204,6 +28264,11 @@ msgstr "활동 상태"
 #: src/features/voice/components/modals/screen_share_picker_modal/WebStreamSetupModal.tsx
 msgid "Preset"
 msgstr "프리셋"
+
+#. Title of the Sparkcord section in Settings > Themes listing ready-made themes with background images.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Preset themes"
+msgstr ""
 
 #. Shown in the "Quick CSS" section in Settings > Themes. {shortcut} is a keyboard shortcut such as Ctrl+Alt+Shift+T.
 #: src/features/theme_settings/components/QuickCssSection.tsx
@@ -29029,6 +29094,11 @@ msgstr "라디오 버튼으로 그룹 내 옵션 중 하나를 선택할 수 있
 msgid "Radio group"
 msgstr "라디오 그룹"
 
+#. Role name style option: rainbow colours across the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Rainbow"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
 msgid "Rate"
@@ -29137,6 +29207,11 @@ msgstr "읽기 속도"
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Ready to upgrade?"
 msgstr "업그레이드할 준비가 되셨나요?"
+
+#. Description of the preset themes section in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Ready-made themes with a background image behind the app. Picking one adds it to Your themes."
+msgstr ""
 
 #. DSA report page: step indicator label for the step where the reporter picks why they are reporting.
 #: src/features/guild/components/modals/guild_tabs/GuildAuditLogTab.tsx
@@ -29730,6 +29805,11 @@ msgstr "배너 삭제"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Remove bookmark"
 msgstr "북마크 삭제"
+
+#. Button that removes a colour from a role name gradient.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Remove colour"
+msgstr ""
 
 #. Button or menu action label in the linked accounts tab. Keep it concise. Keep the tone plain and specific.
 #: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx
@@ -36973,6 +37053,11 @@ msgstr "카메라 미리보기가 아직 중지 중입니다. 잠시 후 다시 
 msgid "The channel you're looking for may have been deleted or you may not have access to it."
 msgstr "찾으시는 채널이 삭제되었거나 접근 권한이 없을 수 있습니다."
 
+#. Helper text under the Animate switch in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "The colours slowly move. Stays still for people who turned on reduced motion."
+msgstr ""
+
 #. Body of the error modal shown when the source community has disabled cloning of this expression.
 #: src/features/app/components/alerts/ExpressionCloneFailedModal.tsx
 msgid "The community this came from has turned off cloning, so it cannot be copied."
@@ -39590,6 +39675,11 @@ msgstr "기기 카메라 끄기"
 #: src/features/ui/action_menu/items/voice_participant_menu_data/shared.ts
 msgid "Turn off device stream"
 msgstr "기기 스트림 끄기"
+
+#. Button in Settings > Themes that stops using the current preset theme.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Turn off preset theme"
+msgstr ""
 
 #. Voice menu action that ends the current user screen share.
 #: src/features/ui/action_menu/items/voice_participant_menu_data/shared.ts

@@ -9,6 +9,7 @@ import Guilds from '@app/features/guild/state/Guilds';
 import {useMemberListCustomStatus} from '@app/features/member/hooks/useMemberListCustomStatus';
 import {useMemberListMobile} from '@app/features/member/hooks/useMemberListMobile';
 import {useMemberListPresence} from '@app/features/member/hooks/useMemberListPresence';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import type {GuildMember} from '@app/features/member/models/GuildMember';
 import RollingTypingStore from '@app/features/typing/rolling/RollingTypingStore';
 import {GroupDMMemberContextMenu} from '@app/features/ui/action_menu/GroupDMContextMenu';
@@ -186,7 +187,7 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 			style={nameStyle}
 			data-flx="channel.member-list-item.name"
 		>
-			{nickname}
+			<StyledName nameStyle={guildMember?.getNameStyle()}>{nickname}</StyledName>
 		</span>
 	);
 	const content = (

@@ -300,6 +300,7 @@ export const UserProfilePopout: React.FC<UserProfilePopoutProps> = observer(
 				<ProfileCardUserInfo
 					displayName={displayName}
 					displayNameClassName={styles.profileDisplayName}
+					nameStyle={guildMember?.getNameStyle()}
 					user={user}
 					pronouns={profileData?.pronouns}
 					showUsername={!isWebhook}

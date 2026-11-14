@@ -2,6 +2,7 @@
 
 import {Config} from '@app/api/Config';
 import {mapGuildFeatures} from '@app/api/guild/GuildFeatureUtils';
+import {parseRoleStyle} from '@app/api/guild/RoleStyle';
 import {
 	stripGuildBannerForFeatures,
 	stripGuildIconForFeatures,
@@ -94,6 +95,7 @@ export function mapGuildRoleToResponse(role: GuildRole): GuildRoleResponse {
 		mentionable: role.isMentionable,
 		icon: role.iconHash,
 		unicode_emoji: role.unicodeEmoji,
+		style: parseRoleStyle(role.style),
 	};
 }
 

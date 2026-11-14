@@ -3729,6 +3729,10 @@ msgstr "Botu bir hedefe ekle"
 msgid "Add channel"
 msgstr "Kanal ekle"
 
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Add colour"
+msgstr ""
+
 #. Short label in the connection add connection modal.
 #: src/features/connection/components/modals/AddConnectionModal.tsx
 msgid "Add connection"
@@ -4069,6 +4073,11 @@ msgstr "Kayıtlı medyaya eklendi"
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Address"
 msgstr "Adres"
+
+#. Helper text under the Glow switch in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Adds a soft glow around the name. Works with any style."
+msgstr ""
 
 #. Description for the custom profile option in the voice tab.
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx
@@ -4660,6 +4669,11 @@ msgstr "Alternatif metin 500 karakter veya daha az olmalı"
 msgid "Alt text updated"
 msgstr "Alternatif metin güncellendi"
 
+#. Role name style option: each letter takes the next colour in turn.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Alternating"
+msgstr ""
+
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Alternative"
@@ -4781,6 +4795,11 @@ msgstr "ve {remainingCount} tane daha"
 #: src/features/devtools/components/NagbarControls.ts
 msgid "Android app nagbar"
 msgstr "Android uygulaması bildirim çubuğu"
+
+#. Switch in the role name style editor: make the colours move.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Animate"
+msgstr ""
 
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
@@ -9282,6 +9301,11 @@ msgstr "Renkler ve yazı tipleri"
 msgid "Colour"
 msgstr ""
 
+#. Label of one colour in a role name gradient or pattern. {n} is 1-4.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Colour {n}"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Colour must look like #ff8800."
 msgstr ""
@@ -10889,6 +10913,11 @@ msgstr "Gruba eklenemedi"
 msgid "Couldn't answer the offer. Try again."
 msgstr "Teklife yanıt verilemedi. Tekrar deneyin."
 
+#. Toast when applying a preset theme fails.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Couldn't apply that theme."
+msgstr ""
+
 #. Body of the generic fallback block-user error modal.
 #: src/features/relationship/components/alerts/RelationshipErrorModalUtils.tsx
 msgid "Couldn't block this user. Try again."
@@ -12376,7 +12405,9 @@ msgid "Danish"
 msgstr "Danca"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#. Tells that a preset theme is based on the dark theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Dark"
 msgstr "Koyu"
@@ -18238,6 +18269,16 @@ msgstr "Genel ad"
 msgid "Global profile"
 msgstr "Genel profil"
 
+#. Switch in the role name style editor: add a soft glow around the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Glow"
+msgstr ""
+
+#. Colour picker label for the role name glow.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Glow colour"
+msgstr ""
+
 #. Text in the code editor of the quick CSS editor. Button that moves to the line number typed in "Go to line".
 #: src/features/theme_settings/editor/EditorPhrases.ts
 msgctxt "code-editor"
@@ -18392,6 +18433,11 @@ msgstr "Tamamdır!"
 #: src/features/devtools/components/PremiumScenarioOptions.ts
 msgid "Grace period (still have access)"
 msgstr "Ödemesiz dönem (hâlâ erişiminiz var)"
+
+#. Role name style option: colours blending across the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Gradient"
+msgstr ""
 
 #. Activity log detail line under a created or edited role, listing the permissions the role now gives its members. The actor in the summary granted them to the role. Do not write it as someone receiving them. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. Do not write it as a command, a button label or in first or second person. {permissions} is a list of permission names that the app joins with commas and the word for "and" in your language. When the list is long it ends with a count of the permissions not named, such as "3 more permissions".
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogRoleMessages.ts
@@ -19762,6 +19808,11 @@ msgstr "Yönettiğim kanallarda"
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "In the admin panel you can also set up a captcha, Bluesky sign-in, links to your terms and privacy policy, and more."
 msgstr "Yönetici panelinde ayrıca captcha, Bluesky ile giriş, kullanım koşullarınıza ve gizlilik politikanıza bağlantılar ve daha fazlasını ayarlayabilirsiniz."
+
+#. Badge on the preset theme card that is currently applied.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "In use"
+msgstr ""
 
 #: src/features/user/components/profile/VoiceActivityCard.tsx
 msgid "In voice"
@@ -21479,7 +21530,9 @@ msgid "Lifetime {premiumProductName}"
 msgstr "Ömür boyu {premiumProductName}"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#. Tells that a preset theme is based on the light theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Light"
 msgstr "Açık"
@@ -24153,6 +24206,11 @@ msgstr "Geçiş anahtarı adlandırma formu"
 #. Slash-command option for a tupper display name.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "Name shown on messages, or leave blank to use the tupper name."
+msgstr ""
+
+#. Accessible label for the role name style choices.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Name style"
 msgstr ""
 
 #. Setup wizard title for choosing the instance name.
@@ -27870,7 +27928,9 @@ msgstr "Sabitlenenler açılır penceresi"
 msgid "PiP"
 msgstr "Resim içinde resim"
 
+#. Role name style option: the plain role colour.
 #. Short label in the markdown tab. Keep it concise.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Plain"
 msgstr "Düz"
@@ -28204,6 +28264,11 @@ msgstr "Durum"
 #: src/features/voice/components/modals/screen_share_picker_modal/WebStreamSetupModal.tsx
 msgid "Preset"
 msgstr "Ön ayar"
+
+#. Title of the Sparkcord section in Settings > Themes listing ready-made themes with background images.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Preset themes"
+msgstr ""
 
 #. Shown in the "Quick CSS" section in Settings > Themes. {shortcut} is a keyboard shortcut such as Ctrl+Alt+Shift+T.
 #: src/features/theme_settings/components/QuickCssSection.tsx
@@ -29029,6 +29094,11 @@ msgstr "Radyo düğmeleri, bir gruptan tek bir seçenek belirlemenizi sağlar."
 msgid "Radio group"
 msgstr "Radyo grubu"
 
+#. Role name style option: rainbow colours across the name.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Rainbow"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
 msgid "Rate"
@@ -29137,6 +29207,11 @@ msgstr "Okuma hızı"
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Ready to upgrade?"
 msgstr "Yükseltmeye hazır mısınız?"
+
+#. Description of the preset themes section in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Ready-made themes with a background image behind the app. Picking one adds it to Your themes."
+msgstr ""
 
 #. DSA report page: step indicator label for the step where the reporter picks why they are reporting.
 #: src/features/guild/components/modals/guild_tabs/GuildAuditLogTab.tsx
@@ -29730,6 +29805,11 @@ msgstr "Banner'ı kaldır"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Remove bookmark"
 msgstr "Yer işaretini kaldır"
+
+#. Button that removes a colour from a role name gradient.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Remove colour"
+msgstr ""
 
 #. Button or menu action label in the linked accounts tab. Keep it concise. Keep the tone plain and specific.
 #: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx
@@ -36973,6 +37053,11 @@ msgstr "Kamera önizlemesi hâlâ durduruluyor. Birazdan tekrar yayın yapmayı 
 msgid "The channel you're looking for may have been deleted or you may not have access to it."
 msgstr "Aradığınız kanal silinmiş olabilir veya erişim izniniz olmayabilir."
 
+#. Helper text under the Animate switch in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "The colours slowly move. Stays still for people who turned on reduced motion."
+msgstr ""
+
 #. Body of the error modal shown when the source community has disabled cloning of this expression.
 #: src/features/app/components/alerts/ExpressionCloneFailedModal.tsx
 msgid "The community this came from has turned off cloning, so it cannot be copied."
@@ -39590,6 +39675,11 @@ msgstr "Cihaz kamerasını kapat"
 #: src/features/ui/action_menu/items/voice_participant_menu_data/shared.ts
 msgid "Turn off device stream"
 msgstr "Cihaz akışını kapat"
+
+#. Button in Settings > Themes that stops using the current preset theme.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Turn off preset theme"
+msgstr ""
 
 #. Voice menu action that ends the current user screen share.
 #: src/features/ui/action_menu/items/voice_participant_menu_data/shared.ts

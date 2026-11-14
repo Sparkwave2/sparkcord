@@ -21,6 +21,7 @@ import type {MessagePreviewContext} from '@fluxer/constants/src/ChannelConstants
 import {clsx} from 'clsx';
 import type React from 'react';
 import {useCallback, useLayoutEffect, useRef} from 'react';
+import {roleNameStyle} from '@app/features/role_style/RoleNameStyle';
 
 const COMPACT_TIMESTAMP_WIDTH_CSS_VARIABLE = '--message-compact-measured-timestamp-width';
 const COMPACT_MESSAGE_SELECTOR = '[data-flx-compact="true"]';
@@ -231,6 +232,7 @@ export function CompactAuthorPrefix({
 						className={styles.messageUsername}
 						isPreview={isPreview}
 						previewColor={previewOverrides?.usernameColor}
+							previewNameStyle={previewOverrides?.iconRole ? roleNameStyle(previewOverrides.iconRole) : undefined}
 						previewName={previewOverrides?.displayName}
 						data-flx="channel.compact-message-layout.compact-author-prefix.message-username"
 					/>

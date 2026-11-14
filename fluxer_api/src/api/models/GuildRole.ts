@@ -16,6 +16,8 @@ export class GuildRole {
 	readonly isHoisted: boolean;
 	readonly isMentionable: boolean;
 	readonly version: number;
+	/** Sparkcord name style as stored (JSON), or null. */
+	readonly style: string | null;
 
 	constructor(row: GuildRoleRow) {
 		this.guildId = row.guild_id;
@@ -30,6 +32,7 @@ export class GuildRole {
 		this.isHoisted = row.hoist ?? false;
 		this.isMentionable = row.mentionable ?? false;
 		this.version = row.version;
+		this.style = row.style ?? null;
 	}
 
 	get effectiveHoistPosition(): number {
@@ -50,6 +53,7 @@ export class GuildRole {
 			hoist: this.isHoisted,
 			mentionable: this.isMentionable,
 			version: this.version,
+			style: this.style,
 		};
 	}
 }

@@ -1,0 +1,102 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Sparkcord role name styles. Colours come in as CSS variables from RoleNameStyle.tsx. */
+
+.gradient {
+	background-image: var(--name-gradient);
+	background-size: 100% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	-webkit-text-fill-color: transparent;
+}
+
+.animatedGradient {
+	background-size: 200% 100%;
+	animation: nameGradientShift 4s linear infinite;
+}
+
+@keyframes nameGradientShift {
+	from {
+		background-position: 0% 50%;
+	}
+	to {
+		background-position: 200% 50%;
+	}
+}
+
+.alternating {
+	white-space: inherit;
+}
+
+.glow {
+	filter: drop-shadow(0 0 4px color-mix(in srgb, var(--name-glow) 65%, transparent));
+}
+
+/* Alternating colours that move: each letter steps through the colours, offset by its
+   position, so the pattern appears to slide along the name. */
+.cycle2 {
+	animation: nameCycle2 1.2s step-end infinite;
+	animation-delay: var(--name-delay, 0s);
+}
+
+.cycle3 {
+	animation: nameCycle3 1.8s step-end infinite;
+	animation-delay: var(--name-delay, 0s);
+}
+
+.cycle4 {
+	animation: nameCycle4 2.4s step-end infinite;
+	animation-delay: var(--name-delay, 0s);
+}
+
+@keyframes nameCycle2 {
+	0% {
+		color: var(--name-c0);
+	}
+	50% {
+		color: var(--name-c1);
+	}
+}
+
+@keyframes nameCycle3 {
+	0% {
+		color: var(--name-c0);
+	}
+	33.333% {
+		color: var(--name-c1);
+	}
+	66.666% {
+		color: var(--name-c2);
+	}
+}
+
+@keyframes nameCycle4 {
+	0% {
+		color: var(--name-c0);
+	}
+	25% {
+		color: var(--name-c1);
+	}
+	50% {
+		color: var(--name-c2);
+	}
+	75% {
+		color: var(--name-c3);
+	}
+}
+
+:global(html.reduced-motion) .animatedGradient,
+:global(html.reduced-motion) .cycle2,
+:global(html.reduced-motion) .cycle3,
+:global(html.reduced-motion) .cycle4 {
+	animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animatedGradient,
+	.cycle2,
+	.cycle3,
+	.cycle4 {
+		animation: none;
+	}
+}

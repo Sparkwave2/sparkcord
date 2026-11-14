@@ -3,6 +3,7 @@
 import styles from '@app/features/channel/components/TypingUsers.module.css';
 import type {Channel} from '@app/features/channel/models/Channel';
 import GuildMembers from '@app/features/member/state/GuildMembers';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import {TYPING_ROLLING_MAX_NAMES} from '@app/features/typing/rolling/TypingSendThrottle';
 import {getTypingTierText} from '@app/features/typing/utils/TypingTierText';
 import type {User} from '@app/features/user/models/User';
@@ -43,7 +44,9 @@ function getTypingNames(typingUsers: ReadonlyArray<User>, channel: Channel): Rea
 			style={{color: GuildMembers.getMember(channel.guildId ?? '', user.id)?.getColorString()}}
 			data-flx="channel.typing-users.get-typing-text.username"
 		>
-			{getTypistName(user, channel)}
+			<StyledName nameStyle={GuildMembers.getMember(channel.guildId ?? '', user.id)?.getNameStyle()}>
+				{getTypistName(user, channel)}
+			</StyledName>
 		</span>
 	));
 	if (typingUsers.length === 1) {

@@ -326,6 +326,7 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 				if (updates.unicodeEmoji !== undefined && updates.unicodeEmoji !== originalRole?.unicodeEmoji) {
 					updateData.unicode_emoji = updates.unicodeEmoji;
 				}
+				if (updates.style !== undefined) updateData.style = updates.style;
 				await GuildCommands.updateRole(guild.id, roleId, updateData);
 			}
 			setRoleUpdates(new Map());
@@ -376,7 +377,8 @@ const GuildRolesTab: React.FC<{guildId: string}> = observer(({guildId}) => {
 					(merged.mentionable !== undefined && merged.mentionable !== originalRole.mentionable) ||
 					(merged.permissions !== undefined && merged.permissions !== originalRole.permissions) ||
 					(merged.icon !== undefined && merged.icon !== originalRole.icon) ||
-					(merged.unicodeEmoji !== undefined && merged.unicodeEmoji !== originalRole.unicodeEmoji);
+					(merged.unicodeEmoji !== undefined && merged.unicodeEmoji !== originalRole.unicodeEmoji) ||
+					(merged.style !== undefined && JSON.stringify(merged.style) !== JSON.stringify(originalRole.style));
 				if (hasChanges) newMap.set(roleId, merged);
 				else newMap.delete(roleId);
 				return newMap;

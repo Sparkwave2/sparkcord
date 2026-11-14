@@ -7,7 +7,9 @@ import Channels from '@app/features/channel/state/Channels';
 import * as ChannelUtils from '@app/features/channel/utils/ChannelUtils';
 import Guilds from '@app/features/guild/state/Guilds';
 import {isKeyboardActivationKey} from '@app/features/input/utils/KeyboardUtils';
+import GuildMembers from '@app/features/member/state/GuildMembers';
 import {MentionLabel} from '@app/features/messaging/components/markdown/renderers/MentionLabel';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import type {RendererProps} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
 import {GuildNavKind, MentionKind} from '@app/features/messaging/utils/markdown/parser/Enums';
 import type {MentionNode} from '@app/features/messaging/utils/markdown/parser/Nodes';
@@ -188,7 +190,9 @@ export const MentionRenderer = observer(function MentionRenderer({
 							data-flx="messaging.markdown.renderers.mention-renderer.button.stop-propagation"
 						>
 							<MentionLabel data-flx="messaging.markdown.renderers.mention-renderer.mention-label--3">
-								{`@${name || user.displayName}`}
+								<StyledName nameStyle={resolvedGuildId ? GuildMembers.getMember(resolvedGuildId, user.id)?.getNameStyle() : null}>
+									{`@${name || user.displayName}`}
+								</StyledName>
 							</MentionLabel>
 						</span>
 					</FocusRing>
@@ -228,7 +232,7 @@ export const MentionRenderer = observer(function MentionRenderer({
 					data-flx="messaging.markdown.renderers.mention-renderer.span--4"
 				>
 					<MentionLabel data-flx="messaging.markdown.renderers.mention-renderer.mention-label--5">
-						@{role.name}
+						<StyledName nameStyle={role.style ? {style: role.style, color: role.color} : null}>{`@${role.name}`}</StyledName>
 					</MentionLabel>
 				</span>
 			);

@@ -3,6 +3,7 @@
 import Authentication from '@app/features/auth/state/Authentication';
 import {useCollapsedMessageVisibility} from '@app/features/channel/components/CollapsedMessageVisibilityContext';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
@@ -226,7 +227,15 @@ export const ReplyPreview = observer(
 						data-guild-id={resolvedGuildId}
 						data-flx="channel.reply-preview.replied-username"
 					>
-						{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
+						<StyledName
+							nameStyle={
+								referencedMessage.proxy
+									? null
+									: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getNameStyle()
+							}
+						>
+							{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
+						</StyledName>
 					</span>
 				</PreloadableUserPopout>
 				<FocusRing offset={-2} data-flx="channel.reply-preview.focus-ring">

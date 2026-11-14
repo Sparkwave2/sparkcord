@@ -19,6 +19,7 @@ import {useLingui} from '@lingui/react/macro';
 import {WarningCircleIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
+import {roleNameStyle} from '@app/features/role_style/RoleNameStyle';
 
 const UPDATE_PRODUCT_TO_VIEW_MESSAGE_DESCRIPTOR = msg({
 	message: 'Update {productName} to view this message.',
@@ -102,6 +103,7 @@ export const UnknownMessage = observer(() => {
 								className={styles.messageUsername}
 								isPreview={!!previewContext}
 								previewColor={previewOverrides?.usernameColor}
+							previewNameStyle={previewOverrides?.iconRole ? roleNameStyle(previewOverrides.iconRole) : undefined}
 								previewName={previewOverrides?.displayName}
 								data-flx="channel.unknown-message.message-username"
 							/>

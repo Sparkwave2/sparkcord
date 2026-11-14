@@ -2,6 +2,7 @@
 
 import {useContextMenuHoverState} from '@app/features/app/hooks/useContextMenuHoverState';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
+import {StyledName} from '@app/features/role_style/RoleNameStyle';
 import type {Guild} from '@app/features/guild/models/Guild';
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
@@ -46,7 +47,7 @@ export const SystemMessageUsername = observer(
 					ref={usernameRef}
 					data-flx="channel.system-message-username.system-message-link"
 				>
-					{NicknameUtils.getNickname(author, guild?.id)}
+					<StyledName nameStyle={member?.getNameStyle()}>{NicknameUtils.getNickname(author, guild?.id)}</StyledName>
 				</span>
 			</PreloadableUserPopout>
 		);

@@ -8,6 +8,7 @@ import type {ThreadViewer} from '@app/api/experiment/ChannelThreadsGate';
 import type {GuildAuditLogService} from '@app/api/guild/GuildAuditLogService';
 import {mapGuildRoleToResponse} from '@app/api/guild/GuildModel';
 import type {GuildRepository} from '@app/api/guild/repositories/GuildRepository';
+import {serializeRoleStyle} from '@app/api/guild/RoleStyle';
 import {getGuildAuth} from '@app/api/guild/services/GuildMfaEnforcement';
 import {withGuildMemberRoleWriteLock} from '@app/api/guild/services/member/GuildMemberRoleWriteLock';
 import {computeMovedIds, getMemberListRoleOrderIds} from '@app/api/guild/services/role/RoleOrderAuditUtils';
@@ -57,6 +58,7 @@ type RoleUpdateData = Partial<{
 	permissions: bigint;
 	hoist: boolean;
 	mentionable: boolean;
+	style: string | null;
 }>;
 
 interface RoleIconRequest {
@@ -335,6 +337,7 @@ export class GuildRoleService {
 			unicode_emoji: iconChange.unicodeEmoji,
 			hoist: updateData.hoist ?? role.isHoisted,
 			mentionable: updateData.mentionable ?? role.isMentionable,
+			style: updateData.style !== undefined ? updateData.style : role.style,
 		};
 		const liveRow = liveRole.toRow();
 		const updatedRole = await this.writeRoleWithIcon(
@@ -819,6 +822,9 @@ export class GuildRoleService {
 		if (data.mentionable !== undefined && !isEveryoneRole) {
 			updateData.mentionable = data.mentionable;
 		}
+		if (data.style !== undefined) {
+			updateData.style = serializeRoleStyle(data.style);
+		}
 		if (data.permissions !== undefined) {
 			updateData.permissions = await this.resolveRequestedPermissions({
 				requestedPermissions: data.permissions,
@@ -1043,6 +1049,7 @@ export class GuildRoleService {
 			unicode_emoji: role.unicodeEmoji ?? null,
 			hoist: role.isHoisted,
 			mentionable: role.isMentionable,
+			style: role.style,
 		};
 	}
 

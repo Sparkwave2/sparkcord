@@ -4,6 +4,7 @@ import {PermissionRoleCategory} from '@app/features/app/components/dialogs/share
 import {LayoutToggleButtons} from '@app/features/channel/components/modals/channel_tabs/channel_permissions_tab/LayoutToggleButtons';
 import styles from '@app/features/guild/components/modals/guild_tabs/GuildRolesTab.module.css';
 import {RoleIconField} from '@app/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleIconField';
+import {RoleStyleField} from '@app/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField';
 import type {RoleUpdate} from '@app/features/guild/components/modals/guild_tabs/guild_roles_tab/shared';
 import type {GuildRole} from '@app/features/guild/models/GuildRole';
 import type * as PermissionUtils from '@app/features/permissions/utils/PermissionUtils';
@@ -175,6 +176,12 @@ export const RoleEditor: React.FC<RoleEditorProps> = observer(
 										/>
 									</div>
 								</div>
+								<RoleStyleField
+									key={`style-${selectedRoleWithUpdates.id}`}
+									role={selectedRoleWithUpdates}
+									disabled={selectedRoleLocked || !canManageRoles}
+									onChange={(style) => selectedRole && onRoleUpdate(selectedRole.id, {style})}
+								/>
 								{!selectedRoleWithUpdates.isEveryone && (
 									<RoleIconField
 										key={selectedRoleWithUpdates.id}

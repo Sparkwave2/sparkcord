@@ -59,6 +59,7 @@ import {ArrowsClockwiseIcon, BellSlashIcon, EyeIcon, WarningCircleIcon} from '@p
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {type MouseEvent, useCallback, useMemo} from 'react';
+import {roleNameStyle} from '@app/features/role_style/RoleNameStyle';
 
 const JUMP_TO_MESSAGE_FROM_SENT_DESCRIPTOR = msg({
 	message: 'Jump to message from {displayName}, sent {formattedDate}',
@@ -421,6 +422,7 @@ export const UserMessage = observer(() => {
 									className={styles.messageUsername}
 									isPreview={!!previewContext}
 									previewColor={previewOverrides?.usernameColor}
+							previewNameStyle={previewOverrides?.iconRole ? roleNameStyle(previewOverrides.iconRole) : undefined}
 									previewName={previewOverrides?.displayName}
 									data-flx="channel.user-message.message-username"
 								/>
@@ -515,6 +517,7 @@ export const UserMessage = observer(() => {
 							className={styles.messageUsername}
 							isPreview={!!previewContext}
 							previewColor={previewOverrides?.usernameColor}
+							previewNameStyle={previewOverrides?.iconRole ? roleNameStyle(previewOverrides.iconRole) : undefined}
 							previewName={previewOverrides?.displayName}
 							data-flx="channel.user-message.message-username--2"
 						/>
