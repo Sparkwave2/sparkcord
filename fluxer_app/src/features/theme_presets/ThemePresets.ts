@@ -167,12 +167,47 @@ export function presetImageUrl(preset: ThemePreset, thumb = false): string {
 }
 
 /**
- * The theme CSS for a preset. Panels are the panel colour at partial opacity, so the
- * background (image over gradient, fixed to the window) shows through.
+ * Layout wrappers that would otherwise paint the same see-through colour on top of each
+ * other (making panels opaque again). Matched by CSS-module class name prefix, so they
+ * survive rebuilds; if one stops matching, that area just looks more solid.
+ */
+const TRANSPARENT_WRAPPERS = [
+	'App.module__appContainer',
+	'OutlineFrame.module__frame',
+	'GuildsLayout.module__guildsLayoutContainer',
+	'GuildsLayout.module__contentContainer',
+	'GuildsLayout.module__contentInner',
+	'GuildsLayout.module__guildListScrollerWrapper',
+	'GuildLayout.module__guildLayoutContainer',
+	'GuildLayout.module__guildMainContent',
+	'ChannelLayout.module__channelLayoutContainer',
+	'ChannelIndexPage.module__channelGrid',
+	'DirectMessageLayout.module__dmLayoutContainer',
+	'DirectMessageLayout.module__contentColumn',
+	'DirectMessageLayout.module__contentInner',
+	'DirectMessageLayout.module__dmListColumn',
+	'DirectMessageList.module__dmListContainer',
+];
+
+/** The main panels, which blur what is behind them (the "frosted glass" look). */
+const FROSTED_PANELS = [
+	'GuildsLayout.module__guildListScrollContainer',
+	'GuildNavbar.module__guildNavbarContainer',
+	'ChannelChatLayout.module__container',
+	'DMFriendsView.module__container',
+];
+
+const byModuleClass = (names: ReadonlyArray<string>) =>
+	names.map((name) => `html:root [class*="${name}___"]`).join(',\n');
+
+/**
+ * The theme CSS for a preset. Panels are the panel colour at partial opacity over a
+ * background (image over gradient) fixed to the window.
  */
 export function buildPresetCss(preset: ThemePreset): string {
 	const p = preset.panel;
 	const light = preset.base === 'light';
+	const a = (dark: number, lightValue: number) => (light ? lightValue : dark);
 	return `/* Sparkcord preset theme: ${preset.name}. Generated; duplicate it to customise. */
 html:root {
 	--sparkcord-preset-image: url("${presetImageUrl(preset)}");
@@ -186,14 +221,17 @@ html:root {
 	--button-primary-fill: ${preset.accent};
 	--button-primary-active-fill: color-mix(in srgb, ${preset.accent} 85%, ${light ? 'black' : 'white'});
 	--button-primary-text: ${preset.onAccent};
-	--background-primary: rgba(${p}, ${light ? 0.62 : 0.58});
-	--background-secondary: rgba(${p}, ${light ? 0.7 : 0.66});
-	--background-secondary-alt: rgba(${p}, ${light ? 0.74 : 0.72});
-	--background-tertiary: rgba(${p}, ${light ? 0.78 : 0.76});
-	--background-channel-header: rgba(${p}, ${light ? 0.72 : 0.7});
-	--background-header-primary: rgba(${p}, 0.8);
-	--background-header-secondary: rgba(${p}, 0.85);
-	--background-textarea: rgba(${p}, ${light ? 0.8 : 0.72});
+	--background-primary: rgba(${p}, ${a(0.62, 0.66)});
+	--background-secondary: rgba(${p}, ${a(0.7, 0.72)});
+	--background-secondary-alt: rgba(${p}, ${a(0.74, 0.76)});
+	--background-secondary-lighter: rgba(${p}, ${a(0.62, 0.66)});
+	--background-tertiary: rgba(${p}, ${a(0.78, 0.8)});
+	--composer-surface-color: rgba(${p}, ${a(0.62, 0.66)});
+	--outline-frame-background: transparent;
+	--background-channel-header: rgba(${p}, ${a(0.7, 0.74)});
+	--background-header-primary: rgba(${p}, 0.82);
+	--background-header-secondary: rgba(${p}, 0.86);
+	--background-textarea: rgba(${p}, ${a(0.72, 0.8)});
 }
 
 html:root body {
@@ -203,6 +241,14 @@ html:root body {
 	background-position: center, center;
 	background-repeat: no-repeat, no-repeat;
 	background-attachment: fixed, fixed;
+}
+
+${byModuleClass(TRANSPARENT_WRAPPERS)} {
+	background: transparent !important;
+}
+
+${byModuleClass(FROSTED_PANELS)} {
+	backdrop-filter: blur(14px) saturate(1.15);
 }
 `;
 }
