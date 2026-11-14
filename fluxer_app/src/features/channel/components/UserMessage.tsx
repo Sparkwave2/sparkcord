@@ -60,6 +60,8 @@ import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {type MouseEvent, useCallback, useMemo} from 'react';
 import {roleNameStyle} from '@app/features/role_style/RoleNameStyle';
+import {parseP2PShare} from '@app/features/p2p/P2PShare';
+import {P2PShareCardLazy} from '@app/features/p2p/P2PShareCardLazy';
 
 const JUMP_TO_MESSAGE_FROM_SENT_DESCRIPTOR = msg({
 	message: 'Jump to message from {displayName}, sent {formattedDate}',
@@ -311,6 +313,8 @@ export const UserMessage = observer(() => {
 			);
 		}
 		if (shouldHideContent) return null;
+		const p2pShare = parseP2PShare(message.content);
+		if (p2pShare) return <P2PShareCardLazy share={p2pShare} authorId={message.author.id} />;
 		return (
 			<div
 				className={clsx(markupStyles.markup)}

@@ -15,7 +15,7 @@ import {MenuItem} from '@app/features/ui/action_menu/MenuItem';
 import {KeybindHint} from '@app/features/ui/keybind_hint/KeybindHint';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {GiftIcon, MicrophoneIcon, PaperclipIcon, UploadSimpleIcon} from '@phosphor-icons/react';
+import {GiftIcon, MicrophoneIcon, PaperclipIcon, ShareNetworkIcon, UploadSimpleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 
 const YOU_DO_NOT_HAVE_PERMISSION_TO_UPLOAD_FILES_DESCRIPTOR = msg({
@@ -63,6 +63,15 @@ const SHOW_SEND_BUTTON_DESCRIPTOR = msg({
 	comment: 'Short label in the channel and chat textarea plus menu. Keep it concise.',
 });
 
+const SHARE_P2P_LABEL = msg({
+	message: 'Share peer-to-peer',
+	comment: 'Plus menu item: send a file directly from your browser (torrent) instead of uploading it.',
+});
+const SHARE_P2P_HINT = msg({
+	message: 'No size limit. Keep Sparkcord open while people download.',
+	comment: 'Hint on the Share peer-to-peer plus menu item.',
+});
+
 interface TextareaPlusMenuProps {
 	giftChannelId?: string;
 	onUploadFile: () => void;
@@ -72,6 +81,8 @@ interface TextareaPlusMenuProps {
 	onUploadAsFile?: () => void;
 	onSendVoiceMessage?: () => void;
 	onCreateThread?: () => void;
+	/** Sparkcord: share a file peer-to-peer (torrent) instead of uploading it. */
+	onShareP2P?: () => void;
 }
 
 export const TextareaPlusMenu = observer(
@@ -84,6 +95,7 @@ export const TextareaPlusMenu = observer(
 		onUploadAsFile,
 		onSendVoiceMessage,
 		onCreateThread,
+		onShareP2P,
 	}: TextareaPlusMenuProps) => {
 		const {i18n} = useLingui();
 		const showGifButton = Accessibility.showGifButton;
@@ -121,6 +133,17 @@ export const TextareaPlusMenu = observer(
 				>
 					{i18n._(UPLOAD_FILE_DESCRIPTOR)}
 				</MenuItem>
+				{onShareP2P && (
+					<MenuItem
+						icon={<ShareNetworkIcon weight="bold" />}
+						onClick={onShareP2P}
+						disabled={!canSendMessages}
+						hint={!canSendMessages ? cannotSendMessagesHint : i18n._(SHARE_P2P_HINT)}
+						data-flx="channel.textarea.textarea-plus-menu.menu-item.share-p2p"
+					>
+						{i18n._(SHARE_P2P_LABEL)}
+					</MenuItem>
+				)}
 				{hasTextContent && onUploadAsFile && (
 					<MenuItem
 						icon={<UploadSimpleIcon data-flx="channel.textarea.textarea-plus-menu.upload-simple-icon" />}

@@ -166,7 +166,11 @@ cmd_watch() {
 
 cmd_up() {
 	[ -f "$STACK_DIR/.env" ] || cmd_setup
+	# The edge loads extra routes from caddy.d; add the P2P tracker routes.
+	cp "$DEV_DIR/tracker/tracker.caddy" "$STACK_DIR/caddy.d/sparkcord-tracker.caddy"
+	compose up -d --build tracker
 	compose up -d
+	compose restart edge >/dev/null
 	echo
 	echo "Sparkcord is starting at http://localhost:$PORT"
 	echo "First admin setup token: $(get_env FLUXER_SETUP_TOKEN)"

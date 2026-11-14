@@ -7225,6 +7225,10 @@ msgstr "{path}을(를) 찾을 수 없습니다. 마지막으로 로드된 버전
 msgid "Can't paste image here"
 msgstr "여기에 이미지를 붙여넣을 수 없습니다"
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Can't reach the sender. They may have closed Sparkcord; this keeps trying."
+msgstr ""
+
 #. Shown for a linked theme in Settings > Themes when its CSS file exists but cannot be read, for example because it is too large or access was removed. {path} is the full path of the CSS file.
 #: src/features/theme_settings/utils/LinkedThemeFile.ts
 msgid "Can't read {path}. Using the last loaded version."
@@ -7276,6 +7280,7 @@ msgstr "여기에 파일을 올릴 수 없습니다"
 #: src/features/moderation/components/modals/BanMemberModal.tsx
 #: src/features/moderation/components/modals/RemoveTimeoutModal.tsx
 #: src/features/moderation/components/modals/TimeoutMemberModal.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 #: src/features/user/components/modals/BouncedEmailChangeModal.tsx
 #: src/features/user/components/modals/EmailChangeModal.tsx
@@ -10112,6 +10117,10 @@ msgstr "코네티컷"
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "Connecting to {domain}…"
 msgstr "{domain}(으)로 연결 중…"
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Connecting to the sender…"
+msgstr ""
 
 #. Action label state in the DM channel header pill while the join request is in flight. Trailing ASCII ellipsis is intentional.
 #. Overlay status in the voice call view while joining. Trailing ellipsis indicates in-progress.
@@ -13893,6 +13902,7 @@ msgstr "식별자"
 
 #. Generic button label that dismisses a banner, modal, sheet, or prompt without taking the primary action.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/p2p/P2PShareCard.tsx
 msgid "Dismiss"
 msgstr "닫기"
 
@@ -14240,6 +14250,7 @@ msgstr "자신의 메시지를 더블 클릭하여 수정하거나, 다른 사�
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
@@ -14353,6 +14364,15 @@ msgstr "새 버전을 다운로드하여 {appName}을(를) 업데이트하세요
 #: src/features/ui/action_menu/items/MediaMenuData.tsx
 msgid "Download video"
 msgstr "비디오 다운로드"
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Downloaded. Also sharing it on while this tab is open."
+msgstr ""
+
+#. placeholder {0}: formatBytes(transfer.downloadSpeed)
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Downloading {percent}% · {0}/s"
+msgstr ""
 
 #. Short heading in the keyboard shortcuts cheatsheet.
 #. Short label in the keybinds tab. Keep it concise.
@@ -25148,6 +25168,11 @@ msgstr "이 요청에 대해 선택된 서버가 없습니다."
 msgid "No settings found"
 msgstr "설정 없음"
 
+#. Hint on the Share peer-to-peer plus menu item.
+#: src/features/channel/components/textarea/TextareaPlusMenu.tsx
+msgid "No size limit. Keep Sparkcord open while people download."
+msgstr ""
+
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx
 msgid "No specific scopes requested."
 msgstr "요청된 특정 범위가 없습니다."
@@ -29734,6 +29759,7 @@ msgstr "창 크기 및 위치 기억"
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildInviteSplashUploadField.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/ui/action_menu/GroupDMContextMenu.tsx
 #: src/features/ui/action_menu/UserContextMenu.tsx
 #: src/features/user/components/modals/tabs/privacy_safety_tab/AgeRangeSection.tsx
@@ -31466,6 +31492,7 @@ msgstr "채도"
 #: src/features/messaging/components/modals/AttachmentEditModal.tsx
 #: src/features/messaging/components/modals/EditAltTextModal.tsx
 #: src/features/messaging/components/modals/MessageHistoryThresholdModal.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/theme_settings/components/ThemeDetailsModal.tsx
 #: src/features/user/components/modals/BaseChangeNicknameModal.tsx
 #: src/features/user/components/modals/CustomStatusBottomSheet.tsx
@@ -33458,6 +33485,11 @@ msgstr "동영상이나 큰 파일을 줄이지 않고 그대로 공유하세요
 msgid "Share gift"
 msgstr "선물 공유"
 
+#. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#: src/features/channel/components/textarea/TextareaPlusMenu.tsx
+msgid "Share peer-to-peer"
+msgstr ""
+
 #. Hover action on an application or display card that starts sharing that source.
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx
 msgid "Share screen"
@@ -33520,6 +33552,10 @@ msgstr "테마 공유하기"
 msgid "Share your voice activity with friends"
 msgstr "친구와 음성 활동 공유하기"
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Shared peer-to-peer. The sender needs to have Sparkcord open."
+msgstr ""
+
 #. Button or menu action label in the channel and chat theme embed. Keep it concise.
 #. Button or menu action label in the theme login and register pages. Keep it concise. Keep the tone plain and specific.
 #: src/features/auth/flow/ThemeHeader.tsx
@@ -33536,6 +33572,16 @@ msgstr "공유된 창"
 #: src/features/voice/components/AudioSourcePickerLinux.tsx
 msgid "Shared window audio"
 msgstr "공유된 창 오디오"
+
+#. placeholder {0}: transfer.peers
+#. placeholder {1}: formatBytes(transfer.uploadSpeed)
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Sharing · {0} connected · {1}/s"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Sharing. Keep Sparkcord open until people have downloaded it."
+msgstr ""
 
 #. Description for the Screen share streaming preset. {resolution} is a short label such as 1080p and {frameRate} is a whole number such as 30. FPS is a technical token.
 #: src/features/voice/components/StreamSettingsMenuContent.tsx
@@ -35824,6 +35870,10 @@ msgstr "미리보기 종료"
 msgid "Stop ringing"
 msgstr "벨 울림 중지"
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Stop sharing"
+msgstr ""
+
 #. Privacy > Active now: confirmation modal title when turning sharing off.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ActiveNowTab.tsx
 msgid "Stop sharing voice activity with all friends?"
@@ -37403,6 +37453,11 @@ msgstr "시스템에서 {role} 역할을 {target}님에게서 제거했습니다
 #. Slash-command option.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "The tag, or leave blank to remove it."
+msgstr ""
+
+#. placeholder {0}: transfer.error ?? 'unknown error'
+#: src/features/p2p/P2PShareCard.tsx
+msgid "The transfer failed: {0}"
 msgstr ""
 
 #. Slash-command option for a new tupper name.
@@ -44487,6 +44542,10 @@ msgstr "{paid}을(를) 결제하셨어요. {premiumProductName}을(를) 사용�
 #: src/features/app/components/setup/SetupRecoveryKitStep.tsx
 msgid "You saved a recovery kit."
 msgstr "복구 키트를 저장했습니다."
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "You shared this peer-to-peer. It's available while the tab you shared it from stays open."
+msgstr ""
 
 #. Description of the password row in account settings when the account has a confirmed email but no password.
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx

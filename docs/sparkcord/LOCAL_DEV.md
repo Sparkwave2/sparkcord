@@ -79,6 +79,17 @@ You can also set `SPARKCORD_TEST_LOGIN` / `SPARKCORD_TEST_PASSWORD`.
 - In any channel, type `tp!help`. Replies to `tp!` commands are only visible to you.
 - Send `k: hi` or `[hi]` after importing the Tupperbox example. The message shows as Kai.
 
+## Peer-to-peer file sharing
+
+"Share peer-to-peer" in the composer's + menu seeds a file from the browser with
+WebTorrent and posts a magnet link, which Sparkcord shows as a download card. Nothing
+is uploaded to the server. The stack runs a small tracker container
+(`sparkcord/dev/tracker`), which the edge serves at `/tracker`. Its `/tracker-ice`
+route hands out the voice server's STUN/TURN settings (`FLUXER_LIVEKIT_STUN_*`,
+`FLUXER_LIVEKIT_TURN_SERVERS`). Files are shared only while the sender's tab is open.
+Set `SPARKCORD_TRACKER_DEBUG=bittorrent-tracker:server` when running `dev.sh up` to
+log announces, offers and answers.
+
 ## Stopping and cleaning up
 
 ```bash

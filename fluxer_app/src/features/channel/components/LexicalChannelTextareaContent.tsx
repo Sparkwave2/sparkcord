@@ -130,6 +130,7 @@ import {PlusIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState} from 'react';
+import {openP2PFilePicker} from '@app/features/p2p/P2PShare';
 
 const PLUS_MENU_DOUBLE_CLICK_MS = 500;
 const MESSAGE_SCROLLER_SELECTOR = '[data-flx="channel.messages.scroller"][data-fluxer-scroll-container="true"]';
@@ -1151,6 +1152,14 @@ export const LexicalChannelTextareaContent = observer(
 							canSendMessages={!textareaInputDisabled}
 							textareaValue={value}
 							onUploadAsFile={handleUploadMessageAsFile}
+							onShareP2P={
+								draftChannelId == null
+									? () => {
+											ContextMenuCommands.close();
+											openP2PFilePicker(channel.id);
+										}
+									: undefined
+							}
 							onSendVoiceMessage={
 								mobileLayout.enabled || draftChannelId != null
 									? undefined

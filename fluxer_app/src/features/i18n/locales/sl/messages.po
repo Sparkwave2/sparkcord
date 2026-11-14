@@ -7218,6 +7218,10 @@ msgstr ""
 msgid "Can't paste image here"
 msgstr ""
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Can't reach the sender. They may have closed Sparkcord; this keeps trying."
+msgstr ""
+
 #. Shown for a linked theme in Settings > Themes when its CSS file exists but cannot be read, for example because it is too large or access was removed. {path} is the full path of the CSS file.
 #: src/features/theme_settings/utils/LinkedThemeFile.ts
 msgid "Can't read {path}. Using the last loaded version."
@@ -7269,6 +7273,7 @@ msgstr ""
 #: src/features/moderation/components/modals/BanMemberModal.tsx
 #: src/features/moderation/components/modals/RemoveTimeoutModal.tsx
 #: src/features/moderation/components/modals/TimeoutMemberModal.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 #: src/features/user/components/modals/BouncedEmailChangeModal.tsx
 #: src/features/user/components/modals/EmailChangeModal.tsx
@@ -10104,6 +10109,10 @@ msgstr ""
 #. Auth status shown while connecting to an instance, when the instance selector resolves it or when sign-in waits for the live connection. Domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "Connecting to {domain}…"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Connecting to the sender…"
 msgstr ""
 
 #. Action label state in the DM channel header pill while the join request is in flight. Trailing ASCII ellipsis is intentional.
@@ -13886,6 +13895,7 @@ msgstr ""
 
 #. Generic button label that dismisses a banner, modal, sheet, or prompt without taking the primary action.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/p2p/P2PShareCard.tsx
 msgid "Dismiss"
 msgstr ""
 
@@ -14233,6 +14243,7 @@ msgstr ""
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
@@ -14345,6 +14356,15 @@ msgstr ""
 #. Media context menu action that downloads a video attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx
 msgid "Download video"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Downloaded. Also sharing it on while this tab is open."
+msgstr ""
+
+#. placeholder {0}: formatBytes(transfer.downloadSpeed)
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Downloading {percent}% · {0}/s"
 msgstr ""
 
 #. Short heading in the keyboard shortcuts cheatsheet.
@@ -25141,6 +25161,11 @@ msgstr ""
 msgid "No settings found"
 msgstr ""
 
+#. Hint on the Share peer-to-peer plus menu item.
+#: src/features/channel/components/textarea/TextareaPlusMenu.tsx
+msgid "No size limit. Keep Sparkcord open while people download."
+msgstr ""
+
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx
 msgid "No specific scopes requested."
 msgstr ""
@@ -29727,6 +29752,7 @@ msgstr ""
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildInviteSplashUploadField.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/ui/action_menu/GroupDMContextMenu.tsx
 #: src/features/ui/action_menu/UserContextMenu.tsx
 #: src/features/user/components/modals/tabs/privacy_safety_tab/AgeRangeSection.tsx
@@ -31459,6 +31485,7 @@ msgstr ""
 #: src/features/messaging/components/modals/AttachmentEditModal.tsx
 #: src/features/messaging/components/modals/EditAltTextModal.tsx
 #: src/features/messaging/components/modals/MessageHistoryThresholdModal.tsx
+#: src/features/p2p/P2PShareCard.tsx
 #: src/features/theme_settings/components/ThemeDetailsModal.tsx
 #: src/features/user/components/modals/BaseChangeNicknameModal.tsx
 #: src/features/user/components/modals/CustomStatusBottomSheet.tsx
@@ -33451,6 +33478,11 @@ msgstr ""
 msgid "Share gift"
 msgstr ""
 
+#. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#: src/features/channel/components/textarea/TextareaPlusMenu.tsx
+msgid "Share peer-to-peer"
+msgstr ""
+
 #. Hover action on an application or display card that starts sharing that source.
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx
 msgid "Share screen"
@@ -33513,6 +33545,10 @@ msgstr ""
 msgid "Share your voice activity with friends"
 msgstr ""
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Shared peer-to-peer. The sender needs to have Sparkcord open."
+msgstr ""
+
 #. Button or menu action label in the channel and chat theme embed. Keep it concise.
 #. Button or menu action label in the theme login and register pages. Keep it concise. Keep the tone plain and specific.
 #: src/features/auth/flow/ThemeHeader.tsx
@@ -33528,6 +33564,16 @@ msgstr ""
 #. Capture option in the Linux audio source picker on a window share. Captures only the audio of the window being shared.
 #: src/features/voice/components/AudioSourcePickerLinux.tsx
 msgid "Shared window audio"
+msgstr ""
+
+#. placeholder {0}: transfer.peers
+#. placeholder {1}: formatBytes(transfer.uploadSpeed)
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Sharing · {0} connected · {1}/s"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Sharing. Keep Sparkcord open until people have downloaded it."
 msgstr ""
 
 #. Description for the Screen share streaming preset. {resolution} is a short label such as 1080p and {frameRate} is a whole number such as 30. FPS is a technical token.
@@ -35817,6 +35863,10 @@ msgstr ""
 msgid "Stop ringing"
 msgstr ""
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Stop sharing"
+msgstr ""
+
 #. Privacy > Active now: confirmation modal title when turning sharing off.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ActiveNowTab.tsx
 msgid "Stop sharing voice activity with all friends?"
@@ -37396,6 +37446,11 @@ msgstr ""
 #. Slash-command option.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "The tag, or leave blank to remove it."
+msgstr ""
+
+#. placeholder {0}: transfer.error ?? 'unknown error'
+#: src/features/p2p/P2PShareCard.tsx
+msgid "The transfer failed: {0}"
 msgstr ""
 
 #. Slash-command option for a new tupper name.
@@ -44479,6 +44534,10 @@ msgstr ""
 #. Status in the setup wizard once the administrator has a recovery kit.
 #: src/features/app/components/setup/SetupRecoveryKitStep.tsx
 msgid "You saved a recovery kit."
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "You shared this peer-to-peer. It's available while the tab you shared it from stays open."
 msgstr ""
 
 #. Description of the password row in account settings when the account has a confirmed email but no password.

@@ -1,0 +1,9 @@
+# Sparkcord: peer-to-peer file sharing (copied into the edge's conf.d by dev.sh up).
+handle /tracker {
+	import upstream tracker:8000
+}
+
+handle /tracker-ice {
+	rewrite * /ice
+	import upstream tracker:8001
+}

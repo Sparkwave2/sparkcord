@@ -13,3 +13,16 @@ services:
   app-proxy:
     image: ${SPARKCORD_APP_IMAGE:-sparkcord/fluxer-app-proxy:dev}
     pull_policy: never
+  # Peer-to-peer file sharing: WebTorrent tracker and ICE (STUN/TURN) config, routed
+  # by the edge at /tracker and /tracker-ice (see tracker/tracker.caddy).
+  tracker:
+    build: ../tracker
+    image: sparkcord/tracker:dev
+    pull_policy: never
+    restart: ${FLUXER_RESTART_POLICY:-unless-stopped}
+    networks: [fluxer]
+    environment:
+      STUN_PRIMARY: ${FLUXER_LIVEKIT_STUN_PRIMARY:-stun.l.google.com:19302}
+      STUN_SECONDARY: ${FLUXER_LIVEKIT_STUN_SECONDARY:-stun1.l.google.com:19302}
+      TURN_SERVERS: ${FLUXER_LIVEKIT_TURN_SERVERS:-[]}
+      DEBUG: ${SPARKCORD_TRACKER_DEBUG:-}

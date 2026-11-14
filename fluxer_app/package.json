@@ -237,6 +237,7 @@
 		"upng-js": "^2.1.0",
 		"urlpattern-polyfill": "catalog:",
 		"valibot": "catalog:",
+		"webtorrent": "3.0.21",
 		"xstate": "5.33.3"
 	},
 	"devDependencies": {
