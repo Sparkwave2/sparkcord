@@ -7,11 +7,9 @@ import {http} from '@app/features/platform/transport/RestTransport';
 import {
 	formatProxyTag,
 	parseProxyTagLines,
+	TUPPER_COMMAND_PREFIX,
 	type TupperWire,
-} from '@app/features/user/components/modals/tabs/TuppersTab';
-
-/** Prefix for tupper chat commands. They run locally and are never posted to the channel. */
-export const TUPPER_COMMAND_PREFIX = 'tp!';
+} from '@app/features/tupper/TupperShared';
 
 const HELP = [
 	'**Tupper commands** (only you see these replies)',
@@ -27,10 +25,6 @@ const HELP = [
 	'`tp!proxy on|off` turn proxying on or off',
 	'Start a message with `\\` to send it as yourself. Import Tupperbox/PluralKit files in Settings → Tuppers.',
 ].join('\n');
-
-export function isTupperCommand(content: string): boolean {
-	return content.trim().toLowerCase().startsWith(TUPPER_COMMAND_PREFIX);
-}
 
 /** Splits on whitespace but keeps "quoted strings" together. */
 export function tokenize(input: string): Array<string> {

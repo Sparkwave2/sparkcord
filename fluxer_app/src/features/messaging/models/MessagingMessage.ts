@@ -31,6 +31,7 @@ import type {
 	ReactionEmoji,
 	Message as WireMessage,
 } from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
+import {getProxyDisplayName} from '@app/features/tupper/TupperShared';
 
 type MessageInput = Omit<WireMessage, 'mentions' | 'mention_roles' | 'tts'> &
 	Partial<Pick<WireMessage, 'mentions' | 'mention_roles' | 'tts'>>;
@@ -142,9 +143,7 @@ interface MessageRecordOptions {
 	skipReactionHydration?: boolean;
 }
 
-export function getProxyDisplayName(proxy: Pick<MessageProxyResponse, 'name' | 'system_tag'>): string {
-	return proxy.system_tag ? `${proxy.name} ${proxy.system_tag}` : proxy.name;
-}
+export {getProxyDisplayName};
 
 export class Message {
 	readonly instanceId: string;

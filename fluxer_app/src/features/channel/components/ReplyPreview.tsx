@@ -6,7 +6,8 @@ import {PreloadableUserPopout} from '@app/features/channel/components/Preloadabl
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
-import {getProxyDisplayName, type Message} from '@app/features/messaging/models/MessagingMessage';
+import type {Message} from '@app/features/messaging/models/MessagingMessage';
+import {getProxyDisplayName, proxyColorString} from '@app/features/tupper/TupperShared';
 import MessageReferences, {MessageReferenceState} from '@app/features/messaging/state/MessageReferences';
 import {goToMessage} from '@app/features/messaging/utils/MessageNavigator';
 import LocalUserSpamOverride from '@app/features/moderation/state/LocalUserSpamOverride';
@@ -217,9 +218,7 @@ export const ReplyPreview = observer(
 						style={
 							{
 								'--replied-username-color': referencedMessage.proxy
-									? referencedMessage.proxy.color != null
-										? `#${referencedMessage.proxy.color.toString(16).padStart(6, '0')}`
-										: undefined
+									? proxyColorString(referencedMessage.proxy.color)
 									: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
 							} as CSSProperties
 						}

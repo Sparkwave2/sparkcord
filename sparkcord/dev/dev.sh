@@ -106,8 +106,12 @@ cmd_build_api() {
 
 cmd_build_app() {
 	echo "Building the web app (this compiles Rust/WASM and the SPA inside Docker)..."
+	# A unique version per build makes browsers' service workers drop cached assets from
+	# the previous build; reusing one version can mix old and new chunks and break startup.
+	local version
+	version="sparkcord-dev-$(git -C "$REPO_DIR" rev-parse --short HEAD 2>/dev/null || echo local)-$(date +%s)"
 	docker build -f "$REPO_DIR/fluxer_app_proxy/Dockerfile" --target app-assets \
-		--build-arg BUILD_VERSION="sparkcord-dev" -t "$ASSETS_IMAGE" "$REPO_DIR"
+		--build-arg BUILD_VERSION="$version" -t "$ASSETS_IMAGE" "$REPO_DIR"
 	docker build -f "$DEV_DIR/Dockerfile.app" --build-arg ASSETS_IMAGE="$ASSETS_IMAGE" -t "$APP_IMAGE" "$DEV_DIR"
 }
 

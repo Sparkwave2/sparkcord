@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
+import {formatProxyTag, parseProxyTagLines, type TupperWire} from '@app/features/tupper/TupperShared';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {Button} from '@app/features/ui/button/Button';
@@ -15,28 +16,6 @@ import type React from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 const logger = new Logger('Tuppers');
-
-interface ProxyTag {
-	prefix: string | null;
-	suffix: string | null;
-}
-
-export interface TupperWire {
-	id: string;
-	name: string;
-	display_name: string | null;
-	avatar_url: string | null;
-	avatar_proxy_url: string | null;
-	proxy_tags: Array<ProxyTag>;
-	keep_proxy: boolean;
-	description: string | null;
-	pronouns: string | null;
-	color: number | null;
-	birthday: string | null;
-	tag: string | null;
-	position: number;
-	created_at: string;
-}
 
 interface TupperSettingsWire {
 	system_name: string | null;
@@ -81,23 +60,6 @@ const EMPTY_DRAFT: DraftState = {
 	description: '',
 	keepProxy: false,
 };
-
-export function formatProxyTag(tag: ProxyTag): string {
-	return `${tag.prefix ?? ''}text${tag.suffix ?? ''}`;
-}
-
-export function parseProxyTagLines(value: string): Array<ProxyTag> {
-	const tags: Array<ProxyTag> = [];
-	for (const line of value.split('\n')) {
-		const index = line.toLowerCase().indexOf('text');
-		if (index === -1) continue;
-		const prefix = line.slice(0, index);
-		const suffix = line.slice(index + 4);
-		if (!prefix && !suffix) continue;
-		tags.push({prefix: prefix || null, suffix: suffix || null});
-	}
-	return tags;
-}
 
 function toDraft(tupper: TupperWire): DraftState {
 	return {
