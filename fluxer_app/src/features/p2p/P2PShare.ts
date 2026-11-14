@@ -13,6 +13,11 @@ export interface P2PShareInfo {
 	name: string;
 	/** Size in bytes, when the sender included it. */
 	size: number | null;
+	/**
+	 * Set on the sender's local placeholder while the file is still being prepared
+	 * (before its share link exists): the id of that preparation.
+	 */
+	pendingId: string | null;
 }
 
 /** The WebSocket tracker of this Sparkcord instance. */
@@ -39,7 +44,14 @@ export function parseP2PShare(content: string | null | undefined): P2PShareInfo 
 		infoHash: match[1].toLowerCase(),
 		name: params.get('dn') || 'file',
 		size: Number.isFinite(size) && size >= 0 ? size : null,
+		pendingId: params.get('x.pending'),
 	};
+}
+
+/** Placeholder content for a share that is still being prepared (local only). */
+export function pendingShareContent(name: string, size: number, pendingId: string): string {
+	const params = new URLSearchParams({dn: name, xl: String(size), 'x.pending': pendingId});
+	return `magnet:?xt=urn:btih:${'0'.repeat(40)}&${params.toString()}&${P2P_MARKER}`;
 }
 
 /** Adds the size and the Sparkcord marker to a magnet link from WebTorrent. */

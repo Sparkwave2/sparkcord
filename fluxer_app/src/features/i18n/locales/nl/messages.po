@@ -11439,6 +11439,11 @@ msgstr "Kon het aanbod niet versturen. Probeer het opnieuw."
 msgid "Couldn't send the verification email"
 msgstr "Verificatie-e-mail kon niet worden verzonden"
 
+#. Toast when preparing a peer-to-peer file share fails. {name} is the file name.
+#: src/features/p2p/P2PCommands.ts
+msgid "Couldn't share {name}."
+msgstr ""
+
 #. Heading when a one-time sign-in link could not sign the person in.
 #: src/features/auth/components/pages/SignInLinkPage.tsx
 msgid "Couldn't sign you in"
@@ -18046,6 +18051,14 @@ msgstr "Download de nieuwe {productName}-app"
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Get yearly"
 msgstr "Jaarlijks afsluiten"
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Getting it ready to share ({elapsed})…"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Getting it ready to share: {readPercent}% ({elapsed})"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Type label for GIF media.
@@ -28298,6 +28311,10 @@ msgstr "Premium tot datum"
 msgid "Preparing"
 msgstr "Voorbereiden"
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Preparing to share…"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Presence"
@@ -33486,6 +33503,8 @@ msgid "Share gift"
 msgstr "Cadeau delen"
 
 #. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#: src/features/channel/components/textarea/MobileTextareaPlusBottomSheet.tsx
 #: src/features/channel/components/textarea/TextareaPlusMenu.tsx
 msgid "Share peer-to-peer"
 msgstr ""
@@ -42664,6 +42683,10 @@ msgstr "Wachten tot de slowmodus in {forwardChannelDisplayName} is verlopen."
 #: src/features/messaging/components/modals/ForwardModal.tsx
 msgid "Waiting for slowmode in one or more selected channels to expire."
 msgstr "Wachten tot de slowmodus in een of meer geselecteerde kanalen is verlopen."
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Waiting for the files before it…"
+msgstr ""
 
 #. Label in the messages tab.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx

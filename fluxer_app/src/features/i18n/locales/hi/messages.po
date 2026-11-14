@@ -11439,6 +11439,11 @@ msgstr "ऑफ़र नहीं भेजा जा सका। फिर स
 msgid "Couldn't send the verification email"
 msgstr "पुष्टि करने वाला ईमेल भेजा नहीं जा सका"
 
+#. Toast when preparing a peer-to-peer file share fails. {name} is the file name.
+#: src/features/p2p/P2PCommands.ts
+msgid "Couldn't share {name}."
+msgstr ""
+
 #. Heading when a one-time sign-in link could not sign the person in.
 #: src/features/auth/components/pages/SignInLinkPage.tsx
 msgid "Couldn't sign you in"
@@ -18046,6 +18051,14 @@ msgstr "नया {productName} ऐप प्राप्त करें"
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Get yearly"
 msgstr "सालाना पाएं"
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Getting it ready to share ({elapsed})…"
+msgstr ""
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Getting it ready to share: {readPercent}% ({elapsed})"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Type label for GIF media.
@@ -28298,6 +28311,10 @@ msgstr "इस तारीख तक प्रीमियम"
 msgid "Preparing"
 msgstr "तैयार हो रहा है"
 
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Preparing to share…"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Presence"
@@ -33486,6 +33503,8 @@ msgid "Share gift"
 msgstr "उपहार शेयर करें"
 
 #. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#. Plus menu item: send a file directly from your browser (torrent) instead of uploading it.
+#: src/features/channel/components/textarea/MobileTextareaPlusBottomSheet.tsx
 #: src/features/channel/components/textarea/TextareaPlusMenu.tsx
 msgid "Share peer-to-peer"
 msgstr ""
@@ -42664,6 +42683,10 @@ msgstr "{forwardChannelDisplayName} में स्लोमोड के ख�
 #: src/features/messaging/components/modals/ForwardModal.tsx
 msgid "Waiting for slowmode in one or more selected channels to expire."
 msgstr "एक या ज़्यादा चुने गए चैनलों में स्लोमोड के खत्म होने का इंतज़ार किया जा रहा है।"
+
+#: src/features/p2p/P2PShareCard.tsx
+msgid "Waiting for the files before it…"
+msgstr ""
 
 #. Label in the messages tab.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx

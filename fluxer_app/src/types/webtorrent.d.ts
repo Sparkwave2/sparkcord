@@ -22,7 +22,7 @@ declare module 'webtorrent/dist/webtorrent.min.js' {
 		done: boolean;
 		ready: boolean;
 		files: Array<WebTorrentFile>;
-		on(event: 'done' | 'ready' | 'wire' | 'noPeers', listener: (...args: Array<unknown>) => void): void;
+		on(event: 'done' | 'ready' | 'wire' | 'noPeers' | 'infoHash', listener: (...args: Array<unknown>) => void): void;
 		on(event: 'error' | 'warning', listener: (error: Error | string) => void): void;
 		destroy(opts?: {destroyStore?: boolean}, callback?: (error?: Error) => void): void;
 	}

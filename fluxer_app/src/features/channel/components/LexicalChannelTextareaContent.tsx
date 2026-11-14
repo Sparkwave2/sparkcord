@@ -1522,6 +1522,7 @@ export const LexicalChannelTextareaContent = observer(
 							onUploadFile={handleFileButtonClick}
 							textareaValue={value}
 							onUploadAsFile={handleUploadMessageAsFile}
+							onShareP2P={draftChannelId == null ? () => openP2PFilePicker(channel.id) : undefined}
 							data-flx="channel.lexical-channel-textarea-content.mobile-textarea-plus-bottom-sheet"
 						/>
 					</>

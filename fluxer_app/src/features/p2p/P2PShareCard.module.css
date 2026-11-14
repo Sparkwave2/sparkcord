@@ -75,3 +75,35 @@
 		justify-content: flex-end;
 	}
 }
+
+/* Unknown duration (WebTorrent doesn't report progress while it hashes the file). */
+.barIndeterminate {
+	width: 35%;
+	height: 100%;
+	border-radius: 2px;
+	background: var(--brand-primary);
+	animation: p2pIndeterminate 1.2s ease-in-out infinite;
+}
+
+@keyframes p2pIndeterminate {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(290%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.barIndeterminate {
+		width: 100%;
+		animation: none;
+		opacity: 0.5;
+	}
+}
+
+:global(html.reduced-motion) .barIndeterminate {
+	width: 100%;
+	animation: none;
+	opacity: 0.5;
+}

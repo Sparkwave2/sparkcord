@@ -6,7 +6,7 @@ import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {MenuBottomSheet, type MenuGroupType} from '@app/features/ui/menu_bottom_sheet/MenuBottomSheet';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {GiftIcon, PaperclipIcon, UploadSimpleIcon} from '@phosphor-icons/react';
+import {GiftIcon, PaperclipIcon, ShareNetworkIcon, UploadSimpleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useMemo} from 'react';
 
@@ -17,6 +17,10 @@ const UPLOAD_FILE_DESCRIPTOR = msg({
 const UPLOAD_YOUR_MESSAGE_AS_A_FILE_DESCRIPTOR = msg({
 	message: 'Upload your message as a file',
 	comment: 'Button or menu action label in the channel and chat mobile textarea plus bottom sheet. Keep it concise.',
+});
+const SHARE_P2P_DESCRIPTOR = msg({
+	message: 'Share peer-to-peer',
+	comment: 'Plus menu item: send a file directly from your browser (torrent) instead of uploading it.',
 });
 const SEND_GIFT_DESCRIPTOR = msg({
 	message: 'Send gift',
@@ -30,6 +34,8 @@ interface MobileTextareaPlusBottomSheetProps {
 	onUploadFile: () => void;
 	textareaValue?: string;
 	onUploadAsFile?: () => void;
+	/** Sparkcord: share a file peer-to-peer (torrent) instead of uploading it. */
+	onShareP2P?: () => void;
 }
 
 export const MobileTextareaPlusBottomSheet = observer(
@@ -40,6 +46,7 @@ export const MobileTextareaPlusBottomSheet = observer(
 		onUploadFile,
 		textareaValue,
 		onUploadAsFile,
+		onShareP2P,
 	}: MobileTextareaPlusBottomSheetProps) => {
 		const {i18n} = useLingui();
 		const canSendGift = useCanSendGift(isOpen);
@@ -59,6 +66,17 @@ export const MobileTextareaPlusBottomSheet = observer(
 					},
 				},
 			];
+			if (onShareP2P) {
+				items.push({
+					icon: <ShareNetworkIcon weight="bold" />,
+					label: i18n._(SHARE_P2P_DESCRIPTOR),
+					onClick: () => {
+						// Opens the file picker straight from the tap (browsers block delayed pickers).
+						onShareP2P();
+						onClose();
+					},
+				});
+			}
 			const hasTextContent = textareaValue && textareaValue.trim().length > 0;
 			if (hasTextContent && onUploadAsFile) {
 				items.push({
@@ -84,7 +102,7 @@ export const MobileTextareaPlusBottomSheet = observer(
 				});
 			}
 			return [{items}];
-		}, [canSendGift, onClose, onUploadFile, textareaValue, onUploadAsFile, i18n.locale]);
+		}, [canSendGift, onClose, onUploadFile, textareaValue, onUploadAsFile, onShareP2P, i18n.locale]);
 		return (
 			<MenuBottomSheet
 				isOpen={isOpen}

@@ -181,17 +181,132 @@ function track(torrent: Torrent, ownShare: boolean, infoHash: string): void {
 	emit();
 }
 
-/** Starts sharing a file from this tab; resolves to the magnet link to post. */
-export async function shareFile(file: File): Promise<string> {
+export type PreparePhase = 'queued' | 'reading' | 'saving';
+
+export interface PrepareState {
+	phase: PreparePhase;
+	/** When the current phase started (for elapsed time). */
+	since: number;
+	size: number;
+	/** Bytes WebTorrent has read from the file so far (it reads it once to hash it). */
+	bytesRead: number;
+}
+
+export class ShareCancelledError extends Error {
+	constructor() {
+		super('Sharing was cancelled');
+	}
+}
+
+const preparing = new Map<string, PrepareState & {cancel: () => void}>();
+
+function setPreparing(id: string, phase: PreparePhase, size: number, cancel: () => void): void {
+	preparing.set(id, {phase, since: Date.now(), size, bytesRead: preparing.get(id)?.bytesRead ?? 0, cancel});
+	emit();
+}
+
+let emitTimer: ReturnType<typeof setTimeout> | null = null;
+function emitSoon(): void {
+	emitTimer ??= setTimeout(() => {
+		emitTimer = null;
+		emit();
+	}, 250);
+}
+
+/**
+ * The same file, but counting the bytes WebTorrent reads from it (it reads files with
+ * stream()), which is how the "Preparing" card shows real progress. No data is copied.
+ */
+class CountingFile extends File {
+	constructor(
+		source: File,
+		private readonly onRead: (bytes: number) => void,
+	) {
+		super([source], source.name, {type: source.type, lastModified: source.lastModified});
+	}
+
+	override stream(): ReturnType<File['stream']> {
+		const counter = new TransformStream<Uint8Array, Uint8Array>({
+			transform: (chunk, controller) => {
+				this.onRead(chunk.byteLength);
+				controller.enqueue(chunk);
+			},
+		});
+		return super.stream().pipeThrough(counter) as ReturnType<File['stream']>;
+	}
+}
+
+/** Marks a share as waiting its turn (files are prepared one at a time). */
+export function queuePreparing(id: string, size: number): void {
+	setPreparing(id, 'queued', size, () => {
+		preparing.delete(id);
+		cancelledQueued.add(id);
+		emit();
+	});
+}
+
+const cancelledQueued = new Set<string>();
+
+export function cancelPreparing(id: string): void {
+	preparing.get(id)?.cancel();
+}
+
+export function usePreparing(id: string | null): PrepareState | null {
+	useSyncExternalStore(subscribe, () => version);
+	return id ? (preparing.get(id) ?? null) : null;
+}
+
+/**
+ * Starts sharing a file from this tab; resolves to the magnet link to post. WebTorrent
+ * first reads and hashes the whole file, then stores a copy to share from; `id` tracks
+ * that for the "Preparing" card. Rejects with ShareCancelledError if cancelled.
+ */
+export async function shareFile(file: File, id: string): Promise<string> {
+	if (cancelledQueued.delete(id)) throw new ShareCancelledError();
+	// Show it as started right away (loading WebTorrent can take a moment).
+	let cancelledEarly = false;
+	setPreparing(id, 'reading', file.size, () => {
+		cancelledEarly = true;
+		preparing.delete(id);
+		emit();
+	});
 	const client = await getClient();
+	if (cancelledEarly) throw new ShareCancelledError();
 	return new Promise((resolve, reject) => {
+		let torrent: Torrent | null = null;
+		const cancel = () => {
+			preparing.delete(id);
+			emit();
+			torrent?.destroy({destroyStore: true});
+			reject(new ShareCancelledError());
+		};
+		setPreparing(id, 'reading', file.size, cancel);
+		const counted = new CountingFile(file, (bytes) => {
+			const state = preparing.get(id);
+			if (!state) return;
+			state.bytesRead += bytes;
+			emitSoon();
+		});
 		try {
-			client.seed(file, {announce: [trackerUrl()], name: file.name}, (torrent) => {
-				holdStoreLock(storeDirName(torrent.name, torrent.infoHash));
-				track(torrent, true, torrent.infoHash);
-				resolve(markMagnet(torrent.magnetURI, file.size));
+			torrent = client.seed(counted, {announce: [trackerUrl()], name: file.name}, (ready) => {
+				if (!preparing.has(id)) return;
+				preparing.delete(id);
+				holdStoreLock(storeDirName(ready.name, ready.infoHash));
+				track(ready, true, ready.infoHash);
+				resolve(markMagnet(ready.magnetURI, file.size));
+			});
+			torrent.on('infoHash', () => {
+				if (preparing.has(id)) setPreparing(id, 'saving', file.size, cancel);
+			});
+			torrent.on('error', (error) => {
+				if (!preparing.has(id)) return;
+				preparing.delete(id);
+				emit();
+				reject(error instanceof Error ? error : new Error(String(error)));
 			});
 		} catch (error) {
+			preparing.delete(id);
+			emit();
 			reject(error);
 		}
 	});
