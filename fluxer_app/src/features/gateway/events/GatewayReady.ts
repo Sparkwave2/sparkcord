@@ -174,6 +174,10 @@ function handleReadyInternal(data: ReadyPayload, context: GatewayHandlerContext,
 	}
 	Sticker.handleGatewayReady(guilds);
 	Emoji.handleGatewayReady({guilds});
+	// Sparkcord: personal emojis/stickers (loaded lazily to keep this module's imports unchanged).
+	void import('@app/features/personal_expression/PersonalExpressions').then((module) =>
+		module.default.handleGatewayReady(),
+	);
 	Permission.handleGatewayReady();
 	MemberSearch.handleGatewayReady();
 	SavedMessages.handleGatewayReady();

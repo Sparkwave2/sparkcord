@@ -11874,6 +11874,68 @@
 			"options": ""
 		},
 		{
+			"name": "personal_expressions",
+			"columns": [
+				{
+					"name": "id",
+					"type": "bigint"
+				},
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "kind",
+					"type": "text"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "animated",
+					"type": "boolean"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((id))",
+			"options": ""
+		},
+		{
+			"name": "personal_expressions_by_user",
+			"columns": [
+				{
+					"name": "id",
+					"type": "bigint"
+				},
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "kind",
+					"type": "text"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "animated",
+					"type": "boolean"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id), id)",
+			"options": ""
+		},
+		{
 			"name": "tupper_settings",
 			"columns": [
 				{

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {isPersonalExpressionGuildId, personalExpressionGuildStub} from '@app/features/personal_expression/PersonalExpressionConstants';
 import styles from '@app/features/channel/components/EmojiPicker.module.css';
 
 import UnicodeEmojis from '@app/features/expressions/utils/UnicodeEmojis';
@@ -56,7 +57,7 @@ export const EmojiPickerCategoryList = observer(
 						</button>
 					)}
 					{Array.from(customEmojisByGuildId.keys()).map((guildId) => {
-						const guild = Guilds.getGuild(guildId)!;
+						const guild = isPersonalExpressionGuildId(guildId) ? personalExpressionGuildStub() : Guilds.getGuild(guildId)!;
 						return (
 							<button
 								key={guild.id}
@@ -128,7 +129,7 @@ export const EmojiPickerCategoryList = observer(
 							</Tooltip>
 						)}
 						{Array.from(customEmojisByGuildId.keys()).map((guildId) => {
-							const guild = Guilds.getGuild(guildId)!;
+							const guild = isPersonalExpressionGuildId(guildId) ? personalExpressionGuildStub() : Guilds.getGuild(guildId)!;
 							return (
 								<Tooltip
 									key={guild.id}

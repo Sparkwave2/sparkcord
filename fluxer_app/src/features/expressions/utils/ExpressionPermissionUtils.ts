@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {isPersonalExpressionGuildId} from '@app/features/personal_expression/PersonalExpressionConstants';
 import {LimitResolver} from '@app/features/app/utils/LimitResolverAdapter';
 import {isLimitToggleEnabled} from '@app/features/app/utils/LimitUtils';
 import type {Channel} from '@app/features/channel/models/Channel';
@@ -71,7 +72,7 @@ export function checkEmojiAvailabilityWithGuildFallback(
 	channel: Channel | null,
 	guildIdFallback: string | null,
 ): AvailabilityCheck {
-	if (!emoji.guildId) {
+	if (!emoji.guildId || isPersonalExpressionGuildId(emoji.guildId)) {
 		return {
 			canUse: true,
 			isLockedByPremium: false,
@@ -154,7 +155,7 @@ export function checkStickerAvailability(
 	sticker: GuildSticker,
 	channel: Channel | null,
 ): AvailabilityCheck {
-	if (!sticker.guildId) {
+	if (!sticker.guildId || isPersonalExpressionGuildId(sticker.guildId)) {
 		return {
 			canUse: true,
 			isLockedByPremium: false,

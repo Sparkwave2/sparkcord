@@ -72,7 +72,21 @@ export async function sanitizeCustomEmojis(params: SanitizeCustomEmojisParams): 
 	const escapedContexts = parseEscapedContexts(content, allowCodeBlocks);
 	const isInEscapedContext = (index: number): boolean =>
 		escapedContexts.some((ctx) => index >= ctx.start && index < ctx.end);
-	const emojiMatches = collectEmojiMatches(content, isInEscapedContext);
+	const allEmojiMatches = collectEmojiMatches(content, isInEscapedContext);
+	if (allEmojiMatches.length === 0) {
+		return content;
+	}
+	// Sparkcord: the sender's own personal emojis can be used anywhere.
+	const ownedPersonal = new Set<string>();
+	if (userId) {
+		const {getOwnedPersonalExpression} = await import('@app/api/personal_expression/PersonalExpressionController');
+		const uniqueIds = [...new Set(allEmojiMatches.map((match) => match.emojiId))];
+		const owned = await Promise.all(
+			uniqueIds.map(async (emojiId) => ((await getOwnedPersonalExpression(userId, BigInt(emojiId), 'emoji')) ? emojiId : null)),
+		);
+		for (const emojiId of owned) if (emojiId !== null) ownedPersonal.add(String(emojiId));
+	}
+	const emojiMatches = allEmojiMatches.filter((match) => !ownedPersonal.has(String(match.emojiId)));
 	if (emojiMatches.length === 0) {
 		return content;
 	}

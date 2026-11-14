@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {isPersonalExpressionGuildId, PERSONAL_EXPRESSION_GUILD_ID, personalExpressionGuildStub} from '@app/features/personal_expression/PersonalExpressionConstants';
 import GuildList from '@app/features/guild/state/GuildList';
 import Guilds from '@app/features/guild/state/Guilds';
 import SelectedGuild from '@app/features/navigation/state/SelectedGuild';
@@ -55,7 +56,12 @@ export function buildPickerRows<T, R>({
 	if (favorites.length) sections.push({category: 'favorites', name: favoritesLabel, items: favorites});
 	if (frequent.length) sections.push({category: 'frequently-used', name: frequentLabel, items: frequent});
 	for (const [guildId, items] of byGuild)
-		sections.push({category: guildId, name: Guilds.getGuild(guildId)!.name, guildId, items});
+		sections.push({
+			category: guildId,
+			name: isPersonalExpressionGuildId(guildId) ? personalExpressionGuildStub().name : Guilds.getGuild(guildId)!.name,
+			guildId,
+			items,
+		});
 	sections.push(...extraSections);
 	for (const section of sections) {
 		rows.push({
@@ -89,6 +95,8 @@ export function groupByGuildInGuildListOrder<T extends {guildId?: string}>(
 		}
 	}
 	const sorted = new Map<string, Array<T>>();
+	const personal = byGuild.get(PERSONAL_EXPRESSION_GUILD_ID);
+	if (personal) sorted.set(PERSONAL_EXPRESSION_GUILD_ID, personal);
 	for (const id of guildIds) {
 		const group = byGuild.get(id);
 		if (group) sorted.set(id, group);

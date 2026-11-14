@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {PERSONAL_EXPRESSION_GUILD_ID} from '@app/features/personal_expression/PersonalExpressionConstants';
 import Initialization from '@app/features/app/state/Initialization';
 import type {Channel} from '@app/features/channel/models/Channel';
 import StickerPicker from '@app/features/emoji/state/StickerPicker';
@@ -140,6 +141,16 @@ class Sticker {
 			this.stickerById.delete(oldSticker.id);
 		}
 		this.guildStickers.delete(guildId);
+		ComponentBus.dispatch('STICKER_PICKER_RERENDER');
+	}
+
+	/** Sparkcord: the current user's personal stickers (see PersonalExpressions). */
+	setPersonalStickers(stickers: ReadonlyArray<WireGuildSticker>): void {
+		if (stickers.length === 0) {
+			if (this.guildStickers.has(PERSONAL_EXPRESSION_GUILD_ID)) this.handleGuildDelete(PERSONAL_EXPRESSION_GUILD_ID);
+			return;
+		}
+		this.updateGuildStickers(PERSONAL_EXPRESSION_GUILD_ID, stickers);
 		ComponentBus.dispatch('STICKER_PICKER_RERENDER');
 	}
 

@@ -2934,6 +2934,16 @@ msgstr "Je k dispozici nová verze desktopové aplikace. Stáhněte instalační
 msgid "A number is added after your username, like {example}. You can change both later."
 msgstr "Za vaše uživatelské jméno se přidá číslo, například {example}. Obojí můžete později změnit."
 
+#. Description in the emoji info card for a personal (user-owned) emoji.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal emoji. Its owner can use it anywhere."
+msgstr ""
+
+#. Description in the sticker info card for a personal (user-owned) sticker.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal sticker. Its owner can use it anywhere."
+msgstr ""
+
 #. Description for has:poll. Sentence case, no trailing punctuation.
 #: src/features/search/utils/SearchUtils.ts
 msgid "a poll"
@@ -3985,6 +3995,14 @@ msgstr "Přidejte vlastní vyhledávače s vlastní šablonou URL. Použijte <0>
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx
 msgid "Add your own translators with a custom URL pattern. Use <0>{query}</0> as a placeholder for the text to translate."
 msgstr "Přidejte vlastní překladače s vlastní šablonou URL. Použijte <0>{query}</0> jako zástupný symbol pro text k překladu."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} emoji(s)"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} sticker(s)"
+msgstr ""
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 msgid "Added {createdDate}, last used {lastUsedDate}"
@@ -8893,6 +8911,10 @@ msgstr "Zřetelnější text"
 msgid "Clearing trusted domains..."
 msgstr "Mazání důvěryhodných domén..."
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Click again to delete"
+msgstr ""
+
 #. Shown at the bottom of the app while picking an element for the quick CSS editor. {parentKey} is a keyboard shortcut such as Alt + Up.
 #: src/features/theme_settings/components/QuickCssEditor.tsx
 msgid "Click an element to add its selector. {parentKey} picks its parent and Escape stops picking."
@@ -11389,6 +11411,10 @@ msgstr "Tuto osobu se nepodařilo prozvonit"
 msgid "Couldn't run that command: {detail}"
 msgstr "Nepodařilo se spustit příkaz: {detail}"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Couldn't save a copy. Try again."
+msgstr ""
+
 #. Title of the error dialog shown when saving the channel overview settings failed.
 #: src/features/channel/components/modals/channel_tabs/ChannelOverviewTab.tsx
 msgid "Couldn't save channel settings"
@@ -12866,6 +12892,7 @@ msgstr "Delaware"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Delete"
@@ -15175,6 +15202,11 @@ msgstr "Emoji aktualizováno"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Emojis"
 msgstr "Emoji"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Emojis ({0}/{max})"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -19897,6 +19929,10 @@ msgstr "V hovoru"
 msgid "In voice chat"
 msgstr "V hlasovém hovoru"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "In your collection"
+msgstr ""
+
 #. Spellcheck engine option in the language tab. Uses the bundled in-app Hunspell dictionaries. Keep it concise.
 #. Spellcheck engine option in the textarea spellcheck submenu. The bundled in-app hunspell engine.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
@@ -24168,6 +24204,14 @@ msgstr "Moje data"
 msgid "My devices"
 msgstr "Moje zařízení"
 
+#. Settings section for your personal emojis and stickers, usable everywhere.
+#. Settings tab for your personal emojis and stickers, usable everywhere.
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "My emojis & stickers"
+msgstr ""
+
 #. Page title for the DM-list friends view.
 #: src/features/channel/components/direct_message/DMFriendsView.tsx
 msgid "My friends"
@@ -25088,6 +25132,14 @@ msgstr "Žádné čekající žádosti neodpovídají hledání"
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleEditor.tsx
 msgid "No permissions found"
 msgstr "Nenalezena žádná oprávnění"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal emojis yet."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal stickers yet."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/LanguageTab.tsx
 msgid "No personal words yet."
@@ -27749,10 +27801,23 @@ msgstr "Oprávnění pro {0}"
 msgid "Person you're reporting"
 msgstr "Osoba, kterou nahlašujete"
 
+#. Section in the emoji and sticker pickers for your own personal emojis/stickers.
+#: src/features/personal_expression/PersonalExpressionConstants.ts
+msgid "Personal"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Personal dictionary"
 msgstr "Osobní slovník"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal emoji of {owner}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Personal emojis and stickers are yours: you can use them in any community, DM or group, and they show up in the emoji and sticker pickers under Personal. Everyone can see them, and others can save a copy from the emoji or sticker info."
+msgstr ""
 
 #. Label for the user-only private channel where they can jot notes to themselves.
 #. Review row label for personal notes.
@@ -27765,6 +27830,10 @@ msgstr "Osobní poznámky"
 #: src/features/channel/components/direct_message/DirectMessageList.tsx
 msgid "Personal notes were already empty"
 msgstr "Osobní poznámky už byly prázdné"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal sticker of {owner}"
+msgstr ""
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
 #: src/features/ui/keybind_hint/KeybindHint.tsx
@@ -28134,6 +28203,14 @@ msgstr "Počkejte chvíli a zkuste smazání znovu."
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "Please wait a moment and try renaming again."
 msgstr "Počkejte chvíli a zkuste přejmenování znovu."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. Animated stickers are supported."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. The file name becomes the emoji name (letters, numbers and underscores)."
+msgstr ""
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -30286,6 +30363,7 @@ msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, 
 msgstr "Zrušení dočasného omezení umožní uživateli <0>{targetUserTag}</0> znovu posílat zprávy, reagovat a připojovat se k hlasovým kanálům."
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
 msgstr "Přejmenovat"
 
@@ -31573,6 +31651,10 @@ msgstr "Uložit"
 msgid "Save {percent}%"
 msgstr "Ušetřete {percent}%"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Save a copy"
+msgstr ""
+
 #. Title of the one-time prompt asking a signed-in user without a recovery kit to create one.
 #: src/features/user/components/modals/tabs/account_security_tab/RecoveryKitSettings.tsx
 #: src/features/user/components/RecoveryKitReminderGate.tsx
@@ -31650,6 +31732,10 @@ msgstr "Uložit motiv"
 msgid "Save your recovery kit"
 msgstr "Uložte si záchrannou sadu"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved"
+msgstr ""
+
 #. Accessible label for the saved account list.
 #: src/features/auth/components/accounts/account_switcher_modal/AccountPickerShared.ts
 msgid "Saved accounts"
@@ -31669,6 +31755,14 @@ msgstr "Automatické dokončování uložených médií"
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Saved media cannot start a post. Upload the file instead."
 msgstr "Uložená média nemohou zahájit příspěvek. Místo toho nahrajte soubor."
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your emojis"
+msgstr ""
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your stickers"
+msgstr ""
 
 #. Button or menu action label in the buttons tab. Keep it concise.
 #. Toast after saving the Operators' wall settings.
@@ -34959,6 +35053,10 @@ msgstr "Některé soubory, které se snažíte nahrát, překračují maximáln�
 msgid "Some users can't be added"
 msgstr "Některé uživatele nelze přidat"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "someone"
+msgstr ""
+
 #. Plutonium page hero subtitle for gifted members. date is a formatted calendar date.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
@@ -35840,6 +35938,11 @@ msgstr "Samolepky"
 msgctxt "community-settings-tab"
 msgid "Stickers"
 msgstr "Samolepky"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Stickers ({0}/{max})"
+msgstr ""
 
 #. Empty-state hint in the channel and chat mobile stickers picker.
 #. Empty-state hint in the channel and chat stickers picker.
@@ -41101,6 +41204,10 @@ msgstr "Nahrát přímo do {displayName}"
 msgid "Upload emoji"
 msgstr "Nahrát emoji"
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload emojis"
+msgstr ""
+
 #. Button or menu action label in the channel and chat mobile textarea plus bottom sheet. Keep it concise.
 #. Plus menu item that opens the system file picker to attach a file.
 #: src/features/channel/components/textarea/MobileTextareaPlusBottomSheet.tsx
@@ -41163,6 +41270,10 @@ msgstr "Nahrát zvuk"
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx
 msgid "Upload sticker"
 msgstr "Nahrát samolepku"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload stickers"
+msgstr ""
 
 #. Title of the upload drop modal in the default state. Files will go to displayName, with a preview step.
 #: src/features/messaging/components/modals/UploadDropModal.tsx

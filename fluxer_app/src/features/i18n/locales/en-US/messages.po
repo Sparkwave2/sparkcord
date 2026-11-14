@@ -2934,6 +2934,16 @@ msgstr "A new desktop version is available. Download the installer, then run it 
 msgid "A number is added after your username, like {example}. You can change both later."
 msgstr "A number is added after your username, like {example}. You can change both later."
 
+#. Description in the emoji info card for a personal (user-owned) emoji.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal emoji. Its owner can use it anywhere."
+msgstr "A personal emoji. Its owner can use it anywhere."
+
+#. Description in the sticker info card for a personal (user-owned) sticker.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal sticker. Its owner can use it anywhere."
+msgstr "A personal sticker. Its owner can use it anywhere."
+
 #. Description for has:poll. Sentence case, no trailing punctuation.
 #: src/features/search/utils/SearchUtils.ts
 msgid "a poll"
@@ -3985,6 +3995,14 @@ msgstr "Add your own search engines with a custom URL pattern. Use <0>{query}</0
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx
 msgid "Add your own translators with a custom URL pattern. Use <0>{query}</0> as a placeholder for the text to translate."
 msgstr "Add your own translators with a custom URL pattern. Use <0>{query}</0> as a placeholder for the text to translate."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} emoji(s)"
+msgstr "Added {added} emoji(s)"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} sticker(s)"
+msgstr "Added {added} sticker(s)"
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 msgid "Added {createdDate}, last used {lastUsedDate}"
@@ -8893,6 +8911,10 @@ msgstr "Clearer text"
 msgid "Clearing trusted domains..."
 msgstr "Clearing trusted domains..."
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Click again to delete"
+msgstr "Click again to delete"
+
 #. Shown at the bottom of the app while picking an element for the quick CSS editor. {parentKey} is a keyboard shortcut such as Alt + Up.
 #: src/features/theme_settings/components/QuickCssEditor.tsx
 msgid "Click an element to add its selector. {parentKey} picks its parent and Escape stops picking."
@@ -11389,6 +11411,10 @@ msgstr "Couldn't ring this person"
 msgid "Couldn't run that command: {detail}"
 msgstr "Couldn't run that command: {detail}"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Couldn't save a copy. Try again."
+msgstr "Couldn't save a copy. Try again."
+
 #. Title of the error dialog shown when saving the channel overview settings failed.
 #: src/features/channel/components/modals/channel_tabs/ChannelOverviewTab.tsx
 msgid "Couldn't save channel settings"
@@ -12866,6 +12892,7 @@ msgstr "Delaware"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Delete"
@@ -15175,6 +15202,11 @@ msgstr "Emoji updated"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Emojis"
 msgstr "Emojis"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Emojis ({0}/{max})"
+msgstr "Emojis ({0}/{max})"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -19897,6 +19929,10 @@ msgstr "In voice"
 msgid "In voice chat"
 msgstr "In voice chat"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "In your collection"
+msgstr "In your collection"
+
 #. Spellcheck engine option in the language tab. Uses the bundled in-app Hunspell dictionaries. Keep it concise.
 #. Spellcheck engine option in the textarea spellcheck submenu. The bundled in-app hunspell engine.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
@@ -24168,6 +24204,14 @@ msgstr "My data"
 msgid "My devices"
 msgstr "My devices"
 
+#. Settings section for your personal emojis and stickers, usable everywhere.
+#. Settings tab for your personal emojis and stickers, usable everywhere.
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "My emojis & stickers"
+msgstr "My emojis & stickers"
+
 #. Page title for the DM-list friends view.
 #: src/features/channel/components/direct_message/DMFriendsView.tsx
 msgid "My friends"
@@ -25088,6 +25132,14 @@ msgstr "No pending requests match that search"
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleEditor.tsx
 msgid "No permissions found"
 msgstr "No permissions found"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal emojis yet."
+msgstr "No personal emojis yet."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal stickers yet."
+msgstr "No personal stickers yet."
 
 #: src/features/user/components/modals/tabs/LanguageTab.tsx
 msgid "No personal words yet."
@@ -27749,10 +27801,23 @@ msgstr "Permissions for {0}"
 msgid "Person you're reporting"
 msgstr "Person you're reporting"
 
+#. Section in the emoji and sticker pickers for your own personal emojis/stickers.
+#: src/features/personal_expression/PersonalExpressionConstants.ts
+msgid "Personal"
+msgstr "Personal"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Personal dictionary"
 msgstr "Personal dictionary"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal emoji of {owner}"
+msgstr "Personal emoji of {owner}"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Personal emojis and stickers are yours: you can use them in any community, DM or group, and they show up in the emoji and sticker pickers under Personal. Everyone can see them, and others can save a copy from the emoji or sticker info."
+msgstr "Personal emojis and stickers are yours: you can use them in any community, DM or group, and they show up in the emoji and sticker pickers under Personal. Everyone can see them, and others can save a copy from the emoji or sticker info."
 
 #. Label for the user-only private channel where they can jot notes to themselves.
 #. Review row label for personal notes.
@@ -27765,6 +27830,10 @@ msgstr "Personal notes"
 #: src/features/channel/components/direct_message/DirectMessageList.tsx
 msgid "Personal notes were already empty"
 msgstr "Personal notes were already empty"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal sticker of {owner}"
+msgstr "Personal sticker of {owner}"
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
 #: src/features/ui/keybind_hint/KeybindHint.tsx
@@ -28134,6 +28203,14 @@ msgstr "Please wait a moment and try deleting again."
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "Please wait a moment and try renaming again."
 msgstr "Please wait a moment and try renaming again."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. Animated stickers are supported."
+msgstr "PNG, GIF, WebP or JPEG. Animated stickers are supported."
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. The file name becomes the emoji name (letters, numbers and underscores)."
+msgstr "PNG, GIF, WebP or JPEG. The file name becomes the emoji name (letters, numbers and underscores)."
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -30286,6 +30363,7 @@ msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, 
 msgstr "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, react, and join voice channels again."
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
 msgstr "Rename"
 
@@ -31573,6 +31651,10 @@ msgstr "Save"
 msgid "Save {percent}%"
 msgstr "Save {percent}%"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Save a copy"
+msgstr "Save a copy"
+
 #. Title of the one-time prompt asking a signed-in user without a recovery kit to create one.
 #: src/features/user/components/modals/tabs/account_security_tab/RecoveryKitSettings.tsx
 #: src/features/user/components/RecoveryKitReminderGate.tsx
@@ -31650,6 +31732,10 @@ msgstr "Save theme"
 msgid "Save your recovery kit"
 msgstr "Save your recovery kit"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved"
+msgstr "Saved"
+
 #. Accessible label for the saved account list.
 #: src/features/auth/components/accounts/account_switcher_modal/AccountPickerShared.ts
 msgid "Saved accounts"
@@ -31669,6 +31755,14 @@ msgstr "Saved media autocomplete"
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Saved media cannot start a post. Upload the file instead."
 msgstr "Saved media cannot start a post. Upload the file instead."
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your emojis"
+msgstr "Saved to your emojis"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your stickers"
+msgstr "Saved to your stickers"
 
 #. Button or menu action label in the buttons tab. Keep it concise.
 #. Toast after saving the Operators' wall settings.
@@ -34959,6 +35053,10 @@ msgstr "Some files you're trying to upload exceed the maximum size limit of {max
 msgid "Some users can't be added"
 msgstr "Some users can't be added"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "someone"
+msgstr "someone"
+
 #. Plutonium page hero subtitle for gifted members. date is a formatted calendar date.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
@@ -35840,6 +35938,11 @@ msgstr "Stickers"
 msgctxt "community-settings-tab"
 msgid "Stickers"
 msgstr "Stickers"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Stickers ({0}/{max})"
+msgstr "Stickers ({0}/{max})"
 
 #. Empty-state hint in the channel and chat mobile stickers picker.
 #. Empty-state hint in the channel and chat stickers picker.
@@ -41101,6 +41204,10 @@ msgstr "Upload directly to {displayName}"
 msgid "Upload emoji"
 msgstr "Upload emoji"
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload emojis"
+msgstr "Upload emojis"
+
 #. Button or menu action label in the channel and chat mobile textarea plus bottom sheet. Keep it concise.
 #. Plus menu item that opens the system file picker to attach a file.
 #: src/features/channel/components/textarea/MobileTextareaPlusBottomSheet.tsx
@@ -41163,6 +41270,10 @@ msgstr "Upload sound"
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx
 msgid "Upload sticker"
 msgstr "Upload sticker"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload stickers"
+msgstr "Upload stickers"
 
 #. Title of the upload drop modal in the default state. Files will go to displayName, with a preview step.
 #: src/features/messaging/components/modals/UploadDropModal.tsx

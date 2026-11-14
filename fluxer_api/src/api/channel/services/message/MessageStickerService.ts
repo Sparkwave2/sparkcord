@@ -28,8 +28,14 @@ export class MessageStickerService {
 		const hasGlobalExpressions = userId
 			? await checkUserGlobalExpressions(userId, this.userRepository, this.limitConfigService)
 			: 0;
+		const {getOwnedPersonalExpression} = await import('@app/api/personal_expression/PersonalExpressionController');
 		return Promise.all(
 			stickerIds.map(async (stickerId) => {
+				// Sparkcord: the sender's own personal stickers can be used anywhere.
+				const personal = await getOwnedPersonalExpression(userId, BigInt(stickerId), 'sticker');
+				if (personal) {
+					return {sticker_id: stickerId, name: personal.name, animated: personal.animated};
+				}
 				if (!guildId) {
 					if (hasGlobalExpressions === 0) {
 						throw InputValidationError.fromCode('sticker', ValidationErrorCodes.CUSTOM_STICKERS_IN_DMS_REQUIRE_PREMIUM);

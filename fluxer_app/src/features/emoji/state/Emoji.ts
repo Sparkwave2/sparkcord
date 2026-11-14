@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {PERSONAL_EXPRESSION_GUILD_ID} from '@app/features/personal_expression/PersonalExpressionConstants';
 import Initialization from '@app/features/app/state/Initialization';
 import type {Channel} from '@app/features/channel/models/Channel';
 import EmojiPicker, {
@@ -327,6 +328,8 @@ class EmojiGuildRegistry {
 				addCustomEmoji(emoji);
 			}
 		};
+		// Sparkcord: personal emojis first.
+		addGuildEmojis(PERSONAL_EXPRESSION_GUILD_ID);
 		if (guildId) {
 			addGuildEmojis(guildId);
 		}
@@ -509,6 +512,13 @@ class Emoji {
 	handleGuildDelete({guildId}: {guildId: string}): void {
 		emojiGuildRegistry.deleteGuild(guildId);
 		ComponentBus.dispatch('EMOJI_PICKER_RERENDER');
+	}
+
+	/** Sparkcord: the current user's personal emojis (see PersonalExpressions). */
+	setPersonalEmojis(emojis: ReadonlyArray<WireGuildEmoji>): void {
+		if (emojiGuildRegistry.updateGuild(PERSONAL_EXPRESSION_GUILD_ID, emojis.length > 0 ? emojis : undefined)) {
+			ComponentBus.dispatch('EMOJI_PICKER_RERENDER');
+		}
 	}
 }
 

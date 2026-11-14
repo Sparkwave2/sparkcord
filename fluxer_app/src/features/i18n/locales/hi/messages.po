@@ -2934,6 +2934,16 @@ msgstr "डेस्कटॉप का एक नया संस्करण �
 msgid "A number is added after your username, like {example}. You can change both later."
 msgstr "आपके यूज़रनेम के बाद एक नंबर जोड़ा जाता है, जैसे {example}। आप दोनों को बाद में बदल सकते हैं।"
 
+#. Description in the emoji info card for a personal (user-owned) emoji.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal emoji. Its owner can use it anywhere."
+msgstr ""
+
+#. Description in the sticker info card for a personal (user-owned) sticker.
+#: src/features/expressions/components/ExpressionInfoCard.tsx
+msgid "A personal sticker. Its owner can use it anywhere."
+msgstr ""
+
 #. Description for has:poll. Sentence case, no trailing punctuation.
 #: src/features/search/utils/SearchUtils.ts
 msgid "a poll"
@@ -3985,6 +3995,14 @@ msgstr "कस्टम यूआरएल पैटर्न के साथ �
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx
 msgid "Add your own translators with a custom URL pattern. Use <0>{query}</0> as a placeholder for the text to translate."
 msgstr "कस्टम यूआरएल पैटर्न के साथ अपने खुद के अनुवादक जोड़ें। जिस टेक्स्ट का अनुवाद करना है, उसके लिए <0>{query}</0> को प्लेसहोल्डर के तौर पर इस्तेमाल करें।"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} emoji(s)"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Added {added} sticker(s)"
+msgstr ""
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 msgid "Added {createdDate}, last used {lastUsedDate}"
@@ -8893,6 +8911,10 @@ msgstr "ज़्यादा स्पष्ट टेक्स्ट"
 msgid "Clearing trusted domains..."
 msgstr "भरोसेमंद डोमेन हटाए जा रहे हैं..."
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Click again to delete"
+msgstr ""
+
 #. Shown at the bottom of the app while picking an element for the quick CSS editor. {parentKey} is a keyboard shortcut such as Alt + Up.
 #: src/features/theme_settings/components/QuickCssEditor.tsx
 msgid "Click an element to add its selector. {parentKey} picks its parent and Escape stops picking."
@@ -11389,6 +11411,10 @@ msgstr "इस व्यक्ति को कॉल नहीं किया 
 msgid "Couldn't run that command: {detail}"
 msgstr "वह कमांड नहीं चल सका: {detail}"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Couldn't save a copy. Try again."
+msgstr ""
+
 #. Title of the error dialog shown when saving the channel overview settings failed.
 #: src/features/channel/components/modals/channel_tabs/ChannelOverviewTab.tsx
 msgid "Couldn't save channel settings"
@@ -12866,6 +12892,7 @@ msgstr "डेलावेयर"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Delete"
@@ -15175,6 +15202,11 @@ msgstr "इमोजी अपडेट किया गया"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Emojis"
 msgstr "इमोजी"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Emojis ({0}/{max})"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -19897,6 +19929,10 @@ msgstr "वॉइस में"
 msgid "In voice chat"
 msgstr "वॉइस चैट में"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "In your collection"
+msgstr ""
+
 #. Spellcheck engine option in the language tab. Uses the bundled in-app Hunspell dictionaries. Keep it concise.
 #. Spellcheck engine option in the textarea spellcheck submenu. The bundled in-app hunspell engine.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
@@ -24168,6 +24204,14 @@ msgstr "मेरा डेटा"
 msgid "My devices"
 msgstr "मेरे डिवाइस"
 
+#. Settings section for your personal emojis and stickers, usable everywhere.
+#. Settings tab for your personal emojis and stickers, usable everywhere.
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "My emojis & stickers"
+msgstr ""
+
 #. Page title for the DM-list friends view.
 #: src/features/channel/components/direct_message/DMFriendsView.tsx
 msgid "My friends"
@@ -25088,6 +25132,14 @@ msgstr "इस खोज से कोई लंबित रिक्वेस�
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleEditor.tsx
 msgid "No permissions found"
 msgstr "कोई अनुमति नहीं मिली"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal emojis yet."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "No personal stickers yet."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/LanguageTab.tsx
 msgid "No personal words yet."
@@ -27749,10 +27801,23 @@ msgstr "{0} के लिए अनुमतियाँ"
 msgid "Person you're reporting"
 msgstr "आप जिस व्यक्ति की रिपोर्ट कर रहे हैं"
 
+#. Section in the emoji and sticker pickers for your own personal emojis/stickers.
+#: src/features/personal_expression/PersonalExpressionConstants.ts
+msgid "Personal"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Personal dictionary"
 msgstr "व्यक्तिगत शब्दकोश"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal emoji of {owner}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Personal emojis and stickers are yours: you can use them in any community, DM or group, and they show up in the emoji and sticker pickers under Personal. Everyone can see them, and others can save a copy from the emoji or sticker info."
+msgstr ""
 
 #. Label for the user-only private channel where they can jot notes to themselves.
 #. Review row label for personal notes.
@@ -27765,6 +27830,10 @@ msgstr "निजी नोट्स"
 #: src/features/channel/components/direct_message/DirectMessageList.tsx
 msgid "Personal notes were already empty"
 msgstr "निजी नोट्स पहले से ही खाली थे"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Personal sticker of {owner}"
+msgstr ""
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
 #: src/features/ui/keybind_hint/KeybindHint.tsx
@@ -28134,6 +28203,14 @@ msgstr "कृपया कुछ देर प्रतीक्षा कर�
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "Please wait a moment and try renaming again."
 msgstr "कृपया कुछ देर प्रतीक्षा करें और फिर से नाम बदलने का प्रयास करें।"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. Animated stickers are supported."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "PNG, GIF, WebP or JPEG. The file name becomes the emoji name (letters, numbers and underscores)."
+msgstr ""
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -30286,6 +30363,7 @@ msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, 
 msgstr "टाइमआउट हटाने से <0>{targetUserTag}</0> को फिर से मैसेज भेजने, रिएक्ट करने और वॉइस चैनल में शामिल होने की अनुमति मिल जाएगी।"
 
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
 msgstr "नाम बदलें"
 
@@ -31573,6 +31651,10 @@ msgstr "सेव करें"
 msgid "Save {percent}%"
 msgstr "{percent}% बचाएं"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Save a copy"
+msgstr ""
+
 #. Title of the one-time prompt asking a signed-in user without a recovery kit to create one.
 #: src/features/user/components/modals/tabs/account_security_tab/RecoveryKitSettings.tsx
 #: src/features/user/components/RecoveryKitReminderGate.tsx
@@ -31650,6 +31732,10 @@ msgstr "थीम सेव करें"
 msgid "Save your recovery kit"
 msgstr "अपनी रिकवरी किट सहेजें"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved"
+msgstr ""
+
 #. Accessible label for the saved account list.
 #: src/features/auth/components/accounts/account_switcher_modal/AccountPickerShared.ts
 msgid "Saved accounts"
@@ -31669,6 +31755,14 @@ msgstr "सेव किए गए मीडिया का ऑटो-कम्
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Saved media cannot start a post. Upload the file instead."
 msgstr "सहेजे गए मीडिया से पोस्ट शुरू नहीं की जा सकती। इसके बजाय फ़ाइल अपलोड करें।"
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your emojis"
+msgstr ""
+
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "Saved to your stickers"
+msgstr ""
 
 #. Button or menu action label in the buttons tab. Keep it concise.
 #. Toast after saving the Operators' wall settings.
@@ -34959,6 +35053,10 @@ msgstr "आप जो फ़ाइलें अपलोड करने की 
 msgid "Some users can't be added"
 msgstr "कुछ यूज़र को जोड़ा नहीं जा सकता"
 
+#: src/features/personal_expression/PersonalExpressionInfoSection.tsx
+msgid "someone"
+msgstr ""
+
 #. Plutonium page hero subtitle for gifted members. date is a formatted calendar date.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
@@ -35840,6 +35938,11 @@ msgstr "स्टिकर"
 msgctxt "community-settings-tab"
 msgid "Stickers"
 msgstr "स्टिकर"
+
+#. placeholder {0}: items.length
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Stickers ({0}/{max})"
+msgstr ""
 
 #. Empty-state hint in the channel and chat mobile stickers picker.
 #. Empty-state hint in the channel and chat stickers picker.
@@ -41101,6 +41204,10 @@ msgstr "सीधे {displayName} पर अपलोड करें"
 msgid "Upload emoji"
 msgstr "इमोजी अपलोड करें"
 
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload emojis"
+msgstr ""
+
 #. Button or menu action label in the channel and chat mobile textarea plus bottom sheet. Keep it concise.
 #. Plus menu item that opens the system file picker to attach a file.
 #: src/features/channel/components/textarea/MobileTextareaPlusBottomSheet.tsx
@@ -41163,6 +41270,10 @@ msgstr "साउंड अपलोड करें"
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx
 msgid "Upload sticker"
 msgstr "स्टिकर अपलोड करें"
+
+#: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
+msgid "Upload stickers"
+msgstr ""
 
 #. Title of the upload drop modal in the default state. Files will go to displayName, with a preview step.
 #: src/features/messaging/components/modals/UploadDropModal.tsx

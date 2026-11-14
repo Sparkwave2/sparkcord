@@ -78,6 +78,7 @@ import {
 	TranslateIcon,
 	UserIcon,
 	UserListIcon,
+	SmileyStickerIcon,
 	UsersThreeIcon,
 } from '@phosphor-icons/react';
 import type React from 'react';
@@ -219,6 +220,15 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 			comment: 'Settings tab for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.',
 		}),
 		icon: UsersThreeIcon,
+	},
+	{
+		type: 'personal_expressions',
+		category: 'user_settings',
+		label: msg({
+			message: 'My emojis & stickers',
+			comment: 'Settings tab for your personal emojis and stickers, usable everywhere.',
+		}),
+		icon: SmileyStickerIcon,
 	},
 	{
 		type: 'devices',

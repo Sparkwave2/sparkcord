@@ -9,6 +9,11 @@ import styles from '@app/features/expressions/components/ExpressionInfoCard.modu
 import ExpressionSource from '@app/features/expressions/state/ExpressionSource';
 import {hasGlobalExpressionsEnabled} from '@app/features/expressions/utils/ExpressionPermissionUtils';
 import {GuildBadge} from '@app/features/guild/components/GuildBadge';
+import {
+	PersonalExpressionInfoSection,
+	usePersonalExpressionInfo,
+} from '@app/features/personal_expression/PersonalExpressionInfoSection';
+import {isPersonalExpressionGuildId} from '@app/features/personal_expression/PersonalExpressionConstants';
 import {GuildIcon} from '@app/features/guild/components/popouts/GuildIcon';
 import type {Guild} from '@app/features/guild/models/Guild';
 import GuildList from '@app/features/guild/state/GuildList';
@@ -115,6 +120,17 @@ const JOIN_COMMUNITY_CONFIRMATION_DESCRIPTOR = msg({
 
 const GUILD_ICON_SIZE_PX = 40;
 const JOIN_CONFIRM_GUILD_ICON_SIZE_PX = 80;
+
+const PERSONAL_EXPRESSION_DESCRIPTORS: Record<ExpressionKind, MessageDescriptor> = {
+	emoji: msg({
+		message: 'A personal emoji. Its owner can use it anywhere.',
+		comment: 'Description in the emoji info card for a personal (user-owned) emoji.',
+	}),
+	sticker: msg({
+		message: 'A personal sticker. Its owner can use it anywhere.',
+		comment: 'Description in the sticker info card for a personal (user-owned) sticker.',
+	}),
+};
 
 interface ExpressionSourceGuild {
 	id: string;
@@ -406,12 +422,24 @@ export const ExpressionInfoCard = observer(function ExpressionInfoCard(props: Ex
 	const {i18n} = useLingui();
 	const kind: ExpressionKind | null = props.kind === 'default_emoji' ? null : props.kind;
 	const expressionId = props.kind === 'default_emoji' ? null : props.expressionId;
-	const guildId = props.kind === 'default_emoji' ? null : props.guildId;
-	const {guild: sourceGuild, isRemoteSource, isUnavailable} = useExpressionSourceGuild(kind, expressionId, guildId);
+	const rawGuildId = props.kind === 'default_emoji' ? null : props.guildId;
+	// Sparkcord: personal emojis/stickers have no source community; show their owner instead.
+	const personalInfo = usePersonalExpressionInfo(expressionId);
+	const isPersonal = personalInfo != null || isPersonalExpressionGuildId(rawGuildId);
+	const guildId = isPersonalExpressionGuildId(rawGuildId) ? null : rawGuildId;
+	const sourceState = useExpressionSourceGuild(
+		isPersonal || personalInfo === undefined ? null : kind,
+		isPersonal || personalInfo === undefined ? null : expressionId,
+		isPersonal ? null : guildId,
+	);
+	const {guild: sourceGuild, isRemoteSource, isUnavailable} = sourceState;
 	const isMember = sourceGuild != null && GuildList.guilds.some((candidate) => candidate.id === sourceGuild.id);
 	const resolveDescription = (): string => {
 		if (kind == null) {
 			return i18n._(DEFAULT_EMOJI_DESCRIPTION_DESCRIPTOR, {productName: getActiveInstanceProductName()});
+		}
+		if (isPersonal) {
+			return i18n._(PERSONAL_EXPRESSION_DESCRIPTORS[kind]);
 		}
 		if (sourceGuild != null && isMember) {
 			return hasGlobalExpressionsEnabled()
@@ -441,6 +469,7 @@ export const ExpressionInfoCard = observer(function ExpressionInfoCard(props: Ex
 					</span>
 				</div>
 			</div>
+			{personalInfo != null && <PersonalExpressionInfoSection info={personalInfo} />}
 			{kind != null && sourceGuild != null && (
 				<ExpressionSourceGuildRow
 					kind={kind}

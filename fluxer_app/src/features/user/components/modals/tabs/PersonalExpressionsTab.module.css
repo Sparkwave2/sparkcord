@@ -1,0 +1,143 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.heading {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.subheading {
+	margin: 0;
+	flex: 1;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.hint,
+.empty {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.4;
+	color: var(--text-secondary);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+	gap: 8px;
+}
+
+.stickerGrid {
+	grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
+}
+
+.tile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	min-width: 0;
+	padding: 10px 8px 8px;
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-accent);
+	background: var(--background-secondary);
+}
+
+.emojiImage {
+	width: 48px;
+	height: 48px;
+	object-fit: contain;
+}
+
+.stickerImage {
+	width: 96px;
+	height: 96px;
+	object-fit: contain;
+}
+
+.name {
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 0.8125rem;
+	color: var(--text-primary);
+}
+
+.nameInput {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 2px 6px;
+	border-radius: 4px;
+	border: 1px solid var(--background-modifier-accent);
+	background: var(--background-tertiary);
+	color: var(--text-primary);
+	font-size: 0.8125rem;
+}
+
+.actions {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	display: flex;
+	gap: 2px;
+	opacity: 0;
+	transition: opacity 0.1s ease;
+}
+
+.tile:hover .actions,
+.tile:focus-within .actions {
+	opacity: 1;
+}
+
+.iconButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 6px;
+	color: var(--text-secondary);
+	background: var(--background-tertiary);
+	cursor: pointer;
+}
+
+.iconButton:hover:not(:disabled) {
+	color: var(--text-primary);
+}
+
+.danger {
+	color: #fff;
+	background: var(--status-danger, #e5484d);
+}
+
+.danger:hover:not(:disabled) {
+	color: #fff;
+}
+
+@media (hover: none) {
+	.actions {
+		opacity: 1;
+	}
+}

@@ -37,7 +37,8 @@ export type UserSettingsTabType =
 	| 'language'
 	| 'keybinds'
 	| 'linked_accounts'
-	| 'tuppers';
+	| 'tuppers'
+	| 'personal_expressions';
 
 export interface SectionDefinition extends SettingsMetadata {
 	id: string;

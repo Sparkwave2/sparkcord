@@ -46,6 +46,10 @@ const TUPPERS_DESCRIPTOR = msg({
 	message: 'Tuppers',
 	comment: 'Settings section for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.',
 });
+const PERSONAL_EXPRESSIONS_DESCRIPTOR = msg({
+	message: 'My emojis & stickers',
+	comment: 'Settings section for your personal emojis and stickers, usable everywhere.',
+});
 const SIGNED_IN_DEVICES_DESCRIPTOR = msg({
 	message: 'Signed-in devices',
 	comment: 'Settings section label for account sessions and devices.',
@@ -139,6 +143,13 @@ export const generalSettingsSections = [
 		isAdvanced: false,
 	},
 	{id: 'tuppers', tabType: 'tuppers', label: TUPPERS_DESCRIPTOR, keywords: [], isAdvanced: false},
+	{
+		id: 'personal-expressions',
+		tabType: 'personal_expressions',
+		label: PERSONAL_EXPRESSIONS_DESCRIPTOR,
+		keywords: ['emoji', 'sticker', 'personal'],
+		isAdvanced: false,
+	},
 	{id: 'signed-in-devices', tabType: 'devices', label: SIGNED_IN_DEVICES_DESCRIPTOR, keywords: [], isAdvanced: false},
 	{
 		id: 'language-settings',

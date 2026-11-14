@@ -397,6 +397,12 @@ export class MessageReactionService {
 		hasPermission?: (permission: bigint) => Promise<boolean>;
 	}): Promise<ParsedEmoji> {
 		if (emojiKey.id !== undefined) {
+			// Sparkcord: the reactor's own personal emojis can be used anywhere.
+			const {getOwnedPersonalExpression} = await import('@app/api/personal_expression/PersonalExpressionController');
+			const personal = await getOwnedPersonalExpression(userId, BigInt(emojiKey.id), 'emoji');
+			if (personal) {
+				return {id: emojiKey.id.toString(), name: personal.name, animated: personal.animated};
+			}
 			const hasGlobalExpressions = userId
 				? await checkUserGlobalExpressions(userId, this.userRepository, this.limitConfigService)
 				: 0;
