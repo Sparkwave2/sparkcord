@@ -11779,6 +11779,163 @@
 			],
 			"primary_key": "((month), document_id)",
 			"options": ""
+		},
+		{
+			"name": "tupper_messages",
+			"columns": [
+				{
+					"name": "channel_id",
+					"type": "bigint"
+				},
+				{
+					"name": "message_id",
+					"type": "bigint"
+				},
+				{
+					"name": "avatar_url",
+					"type": "text"
+				},
+				{
+					"name": "color",
+					"type": "int"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "pronouns",
+					"type": "text"
+				},
+				{
+					"name": "system_tag",
+					"type": "text"
+				},
+				{
+					"name": "tupper_id",
+					"type": "bigint"
+				},
+				{
+					"name": "user_id",
+					"type": "bigint"
+				}
+			],
+			"primary_key": "((channel_id), message_id)",
+			"options": ""
+		},
+		{
+			"name": "tupper_settings",
+			"columns": [
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "autoproxy_mode",
+					"type": "text"
+				},
+				{
+					"name": "autoproxy_tupper_id",
+					"type": "bigint"
+				},
+				{
+					"name": "latch_tupper_id",
+					"type": "bigint"
+				},
+				{
+					"name": "proxy_enabled",
+					"type": "boolean"
+				},
+				{
+					"name": "system_name",
+					"type": "text"
+				},
+				{
+					"name": "system_tag",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id))",
+			"options": ""
+		},
+		{
+			"name": "tuppers",
+			"columns": [
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "tupper_id",
+					"type": "bigint"
+				},
+				{
+					"name": "avatar_url",
+					"type": "text"
+				},
+				{
+					"name": "birthday",
+					"type": "text"
+				},
+				{
+					"name": "color",
+					"type": "int"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "description",
+					"type": "text"
+				},
+				{
+					"name": "display_name",
+					"type": "text"
+				},
+				{
+					"name": "external_id",
+					"type": "text"
+				},
+				{
+					"name": "import_source",
+					"type": "text"
+				},
+				{
+					"name": "keep_proxy",
+					"type": "boolean"
+				},
+				{
+					"name": "name",
+					"type": "text"
+				},
+				{
+					"name": "position",
+					"type": "int"
+				},
+				{
+					"name": "pronouns",
+					"type": "text"
+				},
+				{
+					"name": "proxy_tags",
+					"type": "text"
+				},
+				{
+					"name": "tag",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id), tupper_id)",
+			"options": ""
 		}
 	],
 	"indexes": [

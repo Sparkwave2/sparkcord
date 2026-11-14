@@ -84,6 +84,18 @@ export const MiscRateLimitConfigs = {
 		bucket: 'favorite_meme:delete',
 		config: {limit: 30, windowMs: ms('10 seconds')},
 	} as RouteRateLimitConfig,
+	TUPPER_READ: {
+		bucket: 'tupper:read',
+		config: {limit: 60, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+	TUPPER_WRITE: {
+		bucket: 'tupper:write',
+		config: {limit: 60, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+	TUPPER_IMPORT: {
+		bucket: 'tupper:import',
+		config: {limit: 5, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 	FAVORITE_GIF_RESOLVE: {
 		bucket: 'favorite_gif:resolve',
 		config: {limit: 30, windowMs: ms('1 minute')},

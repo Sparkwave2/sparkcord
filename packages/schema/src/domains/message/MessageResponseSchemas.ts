@@ -119,11 +119,25 @@ const MessageCallResponse = z.object({
 	ended_timestamp: z.iso.datetime().nullish().describe('The ISO 8601 timestamp of when the call ended'),
 });
 
+export const MessageProxyResponse = z
+	.object({
+		tupper_id: SnowflakeStringType.describe('The ID of the tupper (proxy member) this message was sent as'),
+		name: z.string().describe('The name shown for the tupper when the message was sent'),
+		avatar_url: z.string().nullish().describe('Media proxy URL of the tupper avatar'),
+		color: z.number().int().nullish().describe('The tupper colour as an RGB integer'),
+		pronouns: z.string().nullish().describe('The tupper pronouns'),
+		system_tag: z.string().nullish().describe('Tag shown after the tupper name'),
+	})
+	.describe('Sparkcord: present when the message was sent through a tupper (proxy member)');
+
+export type MessageProxyResponse = z.infer<typeof MessageProxyResponse>;
+
 const MessageBaseResponseSchema = z.object({
 	id: SnowflakeStringType.describe('The unique identifier (snowflake) for this message'),
 	channel_id: SnowflakeStringType.describe('The ID of the channel this message was sent in'),
 	author: z.lazy(() => UserPartialResponse).describe('The author of the message'),
 	webhook_id: SnowflakeStringType.nullish().describe('The ID of the webhook that sent this message'),
+	proxy: MessageProxyResponse.nullish(),
 	type: MessageTypeSchema,
 	flags: createBitflagInt32Type(
 		MessageFlags,
@@ -338,6 +352,7 @@ export interface Message {
 	readonly author: UserPartial;
 	readonly member?: Omit<GuildMemberData, 'user'>;
 	readonly webhook_id?: string;
+	readonly proxy?: MessageProxyResponse | null;
 	readonly type: number;
 	readonly flags: number;
 	readonly pinned: boolean;

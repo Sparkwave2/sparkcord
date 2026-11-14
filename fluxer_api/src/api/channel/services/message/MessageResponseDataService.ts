@@ -12,6 +12,7 @@ import {getInstanceProductName} from '@app/api/instance/ProductName';
 import {Logger} from '@app/api/Logger';
 import type {Channel} from '@app/api/models/Channel';
 import type {Message} from '@app/api/models/Message';
+import {getTupperService} from '@app/api/tupper/TupperService';
 import {isJsonRecord} from '@app/api/utils/JsonBoundaryUtils';
 import {MessageTypes, Permissions} from '@fluxer/constants/src/ChannelConstants';
 import type {MessageResponse} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
@@ -282,12 +283,21 @@ export class MessageResponseDataService {
 
 	private async request(payload: Record<string, unknown>): Promise<MessageServiceResponse> {
 		try {
-			return await requestSvcJson(this.connectionManager, MESSAGE_RESPONSE_SERVICE_SUBJECT, payload, {
+			const response = await requestSvcJson(this.connectionManager, MESSAGE_RESPONSE_SERVICE_SUBJECT, payload, {
 				timeoutMs: MESSAGE_RESPONSE_SERVICE_TIMEOUT_MS,
 				guard: isMessageServiceResponse,
 				service: 'message-response-service',
 				invalidPayloadError: () => new Error('[message-response-service] invalid response payload'),
 			});
+			// Sparkcord: attach tupper (proxy member) info to messages sent through a tupper.
+			if (typeof response === 'object' && 'FoundApi' in response) {
+				const [enriched] = await getTupperService().enrichResponses([response.FoundApi]);
+				return {FoundApi: enriched!};
+			}
+			if (typeof response === 'object' && 'FoundApiMany' in response) {
+				return {FoundApiMany: await getTupperService().enrichResponses(response.FoundApiMany)};
+			}
+			return response;
 		} catch (error) {
 			Logger.error({error, op: payload.op}, '[message-response-service] request failed');
 			throw error;

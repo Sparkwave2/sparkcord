@@ -19,6 +19,7 @@ import {DonationController} from '@app/api/donation/DonationController';
 import {DownloadController} from '@app/api/download/DownloadController';
 import {ExperimentController} from '@app/api/experiment/ExperimentController';
 import {FavoriteGifController} from '@app/api/favorite_gif/FavoriteGifController';
+import {TupperController} from '@app/api/tupper/TupperController';
 import {FavoriteMemeController} from '@app/api/favorite_meme/FavoriteMemeController';
 import {GatewayController} from '@app/api/gateway/GatewayController';
 import {GeolocationController} from '@app/api/geolocation/GeolocationController';
@@ -70,6 +71,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	ExperimentController(routes);
 	FavoriteGifController(routes);
 	FavoriteMemeController(routes);
+	TupperController(routes);
 	InviteController(routes);
 	ReadStateController(routes);
 	ReportController(routes);

@@ -58,6 +58,7 @@ import type {Message} from '@app/api/models/Message';
 import type {MessageSnapshot} from '@app/api/models/MessageSnapshot';
 import type {User} from '@app/api/models/User';
 import type {Webhook} from '@app/api/models/Webhook';
+import {getTupperService, type ResolvedProxy} from '@app/api/tupper/TupperService';
 import {assertAccountNotLimited} from '@app/api/user/AccountLimit';
 import {assertMayStartConversation} from '@app/api/user/NewConversationLimit';
 import type {UserRepository} from '@app/api/user/repositories/UserRepository';
@@ -259,6 +260,20 @@ export class MessageSendService {
 	private assertForwardableReference(isForwardMessage: boolean, referencedMessage: Message | null): void {
 		if (isForwardMessage && referencedMessage?.type === MessageTypes.THREAD_CREATED) {
 			throw InputValidationError.fromCode('message_reference', ValidationErrorCodes.CANNOT_REPLY_TO_SYSTEM_MESSAGE);
+		}
+	}
+
+	private async resolveTupperProxy(user: User, data: MessageRequest): Promise<ResolvedProxy | null> {
+		if (data.content === undefined || data.content === null) return null;
+		try {
+			return await getTupperService().resolveProxy({
+				userId: user.id,
+				content: data.content,
+				hasAttachments: (data.attachments?.length ?? 0) > 0 || (data.sticker_ids?.length ?? 0) > 0,
+			});
+		} catch (error) {
+			Logger.warn({error, userId: user.id.toString()}, '[tuppers] proxy lookup failed; sending unproxied');
+			return null;
 		}
 	}
 
@@ -674,6 +689,12 @@ export class MessageSendService {
 			embeds: data.embeds,
 			attachments: data.attachments,
 		});
+		// Sparkcord: tuppers. Strip proxy tags and remember which tupper this message is sent as.
+		const tupperProxy =
+			!user.isBot && user.id !== SYSTEM_USER_ID && !isForwardMessage && !forumStarter
+				? await this.resolveTupperProxy(user, data)
+				: null;
+		if (tupperProxy) data = {...data, content: tupperProxy.content};
 		return this.deps.operationsHelpers.sendOncePerNonce({
 			userId: user.id,
 			nonce: data.nonce,
@@ -879,6 +900,13 @@ export class MessageSendService {
 						threadInsert: authChannel.thread !== undefined,
 					});
 					await recordNonce(messageId);
+					if (tupperProxy) {
+						await getTupperService()
+							.recordProxiedMessage(getTupperService().snapshotFor(tupperProxy, channelId, messageId, user.id))
+							.catch((error) =>
+								Logger.warn({error, messageId: messageId.toString()}, '[tuppers] failed to record proxied message'),
+							);
+					}
 					this.cacheMentionChannels({
 						requestCache,
 						messageId,
