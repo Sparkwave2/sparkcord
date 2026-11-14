@@ -264,12 +264,14 @@ export class MessageSendService {
 	}
 
 	private async resolveTupperProxy(user: User, data: MessageRequest): Promise<ResolvedProxy | null> {
-		if (data.content === undefined || data.content === null) return null;
+		const hasAttachments = (data.attachments?.length ?? 0) > 0 || (data.sticker_ids?.length ?? 0) > 0;
+		// Attachment-only messages have no content but should still be proxied.
+		if ((data.content === undefined || data.content === null) && !hasAttachments) return null;
 		try {
 			return await getTupperService().resolveProxy({
 				userId: user.id,
-				content: data.content,
-				hasAttachments: (data.attachments?.length ?? 0) > 0 || (data.sticker_ids?.length ?? 0) > 0,
+				content: data.content ?? '',
+				hasAttachments,
 			});
 		} catch (error) {
 			Logger.warn({error, userId: user.id.toString()}, '[tuppers] proxy lookup failed; sending unproxied');

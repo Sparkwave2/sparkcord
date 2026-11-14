@@ -152,15 +152,36 @@
 .modalBackdrop {
 	position: absolute;
 	inset: 0;
-	background-color: rgb(0 0 0 / 0.78);
-	backdrop-filter: blur(0.3125rem);
+	background-color: rgb(0 0 0 / 0.6);
+	/* Sparkcord: a clearly blurred backdrop that ramps in with the fade. */
+	backdrop-filter: blur(1.25rem) saturate(1.2);
+	animation: sparkcordMediaBlurIn 0.3s ease-out both;
 	pointer-events: auto;
+}
+
+@keyframes sparkcordMediaBlurIn {
+	from {
+		backdrop-filter: blur(0) saturate(1);
+	}
+	to {
+		backdrop-filter: blur(1.25rem) saturate(1.2);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.modalBackdrop {
+		animation: none;
+	}
+}
+
+:global(html.reduced-motion) .modalBackdrop {
+	animation: none;
 }
 
 @media (max-width: 768px) {
 	.modalBackdrop {
-		background-color: rgb(0 0 0 / 0.9);
-		backdrop-filter: blur(0.5rem);
+		background-color: rgb(0 0 0 / 0.75);
+		backdrop-filter: blur(1.25rem) saturate(1.2);
 	}
 }
 

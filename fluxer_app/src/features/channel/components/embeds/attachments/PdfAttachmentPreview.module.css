@@ -88,10 +88,6 @@
 	transition: height 0.2s ease;
 }
 
-.expanded {
-	height: 75vh;
-}
-
 .pages {
 	display: flex;
 	flex-direction: column;
@@ -134,5 +130,90 @@
 @media (prefers-reduced-motion: reduce) {
 	.scroller {
 		transition: none;
+	}
+}
+
+/* Fullscreen viewer (styled like the image viewer). */
+.fullscreenRoot {
+	position: fixed;
+	inset: 0;
+	z-index: 10000;
+}
+
+.fullscreenScroller {
+	position: absolute;
+	inset: 0;
+	overflow: auto;
+	outline: none;
+}
+
+.fullscreenPages {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	padding: 32px 32px 96px;
+	width: max-content;
+	min-width: 100%;
+	min-height: 100%;
+	box-sizing: border-box;
+}
+
+/* Fade in/out like the image viewer; the backdrop's blur ramps separately (MediaModal.module.css). */
+.fullscreenFade {
+	animation: pdfFadeIn 0.2s ease-out both;
+}
+
+.fullscreenClosing .fullscreenFade,
+.fullscreenRoot.fullscreenClosing > [aria-hidden='true'] {
+	animation: pdfFadeOut 0.2s ease-in both;
+}
+
+@keyframes pdfFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes pdfFadeOut {
+	from {
+		opacity: 1;
+		backdrop-filter: blur(1.25rem) saturate(1.2);
+	}
+	to {
+		opacity: 0;
+		backdrop-filter: blur(0) saturate(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fullscreenFade,
+	.fullscreenClosing .fullscreenFade,
+	.fullscreenClosing > [aria-hidden='true'] {
+		animation-duration: 0.01s;
+	}
+}
+
+:global(html.reduced-motion) .fullscreenFade,
+:global(html.reduced-motion) .fullscreenClosing .fullscreenFade,
+:global(html.reduced-motion) .fullscreenClosing > [aria-hidden='true'] {
+	animation-duration: 0.01s;
+}
+
+.fullscreenRoot > [aria-hidden='true'] {
+	animation: pdfBackdropIn 0.3s ease-out both;
+}
+
+@keyframes pdfBackdropIn {
+	from {
+		opacity: 0;
+		backdrop-filter: blur(0) saturate(1);
+	}
+	to {
+		opacity: 1;
+		backdrop-filter: blur(1.25rem) saturate(1.2);
 	}
 }

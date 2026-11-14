@@ -8,6 +8,7 @@ import GuildMembers from '@app/features/member/state/GuildMembers';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
+import {TupperPopout} from '@app/features/tupper/TupperPopout';
 import {getProxyDisplayName, proxyColorString} from '@app/features/tupper/TupperShared';
 import MessageReferences, {MessageReferenceState} from '@app/features/messaging/state/MessageReferences';
 import {goToMessage} from '@app/features/messaging/utils/MessageNavigator';
@@ -174,27 +175,44 @@ export const ReplyPreview = observer(
 				data-flx="channel.reply-preview.replied-message--3"
 			>
 				{!messageDisplayCompact ? (
-					<PreloadableUserPopout
-						user={referencedMessage.author}
-						isWebhook={referencedMessage.webhookId != null}
-						webhookId={referencedMessage.webhookId ?? undefined}
-						guildId={resolvedGuildId}
-						channelId={channelId}
-						message={referencedMessage}
-						enableLongPressActions={true}
-						data-flx="channel.reply-preview.preloadable-user-popout"
-					>
+					Boolean(referencedMessage.proxy) ? (
+						<TupperPopout message={referencedMessage}>
 						<Avatar
+								user={referencedMessage.author}
+								size={16}
+								className={styles.repliedAvatar}
+								guildId={referencedMessage.proxy ? undefined : resolvedGuildId}
+								avatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
+								hoverAvatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
+								data-user-id={referencedMessage.author.id}
+								data-guild-id={resolvedGuildId}
+								data-flx="channel.reply-preview.replied-avatar"
+							/>
+						</TupperPopout>
+					) : (
+						<PreloadableUserPopout
 							user={referencedMessage.author}
-							size={16}
-							className={styles.repliedAvatar}
-							guildId={referencedMessage.proxy ? undefined : resolvedGuildId}
-							avatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
-							data-user-id={referencedMessage.author.id}
-							data-guild-id={resolvedGuildId}
-							data-flx="channel.reply-preview.replied-avatar"
-						/>
-					</PreloadableUserPopout>
+							isWebhook={referencedMessage.webhookId != null}
+							webhookId={referencedMessage.webhookId ?? undefined}
+							guildId={resolvedGuildId}
+							channelId={channelId}
+							message={referencedMessage}
+							enableLongPressActions={true}
+							data-flx="channel.reply-preview.preloadable-user-popout"
+						>
+							<Avatar
+								user={referencedMessage.author}
+								size={16}
+								className={styles.repliedAvatar}
+								guildId={referencedMessage.proxy ? undefined : resolvedGuildId}
+								avatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
+								hoverAvatarUrl={referencedMessage.proxy ? (referencedMessage.proxy.avatar_url ?? undefined) : undefined}
+								data-user-id={referencedMessage.author.id}
+								data-guild-id={resolvedGuildId}
+								data-flx="channel.reply-preview.replied-avatar"
+							/>
+						</PreloadableUserPopout>
+					)
 				) : (
 					<div className={styles.repliedIconContainer} data-flx="channel.reply-preview.replied-icon-container--3">
 						<ArrowBendUpLeftIcon
@@ -204,45 +222,77 @@ export const ReplyPreview = observer(
 						/>
 					</div>
 				)}
-				<PreloadableUserPopout
-					user={referencedMessage.author}
-					isWebhook={referencedMessage.webhookId != null}
-					webhookId={referencedMessage.webhookId ?? undefined}
-					guildId={resolvedGuildId}
-					channelId={channelId}
-					message={referencedMessage}
-					enableLongPressActions={true}
-					longPressWrapperElement="span"
-					data-flx="channel.reply-preview.preloadable-user-popout--2"
-				>
+				{Boolean(referencedMessage.proxy) ? (
+					<TupperPopout message={referencedMessage}>
 					<span
-						className={styles.repliedUsername}
-						style={
-							{
-								'--replied-username-color': referencedMessage.proxy
-									? proxyColorString(referencedMessage.proxy.color)
-									: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
-							} as CSSProperties
-						}
-						data-user-id={referencedMessage.author.id}
-						data-guild-id={resolvedGuildId}
-						data-flx="channel.reply-preview.replied-username"
-					>
-						<FontSpan font={referencedMessage.proxy?.font}>
-<NameFont userId={referencedMessage.proxy ? null : referencedMessage.author.id} guildId={resolvedGuildId ?? null}>
-<StyledName
-							nameStyle={
-								referencedMessage.proxy
-									? null
-									: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getNameStyle()
+							className={styles.repliedUsername}
+							style={
+								{
+									'--replied-username-color': referencedMessage.proxy
+										? proxyColorString(referencedMessage.proxy.color)
+										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
+								} as CSSProperties
 							}
+							data-user-id={referencedMessage.author.id}
+							data-guild-id={resolvedGuildId}
+							data-flx="channel.reply-preview.replied-username"
 						>
-							{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
-						</StyledName>
-</NameFont>
-</FontSpan>
-					</span>
-				</PreloadableUserPopout>
+							<FontSpan font={referencedMessage.proxy?.font}>
+	<NameFont userId={referencedMessage.proxy ? null : referencedMessage.author.id} guildId={resolvedGuildId ?? null}>
+	<StyledName
+								nameStyle={
+									referencedMessage.proxy
+										? null
+										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getNameStyle()
+								}
+							>
+								{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
+							</StyledName>
+	</NameFont>
+	</FontSpan>
+						</span>
+					</TupperPopout>
+				) : (
+					<PreloadableUserPopout
+						user={referencedMessage.author}
+						isWebhook={referencedMessage.webhookId != null}
+						webhookId={referencedMessage.webhookId ?? undefined}
+						guildId={resolvedGuildId}
+						channelId={channelId}
+						message={referencedMessage}
+						enableLongPressActions={true}
+						longPressWrapperElement="span"
+						data-flx="channel.reply-preview.preloadable-user-popout--2"
+					>
+						<span
+							className={styles.repliedUsername}
+							style={
+								{
+									'--replied-username-color': referencedMessage.proxy
+										? proxyColorString(referencedMessage.proxy.color)
+										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getColorString(),
+								} as CSSProperties
+							}
+							data-user-id={referencedMessage.author.id}
+							data-guild-id={resolvedGuildId}
+							data-flx="channel.reply-preview.replied-username"
+						>
+							<FontSpan font={referencedMessage.proxy?.font}>
+	<NameFont userId={referencedMessage.proxy ? null : referencedMessage.author.id} guildId={resolvedGuildId ?? null}>
+	<StyledName
+								nameStyle={
+									referencedMessage.proxy
+										? null
+										: GuildMembers.getMember(resolvedGuildId ?? '', referencedMessage.author.id)?.getNameStyle()
+								}
+							>
+								{`${message.mentions.some((mention) => mention.id === referencedMessage.author.id) ? '@' : ''}${referencedMessage.proxy ? getProxyDisplayName(referencedMessage.proxy) : NicknameUtils.getNickname(referencedMessage.author, resolvedGuildId)}`}
+							</StyledName>
+	</NameFont>
+	</FontSpan>
+						</span>
+					</PreloadableUserPopout>
+				)}
 				<FocusRing offset={-2} data-flx="channel.reply-preview.focus-ring">
 					<button
 						type="button"

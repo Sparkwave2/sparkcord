@@ -4,6 +4,7 @@
 // a PDF scrolls into view). Pages render lazily as they come near the visible area.
 
 import styles from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview.module.css';
+import {PdfFullscreenViewer} from '@app/features/channel/components/embeds/attachments/PdfFullscreenViewer';
 import {fetchApiAttachmentBlob, fetchedApiAttachmentKey} from '@app/features/messaging/state/ApiAttachmentMedia';
 import AttachmentUrlRefresher from '@app/features/messaging/state/AttachmentUrlRefresher';
 import {wrapDesktopLocalResourceURL} from '@app/features/messaging/utils/DesktopResourceUrl';
@@ -14,7 +15,6 @@ import type {MessageAttachment} from '@fluxer/schema/src/domains/message/Message
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {
-	ArrowsInSimpleIcon,
 	ArrowsOutSimpleIcon,
 	DownloadSimpleIcon,
 	FilePdfIcon,
@@ -36,9 +36,14 @@ const LOAD_PREVIEW = msg({
 const PAGES = msg({message: '{count, plural, one {# page} other {# pages}}', comment: 'Page count of a PDF attachment.'});
 const ZOOM_IN = msg({message: 'Zoom in', comment: 'PDF preview button.'});
 const ZOOM_OUT = msg({message: 'Zoom out', comment: 'PDF preview button.'});
-const EXPAND = msg({message: 'Expand', comment: 'PDF preview button that makes the viewer taller.'});
-const COLLAPSE = msg({message: 'Collapse', comment: 'PDF preview button that makes the viewer smaller again.'});
+const FULLSCREEN = msg({message: 'Open fullscreen', comment: 'PDF preview button that opens the fullscreen viewer.'});
+const CLOSE = msg({message: 'Close', comment: 'Button that closes the fullscreen PDF viewer.'});
 const DOWNLOAD = msg({message: 'Download', comment: 'PDF preview button.'});
+
+function stepZoom(current: number, direction: 1 | -1): number {
+	const index = ZOOM_STEPS.indexOf(current);
+	return ZOOM_STEPS[Math.min(ZOOM_STEPS.length - 1, Math.max(0, index + direction))] ?? current;
+}
 
 let pdfjsPromise: Promise<typeof import('pdfjs-dist')> | null = null;
 function loadPdfjs() {
@@ -130,7 +135,8 @@ export function PdfAttachmentPreview({attachment, spoilerHidden}: PdfAttachmentP
 	const [doc, setDoc] = useState<PDFDocumentProxy | null>(null);
 	const [error, setError] = useState(false);
 	const [zoom, setZoom] = useState(1);
-	const [expanded, setExpanded] = useState(false);
+	const [fullscreen, setFullscreen] = useState(false);
+	const [fullscreenZoom, setFullscreenZoom] = useState(1);
 	const [containerWidth, setContainerWidth] = useState(0);
 	const fileName = attachment.title || attachment.filename;
 
@@ -182,13 +188,12 @@ export function PdfAttachmentPreview({attachment, spoilerHidden}: PdfAttachmentP
 		};
 	}, [near, requested, spoilerHidden, attachment.url]);
 
-	const zoomBy = useCallback((direction: 1 | -1) => {
-		setZoom((current) => {
-			const index = ZOOM_STEPS.indexOf(current);
-			const next = ZOOM_STEPS[Math.min(ZOOM_STEPS.length - 1, Math.max(0, index + direction))];
-			return next ?? current;
-		});
-	}, []);
+	const zoomBy = useCallback((direction: 1 | -1) => setZoom((current) => stepZoom(current, direction)), []);
+	const zoomFullscreenBy = useCallback(
+		(direction: 1 | -1) => setFullscreenZoom((current) => stepZoom(current, direction)),
+		[],
+	);
+	const closeFullscreen = useCallback(() => setFullscreen(false), []);
 
 	const handleDownload = useCallback(() => {
 		const url = attachment.proxy_url ?? attachment.url;
@@ -249,11 +254,15 @@ export function PdfAttachmentPreview({attachment, spoilerHidden}: PdfAttachmentP
 					<button
 						type="button"
 						className={styles.tool}
-						onClick={() => setExpanded((v) => !v)}
-						aria-label={i18n._(expanded ? COLLAPSE : EXPAND)}
-						title={i18n._(expanded ? COLLAPSE : EXPAND)}
+						onClick={() => {
+							setFullscreenZoom(1);
+							setFullscreen(true);
+						}}
+						disabled={!doc}
+						aria-label={i18n._(FULLSCREEN)}
+						title={i18n._(FULLSCREEN)}
 					>
-						{expanded ? <ArrowsInSimpleIcon size={18} weight="bold" /> : <ArrowsOutSimpleIcon size={18} weight="bold" />}
+						<ArrowsOutSimpleIcon size={18} weight="bold" />
 					</button>
 					<button
 						type="button"
@@ -267,9 +276,30 @@ export function PdfAttachmentPreview({attachment, spoilerHidden}: PdfAttachmentP
 					</button>
 				</div>
 			</div>
-			<div ref={scrollRef} className={expanded ? `${styles.scroller} ${styles.expanded}` : styles.scroller}>
+			<div ref={scrollRef} className={styles.scroller}>
 				<div className={styles.pages}>{body}</div>
 			</div>
+			{fullscreen && doc && (
+				<PdfFullscreenViewer
+					doc={doc}
+					fileName={fileName}
+					fileSize={formatFileSize(getFormattingLocale(), attachment.size)}
+					pagesLabel={i18n._(PAGES, {count: doc.numPages})}
+					zoom={fullscreenZoom}
+					canZoomIn={fullscreenZoom < ZOOM_STEPS[ZOOM_STEPS.length - 1]}
+					canZoomOut={fullscreenZoom > ZOOM_STEPS[0]}
+					labels={{
+						zoomIn: i18n._(ZOOM_IN),
+						zoomOut: i18n._(ZOOM_OUT),
+						download: i18n._(DOWNLOAD),
+						close: i18n._(CLOSE),
+					}}
+					onZoom={zoomFullscreenBy}
+					onDownload={handleDownload}
+					onClose={closeFullscreen}
+					renderPage={(pageNumber, width) => <PdfPage doc={doc} pageNumber={pageNumber} width={width} />}
+				/>
+			)}
 		</div>
 	);
 }
