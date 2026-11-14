@@ -197,6 +197,12 @@ const FROSTED_PANELS = [
 	'DMFriendsView.module__container',
 ];
 
+/**
+ * Cards that float over the chat (user and tupper popouts). They sit on top of busy
+ * content, so they get a much stronger blur and a more solid tint than the panels.
+ */
+const FLOATING_CARDS = ['ProfileCardLayout.module__profileCard', 'TupperCard.module__card'];
+
 /** How much clearer than the base opacities the panels are (user preference: show the art). */
 const PANEL_CLEARNESS = 0.12;
 
@@ -254,6 +260,11 @@ ${byModuleClass(TRANSPARENT_WRAPPERS)} {
 
 ${byModuleClass(FROSTED_PANELS)} {
 	backdrop-filter: blur(3px) saturate(1.1);
+}
+
+${byModuleClass(FLOATING_CARDS)} {
+	background-color: rgba(${p}, ${light ? 0.8 : 0.78}) !important;
+	backdrop-filter: blur(32px) saturate(1.3);
 }
 `;
 }
