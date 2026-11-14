@@ -292,7 +292,34 @@ ${byModuleClass(SETTINGS_CLEAR)} {
 
 ${byModuleClass(SETTINGS_SURFACE)} {
 	background-color: rgba(${p}, ${light ? 0.55 : 0.5}) !important;
+}
+
+/* The blur behind modals lives on the full-screen layer behind them rather than on the
+   panel: browsers can't draw a blur inside a panel that is still fading in, so it would
+   pop in at the end. This layer doesn't fade, so the blur builds up while the panel
+   expands (about the length of its opening spring) and is complete when it settles. */
+html:root .modal-backdrop {
 	backdrop-filter: blur(40px) saturate(1.3);
+	animation: sparkcordModalBlurIn 0.35s ease-out both;
+}
+
+@keyframes sparkcordModalBlurIn {
+	from {
+		backdrop-filter: blur(0px) saturate(1);
+	}
+	to {
+		backdrop-filter: blur(40px) saturate(1.3);
+	}
+}
+
+html.reduced-motion .modal-backdrop {
+	animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html:root .modal-backdrop {
+		animation: none;
+	}
 }
 
 ${byModuleClass(SETTINGS_SIDEBAR)} {
