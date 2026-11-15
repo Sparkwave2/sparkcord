@@ -6200,6 +6200,11 @@ msgstr "הטבות פרימיום של ה-Backend מושבתות"
 msgid "Background"
 msgstr "רקע"
 
+#. Label of the slider in Settings > Themes that sets how blurry the preset theme background looks.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Background blur"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
 msgid "Background effects"
@@ -19295,6 +19300,11 @@ msgstr "רחף מעל הכפתורים כדי לראות תיאורי כלים �
 #: src/features/auth/flow/AuthRegisterFormCore.tsx
 msgid "How about:"
 msgstr "מה דעתך על:"
+
+#. Help text of the background blur slider in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "How blurry the background image looks behind the app. 0 shows it sharp. Only changes this device."
+msgstr ""
 
 #. Helper text under the ban duration dropdown in the destructive ban-member modal.
 #: src/features/moderation/components/modals/BanMemberModal.tsx
