@@ -49,6 +49,7 @@ interface InstancePickerRowsProps {
 	readonly discoveryStatus: InstanceDiscoveryStatus;
 	readonly instances: ReadonlyArray<InstanceInfo>;
 	readonly pinnedInstance: InstanceInfo | null;
+	readonly localTestInstance?: InstanceInfo | null;
 	readonly onAddInstance: () => void;
 	readonly onRemoveInstance: (instance: InstanceInfo) => void;
 	readonly onSelectOfficial: () => void;
@@ -60,6 +61,7 @@ export function InstancePickerRows({
 	discoveryStatus,
 	instances,
 	pinnedInstance,
+	localTestInstance,
 	onAddInstance,
 	onRemoveInstance,
 	onSelectOfficial,
@@ -236,6 +238,7 @@ export function InstancePickerRows({
 					</FocusRing>
 				</div>
 				{pinnedInstance != null && renderKnownInstance(pinnedInstance, false)}
+				{localTestInstance != null && renderKnownInstance(localTestInstance, false)}
 				{instances
 					.filter((instance) => !isOfficialInstanceInfo(instance))
 					.map((instance) => renderKnownInstance(instance, true))}

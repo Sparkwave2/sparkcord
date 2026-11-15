@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {
+	getModelFormat,
+	ModelAttachmentPreview,
+} from '@app/features/channel/components/embeds/attachments/ModelAttachmentPreview';
 import {PdfAttachmentPreview} from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview';
 import {RomAttachment} from '@app/features/channel/components/embeds/attachments/RomAttachment';
 import {getRomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
@@ -63,7 +67,9 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 	const fileSize = formatFileSize(getFormattingLocale(), attachment.size);
 	const fileExtension = fileName.split('.').pop()?.toLowerCase() || '';
 	const {name: fileNameWithoutExt, extension: fileExt} = splitFilename(fileName);
-	const showTextPreview = !isPreview && shouldPreviewAttachment(attachment);
+	// Sparkcord: 3D models get an inline viewer (also the text-based ones, like .obj).
+	const modelFormat = !isPreview && !isExpired ? getModelFormat(fileName) : null;
+	const showTextPreview = !isPreview && modelFormat === null && shouldPreviewAttachment(attachment);
 	const showPdfPreview = !isPreview && !isExpired && !showTextPreview && fileExtension === 'pdf';
 	// Sparkcord: game ROMs get a Play button (EmulatorJS).
 	const romSystem = !isPreview && !isExpired && !showTextPreview ? getRomSystem(fileName) : null;
@@ -179,7 +185,7 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 			maxWidth: '100%',
 			minWidth: 0,
 		};
-	} else if (showTextPreview || showPdfPreview) {
+	} else if (showTextPreview || showPdfPreview || modelFormat) {
 		containerStyles = {
 			display: 'grid',
 			width: '100%',
@@ -252,7 +258,9 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 					/>
 				</button>
 			)}
-			{showPdfPreview ? (
+			{modelFormat ? (
+				<ModelAttachmentPreview attachment={attachment} format={modelFormat} spoilerHidden={spoilerHidden} />
+			) : showPdfPreview ? (
 				<PdfAttachmentPreview attachment={attachment} spoilerHidden={spoilerHidden} />
 			) : romSystem ? (
 				<RomAttachment attachment={attachment} system={romSystem} />

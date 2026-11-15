@@ -16,9 +16,11 @@ const CHANNEL_APP_PROTOCOLS: Record<BuildChannel, string> = {
 export const APP_PROTOCOL = CHANNEL_APP_PROTOCOLS[BUILD_CHANNEL];
 export const STABLE_APP_URL = 'https://web.fluxer.app';
 const CANARY_APP_URL = 'https://web.canary.fluxer.app';
-// Sparkcord: the development channel is the Sparkcord desktop app. It opens the instance
-// given at build time (SPARKCORD_INSTANCE_URL), by default the local test stack.
-const DEVELOPMENT_APP_URL = process.env.SPARKCORD_INSTANCE_URL || 'http://localhost:8090';
+// Sparkcord: the development channel is the Sparkcord desktop app. Its sign-in offers the
+// instance given at build time (SPARKCORD_INSTANCE_URL). Test builds can also offer a
+// local server (SPARKCORD_LOCAL_URL); release builds leave that out.
+const DEVELOPMENT_APP_URL = process.env.SPARKCORD_INSTANCE_URL || 'https://sparkcord.watermelon.quest';
+export const SPARKCORD_LOCAL_INSTANCE_URL = process.env.SPARKCORD_LOCAL_URL || null;
 export const CHANNEL_APP_URLS: Record<BuildChannel, string> = {
 	stable: STABLE_APP_URL,
 	canary: CANARY_APP_URL,

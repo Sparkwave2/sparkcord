@@ -242,6 +242,8 @@ export interface ElectronAPI {
 	platform: 'darwin' | 'win32' | 'linux' | string;
 	buildChannel: 'stable' | 'canary' | 'development';
 	localDevelopmentInstanceUrl?: string | null;
+	/** Sparkcord: a local test server offered at sign-in (test builds only). */
+	sparkcordLocalInstanceUrl?: string | null;
 	offlineBuild?: boolean;
 	openExternal(url: string): Promise<void>;
 	downloadFile(url: string, suggestedName: string, sha256?: string | null): Promise<DownloadResult>;

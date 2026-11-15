@@ -14,6 +14,7 @@ import {
 	normalizeInstanceName,
 	resolveInstanceLabel,
 	resolveLocalDevelopmentInstance,
+	resolveSparkcordLocalInstance,
 	saveKnownInstance,
 	shouldSaveKnownInstance,
 } from '@app/features/auth/flow/instance_selector/InstanceDirectoryStorage';
@@ -458,6 +459,7 @@ export const InstanceSelector = observer(function InstanceSelector({
 					discoveryStatus={discoveryStatus}
 					instances={knownInstances}
 					pinnedInstance={resolveLocalDevelopmentInstance(knownInstances)}
+					localTestInstance={resolveSparkcordLocalInstance(knownInstances)}
 					onAddInstance={handleAddInstance}
 					onRemoveInstance={handleRemoveKnownInstance}
 					onSelectOfficial={handleSelectOfficial}

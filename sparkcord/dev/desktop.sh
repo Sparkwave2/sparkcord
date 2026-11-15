@@ -4,8 +4,11 @@
 # Builds the Sparkcord desktop app (Electron) for this machine. The result is an
 # unpacked app folder in fluxer_desktop/dist-electron/.
 #
-#   sparkcord/dev/desktop.sh [instance-url]     default: http://localhost:8090
+#   sparkcord/dev/desktop.sh                    release build: Fluxer + sparkcord.watermelon.quest
+#   sparkcord/dev/desktop.sh --local            test build: also offers http://localhost:8090
 #   sparkcord/dev/desktop.sh --shell-only [...] reuse the last web app build
+#
+# SPARKCORD_INSTANCE_URL overrides the main instance, SPARKCORD_LOCAL_URL the local one.
 #
 # Needs Node.js, Rust (with the MSVC tools on Windows) and the web app's WASM
 # modules (dev.sh sync-wasm). Stop `dev.sh watch` first: both write fluxer_app/dist.
@@ -15,9 +18,21 @@ set -euo pipefail
 DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$DEV_DIR/../.." && pwd)"
 SHELL_ONLY=false
-if [ "${1:-}" = "--shell-only" ]; then SHELL_ONLY=true; shift; fi
+LOCAL=false
+for arg in "$@"; do
+	case "$arg" in
+		--shell-only) SHELL_ONLY=true ;;
+		--local) LOCAL=true ;;
+		*) echo "Unknown option: $arg" >&2; exit 1 ;;
+	esac
+done
 
-export SPARKCORD_INSTANCE_URL="${1:-http://localhost:8090}"
+export SPARKCORD_INSTANCE_URL="${SPARKCORD_INSTANCE_URL:-https://sparkcord.watermelon.quest}"
+if [ "$LOCAL" = true ]; then
+	export SPARKCORD_LOCAL_URL="${SPARKCORD_LOCAL_URL:-http://localhost:8090}"
+else
+	unset SPARKCORD_LOCAL_URL
+fi
 export BUILD_CHANNEL=development
 export BUILD_VERSION="${BUILD_VERSION:-1.0.0}"
 export NODE_ENV=production

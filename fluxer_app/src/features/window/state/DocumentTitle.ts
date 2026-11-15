@@ -8,7 +8,8 @@ interface BadgeState {
 	hasUnread: boolean;
 }
 
-let titleProductName = PRODUCT_NAME;
+// Sparkcord: the desktop app is Sparkcord even before an instance (and its name) is chosen.
+let titleProductName = globalThis.window?.electron ? 'Sparkcord' : PRODUCT_NAME;
 let readBadgeLocale: () => string = () => 'en-US';
 let currentTitleParts: ReadonlyArray<string> = [];
 let currentBadgeState: BadgeState = {mentionCount: 0, hasUnread: false};

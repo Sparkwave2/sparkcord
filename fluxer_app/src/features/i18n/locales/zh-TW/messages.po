@@ -1325,6 +1325,11 @@ msgstr "{count, plural, one {# 個空格} other {# 個空格}}"
 msgid "{count, plural, one {# suggestion available} other {# suggestions available}}"
 msgstr "{count, plural, one {有 # 個建議} other {有 # 個建議}}"
 
+#. Triangle count of a 3D model attachment.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "{count, plural, one {# triangle} other {# triangles}}"
+msgstr ""
+
 #. Attachment summary in the forward modal message preview when the message has videos and no images. count is the number of videos.
 #: src/features/messaging/components/modals/ForwardMessagePreview.tsx
 msgid "{count, plural, one {# video} other {# videos}}"
@@ -11329,6 +11334,16 @@ msgstr "無法開啟搜尋結果"
 msgid "Couldn't open the billing portal"
 msgstr "無法開啟帳務入口網站"
 
+#. Shown when a 3D model preview fails.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "Couldn't preview this model."
+msgstr ""
+
+#. Shown when a .gltf 3D model preview fails.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "Couldn't preview this model. A .gltf file that keeps its data in separate files can't be shown; use .glb instead."
+msgstr ""
+
 #. Shown when a PDF attachment preview fails.
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Couldn't preview this PDF."
@@ -14329,8 +14344,10 @@ msgstr "按兩下自己的訊息即可編輯，按兩下別人的訊息即可回
 #. Generic action label that downloads an attachment / file.
 #. Native desktop dialog button that opens the download page for a new desktop version in the browser.
 #. PDF preview button.
+#. PDF preview button.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -14545,6 +14562,11 @@ msgstr "拖曳以重新調整邀請背景位置，並使用滾輪或雙指縮放
 #: src/features/expressions/components/modals/AssetCropModal.tsx
 msgid "Drag to reposition your role icon and use the scroll wheel or pinch to zoom. The recommended minimum size is {minimumWidth}×{minimumHeight} pixels."
 msgstr "拖曳以重新調整身分組圖示的位置，並使用滾輪或雙指縮放。建議的最小尺寸為 {minimumWidth}×{minimumHeight} 像素。"
+
+#. Hint under a 3D model preview.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "Drag to rotate · click, then scroll to zoom · right-drag to move"
+msgstr ""
 
 #. Desktop setting description under the dark taskbar badge toggle on Windows.
 #: src/features/user/components/modals/tabs/DesktopSettingsTab.tsx
@@ -16108,7 +16130,9 @@ msgstr "排除附件檔名的一部分"
 msgid "Exit"
 msgstr "離開"
 
+#. 3D model preview button.
 #. Tooltip / aria label on the fullscreen toggle in the compact voice call tile (currently in fullscreen).
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 #: src/features/voice/utils/VoiceSharedMessageDescriptors.ts
 msgid "Exit fullscreen"
 msgstr "離開全螢幕"
@@ -21971,6 +21995,8 @@ msgid "Load older posts"
 msgstr "載入較舊的貼文"
 
 #. Button to load the preview of a large PDF attachment. {size} is the file size.
+#. Button to load the preview of a large PDF attachment. {size} is the file size.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Load preview ({size})"
 msgstr ""
@@ -21997,6 +22023,11 @@ msgstr "正在載入目的地…"
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Loading image"
 msgstr "正在載入圖片"
+
+#. Shown while a 3D model attachment preview loads.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "Loading model…"
+msgstr ""
 
 #. Shown while a PDF attachment preview loads.
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
@@ -26540,6 +26571,8 @@ msgid "Open file link"
 msgstr "開啟檔案連結"
 
 #. PDF preview button that opens the fullscreen viewer.
+#. PDF preview button that opens the fullscreen viewer.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 msgid "Open fullscreen"
 msgstr ""
@@ -31011,6 +31044,11 @@ msgstr "重設為預設音量"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Reset to defaults"
 msgstr "重設為預設值"
+
+#. 3D model preview button.
+#: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
+msgid "Reset view"
+msgstr ""
 
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
 #. Label for controls that reset app zoom to 100%, including the app zoom slider button.

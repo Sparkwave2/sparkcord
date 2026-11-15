@@ -83,7 +83,19 @@ function instanceDomainOrigin(domain: string): string | null {
 }
 
 export function resolveLocalDevelopmentInstance(knownInstances: ReadonlyArray<InstanceInfo>): InstanceInfo | null {
-	const url = globalThis.window?.electron?.localDevelopmentInstanceUrl;
+	return resolvePinnedInstance(globalThis.window?.electron?.localDevelopmentInstanceUrl, 'Sparkcord', knownInstances);
+}
+
+/** Sparkcord: the local test server, offered next to the main instance in test builds of the desktop app. */
+export function resolveSparkcordLocalInstance(knownInstances: ReadonlyArray<InstanceInfo>): InstanceInfo | null {
+	return resolvePinnedInstance(globalThis.window?.electron?.sparkcordLocalInstanceUrl, null, knownInstances);
+}
+
+function resolvePinnedInstance(
+	url: string | null | undefined,
+	name: string | null,
+	knownInstances: ReadonlyArray<InstanceInfo>,
+): InstanceInfo | null {
 	if (url == null) {
 		return null;
 	}
@@ -95,7 +107,7 @@ export function resolveLocalDevelopmentInstance(knownInstances: ReadonlyArray<In
 	if (knownInstances.some((instance) => instanceDomainOrigin(instance.domain) === origin)) {
 		return null;
 	}
-	return {instanceKey: LOCAL_DEVELOPMENT_INSTANCE_KEY, domain, name: new URL(origin).host, lastUsed: 0};
+	return {instanceKey: `${LOCAL_DEVELOPMENT_INSTANCE_KEY}:${origin}`, domain, name: name ?? new URL(origin).host, lastUsed: 0};
 }
 
 function getDesktopKnownInstanceAPI(): DesktopKnownInstanceStorageAPI | null {

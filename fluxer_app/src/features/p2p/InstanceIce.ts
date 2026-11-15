@@ -28,7 +28,7 @@ export function refreshInstanceIce(): Promise<void> {
 	if (pending) return pending;
 	if (fetchedAt && Date.now() - fetchedAt < REFRESH_AFTER_MS) return Promise.resolve();
 	pending = fetch(iceUrl())
-		.then((res) => (res.ok ? (res.json() as Promise<{iceServers?: Array<RTCIceServer>}>) : {}))
+		.then((res): Promise<{iceServers?: Array<RTCIceServer>}> => (res.ok ? res.json() : Promise.resolve({})))
 		.then((body) => {
 			if (Array.isArray(body.iceServers)) {
 				cached = body.iceServers;

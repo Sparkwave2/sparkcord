@@ -5,6 +5,7 @@ import {BUILD_CHANNEL} from '@electron/common/BuildChannel';
 import {
 	DESKTOP_PREBOOT_THEME_CHANNEL,
 	LOCAL_DEVELOPMENT_INSTANCE_URL,
+	SPARKCORD_LOCAL_INSTANCE_URL,
 	RELEASE_RENDERER_MEMORY_CHANNEL,
 } from '@electron/common/Constants';
 import {IS_OFFLINE_BUILD} from '@electron/common/OfflineBuild';
@@ -416,6 +417,7 @@ const api: ElectronAPI = {
 	platform: process.platform,
 	buildChannel: BUILD_CHANNEL,
 	localDevelopmentInstanceUrl: LOCAL_DEVELOPMENT_INSTANCE_URL,
+	sparkcordLocalInstanceUrl: SPARKCORD_LOCAL_INSTANCE_URL,
 	capabilities: readDesktopCapabilityManifest(),
 	offlineBuild: IS_OFFLINE_BUILD,
 	...createDesktopStoragePreloadAPI(ipcRenderer),
