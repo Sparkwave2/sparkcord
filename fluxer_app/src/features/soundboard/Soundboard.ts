@@ -216,6 +216,11 @@ class Soundboard {
 		return true;
 	}
 
+	/** Plays a sound only for yourself (previews in settings). */
+	preview(sound: SoundboardSound): void {
+		void this.playLocally(sound.id);
+	}
+
 	private handleMessage(fromUserId: string, message: SparkcordVoiceMessage): void {
 		if (message.k !== 'sb') return;
 		const {id, name, emoji, ms, ch} = message as {id?: unknown; name?: unknown; emoji?: unknown; ms?: unknown; ch?: unknown};

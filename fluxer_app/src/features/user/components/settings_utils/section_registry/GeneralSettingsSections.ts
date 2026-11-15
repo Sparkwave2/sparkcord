@@ -50,6 +50,10 @@ const PERSONAL_EXPRESSIONS_DESCRIPTOR = msg({
 	message: 'My emojis & stickers',
 	comment: 'Settings section for your personal emojis and stickers, usable everywhere.',
 });
+const SOUNDBOARD_DESCRIPTOR = msg({
+	message: 'Soundboard',
+	comment: 'Settings section for your soundboard sounds and soundboard volume.',
+});
 const SIGNED_IN_DEVICES_DESCRIPTOR = msg({
 	message: 'Signed-in devices',
 	comment: 'Settings section label for account sessions and devices.',
@@ -148,6 +152,13 @@ export const generalSettingsSections = [
 		tabType: 'personal_expressions',
 		label: PERSONAL_EXPRESSIONS_DESCRIPTOR,
 		keywords: ['emoji', 'sticker', 'personal'],
+		isAdvanced: false,
+	},
+	{
+		id: 'soundboard',
+		tabType: 'soundboard',
+		label: SOUNDBOARD_DESCRIPTOR,
+		keywords: ['sound', 'soundboard', 'audio', 'volume'],
 		isAdvanced: false,
 	},
 	{id: 'signed-in-devices', tabType: 'devices', label: SIGNED_IN_DEVICES_DESCRIPTOR, keywords: [], isAdvanced: false},

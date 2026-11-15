@@ -45,6 +45,7 @@ const USER_SETTINGS_TAB_TYPES = new Set<UserSettingsTabType>([
 	'linked_accounts',
 	'tuppers',
 	'personal_expressions',
+	'soundboard',
 ]);
 const SAFE_SETTINGS_PARAM_REGEX = /^[A-Za-z0-9_-]+$/;
 

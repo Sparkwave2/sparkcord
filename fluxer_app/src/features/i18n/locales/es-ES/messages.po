@@ -61,6 +61,11 @@ msgstr "[Mensaje original eliminado]"
 msgid "{0, plural, one {# member} other {# members}}"
 msgstr "{0, plural, one {# miembro} other {# miembros}}"
 
+#. placeholder {0}: sounds.length
+#: src/features/soundboard/SoundManager.tsx
+msgid "{0} of {max} sounds"
+msgstr ""
+
 #. Screen reader announcement in the composer when two people are typing. {a} and {b} are their display names.
 #: src/features/typing/rolling/RollingTypingText.tsx
 msgid "{a} and {b} are typing..."
@@ -8917,6 +8922,7 @@ msgid "Clearing trusted domains..."
 msgstr "Borrando dominios de confianza..."
 
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Click again to delete"
 msgstr ""
@@ -11248,6 +11254,10 @@ msgstr "No se pudieron cargar las publicaciones. Inténtalo de nuevo más tarde.
 msgid "Couldn't load settings"
 msgstr "No se pudieron cargar los ajustes"
 
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx
+msgid "Couldn't load the community's sounds."
+msgstr ""
+
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 msgid "Couldn't load the game. Try again."
 msgstr ""
@@ -11304,6 +11314,10 @@ msgstr "No se pudieron cargar tus códigos de copia de seguridad."
 #: src/features/premium/components/operator_pass/OperatorPassPurchasesSection.tsx
 msgid "Couldn't load your Operator Pass purchases."
 msgstr "No se han podido cargar tus compras de Operator Pass."
+
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
+msgid "Couldn't load your sounds."
+msgstr ""
 
 #. Error message in the search result open failed modal.
 #: src/features/search/components/alerts/SearchResultOpenFailedModal.tsx
@@ -12901,6 +12915,7 @@ msgstr "Delaware"
 #: src/features/messaging/commands/MessageCommands.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
@@ -19267,6 +19282,10 @@ msgstr "Cuánto tiempo permanecerá baneado el miembro."
 msgid "How long they stay timed out."
 msgstr "Cuánto tiempo permanecerá el miembro en aislamiento temporal."
 
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
+msgid "How loud other people's (and your own) soundboard sounds play for you."
+msgstr ""
+
 #. Description for the /ban delete_messages option.
 #: src/features/devtools/hooks/useCommands.ts
 msgid "How much of the member's recent message history to delete."
@@ -23903,6 +23922,10 @@ msgstr "Cine y televisión"
 msgid "MP3"
 msgstr "MP3"
 
+#: src/features/soundboard/SoundManager.tsx
+msgid "MP3, OGG, WAV or WebM, up to 10 seconds and 1 MB. The file name becomes the sound's name."
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AccountSecurityIndex.ts
 msgid "Multi-factor"
@@ -25296,6 +25319,7 @@ msgid "No size limit. Keep Sparkcord open while people download."
 msgstr ""
 
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/soundboard/SoundManager.tsx
 msgid "No sounds yet."
 msgstr ""
 
@@ -28169,6 +28193,10 @@ msgstr "Reproducir ejemplo"
 msgid "Play selection"
 msgstr "Reproducir selección"
 
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
+msgid "Play short sounds for everyone in your voice channel from the speaker button in the voice panel (or the \"Toggle the soundboard\" keybind). Your personal sounds work in any voice channel; communities can have their own sounds too."
+msgstr ""
+
 #. Play-button label on the inline video player thumbnail before playback starts.
 #. Short label in the channel and chat embed video. Keep it concise.
 #. Short label in the channel and chat embed you tube. Keep it concise.
@@ -28537,6 +28565,7 @@ msgstr "Impide que los miembros envíen mensajes, reaccionen y se unan a chats d
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildInviteSplashSettingsField.tsx
+#: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/EmbedDebuggerTab.tsx
 msgid "Preview"
 msgstr "Vista previa"
@@ -28546,6 +28575,10 @@ msgstr "Vista previa"
 msgctxt "invite-preview-button"
 msgid "Preview"
 msgstr "Previsualizar"
+
+#: src/features/soundboard/SoundManager.tsx
+msgid "Preview (only you hear it)"
+msgstr ""
 
 #. Accessible label for a community card in Explore, which opens a preview of the community. {communityName} is the public community name.
 #: src/features/discovery/discovery/DiscoveryGuildCard.tsx
@@ -30388,6 +30421,7 @@ msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, 
 msgstr "Quitar el aislamiento temporal permitirá que <0>{targetUserTag}</0> vuelva a enviar mensajes, reaccionar y unirse a canales de voz."
 
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
 msgid "Rename"
@@ -35277,12 +35311,26 @@ msgstr "Sonido para este ámbito"
 msgid "Sound volume"
 msgstr "Volumen del sonido"
 
+#. Settings section for your soundboard sounds and soundboard volume.
+#. Settings tab for your soundboard sounds and soundboard volume.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx
 #: src/features/soundboard/SoundboardButton.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "Soundboard"
+msgstr ""
+
+#. Community settings tab for the community soundboard sounds.
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts
+msgctxt "community-settings-tab"
 msgid "Soundboard"
 msgstr ""
 
 #: src/features/soundboard/SoundboardPopout.tsx
+#: src/features/soundboard/SoundManager.tsx
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
 msgid "Soundboard volume"
 msgstr ""
 
@@ -35298,6 +35346,10 @@ msgstr "Sonidos"
 msgctxt "notifications-settings-section"
 msgid "Sounds"
 msgstr "Sonidos"
+
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx
+msgid "Sounds every member can play in this community's voice channels, from the speaker button in the voice panel."
+msgstr ""
 
 #. Screen share resolution token in the stream info pill on the sharing tile, used when the person asked for the original source resolution and the app does not know the source size. Matches the Source option in the stream settings menu.
 #. Short label in the video tab for the native source resolution option. Keep it concise.
@@ -41306,6 +41358,10 @@ msgstr "Subir icono del rol"
 msgid "Upload sound"
 msgstr "Subir sonido"
 
+#: src/features/soundboard/SoundManager.tsx
+msgid "Upload sounds"
+msgstr ""
+
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx
 msgid "Upload sticker"
 msgstr "Subir pegatina"
@@ -45707,6 +45763,10 @@ msgstr "Tu proveedor de inicio de sesión no está disponible. Inténtalo de nue
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx
 msgid "Your sign-in provider manages your email and password."
 msgstr "Tu proveedor de inicio de sesión gestiona tu correo electrónico y tu contraseña."
+
+#: src/features/user/components/modals/tabs/SoundboardTab.tsx
+msgid "Your sounds"
+msgstr ""
 
 #. Subtitle under the preview-paused overlay reassuring the user that the screen share is still live for others.
 #: src/features/voice/components/voice_participant_tile/shared.ts

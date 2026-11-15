@@ -38,7 +38,8 @@ export type UserSettingsTabType =
 	| 'keybinds'
 	| 'linked_accounts'
 	| 'tuppers'
-	| 'personal_expressions';
+	| 'personal_expressions'
+	| 'soundboard';
 
 export interface SectionDefinition extends SettingsMetadata {
 	id: string;

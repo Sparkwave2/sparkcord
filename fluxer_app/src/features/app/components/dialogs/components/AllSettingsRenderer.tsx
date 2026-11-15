@@ -23,6 +23,7 @@ import LanguageTab from '@app/features/user/components/modals/tabs/LanguageTab';
 import LinkedAccountsTab from '@app/features/user/components/modals/tabs/LinkedAccountsTab';
 import TuppersTab from '@app/features/user/components/modals/tabs/TuppersTab';
 import PersonalExpressionsTab from '@app/features/user/components/modals/tabs/PersonalExpressionsTab';
+import SoundboardTab from '@app/features/user/components/modals/tabs/SoundboardTab';
 import MyProfileTab from '@app/features/user/components/modals/tabs/MyProfileTab';
 import {NotificationsInlineContent} from '@app/features/user/components/modals/tabs/NotificationsTab';
 import {PlutoniumInlineTab} from '@app/features/user/components/modals/tabs/PlutoniumTab';
@@ -85,6 +86,7 @@ const INLINE_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Component
 	linked_accounts: LinkedAccountsTab,
 	tuppers: TuppersTab,
 	personal_expressions: PersonalExpressionsTab,
+	soundboard: SoundboardTab,
 	advanced_settings: AdvancedSettingsInlineContent,
 };
 const getInlineTabComponent = (tab: SettingsTab): React.ComponentType<Record<string, unknown>> | null => {

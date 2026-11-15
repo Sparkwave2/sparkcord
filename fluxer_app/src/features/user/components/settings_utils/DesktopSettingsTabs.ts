@@ -23,6 +23,7 @@ import PrivacySafetyTab from '@app/features/user/components/modals/tabs/PrivacyS
 import SubscriptionsTab from '@app/features/user/components/modals/tabs/SubscriptionsTab';
 import TuppersTab from '@app/features/user/components/modals/tabs/TuppersTab';
 import PersonalExpressionsTab from '@app/features/user/components/modals/tabs/PersonalExpressionsTab';
+import SoundboardTab from '@app/features/user/components/modals/tabs/SoundboardTab';
 import VoiceVideoTab from '@app/features/user/components/modals/tabs/VoiceVideoTab';
 import type {UserSettingsTabType} from '@app/features/user/components/settings_utils/SettingsSectionRegistry';
 import type React from 'react';
@@ -42,6 +43,7 @@ const DESKTOP_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Componen
 	linked_accounts: LinkedAccountsTab,
 	tuppers: TuppersTab,
 	personal_expressions: PersonalExpressionsTab,
+	soundboard: SoundboardTab,
 	appearance: AppearanceTab,
 	themes: ThemesTab,
 	accessibility: AccessibilityTab,

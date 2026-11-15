@@ -79,6 +79,7 @@ import {
 	UserIcon,
 	UserListIcon,
 	SmileyStickerIcon,
+	SpeakerHighIcon,
 	UsersThreeIcon,
 } from '@phosphor-icons/react';
 import type React from 'react';
@@ -229,6 +230,15 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 			comment: 'Settings tab for your personal emojis and stickers, usable everywhere.',
 		}),
 		icon: SmileyStickerIcon,
+	},
+	{
+		type: 'soundboard',
+		category: 'user_settings',
+		label: msg({
+			message: 'Soundboard',
+			comment: 'Settings tab for your soundboard sounds and soundboard volume.',
+		}),
+		icon: SpeakerHighIcon,
 	},
 	{
 		type: 'devices',

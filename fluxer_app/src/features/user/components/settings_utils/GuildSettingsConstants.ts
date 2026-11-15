@@ -13,16 +13,17 @@ import {
 	CompassIcon,
 	GearIcon,
 	HammerIcon,
-	type Icon,
-	type IconWeight,
 	LinkIcon,
 	ProhibitIcon,
 	ShieldIcon,
 	SmileyIcon,
+	SpeakerHighIcon,
 	StickerIcon,
 	TicketIcon,
 	UserIcon,
 	WebhooksLogoIcon,
+	type Icon,
+	type IconWeight,
 } from '@phosphor-icons/react';
 
 const EMOJI_DESCRIPTOR = msg({
@@ -92,6 +93,7 @@ export type GuildSettingsTabType =
 	| 'roles'
 	| 'emoji'
 	| 'stickers'
+	| 'soundboard'
 	| 'moderation'
 	| 'audit_log'
 	| 'webhooks'
@@ -170,6 +172,17 @@ const GUILD_SETTINGS_TABS_DESCRIPTORS: Array<GuildSettingsTabDescriptor> = [
 		category: 'expressions',
 		label: STICKERS_DESCRIPTOR,
 		icon: StickerIcon,
+		permission: [Permissions.CREATE_EXPRESSIONS, Permissions.MANAGE_EXPRESSIONS],
+	},
+	{
+		type: 'soundboard',
+		category: 'expressions',
+		label: msg({
+			message: 'Soundboard',
+			context: 'community-settings-tab',
+			comment: 'Community settings tab for the community soundboard sounds.',
+		}),
+		icon: SpeakerHighIcon,
 		permission: [Permissions.CREATE_EXPRESSIONS, Permissions.MANAGE_EXPRESSIONS],
 	},
 	{
