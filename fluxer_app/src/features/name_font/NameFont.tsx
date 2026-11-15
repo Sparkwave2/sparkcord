@@ -6,7 +6,9 @@
 // dynamically imported HTTP client) so message and member list components can use it
 // without adding import cycles.
 
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import {NAME_FONTS} from '@fluxer/constants/src/NameFonts';
+import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useEffect, useSyncExternalStore} from 'react';
 
@@ -124,12 +126,22 @@ export function nameFontFamily(fontId: string | null | undefined): string | unde
 	return `"Sparkcord ${fontId}", var(--font-sans, sans-serif)`;
 }
 
-/** Draws children in a font id directly (tuppers, previews). */
-export function FontSpan({font, children}: {font: string | null | undefined; children: React.ReactNode}) {
-	const family = nameFontFamily(font);
+/**
+ * Draws children in a font id directly (tuppers). Does nothing when the viewer turned
+ * name fonts off (Settings > Accessibility); the font pickers use nameFontFamily and
+ * keep showing their samples.
+ */
+export const FontSpan = observer(function FontSpan({
+	font,
+	children,
+}: {
+	font: string | null | undefined;
+	children: React.ReactNode;
+}) {
+	const family = SparkcordPrefs.get('plainNameFonts') ? undefined : nameFontFamily(font);
 	if (!family) return <>{children}</>;
 	return <span style={{fontFamily: family}}>{children}</span>;
-}
+});
 
 /** Draws a user's name in their chosen font (as shown in the given community). */
 export function NameFont({

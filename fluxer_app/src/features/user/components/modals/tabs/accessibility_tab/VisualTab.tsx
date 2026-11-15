@@ -3,6 +3,7 @@
 import * as AccessibilityCommands from '@app/features/accessibility/commands/AccessibilityCommands';
 import Accessibility, {DMMessagePreviewMode} from '@app/features/accessibility/state/Accessibility';
 import {SettingsTabSection} from '@app/features/app/components/dialogs/shared/SettingsTabLayout';
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
 import {RESET_SLIDER_TO_DEFAULT_VALUE_DESCRIPTOR, Slider} from '@app/features/ui/components/Slider';
 import {canResetSliderValue, SliderResetIconButton} from '@app/features/ui/components/slider/SliderResetIconButton';
@@ -24,6 +25,15 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback} from 'react';
 
+const PLAIN_NAME_FONTS_DESCRIPTOR = msg({
+	message: 'Show all names in the default font',
+	comment: 'Sparkcord accessibility setting that turns off custom name fonts for the viewer.',
+});
+const PLAIN_NAME_FONTS_HELP_DESCRIPTOR = msg({
+	message:
+		"Ignores the name fonts people and tuppers picked, so every name is easy to read. Only changes what you see on this device.",
+	comment: 'Help text for the setting that turns off custom name fonts.',
+});
 const ALL_MESSAGES_DESCRIPTOR = msg({
 	message: 'All messages',
 	comment: 'Short label in the visual tab. Keep it concise.',
@@ -132,6 +142,12 @@ export const VisualTabContent: React.FC = observer(() => {
 				value={dimStrikethroughText}
 				onChange={(value) => AccessibilityCommands.update({dimStrikethroughText: value})}
 				data-flx="user.accessibility-tab.visual-tab.visual-tab-content.switch.update--2"
+			/>
+			<Switch
+				label={i18n._(PLAIN_NAME_FONTS_DESCRIPTOR)}
+				description={i18n._(PLAIN_NAME_FONTS_HELP_DESCRIPTOR)}
+				value={SparkcordPrefs.get('plainNameFonts')}
+				onChange={(value) => SparkcordPrefs.set('plainNameFonts', value)}
 			/>
 			{shouldShowDirectMessageSettings() && (
 				<SettingsTabSection

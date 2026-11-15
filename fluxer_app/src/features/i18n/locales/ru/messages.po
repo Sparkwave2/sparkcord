@@ -19708,6 +19708,11 @@ msgstr "Игнорировать медленный режим в этом ка�
 msgid "Ignore virtual"
 msgstr "Игнорировать виртуальные устройства"
 
+#. Help text for the setting that turns off custom name fonts.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Ignores the name fonts people and tuppers picked, so every name is easy to read. Only changes what you see on this device."
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -34001,6 +34006,11 @@ msgstr "Показать активность в других аккаунтах
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Show all badges"
 msgstr "Показать все значки"
+
+#. Sparkcord accessibility setting that turns off custom name fonts for the viewer.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Show all names in the default font"
+msgstr ""
 
 #. Short label for an advanced media button preference.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedChatControls.tsx
