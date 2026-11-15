@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {instanceIceServers} from '@app/features/p2p/InstanceIce';
 import GatewaySessions from '@app/features/gateway/transport/GatewaySessionPool';
 import {VoiceSignalSendResult} from '@app/features/gateway/transport/GatewaySocket';
 import {Logger} from '@app/features/platform/utils/AppLogger';
@@ -168,8 +169,9 @@ export class VoiceMeshEngine extends RTCEngine {
 		return undefined;
 	}
 
-	get iceServers(): Array<Pick<RTCIceServer, 'urls'>> {
-		return this.target.iceServers;
+	get iceServers(): Array<RTCIceServer> {
+		// Sparkcord: add this instance's own STUN/TURN servers so calls connect across NATs.
+		return [...this.target.iceServers, ...instanceIceServers()];
 	}
 
 	private get localParticipantSid(): string {

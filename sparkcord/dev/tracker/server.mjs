@@ -74,7 +74,12 @@ function sparkcordTurn(req) {
 http
 	.createServer((req, res) => {
 		if (req.url === '/ice' || req.url?.startsWith('/ice?')) {
-			res.writeHead(200, {'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=300'});
+			res.writeHead(200, {
+				'Content-Type': 'application/json',
+				'Cache-Control': 'private, max-age=300',
+				// The desktop app's page has its own origin.
+				'Access-Control-Allow-Origin': '*',
+			});
 			res.end(JSON.stringify({iceServers: [...staticIceServers, ...sparkcordTurn(req)]}));
 			return;
 		}

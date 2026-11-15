@@ -170,11 +170,36 @@ cmd_watch() {
 		done
 }
 
+# Voice: LiveKit tells callers which address to send media to. By default it finds this
+# machine's public address, which a local test setup can't reach, so calls never connect.
+# Use this machine's own network address instead (refreshed on every `up`, unless
+# SPARKCORD_VOICE_ADDRESS=keep is in .env because you set FLUXER_LIVEKIT_NODE_IP yourself).
+lan_address() {
+	if command -v ip >/dev/null 2>&1; then
+		ip route get 1.1.1.1 2>/dev/null | sed -n 's/.* src \([0-9.]*\).*//p' | head -n 1
+	elif command -v powershell >/dev/null 2>&1; then
+		powershell -NoProfile -Command "(Find-NetRoute -RemoteIPAddress 1.1.1.1 | Select-Object -First 1).IPAddress" 2>/dev/null | tr -d ''
+	elif command -v ipconfig >/dev/null 2>&1; then
+		ipconfig getifaddr en0 2>/dev/null
+	fi
+}
+
+set_voice_address() {
+	[ "$(get_env SPARKCORD_VOICE_ADDRESS)" = keep ] && return 0
+	local address
+	address="$(lan_address || true)"
+	[ -n "$address" ] || address=127.0.0.1
+	set_env FLUXER_LIVEKIT_NODE_IP "$address"
+	set_env FLUXER_LIVEKIT_USE_EXTERNAL_IP false
+	echo "Voice calls use $address (this machine's network address)."
+}
+
 cmd_up() {
 	[ -f "$STACK_DIR/.env" ] || cmd_setup
 	# The edge loads extra routes from caddy.d; add the P2P tracker routes.
 	cp "$DEV_DIR/tracker/tracker.caddy" "$STACK_DIR/caddy.d/sparkcord-tracker.caddy"
 	cp "$DEV_DIR/emulatorjs.caddy" "$STACK_DIR/caddy.d/sparkcord-emulatorjs.caddy"
+	set_voice_address
 	compose up -d --build tracker turn
 	compose up -d
 	compose restart edge >/dev/null
