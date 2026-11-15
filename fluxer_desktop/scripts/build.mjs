@@ -79,6 +79,7 @@ function buildInfoDefines() {
 		'process.env.FLUXER_MODULES': JSON.stringify(modulesEnabled ? '1' : ''),
 		'process.env.FLUXER_OFFLINE': JSON.stringify(offlineBuild ? '1' : ''),
 		'process.env.FLUXER_LAUNCH_COMMAND': JSON.stringify(packageLaunchCommand),
+		'process.env.SPARKCORD_INSTANCE_URL': JSON.stringify(process.env.SPARKCORD_INSTANCE_URL || ''),
 	};
 }
 const electronExternals = [

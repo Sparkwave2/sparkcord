@@ -39,9 +39,9 @@ const CHANNELS = {
 		provisioningProfile: 'build_resources/profiles/Fluxer_Canary.provisionprofile',
 	},
 	development: {
-		productName: 'Fluxer Development',
-		linuxOptDirName: 'fluxer-development',
-		artifactProductName: 'Fluxer-Development',
+		productName: 'Sparkcord',
+		linuxOptDirName: 'sparkcord',
+		artifactProductName: 'Sparkcord',
 		appId: 'app.fluxer.development',
 		iconDirectory: 'icons-development',
 		packageName: 'fluxer_desktop_development',

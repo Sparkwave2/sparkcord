@@ -5,7 +5,7 @@ import {BUILD_CHANNEL, type BuildChannel} from '@electron/common/BuildChannel';
 const DESKTOP_APP_NAMES: Record<BuildChannel, string> = {
 	stable: 'Fluxer',
 	canary: 'Fluxer Canary',
-	development: 'Fluxer Development',
+	development: 'Sparkcord',
 };
 const MACOS_BUNDLE_IDS: Record<BuildChannel, string> = {
 	stable: 'app.fluxer',
