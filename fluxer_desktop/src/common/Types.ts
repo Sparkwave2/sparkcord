@@ -256,6 +256,7 @@ export interface ElectronAPI {
 	platform: NodeJS.Platform;
 	buildChannel: BuildChannel;
 	localDevelopmentInstanceUrl: string | null;
+	sparkcordLocalInstanceUrl?: string | null;
 	offlineBuild?: boolean;
 	getDesktopInfo: () => Promise<DesktopInfo>;
 	getGpuInfo: () => Promise<GpuInfo>;
