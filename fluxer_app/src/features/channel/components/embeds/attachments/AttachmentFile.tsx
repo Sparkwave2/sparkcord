@@ -2,6 +2,7 @@
 
 import {
 	getModelFormat,
+	MODEL_PREVIEW_MAX_BYTES,
 	ModelAttachmentPreview,
 } from '@app/features/channel/components/embeds/attachments/ModelAttachmentPreview';
 import {PdfAttachmentPreview} from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview';
@@ -68,7 +69,8 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 	const fileExtension = fileName.split('.').pop()?.toLowerCase() || '';
 	const {name: fileNameWithoutExt, extension: fileExt} = splitFilename(fileName);
 	// Sparkcord: 3D models get an inline viewer (also the text-based ones, like .obj).
-	const modelFormat = !isPreview && !isExpired ? getModelFormat(fileName) : null;
+	const modelFormat =
+		!isPreview && !isExpired && attachment.size <= MODEL_PREVIEW_MAX_BYTES ? getModelFormat(fileName) : null;
 	const showTextPreview = !isPreview && modelFormat === null && shouldPreviewAttachment(attachment);
 	const showPdfPreview = !isPreview && !isExpired && !showTextPreview && fileExtension === 'pdf';
 	// Sparkcord: game ROMs get a Play button (EmulatorJS).

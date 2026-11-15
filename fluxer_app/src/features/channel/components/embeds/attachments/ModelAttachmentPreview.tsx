@@ -19,6 +19,8 @@ import {ArrowsInSimpleIcon, ArrowsOutSimpleIcon, CubeIcon, DownloadSimpleIcon, G
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 const AUTO_LOAD_MAX_BYTES = 15 * 1024 * 1024;
+/** Larger models get no viewer at all, just the normal file card. */
+export const MODEL_PREVIEW_MAX_BYTES = 100 * 1024 * 1024;
 const MODEL_FORMATS: ReadonlySet<string> = new Set(['glb', 'gltf', 'obj', 'stl', 'ply', 'fbx']);
 
 const LOADING = msg({message: 'Loading model…', comment: 'Shown while a 3D model attachment preview loads.'});
