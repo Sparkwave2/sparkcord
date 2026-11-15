@@ -3,6 +3,8 @@
 // Sparkcord: small per-device preferences (kept in this browser or desktop app, not
 // synced to the account). A leaf module, so any component can read it.
 
+// The app removes window.localStorage at startup; this is the handle it kept.
+import {getProtectedLocalStorage} from '@app/features/platform/state/ProtectedWebStorage';
 import {makeAutoObservable} from 'mobx';
 
 const STORAGE_KEY = 'sparkcord.prefs';
@@ -18,7 +20,7 @@ const DEFAULTS: Prefs = {
 
 function readStored(): Prefs {
 	try {
-		const raw = window.localStorage.getItem(STORAGE_KEY);
+		const raw = getProtectedLocalStorage()?.getItem(STORAGE_KEY) ?? null;
 		const parsed = raw ? (JSON.parse(raw) as Partial<Prefs>) : {};
 		const prefs = {...DEFAULTS};
 		for (const key of Object.keys(DEFAULTS) as Array<keyof Prefs>) {
@@ -54,7 +56,7 @@ class SparkcordPrefs {
 	set<K extends keyof Prefs>(key: K, value: Prefs[K]): void {
 		this.values = {...this.values, [key]: value};
 		try {
-			window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.values));
+			getProtectedLocalStorage()?.setItem(STORAGE_KEY, JSON.stringify(this.values));
 		} catch {}
 	}
 }

@@ -6,6 +6,8 @@
 // fetches the audio and plays it locally at their own soundboard volume, and the
 // player's tile shows what's playing.
 
+// The app removes window.localStorage at startup; this is the handle it kept.
+import {getProtectedLocalStorage} from '@app/features/platform/state/ProtectedWebStorage';
 import Authentication from '@app/features/auth/state/Authentication';
 import {http} from '@app/features/platform/transport/RestTransport';
 import MediaEngine from '@app/features/voice/engine/MediaEngineFacade';
@@ -48,7 +50,7 @@ const BUFFER_CACHE_SIZE = 40;
 
 function readVolume(): number {
 	try {
-		const raw = window.localStorage.getItem(VOLUME_KEY);
+		const raw = getProtectedLocalStorage()?.getItem(VOLUME_KEY) ?? null;
 		const value = raw === null ? Number.NaN : Number(raw);
 		return Number.isFinite(value) ? Math.min(1, Math.max(0, value)) : 0.6;
 	} catch {
@@ -105,7 +107,7 @@ class Soundboard {
 	setVolume(volume: number): void {
 		this.volume = Math.min(1, Math.max(0, volume));
 		try {
-			window.localStorage.setItem(VOLUME_KEY, String(this.volume));
+			getProtectedLocalStorage()?.setItem(VOLUME_KEY, String(this.volume));
 		} catch {
 			// Not persisted; fine.
 		}

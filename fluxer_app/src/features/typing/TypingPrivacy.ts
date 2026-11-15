@@ -4,6 +4,8 @@
 // - sendTypingIndicators: when off, nobody sees that you are typing (no typing requests).
 // - showTypingIndicators: when off, you don't see when others are typing, anywhere.
 
+// The app removes window.localStorage at startup; this is the handle it kept.
+import {getProtectedLocalStorage} from '@app/features/platform/state/ProtectedWebStorage';
 import {makeAutoObservable} from 'mobx';
 
 const STORAGE_KEY = 'sparkcord.typingPrivacy';
@@ -15,7 +17,7 @@ interface StoredTypingPrivacy {
 
 function readStored(): StoredTypingPrivacy {
 	try {
-		const raw = window.localStorage.getItem(STORAGE_KEY);
+		const raw = getProtectedLocalStorage()?.getItem(STORAGE_KEY) ?? null;
 		return raw ? (JSON.parse(raw) as StoredTypingPrivacy) : {};
 	} catch {
 		return {};
@@ -53,7 +55,7 @@ class TypingPrivacy {
 
 	private save(): void {
 		try {
-			window.localStorage.setItem(
+			getProtectedLocalStorage()?.setItem(
 				STORAGE_KEY,
 				JSON.stringify({
 					sendTypingIndicators: this.sendTypingIndicators,
