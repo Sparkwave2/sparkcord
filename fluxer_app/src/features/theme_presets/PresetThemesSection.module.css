@@ -106,3 +106,22 @@
 	gap: var(--spacing-2);
 	margin-top: var(--spacing-3);
 }
+
+.tweak {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-top: var(--spacing-4);
+}
+
+.tweakTitle {
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+.tweakHelp {
+	margin-bottom: var(--spacing-2);
+	color: var(--text-secondary);
+	font-size: 0.8125rem;
+	line-height: 1.35;
+}

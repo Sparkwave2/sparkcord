@@ -3,6 +3,7 @@
 import * as ThemeProfileCommands from '@app/features/theme/commands/ThemeProfileCommands';
 import ThemeEditTarget from '@app/features/theme/state/ThemeEditTarget';
 import ThemeLibrary from '@app/features/theme/state/ThemeLibrary';
+import {startThemeTweaks} from '@app/features/theme_presets/ThemeTweaks';
 import {
 	buildPresetCss,
 	presetThemeId,
@@ -63,6 +64,7 @@ export async function turnOffPresets(): Promise<void> {
  * "Duplicate", which gives them a different id, so they are left alone.
  */
 export async function refreshInstalledPresets(): Promise<void> {
+	startThemeTweaks();
 	for (const preset of THEME_PRESETS) {
 		const id = presetThemeId(preset);
 		const installed = ThemeLibrary.themes.find((theme) => theme.id === id);

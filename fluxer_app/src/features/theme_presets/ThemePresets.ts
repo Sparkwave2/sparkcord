@@ -274,7 +274,7 @@ ${byModuleClass(TRANSPARENT_WRAPPERS)} {
 }
 
 ${byModuleClass(FROSTED_PANELS)} {
-	backdrop-filter: blur(3px) saturate(1.1);
+	backdrop-filter: blur(var(--sparkcord-panel-blur, 3px)) saturate(1.1);
 }
 
 ${byModuleClass(FLOATING_CARDS)} {

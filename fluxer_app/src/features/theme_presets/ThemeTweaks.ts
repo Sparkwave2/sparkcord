@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Sparkcord: per-device adjustments on top of the active theme, set with sliders in
+// Settings > Themes. They are written to the page as CSS variables, which the preset
+// themes read, so moving a slider takes effect at once.
+
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
+import {autorun} from 'mobx';
+
+export const THEME_BLUR_DEFAULT_PX = 3;
+export const THEME_BLUR_MAX_PX = 30;
+
+let started = false;
+
+/** Starts keeping the page's CSS variables in step with the preferences (safe to call again). */
+export function startThemeTweaks(): void {
+	if (started || typeof document === 'undefined') return;
+	started = true;
+	autorun(() => {
+		const blur = Math.min(THEME_BLUR_MAX_PX, Math.max(0, SparkcordPrefs.get('themeBlurPx')));
+		document.documentElement.style.setProperty('--sparkcord-panel-blur', `${blur}px`);
+	});
+}

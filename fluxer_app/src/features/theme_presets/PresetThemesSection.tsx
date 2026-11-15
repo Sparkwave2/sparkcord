@@ -5,7 +5,10 @@ import ThemeLibrary from '@app/features/theme/state/ThemeLibrary';
 import styles from '@app/features/theme_presets/PresetThemesSection.module.css';
 import {activePresetId, applyPreset, turnOffPresets} from '@app/features/theme_presets/ThemePresetCommands';
 import {presetImageUrl, THEME_PRESETS, type ThemePreset} from '@app/features/theme_presets/ThemePresets';
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
+import {THEME_BLUR_DEFAULT_PX, THEME_BLUR_MAX_PX} from '@app/features/theme_presets/ThemeTweaks';
 import {Button} from '@app/features/ui/button/Button';
+import {Slider} from '@app/features/ui/components/Slider';
 import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -31,6 +34,14 @@ const LIGHT_DESCRIPTOR = msg({message: 'Light', comment: 'Tells that a preset th
 const TURN_OFF_DESCRIPTOR = msg({
 	message: 'Turn off preset theme',
 	comment: 'Button in Settings > Themes that stops using the current preset theme.',
+});
+const BLUR_TITLE_DESCRIPTOR = msg({
+	message: 'Background blur',
+	comment: 'Label of the slider in Settings > Themes that sets how blurry the preset theme background looks.',
+});
+const BLUR_HELP_DESCRIPTOR = msg({
+	message: 'How blurry the background image looks behind the app. 0 shows it sharp. Only changes this device.',
+	comment: 'Help text of the background blur slider in Settings > Themes.',
 });
 const APPLY_FAILED_DESCRIPTOR = msg({
 	message: "Couldn't apply that theme.",
@@ -109,6 +120,24 @@ export const PresetThemesSection: React.FC = observer(() => {
 					/>
 				))}
 			</div>
+			{activeId !== null && (
+				<div className={styles.tweak}>
+					<span className={styles.tweakTitle}>{i18n._(BLUR_TITLE_DESCRIPTOR)}</span>
+					<span className={styles.tweakHelp}>{i18n._(BLUR_HELP_DESCRIPTOR)}</span>
+					<Slider
+						defaultValue={SparkcordPrefs.get('themeBlurPx')}
+						factoryDefaultValue={THEME_BLUR_DEFAULT_PX}
+						minValue={0}
+						maxValue={THEME_BLUR_MAX_PX}
+						step={1}
+						markers={[0, 5, 10, 15, 20, 25, 30]}
+						stickToMarkers={false}
+						onMarkerRender={(value) => `${value}`}
+						onValueRender={(value) => `${Math.round(value)} px`}
+						onValueChange={(value) => SparkcordPrefs.set('themeBlurPx', Math.round(value))}
+					/>
+				</div>
+			)}
 			{activeId !== null && (
 				<div className={styles.actions}>
 					<Button variant="secondary" small onClick={() => void run(turnOffPresets)} disabled={busy}>

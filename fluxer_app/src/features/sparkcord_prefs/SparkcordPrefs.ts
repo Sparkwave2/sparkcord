@@ -12,10 +12,13 @@ const STORAGE_KEY = 'sparkcord.prefs';
 interface Prefs {
 	/** Show everyone's names in the default font, ignoring name fonts (accessibility). */
 	plainNameFonts: boolean;
+	/** How strongly the main panels blur the theme background behind them, in pixels. */
+	themeBlurPx: number;
 }
 
 const DEFAULTS: Prefs = {
 	plainNameFonts: false,
+	themeBlurPx: 3,
 };
 
 function readStored(): Prefs {
