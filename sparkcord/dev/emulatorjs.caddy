@@ -1,0 +1,10 @@
+# Sparkcord: the game player (EmulatorJS) runs in a same-origin iframe, so its files may
+# be framed by the app itself (still not by other sites). The app proxy sends
+# frame-ancestors 'none' / X-Frame-Options DENY on everything; these replace them for
+# /assets/emulatorjs/ only, and allow eval there (EmulatorJS's 7z extractor needs it).
+# Copied into the edge's conf.d by dev.sh up.
+@sparkcordEmulator path /assets/emulatorjs/*
+header @sparkcordEmulator {
+	>X-Frame-Options SAMEORIGIN
+	>Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob:; font-src 'self' blob: data:; connect-src 'self' blob: data:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+}

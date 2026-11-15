@@ -116,6 +116,7 @@ cmd_build_api() {
 
 cmd_build_app() {
 	echo "Building the web app (this compiles Rust/WASM and the SPA inside Docker)..."
+	node "$REPO_DIR/sparkcord/dev/emulatorjs.mjs"
 	# A unique version per build makes browsers' service workers drop cached assets from
 	# the previous build; reusing one version can mix old and new chunks and break startup.
 	local version
@@ -147,6 +148,7 @@ cmd_sync_wasm() {
 # changes. Ctrl+C stops watching and switches back to the image's built-in assets.
 cmd_watch() {
 	[ -f "$REPO_DIR/fluxer_app/pkgs/libfluxcore/libfluxcore.js" ] || cmd_sync_wasm
+	node "$REPO_DIR/sparkcord/dev/emulatorjs.mjs"
 	(cd "$REPO_DIR/fluxer_app" && npx --no-install lingui compile --strict >/dev/null)
 	mkdir -p "$REPO_DIR/fluxer_app/dist"
 	touch "$STACK_DIR/.watching"
@@ -172,6 +174,7 @@ cmd_up() {
 	[ -f "$STACK_DIR/.env" ] || cmd_setup
 	# The edge loads extra routes from caddy.d; add the P2P tracker routes.
 	cp "$DEV_DIR/tracker/tracker.caddy" "$STACK_DIR/caddy.d/sparkcord-tracker.caddy"
+	cp "$DEV_DIR/emulatorjs.caddy" "$STACK_DIR/caddy.d/sparkcord-emulatorjs.caddy"
 	compose up -d --build tracker turn
 	compose up -d
 	compose restart edge >/dev/null

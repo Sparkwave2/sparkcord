@@ -3,11 +3,9 @@
 // Sparkcord: inline, scrollable PDF viewer for PDF attachments (pdf.js, loaded only when
 // a PDF scrolls into view). Pages render lazily as they come near the visible area.
 
+import {fetchAttachmentBytes} from '@app/features/channel/components/embeds/attachments/AttachmentBytes';
 import styles from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview.module.css';
 import {PdfFullscreenViewer} from '@app/features/channel/components/embeds/attachments/PdfFullscreenViewer';
-import {fetchApiAttachmentBlob, fetchedApiAttachmentKey} from '@app/features/messaging/state/ApiAttachmentMedia';
-import AttachmentUrlRefresher from '@app/features/messaging/state/AttachmentUrlRefresher';
-import {wrapDesktopLocalResourceURL} from '@app/features/messaging/utils/DesktopResourceUrl';
 import {downloadFile} from '@app/features/messaging/utils/FileDownloadUtils';
 import {formatFileSize} from '@app/features/messaging/utils/FileUtils';
 import {getFormattingLocale} from '@app/features/user/utils/LocaleUtils';
@@ -59,19 +57,6 @@ function loadPdfjs() {
 	return pdfjsPromise;
 }
 
-async function fetchPdfBytes(url: string, signal: AbortSignal): Promise<ArrayBuffer> {
-	const target = await AttachmentUrlRefresher.refresh(url);
-	if (fetchedApiAttachmentKey(target) !== null) {
-		return (await fetchApiAttachmentBlob(target, signal)).arrayBuffer();
-	}
-	let response = await fetch(wrapDesktopLocalResourceURL(target), {signal});
-	if (!response.ok && [401, 403, 404, 410].includes(response.status)) {
-		const refreshed = await AttachmentUrlRefresher.refresh(url, {force: true});
-		if (refreshed !== target) response = await fetch(wrapDesktopLocalResourceURL(refreshed), {signal});
-	}
-	if (!response.ok) throw new Error(`PDF request failed: ${response.status}`);
-	return response.arrayBuffer();
-}
 
 function PdfPage({doc, pageNumber, width}: {doc: PDFDocumentProxy; pageNumber: number; width: number}) {
 	const holderRef = useRef<HTMLDivElement>(null);
@@ -166,7 +151,7 @@ export function PdfAttachmentPreview({attachment, spoilerHidden}: PdfAttachmentP
 		setError(false);
 		void (async () => {
 			try {
-				const [pdfjs, bytes] = await Promise.all([loadPdfjs(), fetchPdfBytes(attachment.url!, controller.signal)]);
+				const [pdfjs, bytes] = await Promise.all([loadPdfjs(), fetchAttachmentBytes(attachment.url!, controller.signal)]);
 				if (controller.signal.aborted) return;
 				loaded = await pdfjs.getDocument({data: new Uint8Array(bytes), isEvalSupported: false}).promise;
 				if (controller.signal.aborted) {

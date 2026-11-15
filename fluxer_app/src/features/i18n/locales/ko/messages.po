@@ -9069,6 +9069,7 @@ msgstr "복제가 꺼져 있습니다"
 #. Button that closes the fullscreen PDF viewer.
 #. Native Window menu item that closes the focused desktop window.
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
@@ -11246,6 +11247,10 @@ msgstr "게시물을 불러올 수 없습니다. 나중에 다시 시도하세�
 #: src/features/app/components/dialogs/LoadableSettingsModals.tsx
 msgid "Couldn't load settings"
 msgstr "설정을 불러올 수 없습니다"
+
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "Couldn't load the game. Try again."
+msgstr ""
 
 #. Notice when the incoming Operator Pass offer could not be loaded.
 #: src/features/premium/components/operator_pass/OperatorPassOfferModal.tsx
@@ -14312,6 +14317,7 @@ msgstr "자신의 메시지를 더블 클릭하여 수정하거나, 다른 사�
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -22014,6 +22020,7 @@ msgid "Loading..."
 msgstr "불러오는 중..."
 
 #. Combobox popup status shown while options are loading.
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
 #: src/features/ui/components/Spinner.tsx
@@ -28141,6 +28148,7 @@ msgstr "플랫폼 관리자"
 
 #. Generic media-player control: start playback.
 #. Play-preview button label in the voice message composer modal.
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
 msgid "Play"

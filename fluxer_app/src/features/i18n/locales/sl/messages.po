@@ -9062,6 +9062,7 @@ msgstr ""
 #. Button that closes the fullscreen PDF viewer.
 #. Native Window menu item that closes the focused desktop window.
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
@@ -11238,6 +11239,10 @@ msgstr ""
 
 #: src/features/app/components/dialogs/LoadableSettingsModals.tsx
 msgid "Couldn't load settings"
+msgstr ""
+
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "Couldn't load the game. Try again."
 msgstr ""
 
 #. Notice when the incoming Operator Pass offer could not be loaded.
@@ -14305,6 +14310,7 @@ msgstr ""
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/auth/components/modals/BackupCodesModal.tsx
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -22007,6 +22013,7 @@ msgid "Loading..."
 msgstr ""
 
 #. Combobox popup status shown while options are loading.
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
 #: src/features/ui/components/Spinner.tsx
@@ -28134,6 +28141,7 @@ msgstr ""
 
 #. Generic media-player control: start playback.
 #. Play-preview button label in the voice message composer modal.
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
 msgid "Play"

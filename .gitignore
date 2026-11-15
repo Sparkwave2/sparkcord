@@ -71,3 +71,12 @@
 !/sparkcord/theme-images/README.md
 /fluxer_app/assets/assets/theme-presets/*
 !/fluxer_app/assets/assets/theme-presets/.gitkeep
+
+# Sparkcord game player: EmulatorJS files are fetched by sparkcord/dev/emulatorjs.mjs,
+# and BIOS files are copyrighted. Only Sparkcord's own player files are committed.
+/fluxer_app/assets/assets/emulatorjs/*
+!/fluxer_app/assets/assets/emulatorjs/player.html
+!/fluxer_app/assets/assets/emulatorjs/player.js
+!/fluxer_app/assets/assets/emulatorjs/bios/
+/fluxer_app/assets/assets/emulatorjs/bios/*
+!/fluxer_app/assets/assets/emulatorjs/bios/README.md

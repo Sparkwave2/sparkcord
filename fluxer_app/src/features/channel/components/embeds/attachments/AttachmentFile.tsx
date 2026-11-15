@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {PdfAttachmentPreview} from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview';
+import {RomAttachment} from '@app/features/channel/components/embeds/attachments/RomAttachment';
+import {getRomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
 import {TextualAttachmentPreview} from '@app/features/channel/components/embeds/attachments/TextualAttachmentPreview';
 import {splitFilename} from '@app/features/channel/components/embeds/EmbedUtils';
 import {canDeleteAttachmentUtil} from '@app/features/channel/components/MessageActionUtils';
@@ -63,6 +65,8 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 	const {name: fileNameWithoutExt, extension: fileExt} = splitFilename(fileName);
 	const showTextPreview = !isPreview && shouldPreviewAttachment(attachment);
 	const showPdfPreview = !isPreview && !isExpired && !showTextPreview && fileExtension === 'pdf';
+	// Sparkcord: game ROMs get a Play button (EmulatorJS).
+	const romSystem = !isPreview && !isExpired && !showTextPreview ? getRomSystem(fileName) : null;
 	const getFileTypeIcon = () => {
 		const size = remFromPx(32);
 		const imageTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'];
@@ -250,6 +254,8 @@ export const AttachmentFile = observer(({attachment, message, isPreview, spoiler
 			)}
 			{showPdfPreview ? (
 				<PdfAttachmentPreview attachment={attachment} spoilerHidden={spoilerHidden} />
+			) : romSystem ? (
+				<RomAttachment attachment={attachment} system={romSystem} />
 			) : showTextPreview ? (
 				<TextualAttachmentPreview
 					attachment={attachment}
