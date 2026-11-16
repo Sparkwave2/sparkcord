@@ -38,6 +38,8 @@ export function virusTotalReportUrl(sha256: string): string {
 class VirusTotalStore {
 	config: Config | null = null;
 	scans = observable.map<string, VirusTotalScan | null>();
+	/** Attachments being checked right now (shown as "Checking with VirusTotal…"). */
+	checking = observable.set<string>();
 	private fetchedAt = new Map<string, number>();
 	private queued = new Set<string>();
 	private inflight = new Set<string>();
@@ -73,6 +75,13 @@ class VirusTotalStore {
 
 	get canConfigure(): boolean {
 		return this.config?.can_configure ?? false;
+	}
+
+	/** Whether a scan can be started for this attachment (none stored, or VirusTotal didn't know the file). */
+	canScan(attachmentId: string): boolean {
+		if (!this.configured || this.checking.has(attachmentId)) return false;
+		const scan = this.scans.get(attachmentId);
+		return !scan || scan.status === 'unknown';
 	}
 
 	/** Queues a lookup of an attachment's stored result, unless one is fresh enough. */
@@ -118,10 +127,16 @@ class VirusTotalStore {
 		upload: boolean,
 	): Promise<{scan: VirusTotalScan | null; error: VirusTotalError | null}> {
 		const http = await getHttp();
-		const res = await http.post<{scan: VirusTotalScan | null; error: VirusTotalError | null}>(
-			`/channels/${channelId}/messages/${messageId}/virustotal`,
-			{body: {attachment_id: attachmentId, upload}},
-		);
+		runInAction(() => this.checking.add(attachmentId));
+		let res: {body: {scan: VirusTotalScan | null; error: VirusTotalError | null}};
+		try {
+			res = await http.post<{scan: VirusTotalScan | null; error: VirusTotalError | null}>(
+				`/channels/${channelId}/messages/${messageId}/virustotal`,
+				{body: {attachment_id: attachmentId, upload}},
+			);
+		} finally {
+			runInAction(() => this.checking.delete(attachmentId));
+		}
 		if (res.body.scan) {
 			const scan = res.body.scan;
 			runInAction(() => this.scans.set(attachmentId, scan));

@@ -359,14 +359,7 @@ export const Attachment: FC<AttachmentProps> = observer(
 			>
 				{content}
 				{!isPreview && (
-					<VirusTotalBadge
-						attachmentId={att.id}
-						fileName={att.title || att.filename}
-						message={message}
-						showScanButton={
-							!isImageType(att.content_type) && !isVideoType(att.content_type) && !isAudioType(att.content_type)
-						}
-					/>
+					<VirusTotalBadge attachmentId={att.id} fileName={att.title || att.filename} message={message} />
 				)}
 				{Accessibility.showAttachmentExpiryIndicator && (
 					<ExpiryFootnote
@@ -392,7 +385,10 @@ export const Attachment: FC<AttachmentProps> = observer(
 		}
 		const inlineAttachmentMedia = UserSettings.inlineAttachmentMedia;
 		if (renderInMosaic && isMediaAttachment(att)) {
-			return null;
+			// Shown in the grid above; only its VirusTotal result (if any) goes here.
+			return isPreview ? null : (
+				<VirusTotalBadge attachmentId={att.id} fileName={att.title || att.filename} message={message} showFileName />
+			);
 		}
 		const isVisualType = isImageType(att.content_type) || isVideoType(att.content_type);
 		const tooSmallToShowInline =

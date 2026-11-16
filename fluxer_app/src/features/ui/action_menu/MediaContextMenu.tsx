@@ -16,6 +16,7 @@ import {MenuGroup} from '@app/features/ui/action_menu/MenuGroup';
 import {MenuItem} from '@app/features/ui/action_menu/MenuItem';
 import {MessageContextMenu} from '@app/features/ui/action_menu/MessageContextMenu';
 import type {MenuGroupType, MenuItemType} from '@app/features/ui/menu_bottom_sheet/MenuBottomSheet';
+import {VirusTotalMenuItem} from '@app/features/virustotal/VirusTotalMenuItem';
 import {MS_PER_DAY, MS_PER_HOUR} from '@fluxer/date_utils/src/DateConstants';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -186,15 +187,27 @@ export const MediaContextMenu: React.FC<MediaContextMenuProps> = observer(
 						{inlineDownloadItem.label ?? mediaState.downloadLabel}
 					</MenuItem>
 				)}
+				{attachmentId && (
+					<VirusTotalMenuItem
+						message={message}
+						attachmentId={attachmentId}
+						fileName={defaultName ?? ''}
+						onClose={onClose}
+					/>
+				)}
 			</>
 		);
-		const attachmentExtraContent = supportsReverseImageSearch ? (
-			<ReverseImageSearchMenuItems
-				imageUrl={originalSrc}
-				onClose={onClose}
-				data-flx="ui.action-menu.media-context-menu.reverse-image-search-menu-items"
-			/>
-		) : null;
+		const attachmentExtraContent = (
+			<>
+				{supportsReverseImageSearch && (
+					<ReverseImageSearchMenuItems
+						imageUrl={originalSrc}
+						onClose={onClose}
+						data-flx="ui.action-menu.media-context-menu.reverse-image-search-menu-items"
+					/>
+				)}
+			</>
+		);
 		return (
 			<>
 				<MessageContextMenu

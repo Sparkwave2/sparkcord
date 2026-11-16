@@ -11250,7 +11250,7 @@ msgid "Couldn't end your grace period"
 msgstr "आपका ग्रेस पीरियड खत्म नहीं किया जा सका"
 
 #. Error toast after a VirusTotal scan.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "Couldn't find this file to scan it."
 msgstr ""
 
@@ -11568,7 +11568,7 @@ msgid "Couldn't save. Try again."
 msgstr "सेव नहीं हो सका। दोबारा कोशिश करें।"
 
 #. Error toast after a VirusTotal scan.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "Couldn't scan this file. Try again later."
 msgstr ""
 
@@ -32200,7 +32200,8 @@ msgstr "अपने ऑथेंटिकेटर ऐप से क्यू�
 msgid "Scan to open the recovery page with your details filled in."
 msgstr "स्कैन करके अपना विवरण भरा हुआ रिकवरी पेज खोलें।"
 
-#: src/features/virustotal/VirusTotalBadge.tsx
+#. Attachment right-click menu item.
+#: src/features/virustotal/VirusTotalMenuItem.tsx
 msgid "Scan with VirusTotal"
 msgstr ""
 
@@ -38921,7 +38922,7 @@ msgid "This file is larger than {size}. Choose a smaller one."
 msgstr "यह फ़ाइल {size} से बड़ी है। कोई छोटी फ़ाइल चुनें।"
 
 #. Error toast after a VirusTotal scan.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "This file is too large to upload to VirusTotal (32 MB at most)."
 msgstr ""
 
@@ -39435,7 +39436,7 @@ msgid "This reset link has expired. Reset links last 1 hour. Please request a ne
 msgstr "यह रीसेट लिंक समाप्त हो गया है। रीसेट लिंक 1 घंटे तक चलते हैं। कृपया नया लिंक मांगें।"
 
 #. Error toast after a VirusTotal scan.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "This server's VirusTotal key no longer works. Ask an admin to check it."
 msgstr ""
 
@@ -41765,7 +41766,7 @@ msgstr "फ़ाइल अपलोड करें"
 msgid "Upload an image or pick an emoji. Members get the icon of their highest role that has one."
 msgstr "इमेज अपलोड करें या इमोजी चुनें। हर सदस्य के नाम के पास उसके सबसे ऊँचे ऐसे रोल का आइकॉन दिखता है जिसमें आइकॉन हो।"
 
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "Upload and scan"
 msgstr ""
 
@@ -41890,7 +41891,12 @@ msgstr ""
 msgid "Upload to {displayName}"
 msgstr "{displayName} पर अपलोड करें"
 
-#: src/features/virustotal/VirusTotalBadge.tsx
+#. Attachment right-click menu item, shown when VirusTotal has never seen the file.
+#: src/features/virustotal/VirusTotalMenuItem.tsx
+msgid "Upload to VirusTotal for a scan"
+msgstr ""
+
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "Upload to VirusTotal?"
 msgstr ""
 
@@ -43145,12 +43151,12 @@ msgstr ""
 msgid "VirusTotal didn't accept that key. Check it and try again."
 msgstr ""
 
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "VirusTotal has never seen <0>{fileName}</0>. To scan it, the file will be uploaded to VirusTotal, which shares uploaded files with security companies and keeps them. Don't upload anything private."
 msgstr ""
 
 #. Error toast after a VirusTotal scan: the instance used up its VirusTotal quota for now.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "VirusTotal is busy right now. Try again in a minute."
 msgstr ""
 
@@ -43167,7 +43173,7 @@ msgid "VirusTotal key saved. Members can now scan attachments."
 msgstr ""
 
 #. Error toast after trying to scan a file with VirusTotal.
-#: src/features/virustotal/VirusTotalBadge.tsx
+#: src/features/virustotal/VirusTotalScan.tsx
 msgid "VirusTotal scanning is not set up on this server."
 msgstr ""
 

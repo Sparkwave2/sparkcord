@@ -37,6 +37,18 @@
 	opacity: 0.7;
 }
 
+.fileName {
+	max-width: 16em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: 600;
+}
+
+.fileName::after {
+	content: ' ·';
+}
+
 .link {
 	text-decoration: none;
 }
