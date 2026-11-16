@@ -21,6 +21,7 @@
 		"@fluxer/ip_utils": "workspace:*",
 		"@fluxer/record_utils": "workspace:*",
 		"@fluxer/voice_engine_v2": "workspace:*",
+		"@ghostery/adblocker": "2.20.3",
 		"@simplewebauthn/browser": "catalog:",
 		"franc-min": "6.2.0",
 		"hunspell-asm": "4.0.2",

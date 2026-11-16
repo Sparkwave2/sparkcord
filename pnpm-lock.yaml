@@ -1785,6 +1785,9 @@ importers:
       '@fluxer/voice_engine_v2':
         specifier: workspace:*
         version: link:../packages/voice_engine_v2
+      '@ghostery/adblocker':
+        specifier: 2.20.3
+        version: 2.20.3
       '@simplewebauthn/browser':
         specifier: 'catalog:'
         version: 14.0.0
@@ -4663,6 +4666,18 @@ packages:
     cpu: [x64, arm64]
     os: [win32]
 
+  '@ghostery/adblocker-content@2.20.3':
+    resolution: {integrity: sha512-tuV4T5wPbfVdcY6dnM1dfaXSazpStx7ZI54bd2l9r93yPZfZoVsHR1Uxf/A8ETBMXJPQ92JMDQzmV8hOgpyq+w==}
+
+  '@ghostery/adblocker-extended-selectors@2.20.3':
+    resolution: {integrity: sha512-cwloe8GXCoiLor685fOCsx3PyDFvsVnYdCO/MMAyZ4Dr5q8cgSHijqqYSU2fWgoWfz1Fhfepj7mGbQnrvUR37w==}
+
+  '@ghostery/adblocker@2.20.3':
+    resolution: {integrity: sha512-Wxv+RiqfD+xYVij9gkudU6nDb+eqbfu2roDZa0rtqVw2qIm0ICxEnkrsgUyfZw7+L+3PfI2PszHZQeoCkR1CuA==}
+
+  '@ghostery/url-parser@1.3.1':
+    resolution: {integrity: sha512-QKqGi+7aDQ4RcyHyCwgEk6B9vWnsBP4Q7htaN0zPJV3ATqTKEQDtSTb9c/AN586oJUDs24YXKcwFYwNweY/YjQ==}
+
   '@hexagon/base64@1.1.28':
     resolution: {integrity: sha512-lhqDEAvWixy3bZ+UOYbPwUbBkwBq5C1LAJ/xPC8Oi+lL54oyakv/npbA0aU2hgCsx/1NUd4IBvV03+aUBWxerw==}
 
@@ -6205,6 +6220,24 @@ packages:
   '@redocly/openapi-core@2.72.1':
     resolution: {integrity: sha512-VcYW+Yq8Lu2rk16RrHlUAzRqu4tM5jRb0cVvNzPKb/Q0udTCprwoJEGEvdtVgvXhLokYRJcobXcDrSzpQeUccw==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
+
+  '@remusao/guess-url-type@2.1.0':
+    resolution: {integrity: sha512-zI3dlTUxpjvx2GCxp9nLOSK5yEIqDCpxlAVGwb2Y49RKkS72oeNaxxo+VWS5+XQ5+Mf8Zfp9ZXIlk+G5eoEN8A==}
+
+  '@remusao/small@2.1.0':
+    resolution: {integrity: sha512-Y1kyjZp7JU7dXdyOdxHVNfoTr1XLZJTyQP36/esZUU/WRWq9XY0PV2HsE3CsIHuaTf4pvgWv2pvzvnZ//UHIJQ==}
+
+  '@remusao/smaz-compress@2.2.0':
+    resolution: {integrity: sha512-TXpTPgILRUYOt2rEe0+9PC12xULPvBqeMpmipzB9A7oM4fa9Ztvy9lLYzPTd7tiQEeoNa1pmxihpKfJtsxnM/w==}
+
+  '@remusao/smaz-decompress@2.2.0':
+    resolution: {integrity: sha512-ERAPwxPaA0/yg4hkNU7T2S+lnp9jj1sApcQMtOyROvOQyo+Zuh6Hn/oRcXr8mmjlYzyRaC7E6r3mT1nrdHR6pg==}
+
+  '@remusao/smaz@2.2.0':
+    resolution: {integrity: sha512-eSd3Qs0ELP/e7tU1SI5RWXcCn9KjDgvBY+KtWbL4i2QvvHhJOfdIt4v0AA3S5BbLWAr5dCEC7C4LUfogDm6q/Q==}
+
+  '@remusao/trie@2.1.0':
+    resolution: {integrity: sha512-Er3Q8q0/2OcCJPQYJOPLmCuqO0wu7cav3SPtpjlxSbjFi1x+A1pZkkLD6c9q2rGEkGW/tkrRzfrhNMt8VQjzXg==}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     resolution: {integrity: sha512-ia3DwAs0OsMGS7+IConptSiyk9pEXkOx/AbJ2n/lAGxH3QkWQus1t8d7gnAT38FCU2sQu8lUbeR6AiZFv4JxaA==}
@@ -11567,6 +11600,12 @@ packages:
     resolution: {integrity: sha512-C630TWXZCZmLq0F2bW4QqwnaaxCQ/svpAqvJwnC4JvgEM5ohhBnGsEzTLSOXcN+xjz+kEaHS5uoWIw2klnqd0A==}
     deprecated: Partial release, see https://github.com/remusao/tldts/issues/2735. Use >=7.4.22.
 
+  tldts-core@7.5.3:
+    resolution: {integrity: sha512-G9K/M0Ah+U22clAb1r0fYNheSysv7Y6OAIundzKcFQx5jBgPId3CnFl44sAGGqJA+lUXMOrREFXHX1lrtEApdA==}
+
+  tldts-experimental@7.5.3:
+    resolution: {integrity: sha512-KBk5ngohw8Ol3cEYQ4WM51qItw1FaSe0C9s97bmPkkdgKXCFG6JNiXPY0wAnSGazsvX6rK7DbZ0ZoCm5Zv4p3g==}
+
   tldts@7.4.19:
     resolution: {integrity: sha512-48dH6aSpQnpbzDUc4vIQZ1VjB8tkK+e8c1yx05/SZK+rkssgjEOlxDd/yU8/a4vGYQ9vRgJr9dwMq9TJ0b3X2Q==}
     hasBin: true
@@ -14899,6 +14938,26 @@ snapshots:
   '@fluxer/windows-input-hook@file:fluxer_desktop/native/windows-input-hook':
     optional: true
 
+  '@ghostery/adblocker-content@2.20.3':
+    dependencies:
+      '@ghostery/adblocker-extended-selectors': 2.20.3
+
+  '@ghostery/adblocker-extended-selectors@2.20.3': {}
+
+  '@ghostery/adblocker@2.20.3':
+    dependencies:
+      '@ghostery/adblocker-content': 2.20.3
+      '@ghostery/adblocker-extended-selectors': 2.20.3
+      '@ghostery/url-parser': 1.3.1
+      '@remusao/guess-url-type': 2.1.0
+      '@remusao/small': 2.1.0
+      '@remusao/smaz': 2.2.0
+      tldts-experimental: 7.5.3
+
+  '@ghostery/url-parser@1.3.1':
+    dependencies:
+      tldts-experimental: 7.5.3
+
   '@hexagon/base64@1.1.28': {}
 
   '@hono/node-server@2.1.5(hono@4.13.14)':
@@ -16338,6 +16397,23 @@ snapshots:
       picomatch: 4.0.7
       pluralize: 8.0.0
       yaml-ast-parser: 0.0.43
+
+  '@remusao/guess-url-type@2.1.0': {}
+
+  '@remusao/small@2.1.0': {}
+
+  '@remusao/smaz-compress@2.2.0':
+    dependencies:
+      '@remusao/trie': 2.1.0
+
+  '@remusao/smaz-decompress@2.2.0': {}
+
+  '@remusao/smaz@2.2.0':
+    dependencies:
+      '@remusao/smaz-compress': 2.2.0
+      '@remusao/smaz-decompress': 2.2.0
+
+  '@remusao/trie@2.1.0': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     optional: true
@@ -22827,6 +22903,12 @@ snapshots:
   tinyps@0.5.1: {}
 
   tldts-core@7.4.20: {}
+
+  tldts-core@7.5.3: {}
+
+  tldts-experimental@7.5.3:
+    dependencies:
+      tldts-core: 7.5.3
 
   tldts@7.4.19:
     dependencies:

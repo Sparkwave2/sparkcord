@@ -10,6 +10,7 @@ import {
 	getCachedAutostartStatus,
 	setAutostartEnabled,
 } from '@app/features/platform/utils/Autostart';
+import {AdBlockSwitch} from '@app/features/sparkcord_adblock/AdBlockSwitch';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
@@ -180,6 +181,7 @@ const DesktopSettingsTab: React.FC = observer(() => {
 						data-flx="user.desktop-settings-tab.switch.autostart-change"
 					/>
 				)}
+				{isDesktop() && <AdBlockSwitch />}
 				{isDesktop() && desktopWindowBehavior?.startMinimized !== undefined && (
 					<Switch
 						label={<Trans>Start minimized</Trans>}

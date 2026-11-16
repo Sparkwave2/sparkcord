@@ -6547,6 +6547,10 @@ msgstr "{name} letiltása"
 msgid "Block {userName}? They won't be able to message or friend you."
 msgstr "Letiltod {userName} felhasználót? Nem fog tudni üzenetet küldeni vagy ismerősnek jelölni téged."
 
+#: src/features/sparkcord_adblock/AdBlockSwitch.tsx
+msgid "Block ads and trackers"
+msgstr ""
+
 #. Privacy > Communication: select option blocking every incoming call.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/CommunicationTab.tsx
 msgid "Block all incoming calls"
@@ -6624,6 +6628,18 @@ msgstr "Letiltott felhasználók"
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Blockquotes"
 msgstr "Idézetek"
+
+#: src/features/sparkcord_adblock/AdBlockSwitch.tsx
+msgid "Blocks ads and trackers in embedded content such as YouTube players, using uBlock Origin's filter lists."
+msgstr ""
+
+#: src/features/sparkcord_adblock/AdBlockSwitch.tsx
+msgid "Blocks ads and trackers in embedded content such as YouTube players, using uBlock Origin's filter lists. Blocked since the app started: {blocked}"
+msgstr ""
+
+#: src/features/sparkcord_adblock/AdBlockSwitch.tsx
+msgid "Blocks ads and trackers in embedded content such as YouTube players, using uBlock Origin's filter lists. Downloading the filter lists…"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts

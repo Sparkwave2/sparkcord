@@ -16,6 +16,7 @@ import {
 	loadAppStoreBinding,
 } from '@electron/main/AppStoreNativeBoundary';
 import {registerAutostartHandlers} from '@electron/main/Autostart';
+import {installSparkcordAdBlock} from '@electron/main/SparkcordAdBlock';
 import {
 	admitBootStateFormat,
 	registerBootStateIpc,
@@ -725,6 +726,12 @@ export async function startMainApp(
 			runStartupPhase('api-attachment-authorization', registerApiAttachmentAuthorizationIpc);
 		} catch (error) {
 			log.error('[Init] Failed to register the attachment authorization handler:', error);
+		}
+		try {
+			// Sparkcord: ad and tracker blocking for embedded content.
+			installSparkcordAdBlock(session.defaultSession);
+		} catch (error) {
+			log.error('[Init] Failed to install ad blocking:', error);
 		}
 		try {
 			runStartupPhase('autostart-handlers', registerAutostartHandlers);

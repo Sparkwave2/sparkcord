@@ -310,6 +310,8 @@ export interface ElectronAPI {
 	pasteFromClipboard: () => Promise<void>;
 	onDeepLink: (callback: (url: string) => void) => () => void;
 	getInitialDeepLink: () => Promise<string | null>;
+	sparkcordAdBlockStatus: () => Promise<SparkcordAdBlockStatus>;
+	sparkcordAdBlockSetEnabled: (enabled: boolean) => Promise<SparkcordAdBlockStatus>;
 	autostartEnable: () => Promise<void>;
 	autostartDisable: () => Promise<void>;
 	autostartIsEnabled: () => Promise<boolean>;
@@ -499,4 +501,12 @@ declare global {
 	interface Window {
 		electron?: ElectronAPI;
 	}
+}
+
+/** Sparkcord: state of the desktop app's ad and tracker blocking. */
+export interface SparkcordAdBlockStatus {
+	enabled: boolean;
+	ready: boolean;
+	blocked: number;
+	listsUpdatedAt: number | null;
 }

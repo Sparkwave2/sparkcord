@@ -58,6 +58,14 @@ import type {
 	VoiceBackgroundMediaCacheResult,
 	VoiceBackgroundMediaReadResult,
 } from '@fluxer/desktop_ipc/src/DesktopBridgeTypes';
+/** Sparkcord: state of the desktop app's ad and tracker blocking. */
+export interface SparkcordAdBlockStatus {
+	enabled: boolean;
+	ready: boolean;
+	blocked: number;
+	listsUpdatedAt: number | null;
+}
+
 import type {NativeGatewayTransportAPI} from '@fluxer/desktop_ipc/src/GatewayTransportContract';
 import type {DesktopKnownInstanceStorageAPI} from '@fluxer/desktop_ipc/src/KnownInstanceContract';
 import type {DesktopLegacyHarvest} from '@fluxer/desktop_ipc/src/LegacyHarvestContract';
@@ -305,6 +313,8 @@ export interface ElectronAPI {
 	spellcheckGetAvailableLanguages(): Promise<Array<string>>;
 	spellcheckGetBundledDictionaries?(): Promise<Array<SpellcheckBundledDictionary>>;
 	spellcheckSetState(state: Partial<SpellcheckState>): Promise<SpellcheckState>;
+	sparkcordAdBlockStatus?(): Promise<SparkcordAdBlockStatus>;
+	sparkcordAdBlockSetEnabled?(enabled: boolean): Promise<SparkcordAdBlockStatus>;
 	autostartEnable(): Promise<void>;
 	autostartDisable(): Promise<void>;
 	autostartIsEnabled(): Promise<boolean>;
