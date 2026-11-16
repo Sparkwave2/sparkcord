@@ -95,7 +95,14 @@ export const TupperCard = observer(function TupperCard({message, onClose, varian
 			data-flx="tupper.card"
 		>
 			<div className={styles.banner} aria-hidden />
-			<Avatar user={message.author} avatarUrl={avatarUrl} size={80} className={styles.avatar} />
+			{/* hoverAvatarUrl too: without it, hovering swaps in the account's own picture (or nothing). */}
+			<Avatar
+				user={message.author}
+				avatarUrl={avatarUrl}
+				hoverAvatarUrl={avatarUrl}
+				size={80}
+				className={styles.avatar}
+			/>
 			<div className={styles.body}>
 				<div className={styles.nameRow}>
 					<span className={styles.name} style={color ? {color} : undefined}>
