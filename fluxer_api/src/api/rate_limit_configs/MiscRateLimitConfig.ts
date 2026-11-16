@@ -112,6 +112,12 @@ export const MiscRateLimitConfigs = {
 		bucket: 'name_font:write',
 		config: {limit: 30, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
+	VIRUSTOTAL_SCAN: {
+		// Per user, so one member can't use up the instance's VirusTotal quota (free keys
+		// get 4 lookups a minute and 500 a day).
+		bucket: 'virustotal:scan',
+		config: {limit: 20, windowMs: ms('1 hour')},
+	} as RouteRateLimitConfig,
 	TUPPER_IMPORT: {
 		bucket: 'tupper:import',
 		config: {limit: 5, windowMs: ms('1 minute')},

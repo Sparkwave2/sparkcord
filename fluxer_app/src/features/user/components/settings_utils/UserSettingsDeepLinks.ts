@@ -46,6 +46,7 @@ const USER_SETTINGS_TAB_TYPES = new Set<UserSettingsTabType>([
 	'tuppers',
 	'personal_expressions',
 	'soundboard',
+	'virustotal',
 ]);
 const SAFE_SETTINGS_PARAM_REGEX = /^[A-Za-z0-9_-]+$/;
 

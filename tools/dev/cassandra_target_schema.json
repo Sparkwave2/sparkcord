@@ -11893,6 +11893,68 @@
 			"options": ""
 		},
 		{
+			"name": "virustotal_settings",
+			"columns": [
+				{
+					"name": "id",
+					"type": "text"
+				},
+				{
+					"name": "api_key",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((id))",
+			"options": ""
+		},
+		{
+			"name": "virustotal_scans",
+			"columns": [
+				{
+					"name": "attachment_id",
+					"type": "bigint"
+				},
+				{
+					"name": "sha256",
+					"type": "text"
+				},
+				{
+					"name": "status",
+					"type": "text"
+				},
+				{
+					"name": "malicious",
+					"type": "int"
+				},
+				{
+					"name": "suspicious",
+					"type": "int"
+				},
+				{
+					"name": "total",
+					"type": "int"
+				},
+				{
+					"name": "analysis_id",
+					"type": "text"
+				},
+				{
+					"name": "created_at",
+					"type": "timestamp"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((attachment_id))",
+			"options": ""
+		},
+		{
 			"name": "avatar_cosmetics",
 			"columns": [
 				{

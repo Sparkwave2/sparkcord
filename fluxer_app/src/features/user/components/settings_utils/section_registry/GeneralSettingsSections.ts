@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import OperatorPassHoldings from '@app/features/premium/state/OperatorPassHoldings';
+import VirusTotal from '@app/features/virustotal/VirusTotal';
 import {
 	showsOperatorPassLabsSettings,
 	showsOperatorPassWallSettings,
@@ -49,6 +50,10 @@ const TUPPERS_DESCRIPTOR = msg({
 const PERSONAL_EXPRESSIONS_DESCRIPTOR = msg({
 	message: 'My emojis & stickers',
 	comment: 'Settings section for your personal emojis and stickers, usable everywhere.',
+});
+const VIRUSTOTAL_DESCRIPTOR = msg({
+	message: 'VirusTotal',
+	comment: 'Settings section, only for instance admins: the VirusTotal API key used to scan attachments.',
 });
 const SOUNDBOARD_DESCRIPTOR = msg({
 	message: 'Soundboard',
@@ -160,6 +165,14 @@ export const generalSettingsSections = [
 		label: SOUNDBOARD_DESCRIPTOR,
 		keywords: ['sound', 'soundboard', 'audio', 'volume'],
 		isAdvanced: false,
+	},
+	{
+		id: 'virustotal',
+		tabType: 'virustotal',
+		label: VIRUSTOTAL_DESCRIPTOR,
+		keywords: ['virus', 'malware', 'scan', 'virustotal', 'admin'],
+		isAdvanced: false,
+		isVisible: () => VirusTotal.canConfigure,
 	},
 	{id: 'signed-in-devices', tabType: 'devices', label: SIGNED_IN_DEVICES_DESCRIPTOR, keywords: [], isAdvanced: false},
 	{

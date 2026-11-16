@@ -11,6 +11,7 @@ import {
 import {isOperatorPassAvailable} from '@app/features/premium/utils/OperatorPassUtils';
 import {getPremiumProductFullName, shouldShowPremiumFeatures} from '@app/features/premium/utils/PremiumUtils';
 import {guessPlatform, isDesktop} from '@app/features/ui/utils/NativeUtils';
+import VirusTotal from '@app/features/virustotal/VirusTotal';
 import {
 	ADVANCED_SETTINGS_TAG_LABELS,
 	isAdvancedSettingsCategorySectionId,
@@ -73,6 +74,7 @@ import {
 	ReceiptIcon,
 	RobotIcon,
 	ShieldIcon,
+	ShieldCheckIcon,
 	SwatchesIcon,
 	TicketIcon,
 	TranslateIcon,
@@ -239,6 +241,19 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 			comment: 'Settings tab for your soundboard sounds and soundboard volume.',
 		}),
 		icon: SpeakerHighIcon,
+	},
+	{
+		type: 'virustotal',
+		category: 'user_settings',
+		label: msg({
+			message: 'VirusTotal',
+			comment: 'Settings tab, only for instance admins: the VirusTotal API key used to scan attachments.',
+		}),
+		icon: ShieldCheckIcon,
+		isVisible: () => {
+			void VirusTotal.ensureConfig();
+			return VirusTotal.canConfigure;
+		},
 	},
 	{
 		type: 'devices',

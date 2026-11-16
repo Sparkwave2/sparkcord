@@ -1,0 +1,73 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 4px;
+	font-size: 0.75rem;
+	line-height: 1.3;
+}
+
+.badge,
+.action {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	color: var(--text-secondary);
+	background: var(--background-modifier-hover, rgb(127 127 127 / 0.12));
+}
+
+.action {
+	cursor: pointer;
+	font: inherit;
+	font-weight: 600;
+}
+
+.action:hover:not(:disabled) {
+	color: var(--text-primary);
+	background: var(--background-modifier-selected, rgb(127 127 127 / 0.2));
+}
+
+.action:disabled {
+	cursor: default;
+	opacity: 0.7;
+}
+
+.link {
+	text-decoration: none;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.clean {
+	color: var(--status-online, #23a55a);
+	background: color-mix(in srgb, var(--status-online, #23a55a) 14%, transparent);
+}
+
+.flagged {
+	color: var(--status-danger, #f23f43);
+	background: color-mix(in srgb, var(--status-danger, #f23f43) 14%, transparent);
+	font-weight: 600;
+}
+
+.spin {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.spin {
+		animation: none;
+	}
+}

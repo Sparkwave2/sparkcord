@@ -39,7 +39,8 @@ export type UserSettingsTabType =
 	| 'linked_accounts'
 	| 'tuppers'
 	| 'personal_expressions'
-	| 'soundboard';
+	| 'soundboard'
+	| 'virustotal';
 
 export interface SectionDefinition extends SettingsMetadata {
 	id: string;

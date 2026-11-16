@@ -15,6 +15,7 @@ import VoiceMessagePlayer from '@app/features/channel/components/embeds/media/Vo
 import {isMediaAttachment} from '@app/features/channel/components/MessageAttachmentUtils';
 import {MessageUploadProgress} from '@app/features/channel/components/MessageUploadProgress';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
+import {VirusTotalBadge} from '@app/features/virustotal/VirusTotalBadge';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
 import {UploadingAttachment} from '@app/features/messaging/models/UploadingAttachment';
 import {getEffectiveAttachmentExpiry} from '@app/features/messaging/utils/AttachmentExpiryUtils';
@@ -357,6 +358,16 @@ export const Attachment: FC<AttachmentProps> = observer(
 				data-flx="channel.embeds.attachments.attachment.render-with-footnote.attachment-wrapper"
 			>
 				{content}
+				{!isPreview && (
+					<VirusTotalBadge
+						attachmentId={att.id}
+						fileName={att.title || att.filename}
+						message={message}
+						showScanButton={
+							!isImageType(att.content_type) && !isVideoType(att.content_type) && !isAudioType(att.content_type)
+						}
+					/>
+				)}
 				{Accessibility.showAttachmentExpiryIndicator && (
 					<ExpiryFootnote
 						expiresAt={effectiveExpiresAt}

@@ -2924,6 +2924,10 @@ msgstr "Ein hilfreicher Bot, der tolle Dinge tut!"
 msgid "a hostname, e.g. {exampleDomain}"
 msgstr "ein Hostname, z. B. {exampleDomain}"
 
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "A key is saved"
+msgstr ""
+
 #. Short hint under the sign-in background field in the setup wizard branding step.
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "A landscape image, at least 1920 by 1080 pixels."
@@ -5156,6 +5160,10 @@ msgstr "Jeder mit diesem Schlüssel kann dein Passwort zurücksetzen. Teile ihn 
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "Anyone, after you approve them"
 msgstr "Alle, nachdem du sie freigegeben hast"
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "API key"
+msgstr ""
 
 #. Inline notice on Linux when isolated per-app audio capture is unavailable.
 #: src/features/voice/components/modals/screen_share_picker_modal/PerWindowAudioNotice.tsx
@@ -8404,6 +8412,10 @@ msgstr "Berechtigung zur Bildschirmaufnahme wird geprüft …"
 msgid "Checking the sign-in request…"
 msgstr "Anfrage wird geprüft…"
 
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Checking with VirusTotal…"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/PlutoniumIndex.ts
 msgid "Checkout"
@@ -11237,6 +11249,11 @@ msgstr "Kanal konnte nicht dupliziert werden"
 msgid "Couldn't end your grace period"
 msgstr "Übergangsfrist konnte nicht beendet werden"
 
+#. Error toast after a VirusTotal scan.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Couldn't find this file to scan it."
+msgstr ""
+
 #. Body of the error modal shown when generating a group DM invite link fails.
 #: src/features/channel/components/alerts/GroupDmRecipientErrorModalUtils.tsx
 msgid "Couldn't generate an invite link. Please try again."
@@ -11526,6 +11543,10 @@ msgstr "Beitrittston konnte nicht gespeichert werden"
 msgid "Couldn't save the tag: {detail}"
 msgstr "Konnte das Tag nicht speichern: {detail}"
 
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Couldn't save the VirusTotal key."
+msgstr ""
+
 #. Error under the avatar cosmetic picker in profile settings.
 #: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
 msgid "Couldn't save your avatar cosmetic. Try again."
@@ -11545,6 +11566,11 @@ msgstr ""
 #: src/features/premium/utils/PremiumMessageDescriptors.ts
 msgid "Couldn't save. Try again."
 msgstr "Speichern fehlgeschlagen. Versuche es erneut."
+
+#. Error toast after a VirusTotal scan.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Couldn't scan this file. Try again later."
+msgstr ""
 
 #. Error state of the thread browser search.
 #: src/features/threads/utils/ThreadMessageDescriptors.ts
@@ -21791,6 +21817,10 @@ msgstr "Lässt {productName} direkt auf deine Tastatur zugreifen. Dein System er
 msgid "Lets custom CSS reveal transparent window regions after restarting the desktop app."
 msgstr "Ermöglicht es benutzerdefiniertem CSS, nach dem Neustart der Desktop-App transparente Fensterbereiche anzuzeigen."
 
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Lets members check attachments with VirusTotal using a \"Scan with VirusTotal\" button under files. Files are looked up by their fingerprint first; a file VirusTotal has never seen is only uploaded after the member confirms. Results are shown to everyone who can see the message."
+msgstr ""
+
 #. Description under the Announcement channel switch in channel settings. Turning it on converts a text channel into an announcement channel. Publishing a message sends a copy of it to every channel in other communities that follows this one.
 #: src/features/channel/components/modals/channel_tabs/ChannelOverviewTab.tsx
 msgid "Lets other communities follow this channel and get copies of what you publish."
@@ -25793,6 +25823,10 @@ msgstr "Nichts für dich? Du kannst es jederzeit deaktivieren."
 msgid "Not found"
 msgstr "Nicht gefunden"
 
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Not known to VirusTotal"
+msgstr ""
+
 #. Status in the Operators' wall settings when the account chose not to be listed or has not chosen a name.
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
 msgid "Not listed."
@@ -26349,6 +26383,10 @@ msgstr "Nur Freunde können dich ohne Nachfrage hinzufügen (empfohlen)"
 #: src/features/user/components/modals/tabs/privacy_safety_tab/CommunicationTab.tsx
 msgid "Only friends can call you (recommended)"
 msgstr "Nur Freunde können dich anrufen (empfohlen)"
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Only instance admins see this page. Get a key from your VirusTotal account (API key, under your profile). Free keys allow 4 lookups a minute and 500 a day."
+msgstr ""
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthRegisterFormCore.tsx
@@ -26977,6 +27015,11 @@ msgstr "Admin-Panel öffnen"
 #: src/features/input/state/input_keybind/shared.ts
 msgid "Open the context menu"
 msgstr "Kontextmenü öffnen"
+
+#. Tooltip of a VirusTotal result badge.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Open the full VirusTotal report"
+msgstr ""
 
 #. Tip explaining the keyboard shortcut for opening the shortcuts list.
 #: src/features/input/components/modals/KeyboardModeIntroModal.tsx
@@ -27702,6 +27745,10 @@ msgstr "JSON-Antwort hier einfügen"
 #: src/features/moderation/components/pages/ReportPage.tsx
 msgid "Paste the message link."
 msgstr "Nachrichtenlink einfügen."
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Paste your VirusTotal API key"
+msgstr ""
 
 #. Generic media-player control: pause playback.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -30398,6 +30445,10 @@ msgstr "Aus der Liste der per URL gespeicherten GIFs entfernen"
 msgid "Remove icon"
 msgstr "Symbol entfernen"
 
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Remove key"
+msgstr ""
+
 #. Permission description in the role/permission editor for the Kick Members permission. Note that a kick is not permanent, unlike a ban.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
 msgid "Remove members from the community. They can rejoin with a new invite."
@@ -30799,6 +30850,10 @@ msgstr ""
 #: src/features/app/components/setup/SetupServicesStep.tsx
 msgid "Replace the {key}"
 msgstr "{key} ersetzen"
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Replace the API key"
+msgstr ""
 
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx
@@ -32059,6 +32114,10 @@ msgstr "GIF-Favoriten als gespeicherte Medien sichern"
 msgid "Save icon"
 msgstr "Symbol speichern"
 
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Save key"
+msgstr ""
+
 #. Button or menu action label in the channel and chat memes picker view. Keep it concise.
 #. Empty state body in the mobile memes picker explaining how to save media. Tone can be friendly.
 #: src/features/channel/components/MobileMemesPicker.tsx
@@ -32140,6 +32199,18 @@ msgstr "Scanne den QR-Code mit deiner Authenticator-App."
 #: src/features/auth/components/modals/RecoveryKitModal.tsx
 msgid "Scan to open the recovery page with your details filled in."
 msgstr "Scanne, um die Wiederherstellungsseite mit deinen ausgefüllten Daten zu öffnen."
+
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Scan with VirusTotal"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Scanning is off"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "Scanning is on"
+msgstr ""
 
 #. Developer / debug surface — keep terse and technical. Label in the developer Nagbar controls panel for the scheduled-maintenance banner.
 #: src/features/devtools/components/NagbarControls.ts
@@ -38849,6 +38920,11 @@ msgstr "Diese Datei ist {fileSize} groß und überschreitet das Limit von {maxSi
 msgid "This file is larger than {size}. Choose a smaller one."
 msgstr "Diese Datei ist größer als {size}. Wähle eine kleinere aus."
 
+#. Error toast after a VirusTotal scan.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "This file is too large to upload to VirusTotal (32 MB at most)."
+msgstr ""
+
 #. Error under the role icon buttons when the picked file has an unsupported type. formats is a list such as PNG, JPEG, WebP.
 #. Error when a branding image has an unsupported file type in the setup wizard. formats is a list such as PNG, JPEG, WebP.
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
@@ -39357,6 +39433,11 @@ msgstr "Dieser Zurücksetzungslink ist abgelaufen oder wurde bereits verwendet. 
 #: src/features/auth/components/pages/ResetPasswordPage.tsx
 msgid "This reset link has expired. Reset links last 1 hour. Please request a new one."
 msgstr "Dieser Zurücksetzungslink ist abgelaufen. Zurücksetzungslinks sind 1 Stunde gültig. Bitte fordere einen neuen an."
+
+#. Error toast after a VirusTotal scan.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "This server's VirusTotal key no longer works. Ask an admin to check it."
+msgstr ""
 
 #. Body of the first setup wizard screen. An instance is one installation of Fluxer run by the person reading this.
 #: src/features/app/components/setup/SetupWizardSteps.tsx
@@ -41684,6 +41765,10 @@ msgstr "Datei hochladen"
 msgid "Upload an image or pick an emoji. Members get the icon of their highest role that has one."
 msgstr "Lade ein Bild hoch oder wähle ein Emoji. Neben dem Namen eines Mitglieds erscheint das Symbol seiner höchsten Rolle, die ein Symbol hat."
 
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Upload and scan"
+msgstr ""
+
 #: src/features/theme_settings/components/AssetsSection.tsx
 msgid "Upload assets"
 msgstr "Assets hochladen"
@@ -41741,6 +41826,10 @@ msgstr "Dateien und Medien in Nachrichten hochladen."
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
 msgid "Upload files and media in this channel."
 msgstr "Dateien und Medien in diesem Kanal hochladen."
+
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Upload for a scan"
+msgstr ""
 
 #: src/features/channel/components/modals/EditGroupModal.tsx
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateShared.tsx
@@ -41800,6 +41889,10 @@ msgstr ""
 #: src/features/messaging/components/modals/UploadDropModal.tsx
 msgid "Upload to {displayName}"
 msgstr "In \"{displayName}\" hochladen"
+
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "Upload to VirusTotal?"
+msgstr ""
 
 #. Button or menu action label in the channel and chat mobile textarea plus bottom sheet. Keep it concise.
 #. Plus menu item that uploads the current textarea content as a .txt file when it exceeds the size limit.
@@ -43039,6 +43132,54 @@ msgstr "Violett"
 msgctxt "us-state"
 msgid "Virginia"
 msgstr "Virginia"
+
+#. Settings section, only for instance admins: the VirusTotal API key used to scan attachments.
+#. Settings tab, only for instance admins: the VirusTotal API key used to scan attachments.
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
+msgid "VirusTotal"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "VirusTotal didn't accept that key. Check it and try again."
+msgstr ""
+
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal has never seen <0>{fileName}</0>. To scan it, the file will be uploaded to VirusTotal, which shares uploaded files with security companies and keeps them. Don't upload anything private."
+msgstr ""
+
+#. Error toast after a VirusTotal scan: the instance used up its VirusTotal quota for now.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal is busy right now. Try again in a minute."
+msgstr ""
+
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal is scanning this file…"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "VirusTotal key removed. Scanning is off."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/VirusTotalTab.tsx
+msgid "VirusTotal key saved. Members can now scan attachments."
+msgstr ""
+
+#. Error toast after trying to scan a file with VirusTotal.
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal scanning is not set up on this server."
+msgstr ""
+
+#. placeholder {0}: scan.total
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal: clean · 0/{0}"
+msgstr ""
+
+#. placeholder {0}: scan.total
+#: src/features/virustotal/VirusTotalBadge.tsx
+msgid "VirusTotal: flagged by {detections} of {0}"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
