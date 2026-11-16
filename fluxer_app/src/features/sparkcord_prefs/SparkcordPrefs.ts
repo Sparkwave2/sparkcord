@@ -24,6 +24,10 @@ interface Prefs {
 	showPlatformIcons: boolean;
 	/** Don't tell others which kind of app this device is. */
 	hidePlatform: boolean;
+	/** Show a warning mark after messages that were sent on a slow connection. */
+	showLatencyWarnings: boolean;
+	/** Don't tell others when this device sends messages on a slow connection. */
+	hideMyLatency: boolean;
 }
 
 const DEFAULTS: Prefs = {
@@ -34,6 +38,8 @@ const DEFAULTS: Prefs = {
 	showUsernames: false,
 	showPlatformIcons: true,
 	hidePlatform: false,
+	showLatencyWarnings: false,
+	hideMyLatency: false,
 };
 
 function readStored(): Prefs {

@@ -357,6 +357,13 @@ export const MessageRequestSchema = z
 		favorite_meme_id: SnowflakeType.nullish().describe('ID of a favorite meme to attach'),
 		sticker_ids: z.array(SnowflakeType).max(3).nullish().describe('Array of sticker IDs to include (max 3)'),
 		tts: z.boolean().optional().describe('Whether this is a text-to-speech message'),
+		latency_ms: z
+			.number()
+			.int()
+			.min(0)
+			.max(600000)
+			.optional()
+			.describe("Sparkcord: the sender's connection latency in milliseconds, when it was high"),
 	})
 	.partial();
 

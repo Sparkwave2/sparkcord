@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {latencyToReport} from '@app/features/latency/ConnectionLatency';
 import i18n from '@app/app/I18n';
 import {showDmActionErrorModal} from '@app/features/app/components/alerts/DmActionErrorModal';
 import {FeatureTemporarilyDisabledModal} from '@app/features/app/components/alerts/FeatureTemporarilyDisabledModal';
@@ -883,6 +884,9 @@ class MessageQueue extends Queue<MessageQueuePayload, RestResponse<Message> | un
 			stickers: payload.stickers,
 			tts: payload.tts,
 		});
+		// Sparkcord: say so when this message is sent on a slow connection.
+		const latencyMs = latencyToReport();
+		if (latencyMs !== null) requestBody.latency_ms = latencyMs;
 		logger.debug(`Sending message to channel ${channelId}`);
 		const outcome = await this.attemptMessageSend(channelId, nonce, requestBody, payload.preparedFiles);
 		const outcomeDecision = resolveMessageQueueRequestOutcomeDecision({status: outcome.status});

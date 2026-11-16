@@ -19147,6 +19147,11 @@ msgstr "Slėpti nutildytus kanalus pagal numatytuosius nustatymus?"
 msgid "Hide my platform"
 msgstr ""
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Hide my slow connection from others"
+msgstr ""
+
 #. Short label for an advanced stream privacy preference.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedVideoControls.tsx
 msgid "Hide my stream preview thumbnail"
@@ -23434,6 +23439,11 @@ msgstr "Pranešimai, paskelbti šiuose informavimo kanaluose, bus nukopijuoti į
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Messages you can bookmark"
 msgstr "Pranešimai, kuriuos galite pasižymėti"
+
+#. Help text of the setting that stops your messages from being marked as sent with high latency.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Messages you send from this device are never marked as sent on a slow connection. Set it on each device you want hidden."
+msgstr ""
 
 #. Title of the error modal shown when an action fails because messaging is paused on the current account until the user completes one quick step described in an email. Keep the tone calm and friendly.
 #: src/features/user/utils/AccountLimitUtils.ts
@@ -33213,6 +33223,10 @@ msgstr "Išsiuntė priedą"
 msgid "Sent messages"
 msgstr "Išsiųstos žinutės"
 
+#: src/features/latency/MessageLatencyMark.tsx
+msgid "Sent on a slow connection ({latencyMs} ms). This message may have arrived late."
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Sequential send"
@@ -34465,6 +34479,11 @@ msgstr "Rodyti išsaugotą mediją išraiškų automatiniame pildyme"
 msgid "Show send button"
 msgstr "Rodyti siuntimo mygtuką"
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Show slow connection warnings"
+msgstr ""
+
 #. Label in the display tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/DisplayTab.tsx
 msgid "Show spoiler content when clicked"
@@ -34609,6 +34628,11 @@ msgstr "Rodyti prie kiekvieno įrašo, kad žmonės galėtų reaguoti vienu pasp
 #: src/features/user/components/modals/tabs/my_profile_tab/ProfileBadgeSettings.tsx
 msgid "Shown only when your Visionary badge is visible and not masked."
 msgstr "Rodoma tik tada, kai jūsų „Visionary“ ženklelis matomas ir nerodomas kaip prenumerata."
+
+#. Help text of the setting that shows a warning mark after messages sent with high latency.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Shows a warning mark after messages that were sent on a slow connection, so you know they may have arrived late. Only changes this device."
+msgstr ""
 
 #. Help text of the setting that shows usernames instead of display names.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx

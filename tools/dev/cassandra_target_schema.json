@@ -11832,6 +11832,25 @@
 			"options": ""
 		},
 		{
+			"name": "sparkcord_message_latency",
+			"columns": [
+				{
+					"name": "channel_id",
+					"type": "bigint"
+				},
+				{
+					"name": "message_id",
+					"type": "bigint"
+				},
+				{
+					"name": "latency_ms",
+					"type": "int"
+				}
+			],
+			"primary_key": "((channel_id), message_id)",
+			"options": ""
+		},
+		{
 			"name": "name_fonts",
 			"columns": [
 				{

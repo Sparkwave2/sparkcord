@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {MessageLatencyMark} from '@app/features/latency/MessageLatencyMark';
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {SILENT_MENTION} from '@app/features/app/config/I18nDisplayConstants';
 import {UserTag} from '@app/features/channel/components/ChannelUserTag';
@@ -329,6 +330,7 @@ export const UserMessage = observer(() => {
 					options={markdownOptions}
 					data-flx="channel.user-message.render-message-content.safe-markdown"
 				/>
+				<MessageLatencyMark latencyMs={message.latencyMs} />
 				{(message.editedTimestamp || message.isEditing) &&
 					(message.isEditing ? (
 						<span className={styles.editedLabel} data-flx="channel.user-message.render-message-content.edited-label">
@@ -629,6 +631,7 @@ export const UserMessage = observer(() => {
 										data-flx="channel.user-message.safe-markdown--2"
 									/>
 								)}
+								<MessageLatencyMark latencyMs={message.latencyMs} />
 								{(message.editedTimestamp || message.isEditing) &&
 									(message.isEditing ? (
 										<span className={styles.editedLabel} data-flx="channel.user-message.edited-label">

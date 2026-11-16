@@ -76,6 +76,24 @@ const MESSAGE_DISPLAY_MODE_DESCRIPTOR = msg({
 	message: 'Message display mode',
 	comment: 'Short label in the messages tab. Keep it concise.',
 });
+const SHOW_LATENCY_WARNINGS_DESCRIPTOR = msg({
+	message: 'Show slow connection warnings',
+	comment: 'Sparkcord setting in Appearance > Messages.',
+});
+const SHOW_LATENCY_WARNINGS_HELP_DESCRIPTOR = msg({
+	message:
+		'Shows a warning mark after messages that were sent on a slow connection, so you know they may have arrived late. Only changes this device.',
+	comment: 'Help text of the setting that shows a warning mark after messages sent with high latency.',
+});
+const HIDE_MY_LATENCY_DESCRIPTOR = msg({
+	message: 'Hide my slow connection from others',
+	comment: 'Sparkcord setting in Appearance > Messages.',
+});
+const HIDE_MY_LATENCY_HELP_DESCRIPTOR = msg({
+	message:
+		'Messages you send from this device are never marked as sent on a slow connection. Set it on each device you want hidden.',
+	comment: 'Help text of the setting that stops your messages from being marked as sent with high latency.',
+});
 const SHOW_PRONOUNS_DESCRIPTOR = msg({
 	message: 'Show pronouns next to names',
 	comment: 'Sparkcord setting in Appearance > Messages.',
@@ -331,6 +349,22 @@ export const MessagesTabContent: React.FC = observer(() => {
 					description={i18n._(SHOW_USERNAMES_HELP_DESCRIPTOR)}
 					value={SparkcordPrefs.get('showUsernames')}
 					onChange={(value) => SparkcordPrefs.set('showUsernames', value)}
+				/>
+			</div>
+			<div className={styles.switchWrapper}>
+				<Switch
+					label={i18n._(SHOW_LATENCY_WARNINGS_DESCRIPTOR)}
+					description={i18n._(SHOW_LATENCY_WARNINGS_HELP_DESCRIPTOR)}
+					value={SparkcordPrefs.get('showLatencyWarnings')}
+					onChange={(value) => SparkcordPrefs.set('showLatencyWarnings', value)}
+				/>
+			</div>
+			<div className={styles.switchWrapper}>
+				<Switch
+					label={i18n._(HIDE_MY_LATENCY_DESCRIPTOR)}
+					description={i18n._(HIDE_MY_LATENCY_HELP_DESCRIPTOR)}
+					value={SparkcordPrefs.get('hideMyLatency')}
+					onChange={(value) => SparkcordPrefs.set('hideMyLatency', value)}
 				/>
 			</div>
 		</>

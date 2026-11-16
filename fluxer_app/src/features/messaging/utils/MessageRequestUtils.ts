@@ -49,6 +49,8 @@ export interface MessageCreateRequest {
 	favorite_meme_id?: string;
 	sticker_ids?: Array<string>;
 	tts?: true;
+	/** Sparkcord: this client's connection latency in milliseconds, sent only when high. */
+	latency_ms?: number;
 }
 
 export interface MessageEditRequest {

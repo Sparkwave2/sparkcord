@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {recordMessageLatency} from '@app/api/sparkcord/MessageLatency';
 import type {AttachmentID, ChannelID, GuildID, MessageID, RoleID, UserID} from '@app/api/BrandedTypes';
 import {
 	channelIdToMessageId,
@@ -902,6 +903,8 @@ export class MessageSendService {
 						threadInsert: authChannel.thread !== undefined,
 					});
 					await recordNonce(messageId);
+					// Sparkcord: the sender's reported high latency, for the opt-in warning mark.
+					await recordMessageLatency(channelId, messageId, data.latency_ms);
 					if (tupperProxy) {
 						await getTupperService()
 							.recordProxiedMessage(getTupperService().snapshotFor(tupperProxy, channelId, messageId, user.id))

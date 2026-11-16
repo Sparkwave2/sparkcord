@@ -1,0 +1,15 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.mark {
+	display: inline-flex;
+	width: 0.875rem;
+	height: 0.875rem;
+	margin-inline-start: 0.25rem;
+	color: var(--status-warning, hsl(39, 80%, 55%));
+	vertical-align: -0.125em;
+}
+
+.mark svg {
+	width: 100%;
+	height: 100%;
+}

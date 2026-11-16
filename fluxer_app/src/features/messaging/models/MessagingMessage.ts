@@ -154,6 +154,8 @@ export class Message {
 	readonly webhookId?: string;
 	/** Sparkcord: set when the message was sent through a tupper (proxy member). */
 	readonly proxy: MessageProxyResponse | null;
+	/** Sparkcord: the sender's connection latency when it was high, else null. */
+	readonly latencyMs: number | null;
 	/** Sparkcord: the real account behind a proxied message (author holds the tupper identity). */
 	readonly proxyOwner: User | null;
 	readonly type: number;
@@ -199,6 +201,7 @@ export class Message {
 		}
 		const isBlocked = Relationships.isBlocked(message.author.id);
 		this.proxy = message.webhook_id ? null : (message.proxy ?? null);
+		this.latencyMs = message.latency_ms ?? null;
 		if (message.webhook_id) {
 			this.author = new User(message.author, {instanceId: this.instanceId});
 		} else if (this.proxy) {
@@ -339,6 +342,7 @@ export class Message {
 				author: updates.author ?? (this.proxyOwner ?? this.author).toJSON(),
 				webhook_id: updates.webhook_id ?? this.webhookId,
 				proxy: 'proxy' in updates ? (updates.proxy ?? null) : this.proxy,
+				latency_ms: 'latency_ms' in updates ? (updates.latency_ms ?? null) : this.latencyMs,
 				type: updates.type ?? this.type,
 				flags: updates.flags ?? this.flags,
 				pinned: updates.pinned ?? this.pinned,
@@ -520,6 +524,7 @@ export class Message {
 			author: (this.proxyOwner ?? this.author).toJSON(),
 			webhook_id: this.webhookId,
 			proxy: this.proxy,
+			latency_ms: this.latencyMs,
 			type: this.type,
 			flags: this.flags,
 			pinned: this.pinned,

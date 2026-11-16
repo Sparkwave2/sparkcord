@@ -139,6 +139,11 @@ const MessageBaseResponseSchema = z.object({
 	author: z.lazy(() => UserPartialResponse).describe('The author of the message'),
 	webhook_id: SnowflakeStringType.nullish().describe('The ID of the webhook that sent this message'),
 	proxy: MessageProxyResponse.nullish(),
+	latency_ms: z
+		.number()
+		.int()
+		.nullish()
+		.describe("Sparkcord: the sender's connection latency in milliseconds, when it was high"),
 	type: MessageTypeSchema,
 	flags: createBitflagInt32Type(
 		MessageFlags,
@@ -354,6 +359,7 @@ export interface Message {
 	readonly member?: Omit<GuildMemberData, 'user'>;
 	readonly webhook_id?: string;
 	readonly proxy?: MessageProxyResponse | null;
+	readonly latency_ms?: number | null;
 	readonly type: number;
 	readonly flags: number;
 	readonly pinned: boolean;

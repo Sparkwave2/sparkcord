@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {attachMessageLatency} from '@app/api/sparkcord/MessageLatency';
 import {resolveDefaultAttachmentDecayConfig} from '@app/api/attachment/AttachmentDecayService';
 import type {ChannelID, GuildID, MessageID, UserID} from '@app/api/BrandedTypes';
 import {createUserID} from '@app/api/BrandedTypes';
@@ -292,10 +293,13 @@ export class MessageResponseDataService {
 			// Sparkcord: attach tupper (proxy member) info to messages sent through a tupper.
 			if (typeof response === 'object' && 'FoundApi' in response) {
 				const [enriched] = await getTupperService().enrichResponses([response.FoundApi]);
-				return {FoundApi: enriched!};
+				const [marked] = await attachMessageLatency([enriched!]);
+				return {FoundApi: marked!};
 			}
 			if (typeof response === 'object' && 'FoundApiMany' in response) {
-				return {FoundApiMany: await getTupperService().enrichResponses(response.FoundApiMany)};
+				return {
+					FoundApiMany: await attachMessageLatency(await getTupperService().enrichResponses(response.FoundApiMany)),
+				};
 			}
 			return response;
 		} catch (error) {

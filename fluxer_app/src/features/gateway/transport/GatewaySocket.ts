@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {recordGatewayLatency} from '@app/features/latency/ConnectionLatency';
 import {flushBootHydration} from '@app/features/boot_state/BootHydration';
 import {afterBootReveal, isBootRevealHeld} from '@app/features/boot_state/BootReveal';
 import {
@@ -1261,6 +1262,8 @@ export class GatewaySocket extends EventEmitter<GatewaySocketEvents> {
 	private handleHeartbeatAck(): void {
 		this.awaitingHeartbeatAck = false;
 		this.lastHeartbeatAckAt = Date.now();
+		// Sparkcord: heartbeat round trip, for the high-latency mark on sent messages.
+		if (this.lastHeartbeatSentAt != null) recordGatewayLatency(this.lastHeartbeatAckAt - this.lastHeartbeatSentAt);
 		if (this.heartbeatAckTimeoutId != null) {
 			clearTimeout(this.heartbeatAckTimeoutId);
 			this.heartbeatAckTimeoutId = null;
