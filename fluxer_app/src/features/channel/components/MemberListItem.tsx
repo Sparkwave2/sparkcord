@@ -2,6 +2,7 @@
 
 import Authentication from '@app/features/auth/state/Authentication';
 import {UserTag} from '@app/features/channel/components/ChannelUserTag';
+import {PlatformIcons} from '@app/features/platform_icons/PlatformIcons';
 import {CompactMemberCustomStatus} from '@app/features/channel/components/CompactMemberCustomStatus';
 import styles from '@app/features/channel/components/MemberListItem.module.css';
 import {PreloadableUserPopout} from '@app/features/channel/components/PreloadableUserPopout';
@@ -246,6 +247,7 @@ export const MemberListItem: React.FC<MemberListItemProps> = observer((props) =>
 										</Tooltip>
 									</div>
 								)}
+								{!user.bot && <PlatformIcons userId={user.id} />}
 								{user.bot && (
 									<UserTag
 										className={styles.userTag}

@@ -19141,6 +19141,11 @@ msgstr "Hide muted channels by default"
 msgid "Hide muted channels by default?"
 msgstr "Hide muted channels by default?"
 
+#. Setting that stops others from seeing which kind of app you are using.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Hide my platform"
+msgstr "Hide my platform"
+
 #. Short label for an advanced stream privacy preference.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedVideoControls.tsx
 msgid "Hide my stream preview thumbnail"
@@ -26057,6 +26062,11 @@ msgctxt "code-editor"
 msgid "on line"
 msgstr "on line"
 
+#. Tooltip of the icon showing a person is using a phone or tablet.
+#: src/features/platform_icons/PlatformIcons.tsx
+msgid "On mobile"
+msgstr "On mobile"
+
 #. Slash-command option for turning proxying on/off.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "On or off."
@@ -26067,6 +26077,11 @@ msgstr "On or off."
 msgid "On screen now"
 msgstr "On screen now"
 
+#. Tooltip of the icon showing a person is using the desktop app.
+#: src/features/platform_icons/PlatformIcons.tsx
+msgid "On the desktop app"
+msgstr "On the desktop app"
+
 #. Hint under the checkbox "I'm buying for a business" in the checkout dialogs. The payment page is the card payment page that opens after this dialog. VAT ID is the company's value-added tax number, use the usual local term.
 #: src/features/premium/components/BusinessPurchaseField.tsx
 msgid "On the payment page, add your company name, address and VAT ID."
@@ -26076,6 +26091,11 @@ msgstr "On the payment page, add your company name, address and VAT ID."
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
 msgid "On the wall"
 msgstr "On the wall"
+
+#. Tooltip of the icon showing a person is using the website.
+#: src/features/platform_icons/PlatformIcons.tsx
+msgid "On the web"
+msgstr "On the web"
 
 #. One line explanation in the desktop app above the code. signInAddress is the web address of the sign-in page, such as web.fluxer.app/login?handoff=1.
 #: src/features/auth/flow/auth_login_core/AuthLoginBrowserStep.tsx
@@ -27180,6 +27200,11 @@ msgstr "Other people can't open your system or see your tuppers' descriptions an
 msgid "Other reaction…"
 msgstr "Other reaction…"
 
+#. Help text of the setting that hides your platform from others.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Others won't see that you are using this device. Set it on each device you want hidden. Your platform is never shown while you are invisible."
+msgstr "Others won't see that you are using this device. Set it on each device you want hidden. Your platform is never shown while you are invisible."
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccountSecuritySections.ts
 msgid "OTP"
@@ -28247,6 +28272,11 @@ msgstr "Platform"
 #: src/features/channel/components/guild_members_page/MemberTableRow.tsx
 msgid "Platform admin"
 msgstr "Platform admin"
+
+#. Settings section about the icons that show whether someone is on the web, desktop app or mobile.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Platform icons"
+msgstr "Platform icons"
 
 #. Generic media-player control: start playback.
 #. Play-preview button label in the voice message composer modal.
@@ -34400,6 +34430,11 @@ msgstr "Show password"
 msgid "Show per-device participant volume sliders in voice menus"
 msgstr "Show per-device participant volume sliders in voice menus"
 
+#. Setting that shows icons for the kind of app other people are using.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Show platform icons"
+msgstr "Show platform icons"
+
 #. Row in the quick CSS editor shortcuts dialog.
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Show problems"
@@ -34578,6 +34613,11 @@ msgstr "Shown only when your Visionary badge is visible and not masked."
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
 msgstr "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+
+#. Help text of the setting that shows platform icons.
+#: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
+msgid "Shows next to people who are online whether they are on the web, the desktop app or mobile. Only changes this device."
+msgstr "Shows next to people who are online whether they are on the web, the desktop app or mobile. Only changes this device."
 
 #. Help text of the setting that shows pronouns next to names in messages.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx

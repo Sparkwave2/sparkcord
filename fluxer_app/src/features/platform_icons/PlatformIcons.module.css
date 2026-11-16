@@ -1,0 +1,22 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.icons {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	gap: 0.125rem;
+	margin-inline-start: 0.25rem;
+	color: var(--text-tertiary);
+	vertical-align: middle;
+}
+
+.icon {
+	display: inline-flex;
+	width: 0.875rem;
+	height: 0.875rem;
+}
+
+.icon svg {
+	width: 100%;
+	height: 100%;
+}

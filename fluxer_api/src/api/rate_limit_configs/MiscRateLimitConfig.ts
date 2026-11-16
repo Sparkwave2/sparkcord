@@ -92,6 +92,14 @@ export const MiscRateLimitConfigs = {
 		bucket: 'tupper:write',
 		config: {limit: 60, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
+	SPARKCORD_PLATFORM_READ: {
+		bucket: 'sparkcord:platform:read',
+		config: {limit: 120, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
+	SPARKCORD_PLATFORM_WRITE: {
+		bucket: 'sparkcord:platform:write',
+		config: {limit: 30, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 	NAME_FONT_READ: {
 		bucket: 'name_font:read',
 		config: {limit: 240, windowMs: ms('1 minute')},

@@ -271,6 +271,8 @@ export const Endpoints = {
 	USER_TUPPERS: '/users/@me/tuppers',
 	USER_TUPPER: (tupperId: string) => `/users/@me/tuppers/${tupperId}`,
 	USER_TUPPER_CARD: (userId: string, tupperId: string) => `/users/${userId}/tuppers/${tupperId}/card`,
+	SPARKCORD_PLATFORM: (platform: string) => `/sparkcord/platform/${platform}`,
+	SPARKCORD_PLATFORMS_QUERY: '/sparkcord/platforms/query',
 	USER_TUPPER_SYSTEM: (userId: string) => `/users/${userId}/tuppers/system`,
 	USER_TUPPER_SETTINGS: '/users/@me/tuppers/settings',
 	USER_TUPPERS_IMPORT: '/users/@me/tuppers/import',

@@ -20,6 +20,10 @@ interface Prefs {
 	showPronouns: boolean;
 	/** Show usernames everywhere instead of display names and nicknames. */
 	showUsernames: boolean;
+	/** Show which kind of app (web, desktop, mobile) other people are on. */
+	showPlatformIcons: boolean;
+	/** Don't tell others which kind of app this device is. */
+	hidePlatform: boolean;
 }
 
 const DEFAULTS: Prefs = {
@@ -28,6 +32,8 @@ const DEFAULTS: Prefs = {
 	cornerRoundingPercent: 100,
 	showPronouns: false,
 	showUsernames: false,
+	showPlatformIcons: true,
+	hidePlatform: false,
 };
 
 function readStored(): Prefs {

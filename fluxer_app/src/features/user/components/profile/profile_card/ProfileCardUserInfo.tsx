@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {PlatformIcons} from '@app/features/platform_icons/PlatformIcons';
 import {UserTag} from '@app/features/channel/components/ChannelUserTag';
 import {type NameStyle, StyledName} from '@app/features/role_style/RoleNameStyle';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
@@ -126,6 +127,7 @@ export const ProfileCardUserInfo: React.FC<ProfileCardUserInfoProps> = observer(
 							</button>
 						</FocusRing>
 						{usernameActions}
+						{!isWebhook && !user.bot && <PlatformIcons userId={user.id} />}
 					</div>
 				)}
 				{pronouns && (

@@ -19,6 +19,7 @@ import {DonationController} from '@app/api/donation/DonationController';
 import {DownloadController} from '@app/api/download/DownloadController';
 import {ExperimentController} from '@app/api/experiment/ExperimentController';
 import {FavoriteGifController} from '@app/api/favorite_gif/FavoriteGifController';
+import {PlatformController} from '@app/api/sparkcord/PlatformController';
 import {TupperController} from '@app/api/tupper/TupperController';
 import {NameFontController} from '@app/api/name_font/NameFontController';
 import {GroupNameColorController} from '@app/api/group_name_color/GroupNameColorController';
@@ -76,6 +77,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	FavoriteGifController(routes);
 	FavoriteMemeController(routes);
 	TupperController(routes);
+	PlatformController(routes);
 	NameFontController(routes);
 	GroupNameColorController(routes);
 	PersonalExpressionController(routes);

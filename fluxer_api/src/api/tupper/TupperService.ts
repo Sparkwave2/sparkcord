@@ -59,6 +59,7 @@ export interface TupperSettingsResponse {
 	autoproxy_mode: AutoproxyMode;
 	autoproxy_tupper_id: string | null;
 	latch_tupper_id: string | null;
+	system_private: boolean;
 }
 
 export interface MessageProxyResponse {
@@ -69,7 +70,6 @@ export interface MessageProxyResponse {
 	pronouns: string | null;
 	system_tag: string | null;
 	font: string | null;
-	system_private: boolean;
 }
 
 export interface TupperSystemResponse {
@@ -206,6 +206,7 @@ export interface TupperCardResponse {
 	system_name: string | null;
 	system_tag: string | null;
 	font: string | null;
+	system_private: boolean;
 }
 
 export function toSettingsResponse(row: TupperSettingsRow): TupperSettingsResponse {

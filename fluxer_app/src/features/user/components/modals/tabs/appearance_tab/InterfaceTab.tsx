@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import * as AccessibilityCommands from '@app/features/accessibility/commands/AccessibilityCommands';
 import Accessibility, {ChannelTypingIndicatorMode} from '@app/features/accessibility/state/Accessibility';
 import {SettingsTabSection} from '@app/features/app/components/dialogs/shared/SettingsTabLayout';
@@ -44,6 +45,28 @@ const HIDDEN_DESCRIPTOR = msg({
 const DON_T_SHOW_TYPING_INDICATORS_IN_THE_CHANNEL_DESCRIPTOR = msg({
 	message: "Don't show typing indicators in the channel list",
 	comment: 'Label in the interface tab.',
+});
+const PLATFORM_ICONS_SECTION_DESCRIPTOR = msg({
+	message: 'Platform icons',
+	comment: 'Settings section about the icons that show whether someone is on the web, desktop app or mobile.',
+});
+const SHOW_PLATFORM_ICONS_DESCRIPTOR = msg({
+	message: 'Show platform icons',
+	comment: 'Setting that shows icons for the kind of app other people are using.',
+});
+const SHOW_PLATFORM_ICONS_HELP_DESCRIPTOR = msg({
+	message:
+		'Shows next to people who are online whether they are on the web, the desktop app or mobile. Only changes this device.',
+	comment: 'Help text of the setting that shows platform icons.',
+});
+const HIDE_PLATFORM_DESCRIPTOR = msg({
+	message: 'Hide my platform',
+	comment: 'Setting that stops others from seeing which kind of app you are using.',
+});
+const HIDE_PLATFORM_HELP_DESCRIPTOR = msg({
+	message:
+		"Others won't see that you are using this device. Set it on each device you want hidden. Your platform is never shown while you are invisible.",
+	comment: 'Help text of the setting that hides your platform from others.',
 });
 const TYPING_PRIVACY_SECTION_DESCRIPTOR = msg({
 	message: 'Typing indicators',
@@ -195,6 +218,23 @@ export const InterfaceTabContent: React.FC = observer(() => {
 				description={i18n._(SHOW_TYPING_INDICATORS_HELP_DESCRIPTOR)}
 				value={TypingPrivacy.showTypingIndicators}
 				onChange={TypingPrivacy.setShowTypingIndicators}
+			/>
+		</SettingsTabSection>
+		<SettingsTabSection
+			title={i18n._(PLATFORM_ICONS_SECTION_DESCRIPTOR)}
+			data-flx="user.appearance-tab.interface-tab.platform-icons"
+		>
+			<Switch
+				label={i18n._(SHOW_PLATFORM_ICONS_DESCRIPTOR)}
+				description={i18n._(SHOW_PLATFORM_ICONS_HELP_DESCRIPTOR)}
+				value={SparkcordPrefs.get('showPlatformIcons')}
+				onChange={(value) => SparkcordPrefs.set('showPlatformIcons', value)}
+			/>
+			<Switch
+				label={i18n._(HIDE_PLATFORM_DESCRIPTOR)}
+				description={i18n._(HIDE_PLATFORM_HELP_DESCRIPTOR)}
+				value={SparkcordPrefs.get('hidePlatform')}
+				onChange={(value) => SparkcordPrefs.set('hidePlatform', value)}
 			/>
 		</SettingsTabSection>
 		</>
