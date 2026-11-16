@@ -210,6 +210,16 @@ export const RoleStyleField = observer(function RoleStyleField({
 					disabled={disabled}
 				/>
 			)}
+			{style && type !== 'solid' && style.simple_color != null && (
+				<button
+					type="button"
+					className={styles.addButton}
+					onClick={() => emit({simple_color: null})}
+					disabled={disabled}
+				>
+					<Trans>Use the default simplified colour</Trans>
+				</button>
+			)}
 
 			<div className={styles.previewRow} aria-hidden="true">
 				{(['dark', 'light'] as const).map((theme) => (

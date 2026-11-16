@@ -42166,6 +42166,10 @@ msgstr "Koristite naljepnice iz drugih zajednica uz {premiumProductName}"
 msgid "Use stickers from other communities."
 msgstr "Upotrebljavaj naljepnice iz drugih zajednica."
 
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Use the default simplified colour"
+msgstr ""
+
 #. Switch label in Settings > Themes on the desktop app, also used as its settings search entry. When on, the account uses the theme shared by every account in the desktop app.
 #: src/features/theme_settings/utils/ThemeSettingsMessageDescriptors.ts
 msgid "Use the desktop app theme for this account"

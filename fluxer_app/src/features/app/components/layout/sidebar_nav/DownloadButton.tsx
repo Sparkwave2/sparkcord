@@ -4,7 +4,7 @@ import {GuildListActionButton} from '@app/features/app/components/layout/sidebar
 import styles from '@app/features/app/components/layout/sidebar_nav/GuildListActionButton.module.css';
 import {DESKTOP_DOWNLOAD_URL} from '@app/features/app/config/I18nDisplayConstants';
 import HiddenGuildListButtons from '@app/features/guild/state/HiddenGuildListButtons';
-import {openExternalUrlWithWarning} from '@app/features/messaging/utils/ExternalLinkUtils';
+import {openExternalUrl} from '@app/features/ui/utils/NativeUtils';
 import {MenuGroup} from '@app/features/ui/action_menu/MenuGroup';
 import {MenuItem} from '@app/features/ui/action_menu/MenuItem';
 import * as ContextMenuCommands from '@app/features/ui/commands/ContextMenuCommands';
@@ -24,7 +24,8 @@ export const DownloadButton = observer(() => {
 		return null;
 	}
 	const handleDownload = () => {
-		openExternalUrlWithWarning(DESKTOP_DOWNLOAD_URL);
+		// Sparkcord's own download page: no external-link warning.
+		void openExternalUrl(DESKTOP_DOWNLOAD_URL);
 	};
 	const handleContextMenu = (e: React.MouseEvent) => {
 		e.preventDefault();
