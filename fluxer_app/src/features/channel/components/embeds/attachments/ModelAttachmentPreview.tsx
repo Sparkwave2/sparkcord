@@ -62,7 +62,7 @@ export function ModelAttachmentPreview({attachment, format, spoilerHidden}: Mode
 	const {i18n} = useLingui();
 	const rootRef = useRef<HTMLDivElement>(null);
 	const stageRef = useRef<HTMLDivElement>(null);
-	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const canvasHostRef = useRef<HTMLDivElement>(null);
 	const viewRef = useRef<ModelView | null>(null);
 	const bytesRef = useRef<ArrayBuffer | null>(null);
 	const [near, setNear] = useState(false);
@@ -85,8 +85,13 @@ export function ModelAttachmentPreview({attachment, format, spoilerHidden}: Mode
 
 	useEffect(() => {
 		if (!near || !requested || spoilerHidden || !attachment.url) return;
-		const canvas = canvasRef.current;
-		if (!canvas) return;
+		const host = canvasHostRef.current;
+		if (!host) return;
+		// A new canvas for every view: disposing a view gives up its graphics context for
+		// good, and a canvas can never get a working one again after that.
+		const canvas = document.createElement('canvas');
+		canvas.className = styles.canvas;
+		host.replaceChildren(canvas);
 		const controller = new AbortController();
 		let view: ModelView | null = null;
 		setError(false);
@@ -117,6 +122,7 @@ export function ModelAttachmentPreview({attachment, format, spoilerHidden}: Mode
 		return () => {
 			controller.abort();
 			view?.dispose();
+			canvas.remove();
 			viewRef.current = null;
 			setReady(false);
 		};
@@ -203,7 +209,11 @@ export function ModelAttachmentPreview({attachment, format, spoilerHidden}: Mode
 				</div>
 			</div>
 			<div ref={stageRef} className={styles.stage}>
-				<canvas ref={canvasRef} className={ready ? styles.canvas : `${styles.canvas} ${styles.canvasHidden}`} />
+				<div
+					ref={canvasHostRef}
+					className={ready ? undefined : styles.canvasHidden}
+					style={{width: '100%', height: '100%'}}
+				/>
 				{overlay}
 				{ready && <span className={styles.hint}>{i18n._(HINT)}</span>}
 				{fullscreen && (
