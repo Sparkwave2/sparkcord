@@ -23,6 +23,7 @@ import {PlatformController} from '@app/api/sparkcord/PlatformController';
 import {YouTubeInfoController} from '@app/api/sparkcord/YouTubeInfoController';
 import {TupperController} from '@app/api/tupper/TupperController';
 import {NameFontController} from '@app/api/name_font/NameFontController';
+import {AvatarCosmeticController} from '@app/api/avatar_cosmetic/AvatarCosmeticController';
 import {GroupNameColorController} from '@app/api/group_name_color/GroupNameColorController';
 import {PersonalExpressionController} from '@app/api/personal_expression/PersonalExpressionController';
 import {SoundboardController} from '@app/api/soundboard/SoundboardController';
@@ -82,6 +83,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	YouTubeInfoController(routes);
 	NameFontController(routes);
 	GroupNameColorController(routes);
+	AvatarCosmeticController(routes);
 	PersonalExpressionController(routes);
 	SoundboardController(routes);
 	InviteController(routes);

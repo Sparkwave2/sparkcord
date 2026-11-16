@@ -11,6 +11,7 @@ type StyleInput = {
 	animated?: boolean;
 	glow?: boolean;
 	glow_color?: number | null;
+	simple_color?: number | null;
 };
 
 const TYPES = new Set<GuildRoleStyle['type']>(['solid', 'gradient', 'rainbow', 'alternating']);
@@ -35,6 +36,8 @@ export function normalizeRoleStyle(input: StyleInput | null | undefined): GuildR
 		animated,
 		glow,
 		glow_color: glow && isColor(input.glow_color) ? input.glow_color : null,
+		// A plain colour is already simple; only the multi-colour styles have a stand-in.
+		simple_color: type !== 'solid' && isColor(input.simple_color) ? input.simple_color : null,
 	};
 }
 

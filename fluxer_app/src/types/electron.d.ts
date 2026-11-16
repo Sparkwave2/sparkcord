@@ -58,6 +58,15 @@ import type {
 	VoiceBackgroundMediaCacheResult,
 	VoiceBackgroundMediaReadResult,
 } from '@fluxer/desktop_ipc/src/DesktopBridgeTypes';
+/** Sparkcord: whether the download page offers a newer desktop app. */
+export interface SparkcordUpdateInfo {
+	current: string;
+	latest: string | null;
+	available: boolean;
+	notes: string | null;
+	url: string;
+}
+
 /** Sparkcord: state of the desktop app's ad and tracker blocking. */
 export interface SparkcordAdBlockStatus {
 	enabled: boolean;
@@ -315,6 +324,7 @@ export interface ElectronAPI {
 	spellcheckSetState(state: Partial<SpellcheckState>): Promise<SpellcheckState>;
 	sparkcordAdBlockStatus?(): Promise<SparkcordAdBlockStatus>;
 	sparkcordAdBlockSetEnabled?(enabled: boolean): Promise<SparkcordAdBlockStatus>;
+	sparkcordUpdateCheck?(): Promise<SparkcordUpdateInfo>;
 	autostartEnable(): Promise<void>;
 	autostartDisable(): Promise<void>;
 	autostartIsEnabled(): Promise<boolean>;

@@ -34,6 +34,23 @@ const PLAIN_NAME_FONTS_HELP_DESCRIPTOR = msg({
 		"Ignores the name fonts people and tuppers picked, so every name is easy to read. Only changes what you see on this device.",
 	comment: 'Help text for the setting that turns off custom name fonts.',
 });
+const SIMPLE_ROLE_COLORS_DESCRIPTOR = msg({
+	message: 'Simplify role colours',
+	comment: 'Sparkcord accessibility setting that shows gradient, rainbow and glowing role names in one still colour.',
+});
+const SIMPLE_ROLE_COLORS_HELP_DESCRIPTOR = msg({
+	message:
+		'Shows every role name in a single colour, with no gradient, glow or movement. Only changes what you see on this device.',
+	comment: 'Help text for the setting that simplifies role name colours.',
+});
+const HIDE_AVATAR_COSMETICS_DESCRIPTOR = msg({
+	message: 'Hide avatar cosmetics',
+	comment: 'Sparkcord accessibility setting that hides the cosmetics people wear over their avatars.',
+});
+const HIDE_AVATAR_COSMETICS_HELP_DESCRIPTOR = msg({
+	message: 'Shows everyone\'s plain avatar, without the cosmetics they picked. Only changes what you see on this device.',
+	comment: 'Help text for the setting that hides avatar cosmetics.',
+});
 const ALL_MESSAGES_DESCRIPTOR = msg({
 	message: 'All messages',
 	comment: 'Short label in the visual tab. Keep it concise.',
@@ -148,6 +165,18 @@ export const VisualTabContent: React.FC = observer(() => {
 				description={i18n._(PLAIN_NAME_FONTS_HELP_DESCRIPTOR)}
 				value={SparkcordPrefs.get('plainNameFonts')}
 				onChange={(value) => SparkcordPrefs.set('plainNameFonts', value)}
+			/>
+			<Switch
+				label={i18n._(SIMPLE_ROLE_COLORS_DESCRIPTOR)}
+				description={i18n._(SIMPLE_ROLE_COLORS_HELP_DESCRIPTOR)}
+				value={SparkcordPrefs.get('simpleRoleColors')}
+				onChange={(value) => SparkcordPrefs.set('simpleRoleColors', value)}
+			/>
+			<Switch
+				label={i18n._(HIDE_AVATAR_COSMETICS_DESCRIPTOR)}
+				description={i18n._(HIDE_AVATAR_COSMETICS_HELP_DESCRIPTOR)}
+				value={SparkcordPrefs.get('hideAvatarCosmetics')}
+				onChange={(value) => SparkcordPrefs.set('hideAvatarCosmetics', value)}
 			/>
 			{shouldShowDirectMessageSettings() && (
 				<SettingsTabSection

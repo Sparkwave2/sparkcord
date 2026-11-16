@@ -4,11 +4,14 @@
 // downloads the ROM and opens EmulatorJS (self-hosted under /assets/emulatorjs/, run in
 // a same-origin iframe so its globals and styles stay out of the app) in a fullscreen
 // viewer styled like the image and PDF viewers. Saves stay in this browser.
+//
+// Flash files (.swf) use the same card and viewer, but are played by Ruffle
+// (self-hosted under /assets/ruffle/), which runs them cut off from the network.
 
 import {fetchAttachmentBytes} from '@app/features/channel/components/embeds/attachments/AttachmentBytes';
 import pdfStyles from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview.module.css';
 import styles from '@app/features/channel/components/embeds/attachments/RomAttachment.module.css';
-import type {RomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
+import {FLASH_CORE, type RomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
 import mediaStyles from '@app/features/messaging/components/modals/MediaModal.module.css';
 import {downloadFile} from '@app/features/messaging/utils/FileDownloadUtils';
 import {formatFileSize} from '@app/features/messaging/utils/FileUtils';
@@ -43,12 +46,15 @@ function RomPlayer({romUrl, system, fileName, onClose}: {romUrl: string; system:
 	}, [requestClose]);
 
 	const accent = getComputedStyle(document.documentElement).getPropertyValue('--brand-primary').trim() || '#a855f7';
-	const src = `/assets/emulatorjs/player.html?${new URLSearchParams({
-		core: system.core,
-		name: fileName,
-		rom: romUrl,
-		color: accent,
-	}).toString()}`;
+	const src =
+		system.core === FLASH_CORE
+			? `/assets/ruffle/player.html?${new URLSearchParams({swf: romUrl}).toString()}`
+			: `/assets/emulatorjs/player.html?${new URLSearchParams({
+					core: system.core,
+					name: fileName,
+					rom: romUrl,
+					color: accent,
+				}).toString()}`;
 
 	return createPortal(
 		<div

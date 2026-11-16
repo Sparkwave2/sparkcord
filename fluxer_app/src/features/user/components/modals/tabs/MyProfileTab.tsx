@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {AvatarCosmeticPicker} from '@app/features/avatar_cosmetics/AvatarCosmeticPicker';
+import * as AvatarUtils from '@app/features/user/utils/AvatarUtils';
 import {EmailVerificationAlert} from '@app/features/app/components/dialogs/components/EmailVerificationAlert';
 import {UnclaimedAccountAlert} from '@app/features/app/components/dialogs/components/UnclaimedAccountAlert';
 import {SettingsSection} from '@app/features/app/components/dialogs/shared/SettingsSection';
@@ -889,6 +891,12 @@ const MyProfileTabComponent = observer(function MyProfileTabComponent({
 										guildId={selectedGuildId}
 										previewName={(form.watch('global_name') as string | undefined) || user.displayName}
 									/>
+									{!isPerGuildProfile && (
+										<AvatarCosmeticPicker
+											userId={user.id}
+											avatarUrl={AvatarUtils.getUserAvatarURL({id: user.id, avatar: user.avatar}, false)}
+										/>
+									)}
 									{!isPerGuildProfile && (
 										<GroupNameColorPicker
 											userId={user.id}

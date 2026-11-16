@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import Config from '@app/features/app/config/Config';
 import {PRODUCT_NAME} from '@app/features/app/config/ProductConstants';
 import {formatAssetUploadExtensions, formatKnownAnimatedAssetExtensions} from '@fluxer/constants/src/AssetFormatPolicy';
 import {THE_OTHER_PLATFORM} from '@fluxer/constants/src/ExternalPlatformConstants';
@@ -40,13 +39,9 @@ export const VISIONARY_LIFETIME_BADGE_LABEL = 'Visionary #42';
 export const LINK_PREVIEW_EXAMPLE_URL = 'https://fluxer.com';
 export const EXAMPLE_GIF_URLS = `${EXAMPLE_URL}/gif1.gif\n${EXAMPLE_URL}/gif2.gif`;
 export const THE_OTHER_PLATFORM_TEMPLATE_EXAMPLE_URL = `https://${THE_OTHER_PLATFORM.toLowerCase()}.new/abcd1234`;
-const DESKTOP_DOWNLOAD_URLS: Record<string, string> = {
-	stable: 'https://fluxer.com/download',
-	canary: 'https://canary.fluxer.com/download',
-	development: 'http://localhost:8088/download',
-};
-
-export const DESKTOP_DOWNLOAD_URL = DESKTOP_DOWNLOAD_URLS[Config.RELEASE_CHANNEL] ?? DESKTOP_DOWNLOAD_URLS.stable;
+// Sparkcord: the desktop app is downloaded (and updated) from Sparkcord's own page, on
+// every release channel.
+export const DESKTOP_DOWNLOAD_URL = 'https://watermelon.quest/sparkcord';
 export const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.fluxer';
 export const FLUXER_DOCS_DOMAIN = 'fluxer.dev';
 export const FLUXER_DOCS_URL = `https://${FLUXER_DOCS_DOMAIN}`;

@@ -21,6 +21,13 @@ export const GuildRoleStyle = z.object({
 	animated: z.boolean().default(false).describe('Whether the colours move'),
 	glow: z.boolean().default(false).describe('Whether the name glows'),
 	glow_color: z.number().int().min(0).max(0xffffff).nullish().describe('Glow colour, or null to use the first colour'),
+	simple_color: z
+		.number()
+		.int()
+		.min(0)
+		.max(0xffffff)
+		.nullish()
+		.describe('The single colour shown to people who turned on simplified role colours, or null for the mix of the colours'),
 });
 
 export type GuildRoleStyle = z.infer<typeof GuildRoleStyle>;

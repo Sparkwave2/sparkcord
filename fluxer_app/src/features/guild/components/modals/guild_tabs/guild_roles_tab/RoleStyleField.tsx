@@ -5,7 +5,7 @@
 
 import styles from '@app/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.module.css';
 import type {GuildRole} from '@app/features/guild/models/GuildRole';
-import {StyledName} from '@app/features/role_style/RoleNameStyle';
+import {simplifiedColor, StyledName} from '@app/features/role_style/RoleNameStyle';
 import {ColorPickerField} from '@app/features/ui/components/form/ColorPickerField';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
 import type {GuildRoleStyle} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
@@ -39,6 +39,16 @@ const GLOW_DESCRIPTION = msg({
 	comment: 'Helper text under the Glow switch in the role name style editor.',
 });
 const GLOW_COLOR_LABEL = msg({message: 'Glow colour', comment: 'Colour picker label for the role name glow.'});
+const SIMPLE_COLOR_LABEL = msg({
+	message: 'Simplified colour',
+	comment:
+		'Colour picker label in the role name style editor: the single colour shown to people who simplify role colours.',
+});
+const SIMPLE_COLOR_DESCRIPTION = msg({
+	message:
+		'The one colour shown to people who turned on simplified role colours. Reset it to use the mix of the colours.',
+	comment: 'Helper text under the simplified colour picker in the role name style editor.',
+});
 const COLOR_N_LABEL = msg({message: 'Colour {n}', comment: 'Label of one colour in a role name gradient or pattern. {n} is 1-4.'});
 const REMOVE_COLOR_LABEL = msg({message: 'Remove colour', comment: 'Button that removes a colour from a role name gradient.'});
 const STYLE_GROUP_LABEL = msg({message: 'Name style', comment: 'Accessible label for the role name style choices.'});
@@ -75,6 +85,7 @@ export const RoleStyleField = observer(function RoleStyleField({
 				animated: style?.animated ?? false,
 				glow: style?.glow ?? false,
 				glow_color: style?.glow_color ?? null,
+				simple_color: style?.simple_color ?? null,
 				...next,
 			};
 			if (merged.type === 'gradient' || merged.type === 'alternating') {
@@ -82,7 +93,10 @@ export const RoleStyleField = observer(function RoleStyleField({
 			} else {
 				merged.colors = [];
 			}
-			if (merged.type === 'solid') merged.animated = false;
+			if (merged.type === 'solid') {
+				merged.animated = false;
+				merged.simple_color = null;
+			}
 			if (!merged.glow) merged.glow_color = null;
 			onChange(merged.type === 'solid' && !merged.glow ? null : merged);
 		},
@@ -99,7 +113,7 @@ export const RoleStyleField = observer(function RoleStyleField({
 		emit({colors: [...colors, DEFAULT_SECOND_COLORS.find((c) => !colors.includes(c)) ?? 0xffffff]});
 
 	const previewName = role.name || 'Role';
-	const previewStyle = style ? {style, color: role.color} : null;
+	const previewStyle = style ? {style, color: role.color, seed: role.id} : null;
 
 	return (
 		<div className={styles.field}>
@@ -181,6 +195,18 @@ export const RoleStyleField = observer(function RoleStyleField({
 					isDefaultValue={style.glow_color == null}
 					onReset={() => emit({glow_color: null})}
 					descriptionClassName={styles.hiddenHint}
+					disabled={disabled}
+				/>
+			)}
+
+			{style && type !== 'solid' && previewStyle && (
+				<ColorPickerField
+					label={i18n._(SIMPLE_COLOR_LABEL)}
+					description={i18n._(SIMPLE_COLOR_DESCRIPTION)}
+					value={simplifiedColor(previewStyle) ?? (role.color || 0xffffff)}
+					onChange={(num) => emit({simple_color: num >>> 0})}
+					isDefaultValue={style.simple_color == null}
+					onReset={() => emit({simple_color: null})}
 					disabled={disabled}
 				/>
 			)}

@@ -9,6 +9,9 @@ export interface RomSystem {
 	label: string;
 }
 
+/** Marks a file as a Flash movie, which Ruffle plays rather than EmulatorJS. */
+export const FLASH_CORE = 'flash';
+
 const SYSTEMS: Record<string, RomSystem> = {
 	nes: {core: 'nes', label: 'NES'},
 	fds: {core: 'nes', label: 'Famicom Disk System'},
@@ -39,6 +42,8 @@ const SYSTEMS: Record<string, RomSystem> = {
 	ws: {core: 'ws', label: 'WonderSwan'},
 	wsc: {core: 'ws', label: 'WonderSwan Color'},
 	vb: {core: 'vb', label: 'Virtual Boy'},
+	// Flash movies and games: played by Ruffle instead of EmulatorJS (see RomAttachment).
+	swf: {core: FLASH_CORE, label: 'Flash'},
 };
 
 export function getRomSystem(fileName: string): RomSystem | null {

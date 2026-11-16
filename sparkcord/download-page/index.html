@@ -1,0 +1,138 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<!--
+	Sparkcord download page. Serve this folder at https://watermelon.quest/sparkcord/
+	together with latest.json and the zip it names (desktop.sh --package makes all three).
+	The page reads latest.json, so a new release only needs the new zip and latest.json.
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Download Sparkcord</title>
+		<style>
+			:root {
+				color-scheme: dark;
+				--bg: #111014;
+				--card: #1b1a20;
+				--line: #2e2c36;
+				--text: #f2f1f5;
+				--muted: #a9a6b4;
+				--accent: #b14fe0;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 24px 16px;
+				background: var(--bg);
+				color: var(--text);
+				font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+			}
+			main {
+				width: 100%;
+				max-width: 520px;
+				padding: 28px;
+				border: 1px solid var(--line);
+				border-radius: 16px;
+				background: var(--card);
+			}
+			h1 {
+				margin: 0 0 4px;
+				font-size: 1.75rem;
+			}
+			p {
+				margin: 0 0 16px;
+				color: var(--muted);
+			}
+			.button {
+				display: block;
+				padding: 14px 18px;
+				border-radius: 12px;
+				background: var(--accent);
+				color: #fff;
+				font-weight: 700;
+				text-align: center;
+				text-decoration: none;
+			}
+			.button[aria-disabled='true'] {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+			.meta {
+				margin: 12px 0 0;
+				font-size: 0.875rem;
+				overflow-wrap: anywhere;
+			}
+			code {
+				font-size: 0.8125rem;
+			}
+			hr {
+				margin: 20px 0;
+				border: none;
+				border-top: 1px solid var(--line);
+			}
+			ol {
+				margin: 0;
+				padding-left: 20px;
+				color: var(--muted);
+			}
+			a {
+				color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Sparkcord</h1>
+			<p>The desktop app for Windows.</p>
+			<a id="download" class="button" href="#" aria-disabled="true">Loading…</a>
+			<p id="meta" class="meta"></p>
+			<p id="notes" class="meta"></p>
+			<hr />
+			<ol>
+				<li>Download the zip and unpack it anywhere, for example your Documents folder.</li>
+				<li>Open the <strong>Sparkcord</strong> folder and run <strong>Sparkcord.exe</strong>.</li>
+				<li>To update later, unpack the new zip over the old folder. Your login is kept.</li>
+			</ol>
+			<p class="meta">
+				No install needed? Use Sparkcord in your browser at
+				<a href="https://sparkcord.watermelon.quest">sparkcord.watermelon.quest</a>.
+			</p>
+		</main>
+		<script>
+			(async () => {
+				const button = document.getElementById('download');
+				const meta = document.getElementById('meta');
+				try {
+					const response = await fetch('latest.json', {cache: 'no-store'});
+					if (!response.ok) throw new Error(String(response.status));
+					const latest = await response.json();
+					const file = latest.windows && latest.windows.file;
+					if (!file) throw new Error('no file');
+					button.href = encodeURIComponent(file);
+					button.textContent = 'Download Sparkcord ' + latest.version + ' for Windows';
+					button.removeAttribute('aria-disabled');
+					const megabytes = latest.windows.size ? Math.round(latest.windows.size / 1048576) + ' MB' : '';
+					meta.textContent = [megabytes, latest.date].filter(Boolean).join(' · ');
+					if (latest.windows.sha256) {
+						const line = document.createElement('div');
+						line.append('SHA-256: ');
+						const code = document.createElement('code');
+						code.textContent = latest.windows.sha256;
+						line.append(code);
+						meta.append(line);
+					}
+					if (latest.notes) document.getElementById('notes').textContent = latest.notes;
+				} catch {
+					button.textContent = 'Download is not available right now';
+				}
+			})();
+		</script>
+	</body>
+</html>

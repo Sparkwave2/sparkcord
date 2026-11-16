@@ -11893,6 +11893,25 @@
 			"options": ""
 		},
 		{
+			"name": "avatar_cosmetics",
+			"columns": [
+				{
+					"name": "user_id",
+					"type": "bigint"
+				},
+				{
+					"name": "cosmetic",
+					"type": "text"
+				},
+				{
+					"name": "updated_at",
+					"type": "timestamp"
+				}
+			],
+			"primary_key": "((user_id))",
+			"options": ""
+		},
+		{
 			"name": "personal_expressions",
 			"columns": [
 				{

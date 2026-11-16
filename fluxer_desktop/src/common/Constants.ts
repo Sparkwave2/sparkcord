@@ -27,10 +27,12 @@ export const CHANNEL_APP_URLS: Record<BuildChannel, string> = {
 	development: DEVELOPMENT_APP_URL,
 };
 export const LOCAL_DEVELOPMENT_INSTANCE_URL = BUILD_CHANNEL === 'development' ? DEVELOPMENT_APP_URL : null;
+/** Sparkcord: where the desktop app is downloaded from, and where it looks for latest.json. */
+export const SPARKCORD_DOWNLOAD_URL = process.env.SPARKCORD_DOWNLOAD_URL || 'https://watermelon.quest/sparkcord';
 export const DOWNLOAD_PAGE_URLS: Record<BuildChannel, string> = {
-	stable: 'https://fluxer.com/download',
-	canary: 'https://canary.fluxer.com/download',
-	development: `${DEVELOPMENT_APP_URL}/download`,
+	stable: SPARKCORD_DOWNLOAD_URL,
+	canary: SPARKCORD_DOWNLOAD_URL,
+	development: SPARKCORD_DOWNLOAD_URL,
 };
 export const STABLE_MIGRATED_APP_ORIGIN = 'https://fluxer.com';
 export const CANARY_MIGRATED_APP_ORIGIN = 'https://canary.fluxer.com';

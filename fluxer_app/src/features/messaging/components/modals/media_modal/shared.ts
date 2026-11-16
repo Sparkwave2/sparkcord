@@ -22,6 +22,8 @@ export interface MediaModalProps {
 	isFavorited?: boolean;
 	onFavorite?: () => void;
 	onDownload?: () => void;
+	/** Sparkcord: opens the image editor for the current image. */
+	onEdit?: () => void;
 	onOpenInBrowser?: () => void;
 	onCopyLink?: () => void;
 	onCopyMedia?: () => void;
@@ -50,6 +52,10 @@ export const getViewportPadding = () => {
 export const MEDIA_CONTROLS_DESCRIPTOR = msg({
 	message: 'Media controls',
 	comment: 'Accessible label for the floating media controls toolbar in the media viewer modal.',
+});
+export const EDIT_IMAGE_DESCRIPTOR = msg({
+	message: 'Edit image',
+	comment: 'Button in the image viewer that opens a small image editor (crop, rotate, draw).',
 });
 export const DOWNLOAD_MEDIA_DESCRIPTOR = msg({
 	message: 'Download media',

@@ -17,6 +17,7 @@ import {
 } from '@electron/main/AppStoreNativeBoundary';
 import {registerAutostartHandlers} from '@electron/main/Autostart';
 import {installSparkcordAdBlock} from '@electron/main/SparkcordAdBlock';
+import {installSparkcordUpdateCheck} from '@electron/main/SparkcordUpdateCheck';
 import {
 	admitBootStateFormat,
 	registerBootStateIpc,
@@ -732,6 +733,12 @@ export async function startMainApp(
 			installSparkcordAdBlock(session.defaultSession);
 		} catch (error) {
 			log.error('[Init] Failed to install ad blocking:', error);
+		}
+		try {
+			// Sparkcord: "a newer version is on the download page" check.
+			installSparkcordUpdateCheck();
+		} catch (error) {
+			log.error('[Init] Failed to install the update check:', error);
 		}
 		try {
 			runStartupPhase('autostart-handlers', registerAutostartHandlers);

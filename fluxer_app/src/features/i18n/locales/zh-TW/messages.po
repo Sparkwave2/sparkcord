@@ -5312,6 +5312,10 @@ msgstr "套用"
 msgid "Apply changes"
 msgstr "套用變更"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Apply crop"
+msgstr ""
+
 #. Completion in the quick CSS editor that inserts an @media rule.
 #: src/features/theme_settings/editor/CssCompletions.ts
 msgid "Apply rules at some window sizes"
@@ -6070,6 +6074,10 @@ msgstr "可在桌面版應用程式中使用。"
 #: src/features/webhook/components/WebhookListItem.tsx
 msgid "Avatar"
 msgstr "大頭貼"
+
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Avatar cosmetic"
+msgstr ""
 
 #. Error message in the avatar uploader. Preserve {imageMaxSizeLabel}; it is inserted by code.
 #: src/features/user/components/modals/tabs/my_profile_tab/AvatarUploader.tsx
@@ -6954,6 +6962,10 @@ msgstr "瀏覽器只允許在使用 HTTPS 的網站上使用此功能，而此�
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Browsers set to a dark theme show this instead of the favicon. Add one when your favicon is too dark to see on a dark tab. Use a square PNG, at least 64 by 64 pixels and up to {size}."
 msgstr "使用深色主題的瀏覽器會顯示這張圖片，而不是網站圖示。如果您的網站圖示太暗，在深色分頁上看不清楚，就加上一張。請使用方形 PNG，至少 64 × 64 像素，最大 {size}。"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Brush size"
+msgstr ""
 
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx
@@ -9120,6 +9132,7 @@ msgstr "已關閉複製功能"
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
 msgstr "關閉"
@@ -11513,6 +11526,11 @@ msgstr "無法儲存進場音效"
 msgid "Couldn't save the tag: {detail}"
 msgstr "無法儲存標籤：{detail}"
 
+#. Error under the avatar cosmetic picker in profile settings.
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Couldn't save your avatar cosmetic. Try again."
+msgstr ""
+
 #. Error under the group chat name colour picker in profile settings.
 #: src/features/group_name_color/GroupNameColorPicker.tsx
 msgid "Couldn't save your group chat colour. Try again."
@@ -11547,6 +11565,10 @@ msgstr "無法傳送邀請"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Couldn't send invite. Try again."
 msgstr "無法傳送邀請。請再試一次。"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Couldn't send the edited image. Try again."
+msgstr ""
 
 #. Body of the generic fallback friend-request error modal.
 #. Generic error toast when sending a friend request fails with no recognized API error code.
@@ -12066,6 +12088,10 @@ msgstr "克羅埃西亞"
 msgid "Croatian"
 msgstr "克羅埃西亞文"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Crop"
+msgstr ""
+
 #. Modal title for cropping a user avatar before upload.
 #: src/features/expressions/components/modals/AssetCropModal.tsx
 msgid "Crop avatar"
@@ -12338,6 +12364,10 @@ msgstr "自訂最大使用次數"
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
 msgid "Custom notification"
 msgstr "自訂通知"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Custom pen colour"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
@@ -14394,8 +14424,10 @@ msgstr "按兩下自己的訊息即可編輯，按兩下別人的訊息即可回
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Download"
@@ -14548,6 +14580,10 @@ msgstr "在成員可以存取的語音頻道之間拖曳他們，並中斷他們
 msgid "Drag members out of this voice channel into channels they can access, and disconnect them from voice."
 msgstr "將成員從此語音頻道拖曳到他們可以存取的頻道，並中斷他們的語音連線。"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Drag over the part to keep"
+msgstr ""
+
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx
 msgid "Drag roles to customize the order they appear in the member list."
 msgstr "拖曳身分組以自訂其在成員列表中的顯示順序。"
@@ -14609,6 +14645,10 @@ msgstr "拖曳以重新調整身分組圖示的位置，並使用滾輪或雙指
 #. Hint under a 3D model preview.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 msgid "Drag to rotate · click, then scroll to zoom · right-drag to move"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Draw"
 msgstr ""
 
 #. Desktop setting description under the dark taskbar badge toggle on Windows.
@@ -14864,6 +14904,11 @@ msgstr "編輯群組"
 msgid "Edit group details"
 msgstr "編輯群組資訊"
 
+#. Button in the image viewer that opens a small image editor (crop, rotate, draw).
+#: src/features/messaging/components/modals/media_modal/shared.ts
+msgid "Edit image"
+msgstr ""
+
 #: src/features/invite/components/modals/InviteModal.tsx
 msgid "Edit invite link"
 msgstr "編輯邀請連結"
@@ -15024,6 +15069,10 @@ msgstr "可編輯文字"
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
 msgid "Editable text:"
 msgstr "可編輯文字："
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Edited image sent."
+msgstr ""
 
 #. Activity log detail row under a forum channel whose post tag was renamed or changed. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. {name} is the new tag name in bold.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogForumPresentation.ts
@@ -16011,6 +16060,10 @@ msgstr "進場音效音量"
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts
 msgid "Entrance sounds unavailable"
 msgstr "無法使用進場音效"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Erase drawing"
+msgstr ""
 
 #. Heading shown above the error message in the channel search results error state.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -17163,6 +17216,14 @@ msgstr "請先修正 CSS 中的錯誤再進行格式化。"
 #: src/features/expressions/utils/UnicodeEmojis.ts
 msgid "Flags"
 msgstr "旗幟"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip horizontally"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip vertically"
+msgstr ""
 
 #. Button in the quick CSS editor header that detaches a docked editor so it floats over the app again.
 #: src/features/theme_settings/components/QuickCssWorkspace.tsx
@@ -19070,6 +19131,11 @@ msgstr "隱藏閒置後"
 msgid "Hide an element"
 msgstr "隱藏元素"
 
+#. Sparkcord accessibility setting that hides the cosmetics people wear over their avatars.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Hide avatar cosmetics"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Hide avatars"
@@ -19824,6 +19890,10 @@ msgstr "圖片尺寸超出範圍。"
 #: src/features/expressions/utils/AssetFormatCopy.ts
 msgid "Image dimensions must be between {min}x{min2} and {max}x{max2} pixels."
 msgstr "圖片尺寸必須介於 {min}x{min2} 和 {max}x{max2} 像素之間。"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Image editor"
+msgstr ""
 
 #. Slash-command option for a tupper avatar image URL.
 #: src/features/tupper/TupperSlashCommands.ts
@@ -21460,6 +21530,7 @@ msgstr "延遲圖表"
 #. Native desktop dialog button that closes an update dialog without updating.
 #. Short label in the desktop settings tab. Keep it concise.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/DesktopWindowSection.tsx
 #: src/features/updater/commands/UpdaterModalCommands.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
@@ -22107,6 +22178,10 @@ msgstr "正在載入目的地…"
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Loading image"
 msgstr "正在載入圖片"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Loading image…"
+msgstr ""
 
 #. Shown while a 3D model attachment preview loads.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
@@ -25625,11 +25700,13 @@ msgid "Non-convert"
 msgstr "無轉換"
 
 #. Activity log value naming the lowest member verification level of a community, where no verification is required.
+#. Avatar cosmetic option: wear no cosmetic.
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #. Member verification level option in the community moderation settings tab. Short standalone label for the lowest level (no verification).
 #. SMTP encryption option that never encrypts the connection.
 #. Summary row value on the confirm step when no items in the category were selected.
 #: src/features/app/components/setup/SetupEmailSteps.tsx
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
@@ -27764,6 +27841,10 @@ msgstr "付款服務暫時無法使用。請稍後再試。"
 #: src/features/app/components/dialogs/components/plutonium/utils/PremiumActionErrorModal.tsx
 msgid "Payments are unavailable"
 msgstr "無法使用付款功能"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Pen colour {value}"
+msgstr ""
 
 #. Status badge for the application to Explore, shown in the "Explore" tab in community settings. The application is awaiting staff review.
 #. Tab label in the DM friends view showing pending friend requests.
@@ -31797,6 +31878,14 @@ msgstr "順時針旋轉"
 msgid "Rotate counterclockwise"
 msgstr "逆時針旋轉"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate left"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate right"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Round checkboxes"
 msgstr "圓形核取方塊"
@@ -33012,6 +33101,7 @@ msgstr "賣方：Fluxer Platform AB，559537-3993，登記所在地（säte）Ha
 
 #. Button or menu action label in the share theme modal. Keep it concise.
 #. Send-message button label in the voice message composer modal.
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/theme/components/modals/ShareThemeModal.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
@@ -33247,6 +33337,10 @@ msgstr "傳送："
 #: src/features/app/components/dialogs/shared/UseForwardDestinations.ts
 msgid "Sending messages is disabled in this community"
 msgstr "此社群已停用訊息傳送功能"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Sending…"
+msgstr ""
 
 #. Description for the stereo microphone switch in the voice settings.
 #: src/features/voice/utils/noise_suppression/NoiseSuppressionLabels.ts
@@ -34713,9 +34807,19 @@ msgstr "僅在您的 Visionary 徽章可見且未顯示為訂閱時顯示。"
 msgid "Shows a warning mark after messages that were sent on a slow connection, so you know they may have arrived late. Only changes this device."
 msgstr ""
 
+#. Help text for the setting that simplifies role name colours.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows every role name in a single colour, with no gradient, glow or movement. Only changes what you see on this device."
+msgstr ""
+
 #. Help text of the setting that shows usernames instead of display names.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+msgstr ""
+
+#. Help text for the setting that hides avatar cosmetics.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows everyone's plain avatar, without the cosmetics they picked. Only changes what you see on this device."
 msgstr ""
 
 #. Help text of the setting that shows platform icons.
@@ -35022,6 +35126,16 @@ msgstr "靜音來電"
 #: src/features/voice/components/StreamSettingsMenuContent.tsx
 msgid "Silent when the capture device has no audio input of its own"
 msgstr "當擷取裝置沒有自己的音訊輸入時保持靜音"
+
+#. Colour picker label in the role name style editor: the single colour shown to people who simplify role colours.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Simplified colour"
+msgstr ""
+
+#. Sparkcord accessibility setting that shows gradient, rainbow and glowing role names in one still colour.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Simplify role colours"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
@@ -35386,6 +35500,10 @@ msgstr ""
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
 msgstr "有人贈送你 {premiumProductName}。你的權益將於 {date} 前保持啟用。"
 
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Something to wear over your avatar, shown everywhere it appears. Saves right away."
+msgstr ""
+
 #. Generic error modal title for an unexpected failure.
 #: src/features/auth/flow/HandoffCodeDisplay.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -35699,6 +35817,10 @@ msgstr "西班牙文（拉丁美洲）"
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Spanish (Spain)"
 msgstr "西班牙文（西班牙）"
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "Sparkcord {latest} is available"
+msgstr ""
 
 #. Permission name: allows speaking in voice channels.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
@@ -37857,6 +37979,11 @@ msgstr "新的語音頻道將會重複使用 <0>{channelLabel}</0> 的權限、�
 msgid "The number of passes changed, so check the delivery box again."
 msgstr "通行證數量已變更，請重新勾選交付核取方塊。"
 
+#. Helper text under the simplified colour picker in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "The one colour shown to people who turned on simplified role colours. Reset it to use the mix of the colours."
+msgstr ""
+
 #. Heading of a slide in the Operator Pass checkout dialog about the badge shown on the user's profile. Operator is the badge's name, keep it in English. No trailing punctuation.
 #: src/features/premium/components/operator_pass/checkout/OperatorPassShowcaseSlides.ts
 msgid "The Operator badge"
@@ -38791,6 +38918,10 @@ msgstr "儲存後無法載入此圖片。請按「繼續」重試，或選擇其
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleIconField.tsx
 msgid "This image could not be loaded. Try another one."
 msgstr "無法載入此圖片。請換一張試試。"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "This image couldn't be opened for editing."
+msgstr ""
 
 #. Error modal body shown when an animated image fails to decode during cropping.
 #: src/features/messaging/components/modals/ImageCropModal.tsx
@@ -40747,6 +40878,7 @@ msgstr "為網站連結加上底線"
 #. Row in the quick CSS editor shortcuts dialog.
 #. Textarea right-click context menu item that undoes the last edit.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Undo"
@@ -44982,6 +45114,10 @@ msgstr "您有未儲存的變更。"
 #: src/features/user/components/modals/tabs/MyProfileTab.tsx
 msgid "You have unsaved changes. Save or reset before leaving."
 msgstr "您有未儲存的變更。請先儲存或重設，再離開。"
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "You have version {current}."
+msgstr ""
 
 #. Native desktop dialog body under the up to date headline. {version} is the installed version number.
 #: src/features/platform/utils/DesktopLocaleBridge.ts

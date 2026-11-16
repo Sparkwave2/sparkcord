@@ -80,6 +80,7 @@ function buildInfoDefines() {
 		'process.env.FLUXER_OFFLINE': JSON.stringify(offlineBuild ? '1' : ''),
 		'process.env.FLUXER_LAUNCH_COMMAND': JSON.stringify(packageLaunchCommand),
 		'process.env.SPARKCORD_INSTANCE_URL': JSON.stringify(process.env.SPARKCORD_INSTANCE_URL || ''),
+		'process.env.SPARKCORD_DOWNLOAD_URL': JSON.stringify(process.env.SPARKCORD_DOWNLOAD_URL || ''),
 		'process.env.SPARKCORD_LOCAL_URL': JSON.stringify(process.env.SPARKCORD_LOCAL_URL || ''),
 	};
 }

@@ -1,0 +1,132 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.root {
+	position: fixed;
+	inset: 0;
+	/* Above the media viewer (in the app's overlay layer), below toasts. */
+	z-index: 45000;
+	display: flex;
+	flex-direction: column;
+	background: rgb(0 0 0 / 0.92);
+	color: #fff;
+}
+
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	padding: 10px 14px;
+	background: rgb(24 24 28 / 0.96);
+	border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.group {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.spacer {
+	flex: 1;
+}
+
+.hint {
+	font-size: 0.8125rem;
+	color: rgb(255 255 255 / 0.7);
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-width: 34px;
+	height: 34px;
+	padding: 0 8px;
+	border-radius: 8px;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: #fff;
+	background: rgb(255 255 255 / 0.1);
+	cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+	background: rgb(255 255 255 / 0.2);
+}
+
+.button:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+
+.buttonWide {
+	padding: 0 12px;
+}
+
+.buttonActive,
+.buttonPrimary,
+.buttonActive:hover:not(:disabled),
+.buttonPrimary:hover:not(:disabled) {
+	background: var(--brand-primary, #5865f2);
+}
+
+.swatch {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: 2px solid rgb(255 255 255 / 0.25);
+	cursor: pointer;
+}
+
+.swatchActive {
+	border-color: #fff;
+	box-shadow: 0 0 0 2px var(--brand-primary, #5865f2);
+}
+
+.colorInput {
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.size {
+	width: 110px;
+}
+
+.stage {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+}
+
+.canvas {
+	max-width: 100%;
+	max-height: 100%;
+	touch-action: none;
+	cursor: crosshair;
+	/* A checkerboard shows through transparent parts of the image. */
+	background: repeating-conic-gradient(#3a3a3f 0% 25%, #2a2a2e 0% 50%) 50% / 20px 20px;
+	box-shadow: 0 8px 32px rgb(0 0 0 / 0.5);
+}
+
+.canvasCrop {
+	cursor: cell;
+}
+
+.canvasHidden {
+	display: none;
+}
+
+.message {
+	margin: 0;
+	font-size: 0.9375rem;
+	color: rgb(255 255 255 / 0.75);
+}

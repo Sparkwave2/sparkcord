@@ -109,6 +109,10 @@ interface BaseAvatarProps {
 	customStatusBadgeScale?: number;
 	customStatusBadgeMaxSizeRatio?: number;
 	customStatusBadgeCutoutPaddingScale?: number;
+	/** Sparkcord: an image drawn over the avatar (an avatar cosmetic). */
+	cosmeticUrl?: string;
+	/** Sparkcord: size of that image relative to the avatar. */
+	cosmeticScale?: number;
 	title?: never;
 	[themeAttr: `data-flx-${string}`]: string | undefined;
 }
@@ -140,6 +144,8 @@ export const BaseAvatar = React.forwardRef<HTMLDivElement, BaseAvatarProps>(
 			customStatusBadgeScale = DEFAULT_CUSTOM_STATUS_BADGE_SCALE,
 			customStatusBadgeMaxSizeRatio,
 			customStatusBadgeCutoutPaddingScale = DEFAULT_CUSTOM_STATUS_BADGE_CUTOUT_PADDING_SCALE,
+			cosmeticUrl,
+			cosmeticScale = 1,
 			...props
 		},
 		ref,
@@ -425,6 +431,23 @@ export const BaseAvatar = React.forwardRef<HTMLDivElement, BaseAvatarProps>(
 						data-flx="ui.base-avatar.hover-overlay"
 					/>
 				</svg>
+				{cosmeticUrl && (
+					<img
+						src={cosmeticUrl}
+						alt=""
+						aria-hidden
+						draggable={false}
+						style={{
+							position: 'absolute',
+							inset: 0,
+							width: '100%',
+							height: '100%',
+							objectFit: 'contain',
+							pointerEvents: 'none',
+							transform: cosmeticScale === 1 ? undefined : `scale(${cosmeticScale})`,
+						}}
+					/>
+				)}
 				{statusBadge &&
 					(isTyping || disableStatusTooltip ? (
 						statusBadge

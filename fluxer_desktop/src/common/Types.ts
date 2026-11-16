@@ -312,6 +312,7 @@ export interface ElectronAPI {
 	getInitialDeepLink: () => Promise<string | null>;
 	sparkcordAdBlockStatus: () => Promise<SparkcordAdBlockStatus>;
 	sparkcordAdBlockSetEnabled: (enabled: boolean) => Promise<SparkcordAdBlockStatus>;
+	sparkcordUpdateCheck: () => Promise<SparkcordUpdateInfo>;
 	autostartEnable: () => Promise<void>;
 	autostartDisable: () => Promise<void>;
 	autostartIsEnabled: () => Promise<boolean>;
@@ -501,6 +502,15 @@ declare global {
 	interface Window {
 		electron?: ElectronAPI;
 	}
+}
+
+/** Sparkcord: whether the download page offers a newer desktop app. */
+export interface SparkcordUpdateInfo {
+	current: string;
+	latest: string | null;
+	available: boolean;
+	notes: string | null;
+	url: string;
 }
 
 /** Sparkcord: state of the desktop app's ad and tracker blocking. */

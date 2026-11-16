@@ -32,7 +32,7 @@ tables are:
 
 `tuppers`, `tupper_settings`, `tupper_messages`, `name_fonts`, `group_name_colors`,
 `personal_expressions`, `personal_expressions_by_user`, `soundboard_sounds`,
-`soundboard_sounds_by_owner`.
+`soundboard_sounds_by_owner`, `avatar_cosmetics`.
 
 Personal emoji and sticker images use the existing `emojis/{id}` and `stickers/{id}`
 paths in the CDN bucket; soundboard audio is stored at `soundboard/{id}` in the same
@@ -86,7 +86,7 @@ Optional assets, before `build-app`:
   then `sparkcord/dev/dev.sh theme-images`. They are not in the repository. Without
   them the preset themes have no background picture.
 - Game BIOS files: `fluxer_app/assets/assets/emulatorjs/bios/` (see the README there).
-  `build-app` fetches EmulatorJS itself.
+  `build-app` fetches EmulatorJS and Ruffle (the Flash player, `/assets/ruffle/`) itself.
 
 Build the tracker image too:
 
@@ -117,7 +117,7 @@ built), or copy `sparkcord/dev/tracker` next to it and fix the path.
 The bundle's Caddyfile imports `/etc/caddy/conf.d/*.caddy`, and its compose file mounts
 `./caddy.d` there. If your edge is your own reverse proxy instead of the bundled one,
 add equivalent rules: `/tracker` to `tracker:8000` (WebSocket), `/tracker-ice`
-rewritten to `/ice` on `tracker:8001`, and for `/assets/emulatorjs/*` the relaxed
+rewritten to `/ice` on `tracker:8001`, and for `/assets/emulatorjs/*` and `/assets/ruffle/*` the relaxed
 `X-Frame-Options` and `Content-Security-Policy` from `emulatorjs.caddy`.
 
 ### 4. Settings

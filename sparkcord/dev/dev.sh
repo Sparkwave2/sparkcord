@@ -117,6 +117,7 @@ cmd_build_api() {
 cmd_build_app() {
 	echo "Building the web app (this compiles Rust/WASM and the SPA inside Docker)..."
 	node "$REPO_DIR/sparkcord/dev/emulatorjs.mjs"
+	node "$REPO_DIR/sparkcord/dev/ruffle.mjs"
 	# A unique version per build makes browsers' service workers drop cached assets from
 	# the previous build; reusing one version can mix old and new chunks and break startup.
 	local version
@@ -149,6 +150,7 @@ cmd_sync_wasm() {
 cmd_watch() {
 	[ -f "$REPO_DIR/fluxer_app/pkgs/libfluxcore/libfluxcore.js" ] || cmd_sync_wasm
 	node "$REPO_DIR/sparkcord/dev/emulatorjs.mjs"
+	node "$REPO_DIR/sparkcord/dev/ruffle.mjs"
 	(cd "$REPO_DIR/fluxer_app" && npx --no-install lingui compile --strict >/dev/null)
 	mkdir -p "$REPO_DIR/fluxer_app/dist"
 	touch "$STACK_DIR/.watching"

@@ -5312,6 +5312,10 @@ msgstr "Εφαρμογή"
 msgid "Apply changes"
 msgstr "Εφαρμογή αλλαγών"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Apply crop"
+msgstr ""
+
 #. Completion in the quick CSS editor that inserts an @media rule.
 #: src/features/theme_settings/editor/CssCompletions.ts
 msgid "Apply rules at some window sizes"
@@ -6070,6 +6074,10 @@ msgstr "Διαθέσιμο στην εφαρμογή για υπολογιστέ
 #: src/features/webhook/components/WebhookListItem.tsx
 msgid "Avatar"
 msgstr "Εικόνα προφίλ"
+
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Avatar cosmetic"
+msgstr ""
 
 #. Error message in the avatar uploader. Preserve {imageMaxSizeLabel}; it is inserted by code.
 #: src/features/user/components/modals/tabs/my_profile_tab/AvatarUploader.tsx
@@ -6954,6 +6962,10 @@ msgstr "Τα προγράμματα περιήγησης το επιτρέπου
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Browsers set to a dark theme show this instead of the favicon. Add one when your favicon is too dark to see on a dark tab. Use a square PNG, at least 64 by 64 pixels and up to {size}."
 msgstr "Τα προγράμματα περιήγησης με σκούρο θέμα δείχνουν αυτό αντί για το favicon. Προσθέστε το όταν το favicon σας είναι πολύ σκούρο για να φαίνεται σε σκούρα καρτέλα. Χρησιμοποιήστε ένα τετράγωνο PNG, τουλάχιστον 64 επί 64 pixel και έως {size}."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Brush size"
+msgstr ""
 
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx
@@ -9120,6 +9132,7 @@ msgstr "Η κλωνοποίηση είναι απενεργοποιημένη"
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
 msgstr "Κλείσιμο"
@@ -11513,6 +11526,11 @@ msgstr "Δεν ήταν δυνατή η αποθήκευση του ήχου ε�
 msgid "Couldn't save the tag: {detail}"
 msgstr "Δεν ήταν δυνατή η αποθήκευση της ετικέτας: {detail}"
 
+#. Error under the avatar cosmetic picker in profile settings.
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Couldn't save your avatar cosmetic. Try again."
+msgstr ""
+
 #. Error under the group chat name colour picker in profile settings.
 #: src/features/group_name_color/GroupNameColorPicker.tsx
 msgid "Couldn't save your group chat colour. Try again."
@@ -11547,6 +11565,10 @@ msgstr "Δεν ήταν δυνατή η αποστολή της πρόσκλησ
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Couldn't send invite. Try again."
 msgstr "Δεν ήταν δυνατή η αποστολή της πρόσκλησης. Δοκιμάστε ξανά."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Couldn't send the edited image. Try again."
+msgstr ""
 
 #. Body of the generic fallback friend-request error modal.
 #. Generic error toast when sending a friend request fails with no recognized API error code.
@@ -12066,6 +12088,10 @@ msgstr "Κροατία"
 msgid "Croatian"
 msgstr "Κροατικά"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Crop"
+msgstr ""
+
 #. Modal title for cropping a user avatar before upload.
 #: src/features/expressions/components/modals/AssetCropModal.tsx
 msgid "Crop avatar"
@@ -12338,6 +12364,10 @@ msgstr "Προσαρμοσμένες μέγιστες χρήσεις"
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
 msgid "Custom notification"
 msgstr "Προσαρμοσμένη ειδοποίηση"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Custom pen colour"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
@@ -14394,8 +14424,10 @@ msgstr "Διπλό κλικ στο δικό σας μήνυμα για επεξ�
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Download"
@@ -14548,6 +14580,10 @@ msgstr "Μεταφέρετε μέλη μεταξύ φωνητικών καναλ
 msgid "Drag members out of this voice channel into channels they can access, and disconnect them from voice."
 msgstr "Μεταφέρετε μέλη από αυτό το φωνητικό κανάλι σε κανάλια στα οποία έχουν πρόσβαση και αποσυνδέστε τα από τη φωνητική επικοινωνία."
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Drag over the part to keep"
+msgstr ""
+
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx
 msgid "Drag roles to customize the order they appear in the member list."
 msgstr "Σύρετε τους ρόλους για να προσαρμόσετε τη σειρά εμφάνισής τους στη λίστα μελών."
@@ -14609,6 +14645,10 @@ msgstr "Σύρετε για να αλλάξετε τη θέση του εικο�
 #. Hint under a 3D model preview.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 msgid "Drag to rotate · click, then scroll to zoom · right-drag to move"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Draw"
 msgstr ""
 
 #. Desktop setting description under the dark taskbar badge toggle on Windows.
@@ -14864,6 +14904,11 @@ msgstr "Επεξεργασία ομάδας"
 msgid "Edit group details"
 msgstr "Επεξεργασία στοιχείων ομάδας"
 
+#. Button in the image viewer that opens a small image editor (crop, rotate, draw).
+#: src/features/messaging/components/modals/media_modal/shared.ts
+msgid "Edit image"
+msgstr ""
+
 #: src/features/invite/components/modals/InviteModal.tsx
 msgid "Edit invite link"
 msgstr "Επεξεργασία συνδέσμου πρόσκλησης"
@@ -15024,6 +15069,10 @@ msgstr "Επεξεργάσιμο κείμενο"
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
 msgid "Editable text:"
 msgstr "Επεξεργάσιμο κείμενο:"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Edited image sent."
+msgstr ""
 
 #. Activity log detail row under a forum channel whose post tag was renamed or changed. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. {name} is the new tag name in bold.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogForumPresentation.ts
@@ -16011,6 +16060,10 @@ msgstr "Ένταση ήχου εισόδου"
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts
 msgid "Entrance sounds unavailable"
 msgstr "Οι ήχοι εισόδου δεν είναι διαθέσιμοι"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Erase drawing"
+msgstr ""
 
 #. Heading shown above the error message in the channel search results error state.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -17163,6 +17216,14 @@ msgstr "Διόρθωσε τα σφάλματα στο CSS σου πριν το �
 #: src/features/expressions/utils/UnicodeEmojis.ts
 msgid "Flags"
 msgstr "Σημαίες"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip horizontally"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip vertically"
+msgstr ""
 
 #. Button in the quick CSS editor header that detaches a docked editor so it floats over the app again.
 #: src/features/theme_settings/components/QuickCssWorkspace.tsx
@@ -19070,6 +19131,11 @@ msgstr "Απόκρυψη μετά από αδράνεια"
 msgid "Hide an element"
 msgstr "Απόκρυψη στοιχείου"
 
+#. Sparkcord accessibility setting that hides the cosmetics people wear over their avatars.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Hide avatar cosmetics"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Hide avatars"
@@ -19824,6 +19890,10 @@ msgstr "Οι διαστάσεις της εικόνας είναι εκτός ο
 #: src/features/expressions/utils/AssetFormatCopy.ts
 msgid "Image dimensions must be between {min}x{min2} and {max}x{max2} pixels."
 msgstr "Οι διαστάσεις της εικόνας πρέπει να είναι μεταξύ {min}x{min2} και {max}x{max2} pixel."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Image editor"
+msgstr ""
 
 #. Slash-command option for a tupper avatar image URL.
 #: src/features/tupper/TupperSlashCommands.ts
@@ -21460,6 +21530,7 @@ msgstr "Γράφημα καθυστέρησης"
 #. Native desktop dialog button that closes an update dialog without updating.
 #. Short label in the desktop settings tab. Keep it concise.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/DesktopWindowSection.tsx
 #: src/features/updater/commands/UpdaterModalCommands.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
@@ -22107,6 +22178,10 @@ msgstr "Φόρτωση προορισμών…"
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Loading image"
 msgstr "Φόρτωση εικόνας"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Loading image…"
+msgstr ""
 
 #. Shown while a 3D model attachment preview loads.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
@@ -25625,11 +25700,13 @@ msgid "Non-convert"
 msgstr "Χωρίς μετατροπή"
 
 #. Activity log value naming the lowest member verification level of a community, where no verification is required.
+#. Avatar cosmetic option: wear no cosmetic.
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #. Member verification level option in the community moderation settings tab. Short standalone label for the lowest level (no verification).
 #. SMTP encryption option that never encrypts the connection.
 #. Summary row value on the confirm step when no items in the category were selected.
 #: src/features/app/components/setup/SetupEmailSteps.tsx
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
@@ -27764,6 +27841,10 @@ msgstr "Οι πληρωμές είναι προσωρινά μη διαθέσι�
 #: src/features/app/components/dialogs/components/plutonium/utils/PremiumActionErrorModal.tsx
 msgid "Payments are unavailable"
 msgstr "Οι πληρωμές δεν είναι διαθέσιμες"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Pen colour {value}"
+msgstr ""
 
 #. Status badge for the application to Explore, shown in the "Explore" tab in community settings. The application is awaiting staff review.
 #. Tab label in the DM friends view showing pending friend requests.
@@ -31797,6 +31878,14 @@ msgstr "Περιστροφή δεξιόστροφα"
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή αριστερόστροφα"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate left"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate right"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Round checkboxes"
 msgstr "Στρογγυλά πλαίσια επιλογής"
@@ -33012,6 +33101,7 @@ msgstr "Πωλητής: Fluxer Platform AB, 559537-3993, καταστατική 
 
 #. Button or menu action label in the share theme modal. Keep it concise.
 #. Send-message button label in the voice message composer modal.
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/theme/components/modals/ShareThemeModal.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
@@ -33247,6 +33337,10 @@ msgstr "Αποστολή:"
 #: src/features/app/components/dialogs/shared/UseForwardDestinations.ts
 msgid "Sending messages is disabled in this community"
 msgstr "Η αποστολή μηνυμάτων έχει απενεργοποιηθεί σε αυτήν την κοινότητα"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Sending…"
+msgstr ""
 
 #. Description for the stereo microphone switch in the voice settings.
 #: src/features/voice/utils/noise_suppression/NoiseSuppressionLabels.ts
@@ -34713,9 +34807,19 @@ msgstr "Εμφανίζεται μόνο όταν το σήμα Visionary σας 
 msgid "Shows a warning mark after messages that were sent on a slow connection, so you know they may have arrived late. Only changes this device."
 msgstr ""
 
+#. Help text for the setting that simplifies role name colours.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows every role name in a single colour, with no gradient, glow or movement. Only changes what you see on this device."
+msgstr ""
+
 #. Help text of the setting that shows usernames instead of display names.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+msgstr ""
+
+#. Help text for the setting that hides avatar cosmetics.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows everyone's plain avatar, without the cosmetics they picked. Only changes what you see on this device."
 msgstr ""
 
 #. Help text of the setting that shows platform icons.
@@ -35022,6 +35126,16 @@ msgstr "Σιωπηλές κλήσεις"
 #: src/features/voice/components/StreamSettingsMenuContent.tsx
 msgid "Silent when the capture device has no audio input of its own"
 msgstr "Σίγαση όταν η συσκευή λήψης δεν έχει δική της είσοδο ήχου"
+
+#. Colour picker label in the role name style editor: the single colour shown to people who simplify role colours.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Simplified colour"
+msgstr ""
+
+#. Sparkcord accessibility setting that shows gradient, rainbow and glowing role names in one still colour.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Simplify role colours"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
@@ -35386,6 +35500,10 @@ msgstr ""
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
 msgstr "Κάποιος σου έκανε δώρο {premiumProductName}. Τα προνόμιά σου παραμένουν ενεργά μέχρι τις {date}."
 
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Something to wear over your avatar, shown everywhere it appears. Saves right away."
+msgstr ""
+
 #. Generic error modal title for an unexpected failure.
 #: src/features/auth/flow/HandoffCodeDisplay.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -35699,6 +35817,10 @@ msgstr "Ισπανικά (Λατινική Αμερική)"
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Spanish (Spain)"
 msgstr "Ισπανικά (Ισπανία)"
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "Sparkcord {latest} is available"
+msgstr ""
 
 #. Permission name: allows speaking in voice channels.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
@@ -37857,6 +37979,11 @@ msgstr "Το νέο φωνητικό κανάλι θα επαναχρησιμο�
 msgid "The number of passes changed, so check the delivery box again."
 msgstr "Ο αριθμός των πάσων άλλαξε, οπότε τσεκάρετε ξανά το πλαίσιο της παράδοσης."
 
+#. Helper text under the simplified colour picker in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "The one colour shown to people who turned on simplified role colours. Reset it to use the mix of the colours."
+msgstr ""
+
 #. Heading of a slide in the Operator Pass checkout dialog about the badge shown on the user's profile. Operator is the badge's name, keep it in English. No trailing punctuation.
 #: src/features/premium/components/operator_pass/checkout/OperatorPassShowcaseSlides.ts
 msgid "The Operator badge"
@@ -38791,6 +38918,10 @@ msgstr "Αυτή η εικόνα δεν φορτώθηκε μετά την απ�
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleIconField.tsx
 msgid "This image could not be loaded. Try another one."
 msgstr "Δεν ήταν δυνατή η φόρτωση αυτής της εικόνας. Δοκιμάστε άλλη."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "This image couldn't be opened for editing."
+msgstr ""
 
 #. Error modal body shown when an animated image fails to decode during cropping.
 #: src/features/messaging/components/modals/ImageCropModal.tsx
@@ -40747,6 +40878,7 @@ msgstr "Υπογράμμιση συνδέσμων ιστοσελίδων"
 #. Row in the quick CSS editor shortcuts dialog.
 #. Textarea right-click context menu item that undoes the last edit.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Undo"
@@ -44982,6 +45114,10 @@ msgstr "Έχετε μη αποθηκευμένες αλλαγές."
 #: src/features/user/components/modals/tabs/MyProfileTab.tsx
 msgid "You have unsaved changes. Save or reset before leaving."
 msgstr "Έχετε μη αποθηκευμένες αλλαγές. Αποθηκεύστε ή επαναφέρετε πριν φύγετε."
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "You have version {current}."
+msgstr ""
 
 #. Native desktop dialog body under the up to date headline. {version} is the installed version number.
 #: src/features/platform/utils/DesktopLocaleBridge.ts

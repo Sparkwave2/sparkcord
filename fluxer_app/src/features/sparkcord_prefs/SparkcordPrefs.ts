@@ -28,6 +28,12 @@ interface Prefs {
 	showLatencyWarnings: boolean;
 	/** Don't tell others when this device sends messages on a slow connection. */
 	hideMyLatency: boolean;
+	/** Show every styled role (gradient, rainbow, glow...) as one still colour. */
+	simpleRoleColors: boolean;
+	/** Don't show the cosmetics people wear over their avatars. */
+	hideAvatarCosmetics: boolean;
+	/** The desktop app version whose "update available" notice was dismissed. */
+	dismissedUpdateVersion: string;
 }
 
 const DEFAULTS: Prefs = {
@@ -40,6 +46,9 @@ const DEFAULTS: Prefs = {
 	hidePlatform: false,
 	showLatencyWarnings: false,
 	hideMyLatency: false,
+	simpleRoleColors: false,
+	hideAvatarCosmetics: false,
+	dismissedUpdateVersion: '',
 };
 
 function readStored(): Prefs {

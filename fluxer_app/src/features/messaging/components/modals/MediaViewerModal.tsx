@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import Accessibility from '@app/features/accessibility/state/Accessibility';
+import {ImageEditor} from '@app/features/image_editor/ImageEditor';
 import {useBottomSheetBackHandler} from '@app/features/app/hooks/useBottomSheetBackHandler';
 import {deriveDefaultNameFromMessage} from '@app/features/channel/components/embeds/EmbedUtils';
 import {useMessageActionMenuData} from '@app/features/channel/components/MessageActionMenu';
@@ -313,6 +314,8 @@ const MediaViewerModalComponent: FC = observer(() => {
 		MediaViewer;
 	const {enabled: isMobile} = MobileLayout;
 	const [isMediaMenuOpen, setIsMediaMenuOpen] = useState(false);
+	// Sparkcord: the image being edited (its fetch address), or null.
+	const [editingSrc, setEditingSrc] = useState<string | null>(null);
 	const freshItems = items.map(withFreshViewerItemUrls);
 	const currentItem = freshItems[currentIndex];
 	const currentGifvIsActualGif = currentItem != null && isGifvRenderedAsImage(currentItem);
@@ -721,6 +724,16 @@ const MediaViewerModalComponent: FC = observer(() => {
 				isFavorited={canFavoriteCurrentItem ? isFavorited : undefined}
 				onFavorite={canFavoriteCurrentItem ? handleFavoriteClick : undefined}
 				onDownload={downloadHidden ? undefined : handleDownload}
+				onEdit={
+					!downloadHidden && !isMobile && currentItem.type === 'image'
+						? () =>
+								setEditingSrc(
+									currentItem.src !== currentItem.originalSrc
+										? getBaseProxyURL(currentItem.src)
+										: currentItem.originalSrc,
+								)
+						: undefined
+				}
 				onOpenInBrowser={downloadHidden ? undefined : handleOpenInBrowser}
 				onCopyLink={downloadHidden ? undefined : handleCopyLink}
 				onCopyMedia={downloadHidden ? undefined : handleCopyMedia}
@@ -751,6 +764,14 @@ const MediaViewerModalComponent: FC = observer(() => {
 					{renderMedia()}
 				</div>
 			</MediaModal>
+			{editingSrc && (
+				<ImageEditor
+					src={editingSrc}
+					fileName={fileName || defaultName || 'image.png'}
+					channelId={permissions?.canSendMessages ? (channelId ?? null) : null}
+					onClose={() => setEditingSrc(null)}
+				/>
+			)}
 			{isMobile && message && (
 				<MobileMediaOptionsSheet
 					currentItem={currentItem}

@@ -5312,6 +5312,10 @@ msgstr "Aplicar"
 msgid "Apply changes"
 msgstr "Aplicar alterações"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Apply crop"
+msgstr ""
+
 #. Completion in the quick CSS editor that inserts an @media rule.
 #: src/features/theme_settings/editor/CssCompletions.ts
 msgid "Apply rules at some window sizes"
@@ -6070,6 +6074,10 @@ msgstr "Disponível no app para computador."
 #: src/features/webhook/components/WebhookListItem.tsx
 msgid "Avatar"
 msgstr "Avatar"
+
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Avatar cosmetic"
+msgstr ""
 
 #. Error message in the avatar uploader. Preserve {imageMaxSizeLabel}; it is inserted by code.
 #: src/features/user/components/modals/tabs/my_profile_tab/AvatarUploader.tsx
@@ -6954,6 +6962,10 @@ msgstr "Os navegadores só permitem isso em sites que usam HTTPS, e esta instân
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Browsers set to a dark theme show this instead of the favicon. Add one when your favicon is too dark to see on a dark tab. Use a square PNG, at least 64 by 64 pixels and up to {size}."
 msgstr "Navegadores com tema escuro mostram esta imagem no lugar do ícone do site. Adicione uma se o ícone do site for escuro demais para aparecer em uma aba escura. Use um PNG quadrado, com pelo menos 64 por 64 pixels e até {size}."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Brush size"
+msgstr ""
 
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx
@@ -9120,6 +9132,7 @@ msgstr "Clonagem desativada"
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Close"
 msgstr "Fechar"
@@ -11513,6 +11526,11 @@ msgstr "Não foi possível salvar o som de entrada"
 msgid "Couldn't save the tag: {detail}"
 msgstr "Não foi possível salvar a tag: {detail}"
 
+#. Error under the avatar cosmetic picker in profile settings.
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Couldn't save your avatar cosmetic. Try again."
+msgstr ""
+
 #. Error under the group chat name colour picker in profile settings.
 #: src/features/group_name_color/GroupNameColorPicker.tsx
 msgid "Couldn't save your group chat colour. Try again."
@@ -11547,6 +11565,10 @@ msgstr "Não foi possível enviar o convite"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Couldn't send invite. Try again."
 msgstr "Não foi possível enviar o convite. Tente novamente."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Couldn't send the edited image. Try again."
+msgstr ""
 
 #. Body of the generic fallback friend-request error modal.
 #. Generic error toast when sending a friend request fails with no recognized API error code.
@@ -12066,6 +12088,10 @@ msgstr "Croácia"
 msgid "Croatian"
 msgstr "Croata"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Crop"
+msgstr ""
+
 #. Modal title for cropping a user avatar before upload.
 #: src/features/expressions/components/modals/AssetCropModal.tsx
 msgid "Crop avatar"
@@ -12338,6 +12364,10 @@ msgstr "Máximo de usos personalizado"
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
 msgid "Custom notification"
 msgstr "Notificação personalizada"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Custom pen colour"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
@@ -14394,8 +14424,10 @@ msgstr "Clique duas vezes na sua própria mensagem para editá-la, ou na mensage
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/p2p/P2PShareCard.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/QuickCssFiles.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Download"
@@ -14548,6 +14580,10 @@ msgstr "Arraste membros entre canais de voz aos quais eles têm acesso e descone
 msgid "Drag members out of this voice channel into channels they can access, and disconnect them from voice."
 msgstr "Arraste membros para fora deste canal de voz para canais aos quais eles tenham acesso e desconecte-os do áudio."
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Drag over the part to keep"
+msgstr ""
+
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx
 msgid "Drag roles to customize the order they appear in the member list."
 msgstr "Arraste os cargos para personalizar a ordem em que aparecem na lista de membros."
@@ -14609,6 +14645,10 @@ msgstr "Arraste para reposicionar o ícone do cargo e use a roda de rolagem ou o
 #. Hint under a 3D model preview.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
 msgid "Drag to rotate · click, then scroll to zoom · right-drag to move"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Draw"
 msgstr ""
 
 #. Desktop setting description under the dark taskbar badge toggle on Windows.
@@ -14864,6 +14904,11 @@ msgstr "Editar grupo"
 msgid "Edit group details"
 msgstr "Editar dados do grupo"
 
+#. Button in the image viewer that opens a small image editor (crop, rotate, draw).
+#: src/features/messaging/components/modals/media_modal/shared.ts
+msgid "Edit image"
+msgstr ""
+
 #: src/features/invite/components/modals/InviteModal.tsx
 msgid "Edit invite link"
 msgstr "Editar link de convite"
@@ -15024,6 +15069,10 @@ msgstr "Texto editável"
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
 msgid "Editable text:"
 msgstr "Texto editável:"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Edited image sent."
+msgstr ""
 
 #. Activity log detail row under a forum channel whose post tag was renamed or changed. It continues the entry summary, so it has no subject. It is a past tense record of a change the actor in the summary already made, never an instruction to the reader. {name} is the new tag name in bold.
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogForumPresentation.ts
@@ -16011,6 +16060,10 @@ msgstr "Volume do som de entrada"
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts
 msgid "Entrance sounds unavailable"
 msgstr "Sons de entrada indisponíveis"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Erase drawing"
+msgstr ""
 
 #. Heading shown above the error message in the channel search results error state.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -17163,6 +17216,14 @@ msgstr "Corrija os erros no seu CSS antes de formatar."
 #: src/features/expressions/utils/UnicodeEmojis.ts
 msgid "Flags"
 msgstr "Bandeiras"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip horizontally"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Flip vertically"
+msgstr ""
 
 #. Button in the quick CSS editor header that detaches a docked editor so it floats over the app again.
 #: src/features/theme_settings/components/QuickCssWorkspace.tsx
@@ -19070,6 +19131,11 @@ msgstr "Ocultar após inatividade"
 msgid "Hide an element"
 msgstr "Ocultar um elemento"
 
+#. Sparkcord accessibility setting that hides the cosmetics people wear over their avatars.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Hide avatar cosmetics"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Hide avatars"
@@ -19824,6 +19890,10 @@ msgstr "As dimensões da imagem estão fora do intervalo."
 #: src/features/expressions/utils/AssetFormatCopy.ts
 msgid "Image dimensions must be between {min}x{min2} and {max}x{max2} pixels."
 msgstr "As dimensões da imagem devem estar entre {min}x{min2} e {max}x{max2} pixels."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Image editor"
+msgstr ""
 
 #. Slash-command option for a tupper avatar image URL.
 #: src/features/tupper/TupperSlashCommands.ts
@@ -21460,6 +21530,7 @@ msgstr "Gráfico de latência"
 #. Native desktop dialog button that closes an update dialog without updating.
 #. Short label in the desktop settings tab. Keep it concise.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
+#: src/features/sparkcord_update/UpdateNotice.tsx
 #: src/features/theme_settings/components/DesktopWindowSection.tsx
 #: src/features/updater/commands/UpdaterModalCommands.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
@@ -22107,6 +22178,10 @@ msgstr "Carregando destinos…"
 #: src/features/app/components/setup/SetupBrandingAssetField.tsx
 msgid "Loading image"
 msgstr "Carregando imagem"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Loading image…"
+msgstr ""
 
 #. Shown while a 3D model attachment preview loads.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
@@ -25625,11 +25700,13 @@ msgid "Non-convert"
 msgstr "Não converter"
 
 #. Activity log value naming the lowest member verification level of a community, where no verification is required.
+#. Avatar cosmetic option: wear no cosmetic.
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #. Member verification level option in the community moderation settings tab. Short standalone label for the lowest level (no verification).
 #. SMTP encryption option that never encrypts the connection.
 #. Summary row value on the confirm step when no items in the category were selected.
 #: src/features/app/components/setup/SetupEmailSteps.tsx
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
@@ -27764,6 +27841,10 @@ msgstr "Os pagamentos estão temporariamente indisponíveis. Tente novamente em 
 #: src/features/app/components/dialogs/components/plutonium/utils/PremiumActionErrorModal.tsx
 msgid "Payments are unavailable"
 msgstr "Pagamentos indisponíveis"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Pen colour {value}"
+msgstr ""
 
 #. Status badge for the application to Explore, shown in the "Explore" tab in community settings. The application is awaiting staff review.
 #. Tab label in the DM friends view showing pending friend requests.
@@ -31797,6 +31878,14 @@ msgstr "Girar no sentido horário"
 msgid "Rotate counterclockwise"
 msgstr "Girar no sentido anti-horário"
 
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate left"
+msgstr ""
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Rotate right"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Round checkboxes"
 msgstr "Caixas de seleção redondas"
@@ -33012,6 +33101,7 @@ msgstr "Vendedor: Fluxer Platform AB, 559537-3993, sede (säte) em Haninge, Sué
 
 #. Button or menu action label in the share theme modal. Keep it concise.
 #. Send-message button label in the voice message composer modal.
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/theme/components/modals/ShareThemeModal.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
@@ -33247,6 +33337,10 @@ msgstr "Enviar:"
 #: src/features/app/components/dialogs/shared/UseForwardDestinations.ts
 msgid "Sending messages is disabled in this community"
 msgstr "O envio de mensagens está desativado nesta comunidade"
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "Sending…"
+msgstr ""
 
 #. Description for the stereo microphone switch in the voice settings.
 #: src/features/voice/utils/noise_suppression/NoiseSuppressionLabels.ts
@@ -34713,9 +34807,19 @@ msgstr "Só aparece quando seu selo Visionary está visível e não é exibido c
 msgid "Shows a warning mark after messages that were sent on a slow connection, so you know they may have arrived late. Only changes this device."
 msgstr ""
 
+#. Help text for the setting that simplifies role name colours.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows every role name in a single colour, with no gradient, glow or movement. Only changes what you see on this device."
+msgstr ""
+
 #. Help text of the setting that shows usernames instead of display names.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+msgstr ""
+
+#. Help text for the setting that hides avatar cosmetics.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Shows everyone's plain avatar, without the cosmetics they picked. Only changes what you see on this device."
 msgstr ""
 
 #. Help text of the setting that shows platform icons.
@@ -35022,6 +35126,16 @@ msgstr "Chamadas silenciosas"
 #: src/features/voice/components/StreamSettingsMenuContent.tsx
 msgid "Silent when the capture device has no audio input of its own"
 msgstr "Silencioso quando o dispositivo de captura não tem entrada de áudio própria"
+
+#. Colour picker label in the role name style editor: the single colour shown to people who simplify role colours.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "Simplified colour"
+msgstr ""
+
+#. Sparkcord accessibility setting that shows gradient, rainbow and glowing role names in one still colour.
+#: src/features/user/components/modals/tabs/accessibility_tab/VisualTab.tsx
+msgid "Simplify role colours"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
@@ -35386,6 +35500,10 @@ msgstr ""
 msgid "Someone gifted you {premiumProductName}. Your perks stay active until {date}."
 msgstr "Alguém te presenteou com {premiumProductName}. Seus benefícios permanecem ativos até {date}."
 
+#: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+msgid "Something to wear over your avatar, shown everywhere it appears. Saves right away."
+msgstr ""
+
 #. Generic error modal title for an unexpected failure.
 #: src/features/auth/flow/HandoffCodeDisplay.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -35699,6 +35817,10 @@ msgstr "Espanhol (América Latina)"
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Spanish (Spain)"
 msgstr "Espanhol (Espanha)"
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "Sparkcord {latest} is available"
+msgstr ""
 
 #. Permission name: allows speaking in voice channels.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
@@ -37857,6 +37979,11 @@ msgstr "O novo canal de voz vai reutilizar as permissões, limite de usuários e
 msgid "The number of passes changed, so check the delivery box again."
 msgstr "O número de passes mudou, então marque de novo a caixa de entrega."
 
+#. Helper text under the simplified colour picker in the role name style editor.
+#: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
+msgid "The one colour shown to people who turned on simplified role colours. Reset it to use the mix of the colours."
+msgstr ""
+
 #. Heading of a slide in the Operator Pass checkout dialog about the badge shown on the user's profile. Operator is the badge's name, keep it in English. No trailing punctuation.
 #: src/features/premium/components/operator_pass/checkout/OperatorPassShowcaseSlides.ts
 msgid "The Operator badge"
@@ -38791,6 +38918,10 @@ msgstr "Não foi possível carregar esta imagem após o salvamento. Pressione \"
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleIconField.tsx
 msgid "This image could not be loaded. Try another one."
 msgstr "Não foi possível carregar esta imagem. Tente outra."
+
+#: src/features/image_editor/ImageEditor.tsx
+msgid "This image couldn't be opened for editing."
+msgstr ""
 
 #. Error modal body shown when an animated image fails to decode during cropping.
 #: src/features/messaging/components/modals/ImageCropModal.tsx
@@ -40747,6 +40878,7 @@ msgstr "Sublinhar links de sites"
 #. Row in the quick CSS editor shortcuts dialog.
 #. Textarea right-click context menu item that undoes the last edit.
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx
+#: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Undo"
@@ -44982,6 +45114,10 @@ msgstr "Você tem alterações não salvas."
 #: src/features/user/components/modals/tabs/MyProfileTab.tsx
 msgid "You have unsaved changes. Save or reset before leaving."
 msgstr "Você tem alterações não salvas. Salve ou redefina antes de sair."
+
+#: src/features/sparkcord_update/UpdateNotice.tsx
+msgid "You have version {current}."
+msgstr ""
 
 #. Native desktop dialog body under the up to date headline. {version} is the installed version number.
 #: src/features/platform/utils/DesktopLocaleBridge.ts

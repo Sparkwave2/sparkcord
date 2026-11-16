@@ -116,11 +116,13 @@ export class GuildMember {
 	 */
 	getNameStyle(): NameStyle | null {
 		for (const role of this.getDisplayRoles()) {
-			if (role.style) return {style: role.style, color: role.color};
+			if (role.style) return {style: role.style, color: role.color, seed: role.id};
 			if (role.color) return null;
 		}
 		const everyoneRole = Guilds.getGuild(this.guildId)?.roles[this.guildId];
-		return everyoneRole?.style ? {style: everyoneRole.style, color: everyoneRole.color} : null;
+		return everyoneRole?.style
+			? {style: everyoneRole.style, color: everyoneRole.color, seed: everyoneRole.id}
+			: null;
 	}
 
 	getColorString(): string | undefined {

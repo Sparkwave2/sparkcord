@@ -13,6 +13,7 @@ import {
 	CLOSE_MODAL_DESCRIPTOR,
 	COPY_MEDIA_TO_CLIPBOARD_DESCRIPTOR,
 	DOWNLOAD_MEDIA_DESCRIPTOR,
+	EDIT_IMAGE_DESCRIPTOR,
 	FORWARD_MEDIA_DESCRIPTOR,
 	MEDIA_CONTROLS_DESCRIPTOR,
 	OPEN_IN_BROWSER_DESCRIPTOR,
@@ -35,6 +36,7 @@ import {
 	LinkIcon,
 	MagnifyingGlassMinusIcon,
 	MagnifyingGlassPlusIcon,
+	PencilSimpleIcon,
 	StarIcon,
 	TrashIcon,
 	XIcon,
@@ -117,6 +119,7 @@ export interface MediaOverlayActionsProps {
 	isFavorited?: boolean;
 	onFavorite?: () => void;
 	onDownload?: () => void;
+	onEdit?: () => void;
 	onOpenInBrowser?: () => void;
 	onCopyLink?: () => void;
 	onCopyMedia?: () => void;
@@ -143,6 +146,7 @@ export const MediaOverlayActions: FC<MediaOverlayActionsProps> = observer(
 		isFavorited,
 		onFavorite,
 		onDownload,
+		onEdit,
 		onOpenInBrowser,
 		onCopyLink,
 		onCopyMedia,
@@ -251,6 +255,13 @@ export const MediaOverlayActions: FC<MediaOverlayActionsProps> = observer(
 						label={i18n._(DOWNLOAD_MEDIA_DESCRIPTOR)}
 						onClick={onDownload}
 						data-flx="messaging.media-modal.media-controls.media-overlay-actions.overlay-tooltip-button.download"
+					/>
+				)}
+				{onEdit && (
+					<OverlayTooltipButton
+						icon={<PencilSimpleIcon size={20} weight="bold" />}
+						label={i18n._(EDIT_IMAGE_DESCRIPTOR)}
+						onClick={onEdit}
 					/>
 				)}
 				{onDeleteAttachment && (

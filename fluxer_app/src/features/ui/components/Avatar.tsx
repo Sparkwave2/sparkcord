@@ -4,6 +4,7 @@ import {getStatusTypeLabel} from '@app/features/app/constants/AppConstants';
 import {useHover} from '@app/features/app/hooks/useHover';
 import {useMergeRefs} from '@app/features/app/hooks/useMergeRefs';
 import {useShouldAnimate} from '@app/features/app/hooks/useShouldAnimate';
+import {avatarCosmeticUrl, useAvatarCosmetic} from '@app/features/avatar_cosmetics/AvatarCosmetics';
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import * as ImageCacheUtils from '@app/features/messaging/utils/ImageCacheUtils';
 import {BaseAvatar} from '@app/features/ui/components/BaseAvatar';
@@ -64,6 +65,7 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 	) => {
 		const {i18n} = useLingui();
 		const userId = user.id;
+		const cosmetic = useAvatarCosmetic(user.bot ? null : userId);
 		const userAvatar = user.avatar;
 		const systemAvatarUrl = AvatarUtils.getSystemUserBrandingAvatarURL(userId);
 		const guildMember = GuildMembers.getMember(guildId || '', userId);
@@ -192,6 +194,8 @@ const AvatarComponent = React.forwardRef<HTMLDivElement, AvatarProps>(
 				statusLabel={statusLabel}
 				disableStatusTooltip={disableStatusTooltip}
 				animateStatusCutout={animateStatusCutout}
+				cosmeticUrl={cosmetic ? avatarCosmeticUrl(cosmetic) : undefined}
+				cosmeticScale={cosmetic?.scale}
 				data-flx="ui.avatar.avatar-component.base-avatar"
 				data-flx-user-id={userId}
 				data-flx-user-username={NicknameUtils.formatNameForStreamerMode(user.username)}

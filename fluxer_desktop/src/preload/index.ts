@@ -66,6 +66,7 @@ import type {
 	VirtmicAvailability,
 	VirtmicNode,
 	SparkcordAdBlockStatus,
+	SparkcordUpdateInfo,
 } from '@electron/common/Types';
 import {createAccountEnginePreloadAPI} from '@electron/preload/AccountEnginePreload';
 import {installBootFrame} from '@electron/preload/BootFramePreload';
@@ -552,6 +553,7 @@ const api: ElectronAPI = {
 	sparkcordAdBlockStatus: (): Promise<SparkcordAdBlockStatus> => ipcRenderer.invoke('sparkcord-adblock-status'),
 	sparkcordAdBlockSetEnabled: (enabled: boolean): Promise<SparkcordAdBlockStatus> =>
 		ipcRenderer.invoke('sparkcord-adblock-set-enabled', enabled),
+	sparkcordUpdateCheck: (): Promise<SparkcordUpdateInfo> => ipcRenderer.invoke('sparkcord-update-check'),
 	autostartEnable: (): Promise<void> => ipcRenderer.invoke('autostart-enable'),
 	autostartDisable: (): Promise<void> => ipcRenderer.invoke('autostart-disable'),
 	autostartIsEnabled: (): Promise<boolean> => ipcRenderer.invoke('autostart-is-enabled'),
