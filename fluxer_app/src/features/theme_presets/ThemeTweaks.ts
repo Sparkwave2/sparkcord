@@ -5,10 +5,12 @@
 // themes read, so moving a slider takes effect at once.
 
 import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
+import {applyCornerRounding} from '@app/features/theme_presets/CornerRounding';
 import {autorun} from 'mobx';
 
 export const THEME_BLUR_DEFAULT_PX = 3;
 export const THEME_BLUR_MAX_PX = 30;
+export const CORNER_ROUNDING_MAX_PERCENT = 300;
 
 let started = false;
 
@@ -19,5 +21,9 @@ export function startThemeTweaks(): void {
 	autorun(() => {
 		const blur = Math.min(THEME_BLUR_MAX_PX, Math.max(0, SparkcordPrefs.get('themeBlurPx')));
 		document.documentElement.style.setProperty('--sparkcord-panel-blur', `${blur}px`);
+	});
+	autorun(() => {
+		const percent = Math.min(CORNER_ROUNDING_MAX_PERCENT, Math.max(0, SparkcordPrefs.get('cornerRoundingPercent')));
+		applyCornerRounding(percent / 100);
 	});
 }

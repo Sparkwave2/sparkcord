@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {LimitResolver} from '@app/features/app/utils/LimitResolverAdapter';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
@@ -385,6 +386,8 @@ export class User {
 	}
 
 	get displayName(): string {
+		// Sparkcord: optional "show usernames instead of display names".
+		if (SparkcordPrefs.get('showUsernames')) return this.username;
 		return this.globalName || this.username;
 	}
 

@@ -5,6 +5,7 @@ import Channels from '@app/features/channel/state/Channels';
 import GuildMembers from '@app/features/member/state/GuildMembers';
 import SelectedGuild from '@app/features/navigation/state/SelectedGuild';
 import Relationships from '@app/features/relationship/state/Relationships';
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import StreamerMode from '@app/features/streamer_mode/state/StreamerMode';
 import {noteText} from '@app/features/theme/fonts/ScriptFontLoader';
 import type {User} from '@app/features/user/models/User';
@@ -40,7 +41,12 @@ export function formatNicknameForStreamerMode(nickname: string): string {
 
 export function getDisplayName(user: UserDisplayNameLike): string {
 	const name = formatNameForStreamerMode(
-		user.displayName || user.globalName || user.global_name || user.username || '',
+		(SparkcordPrefs.get('showUsernames') ? user.username : '') ||
+			user.displayName ||
+			user.globalName ||
+			user.global_name ||
+			user.username ||
+			'',
 	);
 	noteText(name);
 	return name;
@@ -83,6 +89,8 @@ function resolveGuildMemberNickname(guildId: string, userId: string): string | n
 }
 
 export function getUntruncatedNickname(user: User, guildId?: string | null, channelId?: string): string {
+	// Sparkcord: with "show usernames" on, nicknames and display names are not used.
+	if (SparkcordPrefs.get('showUsernames') && user.username) return user.username;
 	let name = user.displayName || user.globalName || user.username || user.id || '';
 	const relationshipNickname = resolveRelationshipNickname(user.id);
 	if (relationshipNickname !== null) {
@@ -118,6 +126,7 @@ export function getUntruncatedNickname(user: User, guildId?: string | null, chan
 }
 
 export function getUntruncatedGuildMemberNickname(member: {guildId: string; nick: string | null; user: User}): string {
+	if (SparkcordPrefs.get('showUsernames') && member.user.username) return member.user.username;
 	const relationshipNickname = resolveRelationshipNickname(member.user.id);
 	if (relationshipNickname !== null) {
 		return relationshipNickname;

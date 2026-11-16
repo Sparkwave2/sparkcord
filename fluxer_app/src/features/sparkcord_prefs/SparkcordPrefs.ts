@@ -14,11 +14,20 @@ interface Prefs {
 	plainNameFonts: boolean;
 	/** How strongly the main panels blur the theme background behind them, in pixels. */
 	themeBlurPx: number;
+	/** Corner rounding as a percentage of the theme's own corners (0 = square, 100 = unchanged). */
+	cornerRoundingPercent: number;
+	/** Show pronouns after names in messages. */
+	showPronouns: boolean;
+	/** Show usernames everywhere instead of display names and nicknames. */
+	showUsernames: boolean;
 }
 
 const DEFAULTS: Prefs = {
 	plainNameFonts: false,
 	themeBlurPx: 3,
+	cornerRoundingPercent: 100,
+	showPronouns: false,
+	showUsernames: false,
 };
 
 function readStored(): Prefs {

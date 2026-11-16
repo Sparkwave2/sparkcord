@@ -6,7 +6,7 @@ import styles from '@app/features/theme_presets/PresetThemesSection.module.css';
 import {activePresetId, applyPreset, turnOffPresets} from '@app/features/theme_presets/ThemePresetCommands';
 import {presetImageUrl, THEME_PRESETS, type ThemePreset} from '@app/features/theme_presets/ThemePresets';
 import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
-import {THEME_BLUR_DEFAULT_PX, THEME_BLUR_MAX_PX} from '@app/features/theme_presets/ThemeTweaks';
+import {CORNER_ROUNDING_MAX_PERCENT, THEME_BLUR_DEFAULT_PX, THEME_BLUR_MAX_PX} from '@app/features/theme_presets/ThemeTweaks';
 import {Button} from '@app/features/ui/button/Button';
 import {Slider} from '@app/features/ui/components/Slider';
 import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
@@ -42,6 +42,15 @@ const BLUR_TITLE_DESCRIPTOR = msg({
 const BLUR_HELP_DESCRIPTOR = msg({
 	message: 'How blurry the background image looks behind the app. 0 shows it sharp. Only changes this device.',
 	comment: 'Help text of the background blur slider in Settings > Themes.',
+});
+const ROUNDING_TITLE_DESCRIPTOR = msg({
+	message: 'Corner rounding',
+	comment: 'Label of the slider in Settings > Themes that sets how rounded corners are across the app.',
+});
+const ROUNDING_HELP_DESCRIPTOR = msg({
+	message:
+		'How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device.',
+	comment: 'Help text of the corner rounding slider in Settings > Themes.',
 });
 const APPLY_FAILED_DESCRIPTOR = msg({
 	message: "Couldn't apply that theme.",
@@ -138,6 +147,22 @@ export const PresetThemesSection: React.FC = observer(() => {
 					/>
 				</div>
 			)}
+			<div className={styles.tweak}>
+				<span className={styles.tweakTitle}>{i18n._(ROUNDING_TITLE_DESCRIPTOR)}</span>
+				<span className={styles.tweakHelp}>{i18n._(ROUNDING_HELP_DESCRIPTOR)}</span>
+				<Slider
+					defaultValue={SparkcordPrefs.get('cornerRoundingPercent')}
+					factoryDefaultValue={100}
+					minValue={0}
+					maxValue={CORNER_ROUNDING_MAX_PERCENT}
+					step={5}
+					markers={[0, 50, 100, 150, 200, 250, 300]}
+					stickToMarkers={false}
+					onMarkerRender={(value) => `${value}%`}
+					onValueRender={(value) => `${Math.round(value)}%`}
+					onValueChange={(value) => SparkcordPrefs.set('cornerRoundingPercent', Math.round(value))}
+				/>
+			</div>
 			{activeId !== null && (
 				<div className={styles.actions}>
 					<Button variant="secondary" small onClick={() => void run(turnOffPresets)} disabled={busy}>

@@ -21,6 +21,7 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback, useRef} from 'react';
 import {FontSpan, NameFont} from '@app/features/name_font/NameFont';
+import {MessagePronouns} from '@app/features/pronouns/MessagePronouns';
 import Channels from '@app/features/channel/state/Channels';
 import {useGroupNameColor} from '@app/features/group_name_color/GroupNameColor';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
@@ -96,6 +97,14 @@ export const MessageUsername = observer(
 					</StyledName>
 						</NameFont>
 					</FontSpan>
+					{!previewName && (
+						<MessagePronouns
+							userId={user.id}
+							guildId={guild?.id ?? null}
+							isProxy={Boolean(proxy)}
+							proxyPronouns={proxy?.pronouns}
+						/>
+					)}
 				</span>
 			</FocusRing>
 		);

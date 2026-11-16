@@ -10909,6 +10909,11 @@ msgstr "Kopier webhook-URL"
 msgid "Copying image..."
 msgstr "Kopierer bilde …"
 
+#. Label of the slider in Settings > Themes that sets how rounded corners are across the app.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Corner rounding"
+msgstr ""
+
 #. Developer / debug surface — keep terse and technical. Label in the developer Nagbar controls panel for the corrupted-installation banner.
 #: src/features/devtools/components/NagbarControls.ts
 msgid "Corrupted installation nagbar"
@@ -19339,6 +19344,11 @@ msgstr "Hvordan folk logger inn kan ikke endres etter oppsettet. Du kan endre al
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "How people sign in on this instance can't change anymore."
 msgstr "Hvordan folk logger inn på denne instansen, kan ikke lenger endres."
+
+#. Help text of the corner rounding slider in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device."
+msgstr ""
 
 #. Link under the Operators' wall settings. It opens the question about the wall on the Operator Pass page.
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
@@ -34371,6 +34381,11 @@ msgstr "Vis skyveknapper for deltakervolum per enhet i talemenyer"
 msgid "Show problems"
 msgstr "Vis problemer"
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Show pronouns next to names"
+msgstr ""
+
 #. Short label for an advanced message action bar preference.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedChatControls.tsx
 msgid "Show quick reactions"
@@ -34480,6 +34495,11 @@ msgstr "Vis antall uleste direktemeldingssamtaler når listen er skjult"
 msgid "Show unread indicator on muted channels"
 msgstr "Vis ulest-indikator på dempede kanaler"
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Show usernames instead of display names"
+msgstr ""
+
 #. Settings toggle. When off, typing indicators for other people are hidden everywhere.
 #: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
 msgid "Show when others are typing"
@@ -34529,6 +34549,16 @@ msgstr "Vises på hvert innlegg slik at folk kan reagere med ett klikk."
 #: src/features/user/components/modals/tabs/my_profile_tab/ProfileBadgeSettings.tsx
 msgid "Shown only when your Visionary badge is visible and not masked."
 msgstr "Vises bare når Visionary-merket ditt er synlig og ikke vises som et vanlig abonnement."
+
+#. Help text of the setting that shows usernames instead of display names.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+msgstr ""
+
+#. Help text of the setting that shows pronouns next to names in messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Shows people's and tuppers' pronouns after their name in messages, when they set them and their profile privacy lets you see them. Only changes this device."
+msgstr ""
 
 #. Description text in the branding section. Keep the tone plain and specific.
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx

@@ -12,6 +12,7 @@ import Channels from '@app/features/channel/state/Channels';
 import {getCachedNumberFormat} from '@app/features/i18n/utils/IntlCache';
 import {Message as MessageModel} from '@app/features/messaging/models/MessagingMessage';
 import {isNewMessageGroup} from '@app/features/messaging/utils/MessageGroupingUtils';
+import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
 import {canResetSliderValue, SliderResetIconButton} from '@app/features/ui/components/slider/SliderResetIconButton';
 import type {RadioOption} from '@app/features/ui/radio_group/RadioGroup';
@@ -74,6 +75,24 @@ const MAXIMIZES_VISIBLE_MESSAGES_WITH_MINIMAL_SPACING_DESCRIPTOR = msg({
 const MESSAGE_DISPLAY_MODE_DESCRIPTOR = msg({
 	message: 'Message display mode',
 	comment: 'Short label in the messages tab. Keep it concise.',
+});
+const SHOW_PRONOUNS_DESCRIPTOR = msg({
+	message: 'Show pronouns next to names',
+	comment: 'Sparkcord setting in Appearance > Messages.',
+});
+const SHOW_PRONOUNS_HELP_DESCRIPTOR = msg({
+	message:
+		"Shows people's and tuppers' pronouns after their name in messages, when they set them and their profile privacy lets you see them. Only changes this device.",
+	comment: 'Help text of the setting that shows pronouns next to names in messages.',
+});
+const SHOW_USERNAMES_DESCRIPTOR = msg({
+	message: 'Show usernames instead of display names',
+	comment: 'Sparkcord setting in Appearance > Messages.',
+});
+const SHOW_USERNAMES_HELP_DESCRIPTOR = msg({
+	message:
+		'Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device.',
+	comment: 'Help text of the setting that shows usernames instead of display names.',
 });
 const HIDE_USER_AVATARS_DESCRIPTOR = msg({
 	message: 'Hide user avatars',
@@ -298,6 +317,22 @@ export const MessagesTabContent: React.FC = observer(() => {
 					/>
 				</div>
 			) : null}
+			<div className={styles.switchWrapper}>
+				<Switch
+					label={i18n._(SHOW_PRONOUNS_DESCRIPTOR)}
+					description={i18n._(SHOW_PRONOUNS_HELP_DESCRIPTOR)}
+					value={SparkcordPrefs.get('showPronouns')}
+					onChange={(value) => SparkcordPrefs.set('showPronouns', value)}
+				/>
+			</div>
+			<div className={styles.switchWrapper}>
+				<Switch
+					label={i18n._(SHOW_USERNAMES_DESCRIPTOR)}
+					description={i18n._(SHOW_USERNAMES_HELP_DESCRIPTOR)}
+					value={SparkcordPrefs.get('showUsernames')}
+					onChange={(value) => SparkcordPrefs.set('showUsernames', value)}
+				/>
+			</div>
 		</>
 	);
 });

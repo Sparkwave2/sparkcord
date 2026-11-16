@@ -10909,6 +10909,11 @@ msgstr "Copy webhook URL"
 msgid "Copying image..."
 msgstr "Copying image..."
 
+#. Label of the slider in Settings > Themes that sets how rounded corners are across the app.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Corner rounding"
+msgstr "Corner rounding"
+
 #. Developer / debug surface — keep terse and technical. Label in the developer Nagbar controls panel for the corrupted-installation banner.
 #: src/features/devtools/components/NagbarControls.ts
 msgid "Corrupted installation nagbar"
@@ -19339,6 +19344,11 @@ msgstr "How people sign in can't change after setup. You can change everything e
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "How people sign in on this instance can't change anymore."
 msgstr "How people sign in on this instance can't change anymore."
+
+#. Help text of the corner rounding slider in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device."
+msgstr "How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device."
 
 #. Link under the Operators' wall settings. It opens the question about the wall on the Operator Pass page.
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
@@ -34371,6 +34381,11 @@ msgstr "Show per-device participant volume sliders in voice menus"
 msgid "Show problems"
 msgstr "Show problems"
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Show pronouns next to names"
+msgstr "Show pronouns next to names"
+
 #. Short label for an advanced message action bar preference.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedChatControls.tsx
 msgid "Show quick reactions"
@@ -34480,6 +34495,11 @@ msgstr "Show unread DM count when collapsed"
 msgid "Show unread indicator on muted channels"
 msgstr "Show unread indicator on muted channels"
 
+#. Sparkcord setting in Appearance > Messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Show usernames instead of display names"
+msgstr "Show usernames instead of display names"
+
 #. Settings toggle. When off, typing indicators for other people are hidden everywhere.
 #: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
 msgid "Show when others are typing"
@@ -34529,6 +34549,16 @@ msgstr "Shown on every post so people can react with one click."
 #: src/features/user/components/modals/tabs/my_profile_tab/ProfileBadgeSettings.tsx
 msgid "Shown only when your Visionary badge is visible and not masked."
 msgstr "Shown only when your Visionary badge is visible and not masked."
+
+#. Help text of the setting that shows usernames instead of display names.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+msgstr "Shows everyone by their username wherever a display name or nickname would appear. Tuppers keep their own names. Only changes this device."
+
+#. Help text of the setting that shows pronouns next to names in messages.
+#: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
+msgid "Shows people's and tuppers' pronouns after their name in messages, when they set them and their profile privacy lets you see them. Only changes this device."
+msgstr "Shows people's and tuppers' pronouns after their name in messages, when they set them and their profile privacy lets you see them. Only changes this device."
 
 #. Description text in the branding section. Keep the tone plain and specific.
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx
