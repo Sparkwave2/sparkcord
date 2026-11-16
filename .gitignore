@@ -80,3 +80,7 @@
 !/fluxer_app/assets/assets/emulatorjs/bios/
 /fluxer_app/assets/assets/emulatorjs/bios/*
 !/fluxer_app/assets/assets/emulatorjs/bios/README.md
+
+# Sparkcord bridge: local config (holds bot tokens) and remembered state.
+/sparkcord/bridge/bridge.config.json
+/sparkcord/bridge/bridge.state.json*

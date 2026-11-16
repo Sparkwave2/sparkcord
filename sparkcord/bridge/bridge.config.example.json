@@ -1,0 +1,13 @@
+{
+	"discord": {
+		"token": "DISCORD_BOT_TOKEN",
+		"guild_id": "DISCORD_SERVER_ID"
+	},
+	"sparkcord": {
+		"url": "https://sparkcord.example.com",
+		"token": "SPARKCORD_BOT_TOKEN"
+	},
+	"links": [
+		{"discord": "DISCORD_CHANNEL_ID", "sparkcord": "SPARKCORD_CHANNEL_ID"}
+	]
+}
