@@ -1,0 +1,84 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+/* Listening only: the player keeps running, out of sight and out of the way. */
+.hidden {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	width: 240px;
+	height: 135px;
+	opacity: 0;
+	pointer-events: none;
+	z-index: -1;
+	overflow: hidden;
+}
+
+.hidden .header {
+	display: none;
+}
+
+.window {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	width: min(380px, calc(100vw - 16px));
+	z-index: calc(var(--z-index-modal) - 3);
+	border-radius: 10px;
+	border: 1px solid var(--background-modifier-accent);
+	background: #000;
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+	overflow: hidden;
+}
+
+.large {
+	width: min(720px, calc(100vw - 16px));
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 6px 4px 10px;
+	background: var(--background-secondary);
+	color: var(--text-primary);
+	cursor: move;
+	user-select: none;
+	touch-action: none;
+}
+
+.title {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.headerButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 22px;
+	height: 22px;
+	border-radius: 6px;
+	color: var(--text-secondary);
+	cursor: pointer;
+}
+
+.headerButton:hover {
+	color: var(--text-primary);
+	background: var(--background-modifier-hover);
+}
+
+.player {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: #000;
+}
+
+.hidden .player {
+	height: 100%;
+}

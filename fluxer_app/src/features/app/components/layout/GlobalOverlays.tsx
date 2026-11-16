@@ -5,6 +5,7 @@ import styles from '@app/features/app/components/layout/GlobalOverlays.module.cs
 import {MEDIA_VIEWER_PORTAL_ROOT_ID} from '@app/features/messaging/components/modals/MediaViewerPortal';
 import {createNamedLoadableComponent} from '@app/features/platform/components/loadable/LoadableComponent';
 import {useAppStorageDegradedNotice} from '@app/features/platform/hooks/useAppStorageDegradedNotice';
+import {RadioWindow} from '@app/features/radio/RadioWindow';
 import * as QuickSwitcherCommands from '@app/features/search/commands/QuickSwitcherCommands';
 import QuickSwitcher from '@app/features/search/state/QuickSwitcher';
 import {ContextMenu} from '@app/features/ui/action_menu/ContextMenu';
@@ -55,6 +56,7 @@ const GlobalOverlays: React.FC = observer(() => {
 			/>
 			<ContextMenu ownerDocument={document} data-flx="app.global-overlays.context-menu" />
 			<Toasts data-flx="app.global-overlays.toasts" />
+			<RadioWindow />
 			{voiceRuntimeLoaded && <LazyPiPOverlay data-flx="app.global-overlays.pi-p-overlay" />}
 			{voiceRuntimeLoaded && <LazyVoicePopoutHost data-flx="app.global-overlays.voice-popout-host" />}
 			{isMobile && quickSwitcherBottomSheetLoaded && (

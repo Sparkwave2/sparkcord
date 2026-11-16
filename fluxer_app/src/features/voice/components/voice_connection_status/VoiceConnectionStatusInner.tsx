@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {RadioButton} from '@app/features/radio/RadioButton';
 import {SoundboardButton} from '@app/features/soundboard/SoundboardButton';
 import {Routes} from '@app/app/Routes';
 import type {Channel} from '@app/features/channel/models/Channel';
@@ -261,6 +262,7 @@ const ResolvedVoiceConnectionStatusInner = observer(function ResolvedVoiceConnec
 					className={styles.controls}
 					data-flx="voice.voice-connection-status.voice-connection-status-inner.controls"
 				>
+					<RadioButton />
 					<SoundboardButton />
 					<AudioProcessingButton
 						active={isProcessingActive}

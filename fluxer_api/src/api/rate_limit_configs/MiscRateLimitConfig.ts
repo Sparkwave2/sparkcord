@@ -100,6 +100,10 @@ export const MiscRateLimitConfigs = {
 		bucket: 'sparkcord:platform:write',
 		config: {limit: 30, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
+	SPARKCORD_YOUTUBE_INFO: {
+		bucket: 'sparkcord:youtube:info',
+		config: {limit: 40, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 	NAME_FONT_READ: {
 		bucket: 'name_font:read',
 		config: {limit: 240, windowMs: ms('1 minute')},

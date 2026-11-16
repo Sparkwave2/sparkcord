@@ -179,6 +179,7 @@ function handleReadyInternal(data: ReadyPayload, context: GatewayHandlerContext,
 		module.default.handleGatewayReady(),
 	);
 	void import('@app/features/soundboard/Soundboard').then((module) => module.default.start());
+	void import('@app/features/radio/Radio').then((module) => module.default.start());
 	// Sparkcord: have the instance's STUN/TURN servers ready before the first call.
 	void import('@app/features/p2p/InstanceIce').then((module) => module.refreshInstanceIce());
 	// Sparkcord: platform icons (tell the server which kind of app this is).

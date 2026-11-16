@@ -3388,6 +3388,7 @@ msgstr "ขนาดจริง"
 #: src/features/expressions/components/modals/AddFavoriteChannelModal.tsx
 #: src/features/expressions/components/modals/TagListField.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
+#: src/features/radio/RadioPopout.tsx
 #: src/features/relationship/components/modals/AddFriendsToGroupModal.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx
@@ -4074,6 +4075,10 @@ msgstr "เพิ่มรูปโปรไฟล์แล้ว"
 msgid "Added an invite background"
 msgstr "เพิ่มพื้นหลังคำเชิญ"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "added by {name}"
+msgstr ""
+
 #. Row in the list of Operator Passes for a pass our staff added to the account. {date} is a date without a time.
 #: src/features/premium/components/operator_pass/OperatorPassHoldingsSection.tsx
 msgid "Added by our team, {date}"
@@ -4119,6 +4124,7 @@ msgstr "เพิ่มในรายการโปรดแล้ว"
 msgid "Added to saved media"
 msgstr "เพิ่มไปยังสื่อที่บันทึกไว้แล้ว"
 
+#: src/features/radio/RadioPopout.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 msgid "Adding…"
 msgstr ""
@@ -17926,6 +17932,10 @@ msgstr "ชื่อเต็ม"
 msgid "Full refund"
 msgstr "คืนเงินเต็มจำนวน"
 
+#: src/features/radio/RadioWindow.tsx
+msgid "Full screen"
+msgstr ""
+
 #. Screen-reader-only identity detail appended to a user mention in the message composer. Preserve {tag}; it contains the full user tag.
 #: src/features/lexical/composer/nodes/ComposerMentionPill.tsx
 msgid "Full user tag: {tag}"
@@ -19179,6 +19189,10 @@ msgstr "ซ่อนหน้าต่างเมื่อย่อขนาด
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "Hide user avatars"
 msgstr "ซ่อนรูปโปรไฟล์ผู้ใช้"
+
+#: src/features/radio/RadioWindow.tsx
+msgid "Hide video"
+msgstr ""
 
 #. Switch under the Operator Pass badge row in the "Badges" profile settings, with no description under it. When on, other people no longer see the month and year the pass was first bought or received on the badge. Operator Pass is a product name and stays untranslated.
 #: src/features/user/components/modals/tabs/my_profile_tab/ProfileBadgeSettings.tsx
@@ -20896,6 +20910,10 @@ msgstr "เข้าร่วมการโทรแบบ P2P ไหม"
 msgid "Join a voice channel to play sounds"
 msgstr ""
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Join a voice channel to use the radio."
+msgstr ""
+
 #. Action label in the DM channel header pill that joins an ongoing call.
 #. Primary CTA button in the mobile direct-call lobby bottom sheet. Joins the active call.
 #: src/features/channel/components/channel_view/dm_channel_view/shared.ts
@@ -21379,6 +21397,10 @@ msgstr "ภาษา"
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Large"
 msgstr "ใหญ่"
+
+#: src/features/radio/RadioWindow.tsx
+msgid "Larger"
+msgstr ""
 
 #. Plutonium page comparison row label for the upload size limit.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
@@ -25770,6 +25792,10 @@ msgstr "หมายเหตุจากทีมของเรา: {statement
 msgid "Nothing"
 msgstr "ไม่แจ้งเตือน"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Nothing is playing. Add a YouTube link and everyone in the call hears it."
+msgstr ""
+
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
 msgid "Nothing matches"
 msgstr "ไม่พบรายการที่ตรงกัน"
@@ -27555,6 +27581,10 @@ msgstr "วาง"
 msgid "Paste a {theOtherPlatform} template URL to import its structure into a new community."
 msgstr "วาง URL เทมเพลตของ {theOtherPlatform} เพื่อนำเข้าโครงสร้างไปยังคอมมูนิตี้ใหม่"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Paste a YouTube link"
+msgstr ""
+
 #. Native macOS Edit menu item that pastes the clipboard contents using the formatting of the surrounding text. Imperative verb.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 msgid "Paste and match style"
@@ -27594,6 +27624,10 @@ msgstr "Pause / Break"
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
 msgid "Pause alerts"
 msgstr "หยุดการแจ้งเตือนชั่วคราว"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "Pause for everyone"
+msgstr ""
 
 #. Button label that pauses invite links for a community.
 #: src/features/invite/components/DisableInvitesButton.tsx
@@ -28301,6 +28335,10 @@ msgstr "เล่น"
 msgid "Play animated emojis"
 msgstr "เล่นอิโมจิเคลื่อนไหว"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Play for everyone"
+msgstr ""
+
 #. Short label in the accessibility tab. Keep it concise.
 #: src/features/user/components/modals/tabs/AccessibilityTab.tsx
 msgid "Play sample"
@@ -28449,6 +28487,7 @@ msgid "Portuguese (Portugal)"
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/radio/RadioPopout.tsx
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
 msgid "Position"
 msgstr "ตำแหน่ง"
@@ -29446,6 +29485,15 @@ msgstr "ข้อความสั้นบนกำแพง"
 msgid "Quotes: <0>{countLabel}</0>"
 msgstr "อ้างอิง: <0>{countLabel}</0>"
 
+#: src/features/radio/RadioPopout.tsx
+#: src/features/radio/RadioWindow.tsx
+msgid "Radio"
+msgstr ""
+
+#: src/features/radio/RadioButton.tsx
+msgid "Radio and watch together"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Radio buttons allow selecting one option from a group."
 msgstr "ปุ่มตัวเลือกให้เลือกได้เพียงหนึ่งตัวเลือกจากกลุ่ม"
@@ -29453,6 +29501,10 @@ msgstr "ปุ่มตัวเลือกให้เลือกได้เ
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Radio group"
 msgstr "กลุ่มปุ่มตัวเลือก"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "Radio volume"
+msgstr ""
 
 #. Role name style option: rainbow colours across the name.
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleStyleField.tsx
@@ -30213,6 +30265,10 @@ msgstr "นำออกจากรายการโปรด"
 #: src/features/ui/action_menu/UserContextMenu.tsx
 msgid "Remove from group"
 msgstr "นำออกจากกลุ่ม"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "Remove from queue"
+msgstr ""
 
 #. Context menu item that removes a self-hosted instance from the authentication instance picker history.
 #: src/features/auth/flow/instance_selector/InstancePickerRows.tsx
@@ -33925,6 +33981,10 @@ msgstr "หน้าต่างที่แชร์"
 msgid "Shared window audio"
 msgstr "เสียงของหน้าต่างที่แชร์"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Shared with everyone in the call"
+msgstr ""
+
 #. placeholder {0}: transfer.peers
 #. placeholder {1}: formatBytes(transfer.uploadSpeed)
 #: src/features/p2p/P2PShareCard.tsx
@@ -34578,6 +34638,10 @@ msgstr "แสดงตัวบ่งชี้ข้อความที่ย
 msgid "Show usernames instead of display names"
 msgstr ""
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Show video"
+msgstr ""
+
 #. Settings toggle. When off, typing indicators for other people are hidden everywhere.
 #: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
 msgid "Show when others are typing"
@@ -35010,6 +35074,10 @@ msgstr "ข้ามการยืนยัน \"ทำเครื่องห
 msgid "Skip cropping"
 msgstr "ข้ามการครอบตัด"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Skip for everyone"
+msgstr ""
+
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Skip the external link warning for all domains"
@@ -35229,6 +35297,10 @@ msgstr "ขนาดเล็ก"
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Small submitting"
 msgstr "เล็ก (กำลังส่ง)"
+
+#: src/features/radio/RadioWindow.tsx
+msgid "Smaller"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
@@ -36268,6 +36340,10 @@ msgstr "กำลังดำเนินการอยู่…"
 #: src/features/voice/components/VoiceMessageComposerModal.tsx
 msgid "Stop"
 msgstr "หยุด"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "Stop and clear the queue"
+msgstr ""
 
 #. Title of the confirmation shown when a member turns off the Announcement channel switch in channel settings, which converts the channel back into a normal text channel.
 #: src/features/channel/components/modals/channel_tabs/ChannelOverviewTab.tsx
@@ -37422,6 +37498,10 @@ msgstr "ดูเหมือนจะไม่ใช่สีที่ถูก
 msgid "That doesn't look like a valid URL."
 msgstr "ดูเหมือนจะไม่ใช่ URL ที่ถูกต้อง"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "That doesn't look like a YouTube video link."
+msgstr ""
+
 #. Instance selector error shown when the typed address cannot be an address at all. Example instance domain is interpolated.
 #: src/features/auth/flow/instance_selector/InstanceDiscoveryFailure.ts
 msgid "That doesn't look like an instance address. Try a domain such as {exampleInstanceDomain}."
@@ -37814,6 +37894,10 @@ msgstr "redirect_uri ที่ระบุไม่ได้ลงทะเบ�
 #: src/features/auth/components/pages/oauth_authorize_page/state/useAuthorizeFlow.ts
 msgid "The provided redirect_uri must use HTTP or HTTPS."
 msgstr "redirect_uri ที่ระบุต้องใช้ HTTP หรือ HTTPS"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "The queue is full ({MAX_QUEUE} videos)."
+msgstr ""
 
 #. Error under the "Quote on the wall" field when the quote looks like a link, a web address such as example.com, an email address, an @mention or a community invite.
 #: src/features/premium/components/operator_pass/OperatorPassWallQuoteField.tsx
@@ -41261,6 +41345,10 @@ msgstr "จนกว่าฉันจะเปิดอีกครั้ง"
 #: src/features/channel/components/channel_header_components/developer_tools/OptionPresets.ts
 msgid "Unverified email"
 msgstr "อีเมลที่ยังไม่ได้ยืนยัน"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "Up next"
+msgstr ""
 
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 msgid "Up to {DISCOVERY_MAX_TAGS} tags help people find your community. They show up when people search in Explore."
@@ -45519,6 +45607,10 @@ msgstr "เบราว์เซอร์ของคุณบล็อกพา
 msgid "Your browser blocked the passkey because this page is not on {rpId}, the passkey domain of this instance. Ask the instance owner to check the passkey domain setting."
 msgstr "เบราว์เซอร์ของคุณบล็อกพาสคีย์แล้ว เนื่องจากหน้านี้ไม่ได้อยู่บน {rpId} ซึ่งเป็นโดเมนพาสคีย์ของอินสแตนซ์นี้ โปรดสอบถามเจ้าของอินสแตนซ์ให้ตรวจสอบการตั้งค่าโดเมนพาสคีย์"
 
+#: src/features/radio/RadioPopout.tsx
+msgid "Your browser is holding playback back. Click here to listen."
+msgstr ""
+
 #. Description under the "Share audio" switch in the web stream setup modal. The browser picker owns the final audio choice.
 #: src/features/voice/components/modals/screen_share_picker_modal/WebStreamSetupModal.tsx
 msgid "Your browser lets you choose whether to include audio when you pick what to share."
@@ -46088,6 +46180,10 @@ msgstr "Visionary ของคุณทำให้คุณเข้าถึ�
 #: src/features/app/components/setup/SetupServicesStep.tsx
 msgid "YouTube Data API key"
 msgstr "คีย์ API ของ YouTube Data"
+
+#: src/features/radio/RadioPopout.tsx
+msgid "YouTube link"
+msgstr ""
 
 #. Review row label for YouTube link previews.
 #: src/features/app/components/setup/SetupWizardSteps.tsx
