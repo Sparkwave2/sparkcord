@@ -11,6 +11,7 @@ import {
 } from '@app/api/infrastructure/IUnfurlerService';
 import {requestSvcJson} from '@app/api/infrastructure/SvcErrorReply';
 import {Logger} from '@app/api/Logger';
+import {fxEmbedUrlFor, restorePostedUrl} from '@app/api/sparkcord/FxEmbedLinks';
 import {isJsonRecord} from '@app/api/utils/JsonBoundaryUtils';
 import {BadGatewayError} from '@fluxer/errors/src/domains/core/BadGatewayError';
 import {GatewayTimeoutError} from '@fluxer/errors/src/domains/core/GatewayTimeoutError';
@@ -166,6 +167,27 @@ export class NatsUnfurlerService extends IUnfurlerService {
 	}
 
 	async unfurlWithCachePolicy(
+		url: string,
+		nsfwMode: MediaProxyNsfwMode = 'block',
+		options: UnfurlOptions = {},
+	): Promise<UnfurlResult> {
+		// Sparkcord: X/Twitter posts are embedded through FxEmbed. If that gives nothing
+		// (FxEmbed is down, the post is gone), the link is unfurled the ordinary way.
+		const fxUrl = fxEmbedUrlFor(url);
+		if (fxUrl !== null) {
+			try {
+				const viaFxEmbed = await this.unfurlDirect(fxUrl, nsfwMode, options);
+				if (viaFxEmbed.embeds.length > 0 || options.cacheOnly === true) {
+					return {...viaFxEmbed, embeds: restorePostedUrl(viaFxEmbed.embeds, fxUrl, url)};
+				}
+			} catch (error) {
+				if (options.signal?.aborted || options.cacheOnly === true) throw error;
+			}
+		}
+		return this.unfurlDirect(url, nsfwMode, options);
+	}
+
+	private async unfurlDirect(
 		url: string,
 		nsfwMode: MediaProxyNsfwMode = 'block',
 		options: UnfurlOptions = {},
