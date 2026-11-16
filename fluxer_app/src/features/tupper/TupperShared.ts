@@ -68,6 +68,8 @@ export interface TupperSettingsWire {
 	autoproxy_mode: 'off' | 'front' | 'latch';
 	autoproxy_tupper_id: string | null;
 	latch_tupper_id: string | null;
+	/** Hide the system from other people. */
+	system_private?: boolean;
 }
 
 /**

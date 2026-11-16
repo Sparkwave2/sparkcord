@@ -60,6 +60,8 @@ export interface TupperSettingsRow {
 	autoproxy_tupper_id: TupperID | null;
 	latch_tupper_id: TupperID | null;
 	updated_at: Date;
+	/** Sparkcord: hide the system (member list, descriptions, system name) from other people. */
+	system_private?: boolean | null;
 }
 
 export const TUPPER_SETTINGS_COLUMNS = [
@@ -71,6 +73,7 @@ export const TUPPER_SETTINGS_COLUMNS = [
 	'autoproxy_tupper_id',
 	'latch_tupper_id',
 	'updated_at',
+	'system_private',
 ] as const satisfies ReadonlyArray<keyof TupperSettingsRow>;
 
 /** Snapshot of who a proxied message was sent as, taken at send time. */

@@ -18,12 +18,14 @@ import {
 	TupperResponse,
 	TupperSettingsResponse,
 	TupperSettingsUpdateRequest,
+	TupperSystemResponse,
 	TupperUpdateRequest,
 } from '@fluxer/schema/src/domains/tupper/TupperSchemas';
 import {z} from 'zod';
 
 const TupperIdParam = z.object({tupper_id: z.string().regex(/^\d{1,20}$/)});
 const TupperCardParam = z.object({user_id: SnowflakeType, tupper_id: z.string().regex(/^\d{1,20}$/)});
+const TupperSystemParam = z.object({user_id: SnowflakeType});
 const security: Array<'bearerToken' | 'sessionToken'> = ['bearerToken', 'sessionToken'];
 const tags = ['Tuppers'];
 
@@ -44,7 +46,28 @@ export function TupperController(app: HonoApp) {
 		}),
 		async (ctx) => {
 			const {user_id, tupper_id} = ctx.req.valid('param');
-			return ctx.json(await getTupperService().getCard(createUserID(user_id), tupper_id));
+			return ctx.json(await getTupperService().getCard(createUserID(user_id), tupper_id, ctx.get('user').id));
+		},
+	);
+
+	app.get(
+		'/users/:user_id/tuppers/system',
+		RateLimitMiddleware(RateLimitConfigs.TUPPER_READ),
+		LoginRequired,
+		Validator('param', TupperSystemParam),
+		OpenAPI({
+			operationId: 'get_tupper_system',
+			summary: 'Get tupper system',
+			responseSchema: TupperSystemResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description:
+				"Gets someone's system: its name, tag and tuppers. For a private system, other people get `private: true` and nothing else.",
+		}),
+		async (ctx) => {
+			const {user_id} = ctx.req.valid('param');
+			return ctx.json(await getTupperService().getSystem(createUserID(user_id), ctx.get('user').id));
 		},
 	);
 

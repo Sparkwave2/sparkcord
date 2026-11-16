@@ -1330,6 +1330,11 @@ msgstr "{count, plural, one {# ehdotus saatavilla} other {# ehdotusta saatavilla
 msgid "{count, plural, one {# triangle} other {# triangles}}"
 msgstr ""
 
+#: src/features/tupper/TupperSystemLink.tsx
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "{count, plural, one {# tupper} other {# tuppers}}"
+msgstr ""
+
 #. Attachment summary in the forward modal message preview when the message has videos and no images. count is the number of videos.
 #: src/features/messaging/components/modals/ForwardMessagePreview.tsx
 msgid "{count, plural, one {# video} other {# videos}}"
@@ -3210,6 +3215,12 @@ msgstr "Tili jäädytetty"
 #: src/features/channel/components/channel_header_components/developer_tools/OptionPresets.ts
 msgid "Account too new"
 msgstr "Tili on liian uusi"
+
+#. In the system window: the account the system belongs to. The placeholder is a username.
+#. placeholder {0}: owner.username
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "Account: @{0}"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -25450,6 +25461,11 @@ msgstr "Ei ajastinta"
 msgid "No trusted domains"
 msgstr "Ei luotettuja verkkotunnuksia"
 
+#. Shown in the system window when the person has no tuppers
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "No tuppers yet."
+msgstr ""
+
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "No tuppers yet. Create one or import a file."
 msgstr ""
@@ -27155,6 +27171,10 @@ msgstr "Muut P2P-puhelun osallistujat voivat nähdä IP-osoitteesi."
 msgid "Other people can only see your current UTC offset when you choose to share profile local time. They do not see your exact time zone identifier, such as {timezoneIdentifierExample}. {productName} stores that identifier only so the offset can update automatically when daylight saving time changes."
 msgstr "Muut näkevät vain nykyisen UTC-siirtymäsi, kun valitset jakavasi profiilisi paikallisen ajan. He eivät näe tarkkaa aikavyöhyketunnustasi, kuten {timezoneIdentifierExample}. {productName} tallentaa tunnuksen vain siksi, että siirtymä voidaan päivittää automaattisesti kesäajan vaihtuessa."
 
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Other people can't open your system or see your tuppers' descriptions and your system name. Names, avatars and pronouns still show on your messages."
+msgstr ""
+
 #. Message action that opens the full reaction picker.
 #: src/features/ui/action_menu/MessageContextMenu.tsx
 msgid "Other reaction…"
@@ -28838,6 +28858,10 @@ msgstr "Yksityiset tiedot"
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
 msgid "Private message"
 msgstr "Yksityisviesti"
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Private system"
+msgstr ""
 
 #. Label of the toggle that makes a new thread private.
 #: src/features/threads/utils/ThreadMessageDescriptors.ts
@@ -36874,9 +36898,13 @@ msgstr "Syntaksikorostus"
 
 #. Activity log name shown as the one who made a change when the app made it automatically and no person did. It fills the {actor} slot at the start of activity log sentences.
 #. Heading for the PluralKit/Tupperbox-style system a tupper belongs to, on its profile card
+#. Heading on a profile card for the person's tupper system (their proxy members)
+#. Title of the window listing the tuppers (system members) of a person, when the system has no name.
 #: src/features/channel/components/ChannelUserTag.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
 #: src/features/tupper/TupperCard.tsx
+#: src/features/tupper/TupperSystemLink.tsx
+#: src/features/tupper/TupperSystemModal.tsx
 msgid "System"
 msgstr "Järjestelmä"
 
@@ -39069,6 +39097,16 @@ msgstr "Tämä kytkin on poissa käytöstä, eikä sitä voi vaihtaa"
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "This switch is disabled in the checked state"
 msgstr "Tämä kytkin on poissa käytöstä, kun se on valittuna"
+
+#. Shown in the system window when the list of tuppers could not be loaded
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "This system couldn't be loaded. Try again in a moment."
+msgstr ""
+
+#. Shown in the system window when the owner made their system private
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "This system is private."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
 msgid "This text area auto-expands between 4 and 12 rows as you type."
@@ -42650,6 +42688,13 @@ msgstr "Näytä reaktiot"
 msgid "View status page"
 msgstr "Näytä tilasivu"
 
+#. Button on a profile card that opens the list of the person's tuppers
+#. Button on a tupper profile card that opens the list of all tuppers in the same system
+#: src/features/tupper/TupperCard.tsx
+#: src/features/tupper/TupperSystemLink.tsx
+msgid "View system"
+msgstr ""
+
 #. Short label in the app constants.
 #: src/features/app/constants/AppConstants.ts
 msgid "View the communities you are a member of"
@@ -45923,6 +45968,11 @@ msgstr "Tilauksesi muuttuu vuosilaskutukseksi seuraavan uusimisen yhteydessä."
 #: src/features/voice/components/modals/screen_share_picker_modal/SoftwareEncodeNotice.tsx
 msgid "Your system has no hardware video encoder that {productName} can use, so screen sharing uses software encoding."
 msgstr "Järjestelmässäsi ei ole laitteistopohjaista videosiirrintä, jota {productName} voisi käyttää, joten näytön jakaminen käyttää ohjelmistopohjaista siirtoa."
+
+#. Shown to the owner of a private system in their own system window
+#: src/features/tupper/TupperSystemModal.tsx
+msgid "Your system is private. Only you can see this list."
+msgstr ""
 
 #. Body of the error modal shown when a theme CSS exceeds the maximum shareable size.
 #: src/features/theme/components/modals/ShareThemeModal.tsx

@@ -69,6 +69,24 @@ export interface MessageProxyResponse {
 	pronouns: string | null;
 	system_tag: string | null;
 	font: string | null;
+	system_private: boolean;
+}
+
+export interface TupperSystemResponse {
+	user_id: string;
+	private: boolean;
+	system_name: string | null;
+	system_tag: string | null;
+	tuppers: Array<{
+		id: string;
+		name: string;
+		avatar_url: string | null;
+		pronouns: string | null;
+		description: string | null;
+		color: number | null;
+		tag: string | null;
+		font: string | null;
+	}>;
 }
 
 export interface TupperInput {
@@ -92,6 +110,7 @@ export interface TupperSettingsInput {
 	proxy_enabled?: boolean;
 	autoproxy_mode?: AutoproxyMode;
 	autoproxy_tupper_id?: string | null;
+	system_private?: boolean;
 }
 
 export interface TupperImportResult {
@@ -197,6 +216,7 @@ export function toSettingsResponse(row: TupperSettingsRow): TupperSettingsRespon
 		autoproxy_mode: (AUTOPROXY_MODES.has(row.autoproxy_mode) ? row.autoproxy_mode : 'off') as AutoproxyMode,
 		autoproxy_tupper_id: row.autoproxy_tupper_id?.toString() ?? null,
 		latch_tupper_id: row.latch_tupper_id?.toString() ?? null,
+		system_private: row.system_private === true,
 	};
 }
 
@@ -226,24 +246,55 @@ export class TupperService {
 	}
 
 	/** Public card shown when someone clicks a proxied message. Readable by any signed-in user. */
-	async getCard(userId: UserID, tupperId: string): Promise<TupperCardResponse> {
+	async getCard(userId: UserID, tupperId: string, viewerId?: UserID): Promise<TupperCardResponse> {
 		const [row, settings] = await Promise.all([
 			this.repo.findById(userId, parseTupperId(tupperId, 'tupper_id')),
 			this.repo.getSettings(userId),
 		]);
 		if (!row) throw InputValidationError.create('tupper_id', 'Unknown tupper.');
+		// A private system still shows what its messages already show (name, avatar,
+		// pronouns, colour, tag); the rest is only for the owner.
+		const hidden = settings?.system_private === true && viewerId !== userId;
 		return {
 			id: row.tupper_id.toString(),
 			user_id: userId.toString(),
 			name: row.display_name || row.name,
 			avatar_url: proxiedAvatarUrl(row.avatar_url),
-			description: row.description,
+			description: hidden ? null : row.description,
 			pronouns: row.pronouns,
 			color: row.color,
-			birthday: row.birthday,
-			system_name: settings?.system_name ?? null,
+			birthday: hidden ? null : row.birthday,
+			system_name: hidden ? null : (settings?.system_name ?? null),
 			system_tag: row.tag ?? settings?.system_tag ?? null,
 			font: row.font ?? null,
+			system_private: settings?.system_private === true,
+		};
+	}
+
+	/** Someone's whole system, for the "view system" window. Empty for others when private. */
+	async getSystem(userId: UserID, viewerId: UserID): Promise<TupperSystemResponse> {
+		const settings = await this.repo.getSettings(userId);
+		if (settings?.system_private === true && viewerId !== userId) {
+			return {user_id: userId.toString(), private: true, system_name: null, system_tag: null, tuppers: []};
+		}
+		const tuppers = await this.repo.listByUser(userId);
+		return {
+			user_id: userId.toString(),
+			private: settings?.system_private === true,
+			system_name: settings?.system_name ?? null,
+			system_tag: settings?.system_tag ?? null,
+			tuppers: [...tuppers]
+				.sort((a, b) => a.position - b.position)
+				.map((row) => ({
+					id: row.tupper_id.toString(),
+					name: row.display_name || row.name,
+					avatar_url: proxiedAvatarUrl(row.avatar_url),
+					pronouns: row.pronouns,
+					description: row.description,
+					color: row.color,
+					tag: row.tag,
+					font: row.font ?? null,
+				})),
 		};
 	}
 
@@ -375,6 +426,7 @@ export class TupperService {
 		if (input.system_name !== undefined) next.system_name = optionalText(input.system_name, TUPPER_NAME_MAX_LENGTH);
 		if (input.system_tag !== undefined) next.system_tag = optionalText(input.system_tag, TUPPER_TAG_MAX_LENGTH);
 		if (input.proxy_enabled !== undefined) next.proxy_enabled = input.proxy_enabled;
+		if (input.system_private !== undefined) next.system_private = input.system_private;
 		if (input.autoproxy_tupper_id !== undefined) {
 			if (input.autoproxy_tupper_id === null) {
 				next.autoproxy_tupper_id = null;

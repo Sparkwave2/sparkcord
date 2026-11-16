@@ -386,6 +386,13 @@ const TuppersTab: React.FC = observer(() => {
 					onChange={(value) => void updateSettings({proxy_enabled: value})}
 					data-flx="user.tuppers-tab.proxy-enabled"
 				/>
+				<Switch
+					label={t`Private system`}
+					description={t`Other people can't open your system or see your tuppers' descriptions and your system name. Names, avatars and pronouns still show on your messages.`}
+					value={settings.system_private === true}
+					onChange={(value) => void updateSettings({system_private: value})}
+					data-flx="user.tuppers-tab.system-private"
+				/>
 				<div className={styles.editorGrid}>
 					<Input
 						label={t`System name`}

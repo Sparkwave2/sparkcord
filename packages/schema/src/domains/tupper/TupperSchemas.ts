@@ -46,7 +46,28 @@ export const TupperCardResponse = z.object({
 	system_name: z.string().nullable().describe("The owner's system name"),
 	system_tag: z.string().nullable().describe('Tag shown after the name (tupper tag or system tag)'),
 	font: z.string().nullish().describe('Sparkcord name font id'),
+	system_private: z.boolean().optional().describe('The owner keeps their system private'),
 });
+
+export const TupperSystemMember = z.object({
+	id: z.string(),
+	name: z.string().describe('Name shown on messages (display name if set)'),
+	avatar_url: z.string().nullable().describe('Avatar URL through the media proxy'),
+	pronouns: z.string().nullable(),
+	description: z.string().nullable(),
+	color: z.number().int().nullable(),
+	tag: z.string().nullable(),
+	font: z.string().nullish(),
+});
+
+export const TupperSystemResponse = z.object({
+	user_id: z.string(),
+	private: z.boolean().describe('True when the owner keeps the system private; then nothing else is filled in'),
+	system_name: z.string().nullable(),
+	system_tag: z.string().nullable(),
+	tuppers: z.array(TupperSystemMember),
+});
+export type TupperSystemResponse = z.infer<typeof TupperSystemResponse>;
 
 export type TupperCardResponse = z.infer<typeof TupperCardResponse>;
 
@@ -79,6 +100,7 @@ export const TupperSettingsResponse = z.object({
 	autoproxy_mode: TupperAutoproxyMode,
 	autoproxy_tupper_id: z.string().nullable(),
 	latch_tupper_id: z.string().nullable(),
+	system_private: z.boolean().optional(),
 });
 
 export const TupperSettingsUpdateRequest = z.object({
@@ -87,6 +109,7 @@ export const TupperSettingsUpdateRequest = z.object({
 	proxy_enabled: z.boolean().optional(),
 	autoproxy_mode: TupperAutoproxyMode.optional(),
 	autoproxy_tupper_id: z.string().regex(/^\d{1,20}$/).nullish(),
+	system_private: z.boolean().optional(),
 });
 export type TupperSettingsUpdateRequest = z.infer<typeof TupperSettingsUpdateRequest>;
 

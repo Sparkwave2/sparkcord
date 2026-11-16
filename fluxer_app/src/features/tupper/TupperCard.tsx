@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
+import Authentication from '@app/features/auth/state/Authentication';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
 import {http} from '@app/features/platform/transport/RestTransport';
 import styles from '@app/features/tupper/TupperCard.module.css';
 import {proxyColorString} from '@app/features/tupper/TupperShared';
+import {openTupperSystem} from '@app/features/tupper/TupperSystem';
 import {Avatar} from '@app/features/ui/components/Avatar';
 import {Trans} from '@lingui/react/macro';
 import {clsx} from 'clsx';
@@ -24,6 +26,7 @@ interface TupperCardWire {
 	system_name: string | null;
 	system_tag: string | null;
 	font?: string | null;
+	system_private?: boolean;
 }
 
 /** Cards change rarely; keep them for the session so reopening a popout is instant. */
@@ -87,6 +90,12 @@ export const TupperCard = observer(function TupperCard({message, onClose, varian
 	const systemTag = proxy.system_tag ?? card?.system_tag ?? null;
 	const systemName = card?.system_name ?? null;
 	const ownerName = owner.globalName || owner.username;
+	// A private system can only be opened by its owner.
+	const canViewSystem = card !== null && (!card.system_private || owner.id === Authentication.currentUserId);
+	const handleOpenSystem = useCallback(() => {
+		onClose();
+		openTupperSystem(owner.id);
+	}, [onClose, owner.id]);
 
 	return (
 		<div
@@ -125,7 +134,7 @@ export const TupperCard = observer(function TupperCard({message, onClose, varian
 					</section>
 				)}
 
-				{(systemName || systemTag) && (
+				{(systemName || systemTag || canViewSystem) && (
 					<section className={styles.section}>
 						<h3 className={styles.heading}>
 							<Trans comment="Heading for the PluralKit/Tupperbox-style system a tupper belongs to, on its profile card">
@@ -136,6 +145,18 @@ export const TupperCard = observer(function TupperCard({message, onClose, varian
 							{systemName && <span>{systemName}</span>}
 							{systemTag && <span className={styles.systemTag}>{systemTag}</span>}
 						</p>
+						{canViewSystem && (
+							<button
+								type="button"
+								className={styles.systemButton}
+								onClick={handleOpenSystem}
+								data-flx="tupper.card.view-system"
+							>
+								<Trans comment="Button on a tupper profile card that opens the list of all tuppers in the same system">
+									View system
+								</Trans>
+							</button>
+						)}
 					</section>
 				)}
 

@@ -125,6 +125,25 @@
 	font-weight: 400;
 }
 
+.systemButton {
+	align-self: flex-start;
+	padding: var(--spacing-1) var(--spacing-2);
+	margin-inline: calc(-1 * var(--spacing-2));
+	border: none;
+	border-radius: var(--radius-md);
+	background: transparent;
+	color: var(--text-link, var(--brand-primary-light));
+	font: inherit;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.systemButton:hover,
+.systemButton:focus-visible {
+	background: var(--background-modifier-hover);
+}
+
 .owner {
 	display: flex;
 	align-items: center;

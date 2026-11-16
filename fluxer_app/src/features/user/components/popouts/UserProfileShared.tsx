@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {TupperSystemLink} from '@app/features/tupper/TupperSystemLink';
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {ConnectionIcon, connectionLabel} from '@app/features/connection/components/ConnectionIcon';
 import {GuildIcon} from '@app/features/guild/components/popouts/GuildIcon';
@@ -259,7 +260,15 @@ export const UserProfileTimezoneInfo: React.FC<{profile: Profile}> = observer(({
 		</div>
 	);
 });
-export const UserProfileMembershipInfo: React.FC<{profile: Profile; user: User}> = observer(({profile, user}) => {
+// Sparkcord: every profile surface shows this block, so the tupper system row rides along.
+export const UserProfileMembershipInfo: React.FC<{profile: Profile; user: User}> = ({profile, user}) => (
+	<>
+		{!user.bot && <TupperSystemLink userId={user.id} />}
+		<UserProfileMembershipDates profile={profile} user={user} />
+	</>
+);
+
+const UserProfileMembershipDates: React.FC<{profile: Profile; user: User}> = observer(({profile, user}) => {
 	const {i18n} = useLingui();
 	if (profile?.guild && profile.guildMember) {
 		return (

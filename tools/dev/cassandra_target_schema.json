@@ -12049,6 +12049,10 @@
 					"type": "text"
 				},
 				{
+					"name": "system_private",
+					"type": "boolean"
+				},
+				{
 					"name": "system_tag",
 					"type": "text"
 				},
