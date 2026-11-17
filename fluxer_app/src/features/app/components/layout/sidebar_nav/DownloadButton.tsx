@@ -24,7 +24,7 @@ export const DownloadButton = observer(() => {
 		return null;
 	}
 	const handleDownload = () => {
-		// Sparkcord's own download page: no external-link warning.
+		// Sparkcord's download page: no external-link warning.
 		void openExternalUrl(DESKTOP_DOWNLOAD_URL);
 	};
 	const handleContextMenu = (e: React.MouseEvent) => {

@@ -39,9 +39,9 @@ export const VISIONARY_LIFETIME_BADGE_LABEL = 'Visionary #42';
 export const LINK_PREVIEW_EXAMPLE_URL = 'https://fluxer.com';
 export const EXAMPLE_GIF_URLS = `${EXAMPLE_URL}/gif1.gif\n${EXAMPLE_URL}/gif2.gif`;
 export const THE_OTHER_PLATFORM_TEMPLATE_EXAMPLE_URL = `https://${THE_OTHER_PLATFORM.toLowerCase()}.new/abcd1234`;
-// Sparkcord: the desktop app is downloaded (and updated) from Sparkcord's own page, on
-// every release channel.
-export const DESKTOP_DOWNLOAD_URL = 'https://watermelon.quest/sparkcord';
+// Sparkcord: the desktop app is downloaded (and updated) from the GitHub releases page for
+// now, on every release channel.
+export const DESKTOP_DOWNLOAD_URL = 'https://github.com/Sparkwave2/sparkcord/releases';
 export const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.fluxer';
 export const FLUXER_DOCS_DOMAIN = 'fluxer.dev';
 export const FLUXER_DOCS_URL = `https://${FLUXER_DOCS_DOMAIN}`;
