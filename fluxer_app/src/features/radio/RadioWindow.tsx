@@ -51,6 +51,9 @@ export const RadioWindow = observer(function RadioWindow() {
 			className={visible ? (large ? `${styles.window} ${styles.large}` : styles.window) : styles.hidden}
 			style={visible ? {right: offset.right, bottom: offset.bottom} : undefined}
 			aria-hidden={!visible}
+			// The overlay layer makes its children clickable; the hidden player must not be, or it
+			// blocks whatever sits under it (the composer's emoji button).
+			data-overlay-pass-through={visible ? undefined : ''}
 		>
 			<div
 				className={styles.header}
