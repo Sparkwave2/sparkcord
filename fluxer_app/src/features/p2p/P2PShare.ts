@@ -20,12 +20,6 @@ export interface P2PShareInfo {
 	pendingId: string | null;
 }
 
-/** The WebSocket tracker of this Sparkcord instance. */
-export function trackerUrl(): string {
-	const scheme = location.protocol === 'https:' ? 'wss' : 'ws';
-	return `${scheme}://${location.host}/tracker`;
-}
-
 export function parseP2PShare(content: string | null | undefined): P2PShareInfo | null {
 	const text = content?.trim();
 	if (!text || !text.startsWith('magnet:?') || /\s/.test(text) || !text.includes(P2P_MARKER)) return null;

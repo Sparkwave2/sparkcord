@@ -5,7 +5,8 @@
 // shared only while the tab stays open. Downloaded files are shared on to others too
 // while the tab is open, like any torrent.
 
-import {markMagnet, trackerUrl} from '@app/features/p2p/P2PShare';
+import {instanceTrackerUrl, loadInstanceIce} from '@app/features/p2p/InstanceIce';
+import {markMagnet} from '@app/features/p2p/P2PShare';
 import type WebTorrent from 'webtorrent/dist/webtorrent.min.js';
 import type {Torrent} from 'webtorrent/dist/webtorrent.min.js';
 import {useSyncExternalStore} from 'react';
@@ -97,14 +98,12 @@ async function heldByAnotherTab(infoHash: string): Promise<boolean> {
 
 function getClient(): Promise<WebTorrent> {
 	clientPromise ??= (async () => {
-		const [{default: WebTorrentClass}, ice] = await Promise.all([
+		const [{default: WebTorrentClass}, iceServers] = await Promise.all([
 			import('webtorrent/dist/webtorrent.min.js'),
-			fetch('/tracker-ice')
-				.then((res) => (res.ok ? (res.json() as Promise<{iceServers: Array<RTCIceServer>}>) : {iceServers: []}))
-				.catch(() => ({iceServers: []})),
+			loadInstanceIce(),
 		]);
 		const client = new WebTorrentClass({
-			tracker: {rtcConfig: {iceServers: ice.iceServers}},
+			tracker: {rtcConfig: {iceServers}},
 			dht: false,
 			lsd: false,
 			utp: false,
@@ -288,7 +287,7 @@ export async function shareFile(file: File, id: string): Promise<string> {
 			emitSoon();
 		});
 		try {
-			torrent = client.seed(counted, {announce: [trackerUrl()], name: file.name}, (ready) => {
+			torrent = client.seed(counted, {announce: [instanceTrackerUrl()], name: file.name}, (ready) => {
 				if (!preparing.has(id)) return;
 				preparing.delete(id);
 				holdStoreLock(storeDirName(ready.name, ready.infoHash));
@@ -337,7 +336,7 @@ export async function startDownload(magnet: string, infoHash: string): Promise<v
 		emit();
 		return;
 	}
-	const torrent = client.add(magnet, {announce: [trackerUrl()]});
+	const torrent = client.add(magnet, {announce: [instanceTrackerUrl()]});
 	torrent.on('ready', () => holdStoreLock(storeDirName(torrent.name, infoHash)));
 	track(torrent, false, infoHash);
 }
