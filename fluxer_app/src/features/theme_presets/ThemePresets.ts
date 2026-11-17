@@ -221,6 +221,9 @@ const MODAL_BACKDROP = ['Modal.module__modalBackdrop'];
 /** How much clearer than the base opacities the panels are (user preference: show the art). */
 const PANEL_CLEARNESS = 0.12;
 
+/** Default of the "Panel tint" slider (0..1), matching THEME_TINT_DEFAULT_PERCENT. */
+const PANEL_TINT_DEFAULT = 0.35;
+
 const byModuleClass =(names: ReadonlyArray<string>) =>
 	names.map((name) => `html:root [class*="${name}___"]`).join(',\n');
 
@@ -234,6 +237,13 @@ export function buildPresetCss(preset: ThemePreset): string {
 	// Panels are kept fairly clear so the artwork stays recognisable; the light blur
 	// below is what keeps text readable over it.
 	const a = (dark: number, lightValue: number) => Math.round(((light ? lightValue : dark) - PANEL_CLEARNESS) * 100) / 100;
+	// The "Panel tint" slider (--sparkcord-panel-tint, 0..1) moves an opacity towards solid:
+	// fully for the panels with text (chat, channel and member lists), half for the edges
+	// (server bar, headers) so the art still shows around them.
+	const tinted = (alpha: number, share = 1) => {
+		const rest = Math.round((1 - alpha) * share * 1000) / 1000;
+		return `rgba(${p}, calc(${alpha} + var(--sparkcord-panel-tint, ${PANEL_TINT_DEFAULT}) * ${rest}))`;
+	};
 	return `/* Sparkcord preset theme: ${preset.name}. Generated; duplicate it to customise. */
 html:root {
 	--sparkcord-preset-image: url("${presetImageUrl(preset)}");
@@ -247,17 +257,17 @@ html:root {
 	--button-primary-fill: ${preset.accent};
 	--button-primary-active-fill: color-mix(in srgb, ${preset.accent} 85%, ${light ? 'black' : 'white'});
 	--button-primary-text: ${preset.onAccent};
-	--background-primary: rgba(${p}, ${a(0.62, 0.66)});
-	--background-secondary: rgba(${p}, ${a(0.7, 0.72)});
-	--background-secondary-alt: rgba(${p}, ${a(0.74, 0.76)});
-	--background-secondary-lighter: rgba(${p}, ${a(0.62, 0.66)});
-	--background-tertiary: rgba(${p}, ${a(0.78, 0.8)});
-	--composer-surface-color: rgba(${p}, ${a(0.62, 0.66)});
+	--background-primary: ${tinted(a(0.62, 0.66))};
+	--background-secondary: ${tinted(a(0.7, 0.72))};
+	--background-secondary-alt: ${tinted(a(0.74, 0.76))};
+	--background-secondary-lighter: ${tinted(a(0.62, 0.66))};
+	--background-tertiary: ${tinted(a(0.78, 0.8), 0.5)};
+	--composer-surface-color: ${tinted(a(0.62, 0.66))};
 	--outline-frame-background: transparent;
-	--background-channel-header: rgba(${p}, ${a(0.7, 0.74)});
-	--background-header-primary: rgba(${p}, 0.76);
-	--background-header-secondary: rgba(${p}, 0.8);
-	--background-textarea: rgba(${p}, ${a(0.72, 0.8)});
+	--background-channel-header: ${tinted(a(0.7, 0.74), 0.5)};
+	--background-header-primary: ${tinted(0.76, 0.5)};
+	--background-header-secondary: ${tinted(0.8, 0.5)};
+	--background-textarea: ${tinted(a(0.72, 0.8))};
 }
 
 html:root body {

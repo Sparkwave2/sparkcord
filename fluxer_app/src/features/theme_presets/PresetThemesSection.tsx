@@ -6,7 +6,12 @@ import styles from '@app/features/theme_presets/PresetThemesSection.module.css';
 import {activePresetId, applyPreset, turnOffPresets} from '@app/features/theme_presets/ThemePresetCommands';
 import {presetImageUrl, THEME_PRESETS, type ThemePreset} from '@app/features/theme_presets/ThemePresets';
 import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
-import {CORNER_ROUNDING_MAX_PERCENT, THEME_BLUR_DEFAULT_PX, THEME_BLUR_MAX_PX} from '@app/features/theme_presets/ThemeTweaks';
+import {
+	CORNER_ROUNDING_MAX_PERCENT,
+	THEME_BLUR_DEFAULT_PX,
+	THEME_BLUR_MAX_PX,
+	THEME_TINT_DEFAULT_PERCENT,
+} from '@app/features/theme_presets/ThemeTweaks';
 import {Button} from '@app/features/ui/button/Button';
 import {Slider} from '@app/features/ui/components/Slider';
 import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
@@ -42,6 +47,15 @@ const BLUR_TITLE_DESCRIPTOR = msg({
 const BLUR_HELP_DESCRIPTOR = msg({
 	message: 'How blurry the background image looks behind the app. 0 shows it sharp. Only changes this device.',
 	comment: 'Help text of the background blur slider in Settings > Themes.',
+});
+const TINT_TITLE_DESCRIPTOR = msg({
+	message: 'Panel tint',
+	comment: 'Label of the slider in Settings > Themes that makes the see-through panels of a preset theme more solid (darker on dark themes, lighter on light ones).',
+});
+const TINT_HELP_DESCRIPTOR = msg({
+	message:
+		'How solid the panels behind chat and lists are. Higher makes text easier to read, lower shows more of the background image. Only changes this device.',
+	comment: 'Help text of the panel tint slider in Settings > Themes.',
 });
 const ROUNDING_TITLE_DESCRIPTOR = msg({
 	message: 'Corner rounding',
@@ -144,6 +158,24 @@ export const PresetThemesSection: React.FC = observer(() => {
 						onMarkerRender={(value) => `${value}`}
 						onValueRender={(value) => `${Math.round(value)} px`}
 						onValueChange={(value) => SparkcordPrefs.set('themeBlurPx', Math.round(value))}
+					/>
+				</div>
+			)}
+			{activeId !== null && (
+				<div className={styles.tweak}>
+					<span className={styles.tweakTitle}>{i18n._(TINT_TITLE_DESCRIPTOR)}</span>
+					<span className={styles.tweakHelp}>{i18n._(TINT_HELP_DESCRIPTOR)}</span>
+					<Slider
+						defaultValue={SparkcordPrefs.get('themeTintPercent')}
+						factoryDefaultValue={THEME_TINT_DEFAULT_PERCENT}
+						minValue={0}
+						maxValue={100}
+						step={5}
+						markers={[0, 25, 50, 75, 100]}
+						stickToMarkers={false}
+						onMarkerRender={(value) => `${value}%`}
+						onValueRender={(value) => `${Math.round(value)}%`}
+						onValueChange={(value) => SparkcordPrefs.set('themeTintPercent', Math.round(value))}
 					/>
 				</div>
 			)}
