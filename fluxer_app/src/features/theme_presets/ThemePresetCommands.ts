@@ -6,11 +6,27 @@ import ThemeLibrary from '@app/features/theme/state/ThemeLibrary';
 import {startThemeTweaks} from '@app/features/theme_presets/ThemeTweaks';
 import {
 	buildPresetCss,
+	CUSTOM_PRESET_ID_PREFIX,
+	parseCustomPresetCss,
 	presetThemeId,
 	THEME_PRESET_ID_PREFIX,
 	THEME_PRESETS,
 	type ThemePreset,
 } from '@app/features/theme_presets/ThemePresets';
+
+/** Themes made from the user's own pictures, oldest first. */
+export function customPresets(): Array<ThemePreset> {
+	const prefix = THEME_PRESET_ID_PREFIX + CUSTOM_PRESET_ID_PREFIX;
+	return ThemeLibrary.themes
+		.filter((theme) => theme.id.startsWith(prefix))
+		.sort((a, b) => a.createdAt - b.createdAt)
+		.map((theme) => parseCustomPresetCss(theme.css))
+		.filter((preset): preset is ThemePreset => preset !== null);
+}
+
+export function newCustomPresetId(): string {
+	return `${CUSTOM_PRESET_ID_PREFIX}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+}
 
 export function activePresetId(): string | null {
 	const enabled = ThemeLibrary.enabledIdsFor(ThemeEditTarget.target);
@@ -65,7 +81,7 @@ export async function turnOffPresets(): Promise<void> {
  */
 export async function refreshInstalledPresets(): Promise<void> {
 	startThemeTweaks();
-	for (const preset of THEME_PRESETS) {
+	for (const preset of [...THEME_PRESETS, ...customPresets()]) {
 		const id = presetThemeId(preset);
 		const installed = ThemeLibrary.themes.find((theme) => theme.id === id);
 		if (!installed) continue;

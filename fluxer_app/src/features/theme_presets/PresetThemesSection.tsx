@@ -3,7 +3,8 @@
 import {SettingsSection} from '@app/features/app/components/dialogs/shared/SettingsSection';
 import ThemeLibrary from '@app/features/theme/state/ThemeLibrary';
 import styles from '@app/features/theme_presets/PresetThemesSection.module.css';
-import {activePresetId, applyPreset, turnOffPresets} from '@app/features/theme_presets/ThemePresetCommands';
+import {openCustomImageTheme} from '@app/features/theme_presets/CustomImageThemeModal';
+import {activePresetId, applyPreset, customPresets, turnOffPresets} from '@app/features/theme_presets/ThemePresetCommands';
 import {presetImageUrl, THEME_PRESETS, type ThemePreset} from '@app/features/theme_presets/ThemePresets';
 import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 import {
@@ -17,10 +18,11 @@ import {Slider} from '@app/features/ui/components/Slider';
 import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
+import {PlusIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 const SECTION_TITLE_DESCRIPTOR = msg({
 	message: 'Preset themes',
@@ -66,6 +68,14 @@ const ROUNDING_HELP_DESCRIPTOR = msg({
 		'How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device.',
 	comment: 'Help text of the corner rounding slider in Settings > Themes.',
 });
+const ADD_TITLE_DESCRIPTOR = msg({
+	message: 'Your own picture',
+	comment: 'Card at the end of the preset themes that makes a theme from an image the user picks.',
+});
+const ADD_DESCRIPTION_DESCRIPTOR = msg({
+	message: 'Pick an image and get a theme in its colours.',
+	comment: "Description on the card that makes a theme from the user's own image.",
+});
 const APPLY_FAILED_DESCRIPTOR = msg({
 	message: "Couldn't apply that theme.",
 	comment: 'Toast when applying a preset theme fails.',
@@ -110,6 +120,7 @@ const PresetCard: React.FC<{preset: ThemePreset; active: boolean; busy: boolean;
 export const PresetThemesSection: React.FC = observer(() => {
 	const {i18n} = useLingui();
 	const [busy, setBusy] = useState(false);
+	const fileInputRef = useRef<HTMLInputElement>(null);
 	// Read so the section re-renders when the library loads or changes.
 	void ThemeLibrary.themes.length;
 	const activeId = activePresetId();
@@ -133,7 +144,7 @@ export const PresetThemesSection: React.FC = observer(() => {
 			data-flx="theme-presets.section"
 		>
 			<div className={styles.grid}>
-				{THEME_PRESETS.map((preset) => (
+				{[...THEME_PRESETS, ...customPresets()].map((preset) => (
 					<PresetCard
 						key={preset.id}
 						preset={preset}
@@ -142,6 +153,32 @@ export const PresetThemesSection: React.FC = observer(() => {
 						onPick={() => void run(() => applyPreset(preset))}
 					/>
 				))}
+				<button
+					type="button"
+					className={clsx(styles.card, styles.addCard)}
+					onClick={() => fileInputRef.current?.click()}
+					disabled={busy}
+					data-flx="theme-presets.card.add"
+				>
+					<span className={clsx(styles.preview, styles.addPreview)}>
+						<PlusIcon size={32} weight="bold" />
+					</span>
+					<span className={styles.body}>
+						<span className={styles.name}>{i18n._(ADD_TITLE_DESCRIPTOR)}</span>
+						<span className={styles.description}>{i18n._(ADD_DESCRIPTION_DESCRIPTOR)}</span>
+					</span>
+				</button>
+				<input
+					ref={fileInputRef}
+					type="file"
+					accept="image/png,image/jpeg,image/webp,image/gif,image/avif"
+					hidden
+					onChange={(event) => {
+						const file = event.target.files?.[0];
+						event.target.value = '';
+						if (file) openCustomImageTheme(file);
+					}}
+				/>
 			</div>
 			{activeId !== null && (
 				<div className={styles.tweak}>

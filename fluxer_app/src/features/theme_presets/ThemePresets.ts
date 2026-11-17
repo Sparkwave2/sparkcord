@@ -21,6 +21,34 @@ export interface ThemePreset {
 	link: string;
 	/** CSS gradient used when there is no image, and while it loads. */
 	gradient: string;
+	/** The background picture (a data: URL) of a theme made from the user's own image. */
+	image?: string;
+}
+
+/** Ids of themes made from the user's own picture (still preset ids, so only one is on). */
+export const CUSTOM_PRESET_ID_PREFIX = 'custom-';
+const CUSTOM_META_PATTERN = /^\/\* sparkcord-custom-theme (\{.*?\}) \*\//;
+const IMAGE_VAR_PATTERN = /--sparkcord-preset-image: url\("([^"]+)"\)/;
+
+export function isCustomPreset(preset: ThemePreset): boolean {
+	return preset.id.startsWith(CUSTOM_PRESET_ID_PREFIX);
+}
+
+/**
+ * Reads a custom theme's settings back from its saved CSS (they are kept in a comment at
+ * the top, and the picture in the background variable), or null for any other CSS.
+ */
+export function parseCustomPresetCss(css: string): ThemePreset | null {
+	const meta = CUSTOM_META_PATTERN.exec(css);
+	const image = IMAGE_VAR_PATTERN.exec(css);
+	if (!meta || !image) return null;
+	try {
+		const parsed = JSON.parse(meta[1]) as Omit<ThemePreset, 'image'>;
+		if (typeof parsed.id !== 'string' || !parsed.id.startsWith(CUSTOM_PRESET_ID_PREFIX)) return null;
+		return {...parsed, image: image[1]};
+	} catch {
+		return null;
+	}
 }
 
 export const THEME_PRESET_ID_PREFIX = 'sparkcord-preset-';
@@ -163,6 +191,7 @@ export function presetThemeId(preset: ThemePreset): string {
 }
 
 export function presetImageUrl(preset: ThemePreset, thumb = false): string {
+	if (preset.image) return preset.image;
 	return `/assets/theme-presets/${preset.id}${thumb ? '-thumb' : ''}.webp`;
 }
 
@@ -244,8 +273,14 @@ export function buildPresetCss(preset: ThemePreset): string {
 		const rest = Math.round((1 - alpha) * share * 1000) / 1000;
 		return `rgba(${p}, calc(${alpha} + var(--sparkcord-panel-tint, ${PANEL_TINT_DEFAULT}) * ${rest}))`;
 	};
-	return `/* Sparkcord preset theme: ${preset.name}. Generated; duplicate it to customise. */
-html:root {
+	const {image: _image, ...meta} = preset;
+	const header = isCustomPreset(preset)
+		? `/* sparkcord-custom-theme ${JSON.stringify(meta).replaceAll('*/', '* /')} */
+/* Sparkcord theme made from your own picture. Generated; duplicate it to customise. */
+`
+		: `/* Sparkcord preset theme: ${preset.name}. Generated; duplicate it to customise. */
+`;
+	return `${header}html:root {
 	--sparkcord-preset-image: url("${presetImageUrl(preset)}");
 	--sparkcord-preset-gradient: ${preset.gradient};
 	--brand-primary: ${preset.accent};

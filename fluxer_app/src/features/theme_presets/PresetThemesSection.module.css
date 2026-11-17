@@ -125,3 +125,19 @@
 	font-size: 0.8125rem;
 	line-height: 1.35;
 }
+
+.addCard {
+	border-style: dashed;
+}
+
+.addPreview {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--background-tertiary);
+	color: var(--text-secondary);
+}
+
+.addCard:hover .addPreview {
+	color: var(--brand-primary);
+}
