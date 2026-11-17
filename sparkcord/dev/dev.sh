@@ -165,7 +165,9 @@ cmd_watch() {
 				*"Conflicting order"* | *"│"* | *"├"* | *"╰"* | *"╭"*) ;;
 				*"compiled"*)
 					echo "$line"
-					compose restart app-proxy >/dev/null 2>&1 && echo ">> Ready: refresh http://localhost:$PORT"
+					# </dev/null: docker compose would otherwise read (and swallow) rspack's
+					# output from this loop's stdin, ending the loop and the watch.
+					compose restart app-proxy </dev/null >/dev/null 2>&1 && echo ">> Ready: refresh http://localhost:$PORT"
 					;;
 				*) echo "$line" ;;
 			esac
