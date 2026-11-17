@@ -31,6 +31,8 @@ declare module 'webtorrent/dist/webtorrent.min.js' {
 		announce?: Array<string>;
 		name?: string;
 		private?: boolean;
+		/** A chunk store class (abstract-chunk-store interface) to keep the data in. */
+		store?: new (chunkLength: number, opts: {length?: number}) => unknown;
 	}
 
 	export interface WebTorrentOptions {

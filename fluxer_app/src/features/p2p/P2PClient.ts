@@ -54,6 +54,90 @@ const LOCK_PREFIX = 'sparkcord-p2p:';
 const STORE_DIR_PATTERN = / - [0-9a-f]{8}$/;
 const lockReleases = new Map<string, () => void>();
 
+type StoreCallback<T = void> = (error: Error | null, value?: T) => void;
+
+/**
+ * Keeps a torrent's data in memory, for browsers that refuse the site its private file
+ * storage (Firefox in private windows, with the site's data blocked, or hardened forks:
+ * "SecurityError ... GetDirectory"). Implements the abstract-chunk-store interface.
+ */
+class MemoryChunkStore {
+	readonly chunkLength: number;
+	private readonly lastChunkLength: number;
+	private readonly lastIndex: number;
+	private chunks: Array<Uint8Array | undefined> = [];
+	private closed = false;
+
+	constructor(chunkLength: number, opts: {length?: number} = {}) {
+		this.chunkLength = Number(chunkLength);
+		const length = Number(opts.length) || Infinity;
+		this.lastChunkLength = length % this.chunkLength || this.chunkLength;
+		this.lastIndex = Math.ceil(length / this.chunkLength) - 1;
+	}
+
+	put(index: number, buf: Uint8Array, cb: StoreCallback = () => {}): void {
+		if (this.closed) return queueMicrotask(() => cb(new Error('Storage is closed')));
+		const expected = index === this.lastIndex ? this.lastChunkLength : this.chunkLength;
+		if (buf.length !== expected) {
+			return queueMicrotask(() => cb(new Error(`Chunk length must be ${expected}`)));
+		}
+		this.chunks[index] = buf;
+		queueMicrotask(() => cb(null));
+	}
+
+	get(
+		index: number,
+		opts: {offset?: number; length?: number} | StoreCallback<Uint8Array> | null,
+		cb?: StoreCallback<Uint8Array>,
+	): void {
+		if (typeof opts === 'function') return this.get(index, null, opts);
+		const done = cb ?? (() => {});
+		if (this.closed) return queueMicrotask(() => done(new Error('Storage is closed')));
+		const chunk = this.chunks[index];
+		if (!chunk) {
+			const error = Object.assign(new Error('Chunk not found'), {notFound: true});
+			return queueMicrotask(() => done(error));
+		}
+		const offset = opts?.offset ?? 0;
+		const length = opts?.length ?? chunk.length - offset;
+		const slice = offset === 0 && length === chunk.length ? chunk : chunk.subarray(offset, offset + length);
+		queueMicrotask(() => done(null, slice));
+	}
+
+	close(cb: StoreCallback = () => {}): void {
+		this.closed = true;
+		queueMicrotask(() => cb(null));
+	}
+
+	destroy(cb: StoreCallback = () => {}): void {
+		this.closed = true;
+		this.chunks = [];
+		queueMicrotask(() => cb(null));
+	}
+}
+
+let fileStorageUsable: Promise<boolean> | null = null;
+
+/** Whether the site's private file storage works here (it throws when the browser blocks it). */
+function canUseFileStorage(): Promise<boolean> {
+	fileStorageUsable ??= (async () => {
+		if (!navigator.storage?.getDirectory) return false;
+		try {
+			await navigator.storage.getDirectory();
+			return true;
+		} catch (error) {
+			console.warn('[p2p] file storage is blocked, keeping transfers in memory', error);
+			return false;
+		}
+	})();
+	return fileStorageUsable;
+}
+
+/** Extra torrent options: the in-memory store when file storage is blocked. */
+async function storeOptions(): Promise<{store?: typeof MemoryChunkStore}> {
+	return (await canUseFileStorage()) ? {} : {store: MemoryChunkStore};
+}
+
 function storeDirName(name: string, infoHash: string): string {
 	return `${name} - ${infoHash.slice(0, 8)}`;
 }
@@ -75,7 +159,7 @@ function releaseStoreLock(dirName: string): void {
 }
 
 async function removeStaleStores(): Promise<void> {
-	if (!navigator.locks || !navigator.storage?.getDirectory) return;
+	if (!navigator.locks || !(await canUseFileStorage())) return;
 	const root = await navigator.storage.getDirectory();
 	const names: Array<string> = [];
 	for await (const name of (root as unknown as {keys(): AsyncIterable<string>}).keys()) {
@@ -270,6 +354,7 @@ export async function shareFile(file: File, id: string): Promise<string> {
 		emit();
 	});
 	const client = await getClient();
+	const extraOptions = await storeOptions();
 	if (cancelledEarly) throw new ShareCancelledError();
 	return new Promise((resolve, reject) => {
 		let torrent: Torrent | null = null;
@@ -287,7 +372,7 @@ export async function shareFile(file: File, id: string): Promise<string> {
 			emitSoon();
 		});
 		try {
-			torrent = client.seed(counted, {announce: [instanceTrackerUrl()], name: file.name}, (ready) => {
+			torrent = client.seed(counted, {announce: [instanceTrackerUrl()], name: file.name, ...extraOptions}, (ready) => {
 				if (!preparing.has(id)) return;
 				preparing.delete(id);
 				holdStoreLock(storeDirName(ready.name, ready.infoHash));
@@ -336,7 +421,7 @@ export async function startDownload(magnet: string, infoHash: string): Promise<v
 		emit();
 		return;
 	}
-	const torrent = client.add(magnet, {announce: [instanceTrackerUrl()]});
+	const torrent = client.add(magnet, {announce: [instanceTrackerUrl()], ...(await storeOptions())});
 	torrent.on('ready', () => holdStoreLock(storeDirName(torrent.name, infoHash)));
 	track(torrent, false, infoHash);
 }
