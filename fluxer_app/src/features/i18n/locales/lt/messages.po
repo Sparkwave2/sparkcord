@@ -7171,6 +7171,10 @@ msgstr "Apeiti paminėjimų slopinimą"
 msgid "Bypass slowmode"
 msgstr "Nepaisyti lėtojo režimo"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Café sound volume"
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -24382,6 +24386,10 @@ msgstr "Nutildyti visus įrenginius"
 msgid "Mute app sound effects"
 msgstr "Nutildyti programos garso efektus"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Mute café sounds"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Mute calls"
@@ -40706,6 +40714,10 @@ msgstr "turkų"
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Turn a comment on or off"
 msgstr "Įjungti arba išjungti komentarą"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Turn café sounds on"
+msgstr ""
 
 #. Keyboard shortcut action that stops applying quick CSS and saved themes in this tab, for example when CSS breaks the app. Also used in the quick CSS editor.
 #: src/features/theme_settings/utils/ThemeSettingsMessageDescriptors.ts

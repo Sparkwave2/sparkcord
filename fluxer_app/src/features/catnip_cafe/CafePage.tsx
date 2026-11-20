@@ -7,15 +7,47 @@ import Authentication from '@app/features/auth/state/Authentication';
 import {ACHIEVEMENTS, HELPERS, LIFE_BONUS, livesFor, PERKS} from '@app/features/catnip_cafe/CafeData';
 import Cafe, {formatPurrs} from '@app/features/catnip_cafe/CafeEngine';
 import {CafeCat} from '@app/features/catnip_cafe/CafeCat';
+import {cafeSound} from '@app/features/catnip_cafe/CafeSound';
 import styles from '@app/features/catnip_cafe/CafePage.module.css';
 import Guilds from '@app/features/guild/state/Guilds';
 import {http} from '@app/features/platform/transport/RestTransport';
 import Users from '@app/features/user/state/Users';
 import {useLingui} from '@lingui/react/macro';
+import {SpeakerHighIcon, SpeakerLowIcon, SpeakerSlashIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useEffect, useRef, useState} from 'react';
+
+const SoundControls = observer(function SoundControls() {
+	const {t} = useLingui();
+	const silent = cafeSound.muted || cafeSound.volume <= 0;
+	const Icon = silent ? SpeakerSlashIcon : cafeSound.volume < 0.4 ? SpeakerLowIcon : SpeakerHighIcon;
+	return (
+		<div className={styles.sound} data-flx="catnip-cafe.sound">
+			<button
+				type="button"
+				className={styles.soundButton}
+				onClick={() => cafeSound.setMuted(!silent ? true : false)}
+				aria-label={silent ? t`Turn café sounds on` : t`Mute café sounds`}
+				title={silent ? t`Turn café sounds on` : t`Mute café sounds`}
+				aria-pressed={silent}
+			>
+				<Icon weight="bold" />
+			</button>
+			<input
+				type="range"
+				className={styles.soundSlider}
+				min={0}
+				max={100}
+				step={5}
+				value={cafeSound.muted ? 0 : Math.round(cafeSound.volume * 100)}
+				onChange={(event) => cafeSound.setVolume(Number(event.currentTarget.value) / 100)}
+				aria-label={t`Café sound volume`}
+			/>
+		</div>
+	);
+});
 
 type Tab = 'upgrades' | 'achievements' | 'lives' | 'leaderboard';
 
@@ -284,6 +316,7 @@ export const CafePage = observer(function CafePage() {
 
 	useEffect(() => {
 		if (!userId) return;
+		cafeSound.preload();
 		return Cafe.start(userId);
 	}, [userId]);
 
@@ -320,6 +353,7 @@ export const CafePage = observer(function CafePage() {
 	return (
 		<div className={styles.page}>
 			<div className={styles.stage} ref={stageRef}>
+				<SoundControls />
 				<h1 className={styles.title}>{t`Catnip Café`}</h1>
 				<div className={styles.purrs}>🐾 {formatPurrs(Cafe.state.purrs)}</div>
 				<div className={styles.rate}>

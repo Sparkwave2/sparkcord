@@ -979,6 +979,33 @@ export default () => {
 				'import.meta.env.BUILD_CHANNEL': JSON.stringify(buildInfo.channel),
 			}),
 			{
+				// Sparkcord: list the Catnip Café sound files, so the café only fetches the ones
+				// that exist (adding a file to the folder triggers a rebuild while watching).
+				apply(compiler) {
+					const soundsDir = path.join(PUBLIC_DIR, 'assets', 'catnip-cafe', 'sounds');
+					compiler.hooks.thisCompilation.tap('CafeSoundsIndexPlugin', (compilation) => {
+						const {Compilation} = compiler.rspack;
+						compilation.contextDependencies.add(soundsDir);
+						compilation.hooks.processAssets.tap(
+							{name: 'CafeSoundsIndexPlugin', stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL},
+							() => {
+								let files = [];
+								try {
+									files = readdirSync(soundsDir)
+										.filter((name) => /\.(ogg|mp3|wav|m4a|opus|webm|flac)$/i.test(name))
+										.sort();
+								} catch {}
+								const {RawSource} = compiler.rspack.sources;
+								compilation.emitAsset(
+									'assets/catnip-cafe/sounds/index.json',
+									new RawSource(JSON.stringify({files})),
+								);
+							},
+						);
+					});
+				},
+			},
+			{
 				apply(compiler) {
 					compiler.hooks.thisCompilation.tap('VersionJsonPlugin', (compilation) => {
 						const {Compilation} = compiler.rspack;

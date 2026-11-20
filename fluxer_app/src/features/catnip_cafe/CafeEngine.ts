@@ -16,6 +16,7 @@ import {
 	type UpgradeDef,
 } from '@app/features/catnip_cafe/CafeData';
 import {formatPurrs} from '@app/features/catnip_cafe/CafeFormat';
+import {cafeSound} from '@app/features/catnip_cafe/CafeSound';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {makeAutoObservable, runInAction} from 'mobx';
 
@@ -299,6 +300,7 @@ class CafeEngine {
 		const value = this.petValue;
 		this.earn(value);
 		this.state.pets += 1;
+		cafeSound.play('pet');
 		const id = this.nextId++;
 		this.floaters.push({id, text: `+${formatPurrs(value)}`, x, y});
 		if (this.floaters.length > 30) this.floaters.shift();
@@ -318,6 +320,7 @@ class CafeEngine {
 		this.state.purrs -= cost;
 		this.state.owned[helperId] = (this.state.owned[helperId] ?? 0) + amount;
 		this.dirty = true;
+		cafeSound.play('buy');
 		this.checkAchievements();
 	}
 
@@ -327,6 +330,7 @@ class CafeEngine {
 		this.state.purrs -= upgrade.cost;
 		this.state.upgrades.push(upgradeId);
 		this.dirty = true;
+		cafeSound.play('upgrade');
 	}
 
 	buyPerk(perkId: string): void {
@@ -334,6 +338,7 @@ class CafeEngine {
 		if (!perk || this.hasPerk(perkId) || this.livesAvailable < perk.cost) return;
 		this.state.perks.push(perkId);
 		this.dirty = true;
+		cafeSound.play('upgrade');
 		void this.save();
 	}
 
@@ -357,6 +362,7 @@ class CafeEngine {
 		if (keep.perks.includes('head-start')) fresh.owned = {yarn: 10, kitten: 5};
 		this.state = fresh;
 		this.dirty = true;
+		cafeSound.play('new-life');
 		this.notify(`You started a new life and gained ${gained} ${gained === 1 ? 'Life' : 'Lives'}.`);
 		this.checkAchievements();
 		void this.save();
@@ -366,6 +372,7 @@ class CafeEngine {
 		if (!this.lucky) return;
 		this.lucky = null;
 		this.state.luckyCaught += 1;
+		cafeSound.play('lucky-catch');
 		const roll = Math.random();
 		const duration = this.luckyDuration;
 		if (roll < 0.45) {
@@ -400,6 +407,7 @@ class CafeEngine {
 	}
 
 	private checkAchievements(): void {
+		let unlocked = false;
 		const progress = {
 			lifetimeAll: this.state.lifetimeAll,
 			owned: this.state.owned,
@@ -414,8 +422,10 @@ class CafeEngine {
 				this.state.achievements.push(achievement.id);
 				this.notify(`Achievement: ${achievement.name}`);
 				this.dirty = true;
+				unlocked = true;
 			}
 		}
+		if (unlocked) cafeSound.play('achievement');
 	}
 
 	private tick(): void {
@@ -431,6 +441,7 @@ class CafeEngine {
 		if (this.lucky && this.lucky.until < now) this.lucky = null;
 		if (!this.lucky && now >= this.nextLuckyAt) {
 			this.lucky = {x: 10 + Math.random() * 75, y: 15 + Math.random() * 65, until: now + LUCKY_VISIBLE_MS * this.luckyDuration};
+			cafeSound.play('lucky-appear');
 			this.scheduleLucky(now);
 		}
 		if (this.state.buff && this.state.buff.until < now) this.state.buff = null;

@@ -7171,6 +7171,10 @@ msgstr "Omitir supresión de menciones"
 msgid "Bypass slowmode"
 msgstr "Omitir modo lento"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Café sound volume"
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -24381,6 +24385,10 @@ msgstr "Silenciar todos los dispositivos"
 msgid "Mute app sound effects"
 msgstr "Silenciar efectos de sonido de la aplicación"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Mute café sounds"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Mute calls"
@@ -40705,6 +40713,10 @@ msgstr "Turco"
 #: src/features/theme_settings/components/QuickCssShortcutsModal.tsx
 msgid "Turn a comment on or off"
 msgstr "Activar o desactivar un comentario"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Turn café sounds on"
+msgstr ""
 
 #. Keyboard shortcut action that stops applying quick CSS and saved themes in this tab, for example when CSS breaks the app. Also used in the quick CSS editor.
 #: src/features/theme_settings/utils/ThemeSettingsMessageDescriptors.ts
