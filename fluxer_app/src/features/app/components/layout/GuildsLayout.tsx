@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {CafeButton} from '@app/features/catnip_cafe/CafeButton';
 import {Routes} from '@app/app/Routes';
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {useActiveNagbars, useNagbarConditions} from '@app/features/app/components/layout/app_layout/AppLayoutHooks';
@@ -197,6 +198,7 @@ type GuildNavigationRow =
 	| (NavigationRow & {readonly kind: 'discovery'})
 	| (NavigationRow & {readonly kind: 'add-guild'})
 	| (NavigationRow & {readonly kind: 'download'})
+	| (NavigationRow & {readonly kind: 'catnip-cafe'})
 	| (NavigationRow & {readonly kind: 'help'});
 
 interface GuildNavigationVisibility {
@@ -353,6 +355,13 @@ function createGuildNavigationRows({
 			focusTargetIdentity: 'download',
 		});
 	}
+	// Sparkcord: the Catnip Café game.
+	rows.push({
+		kind: 'catnip-cafe',
+		key: 'catnip-cafe',
+		focusable: true,
+		focusTargetIdentity: 'catnip-cafe',
+	});
 	if (visibility.helpVisible) {
 		rows.push({
 			kind: 'help',
@@ -370,6 +379,7 @@ function hasGapAfterGuildNavigationRow(row: GuildNavigationRow, nextRow: GuildNa
 		case 'discovery':
 		case 'add-guild':
 		case 'download':
+		case 'catnip-cafe':
 			return true;
 		case 'favorites':
 			if (nextRow == null) {
@@ -2105,6 +2115,8 @@ const GuildList = observer(() => {
 				return <AddGuildButton data-flx="app.guilds-layout.render-guild-navigation-row.add-guild-button" />;
 			case 'download':
 				return <DownloadButton data-flx="app.guilds-layout.render-guild-navigation-row.download-button" />;
+			case 'catnip-cafe':
+				return <CafeButton />;
 			case 'help':
 				return <HelpButton data-flx="app.guilds-layout.render-guild-navigation-row.help-button" />;
 		}

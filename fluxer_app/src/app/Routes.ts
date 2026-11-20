@@ -7,7 +7,7 @@ function hostedMarketingUrl(path: string): string | null {
 	return RuntimeConfig.isSelfHosted() ? null : marketingUrl(path);
 }
 
-const CHANNEL_SCOPE_ROOTS: ReadonlySet<string> = new Set(['@me', '@favorites', '@explore', '@discover']);
+const CHANNEL_SCOPE_ROOTS: ReadonlySet<string> = new Set(['@me', '@favorites', '@explore', '@discover', '@cafe']);
 
 function channelsRoot(pathname: string): string | null {
 	return pathname.startsWith('/channels/') ? (pathname.split('/')[2] ?? '') : null;
@@ -36,6 +36,8 @@ export const Routes = {
 	ME: '/channels/@me',
 	FAVORITES: '/channels/@favorites',
 	DISCOVER: '/channels/@explore',
+	/** Sparkcord: the Catnip Café game. */
+	CATNIP_CAFE: '/channels/@cafe',
 	LEGACY_DISCOVER: '/channels/@discover',
 	BOOKMARKS: '/bookmarks',
 	MENTIONS: '/mentions',

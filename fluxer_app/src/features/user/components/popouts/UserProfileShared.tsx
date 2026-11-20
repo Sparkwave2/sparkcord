@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {CafeProfileLine} from '@app/features/catnip_cafe/CafeProfileLine';
 import {TupperSystemLink} from '@app/features/tupper/TupperSystemLink';
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {ConnectionIcon, connectionLabel} from '@app/features/connection/components/ConnectionIcon';
@@ -264,6 +265,7 @@ export const UserProfileTimezoneInfo: React.FC<{profile: Profile}> = observer(({
 export const UserProfileMembershipInfo: React.FC<{profile: Profile; user: User}> = ({profile, user}) => (
 	<>
 		{!user.bot && <TupperSystemLink userId={user.id} />}
+		{!user.bot && <CafeProfileLine userId={user.id} />}
 		<UserProfileMembershipDates profile={profile} user={user} />
 	</>
 );

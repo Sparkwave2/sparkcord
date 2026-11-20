@@ -61,9 +61,20 @@ msgstr "[原始消息已删除]"
 msgid "{0, plural, one {# member} other {# members}}"
 msgstr "{0, plural, other {# 位成员}}"
 
+#. placeholder {0}: earned.size
+#. placeholder {1}: ACHIEVEMENTS.length
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "{0} of {1} earned. Each one adds 1% to all purrs."
+msgstr ""
+
 #. placeholder {0}: sounds.length
 #: src/features/soundboard/SoundManager.tsx
 msgid "{0} of {max} sounds"
+msgstr ""
+
+#. placeholder {0}: formatPurrs(Cafe.pps)
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "{0} purrs per second"
 msgstr ""
 
 #. Screen reader announcement in the composer when two people are typing. {a} and {b} are their display names.
@@ -2587,6 +2598,11 @@ msgstr "<0/> 发起了通话，时长 {durationText}。"
 msgid "<0/> started a call."
 msgstr "<0/> 发起了通话。"
 
+#. placeholder {0}: current.fileName
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "<0>{0}</0> is still running. Starting this game closes it, and anything not saved in it is lost."
+msgstr ""
+
 #: src/features/moderation/components/modals/TimeoutMemberSheet.tsx
 msgid "<0>{targetUserTag}</0> is currently timed out. You can update their timeout duration or remove the timeout."
 msgstr "<0>{targetUserTag}</0> 当前处于禁言状态。你可以更新禁言时长或解除禁言。"
@@ -3071,6 +3087,11 @@ msgstr "主题色"
 msgid "Accent color"
 msgstr "主题色"
 
+#. Label of the accent colour picker in the theme-from-picture dialog.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Accent colour"
+msgstr ""
+
 #. Button or tooltip for accepting an incoming friend request.
 #. Button that accepts an incoming Operator Pass offer.
 #: src/features/premium/components/operator_pass/OperatorPassOfferModal.tsx
@@ -3238,6 +3259,10 @@ msgstr ""
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Accounts"
 msgstr "账号"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Achievements"
+msgstr ""
 
 #. Description for the All DMs message search scope option.
 #: src/features/channel/components/SearchScopeOptions.ts
@@ -3624,6 +3649,11 @@ msgstr "添加邮箱和密码后即可提交举报。"
 #: src/features/user/utils/AccountGatePresentation.tsx
 msgid "Add an email and a password to talk in this community."
 msgstr "添加邮箱和密码后即可在此社区发言。"
+
+#. Tip at the bottom of the Slug Mode dialog: adding an email turns it into a normal account.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Add an email later to keep it for good."
+msgstr ""
 
 #. Reason shown when someone without an email starts a purchase.
 #: src/features/user/utils/AccountGatePresentation.tsx
@@ -7020,6 +7050,11 @@ msgstr "保加利亚语"
 msgid "Bulk delete"
 msgstr "批量删除"
 
+#. Sample button in the theme preview.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Button"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Button sizes"
 msgstr "按钮大小"
@@ -7340,6 +7375,7 @@ msgstr "无法在此上传文件"
 #. Button that closes the delete channel confirmation without deleting.
 #. Button that closes the device logout confirmation without changes.
 #. Button that closes the regenerate backup codes confirmation without changes.
+#. Closes the theme-from-picture dialog without saving.
 #. Generic secondary-button label that dismisses a modal/sheet/form without saving.
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
 #: src/features/auth/components/modals/AccountDeleteModal.tsx
@@ -7352,6 +7388,7 @@ msgstr "无法在此上传文件"
 #: src/features/auth/components/modals/PasskeyPinModal.tsx
 #: src/features/auth/components/modals/SudoVerificationModal.tsx
 #: src/features/auth/flow/BrowserLoginHandoffModal.tsx
+#: src/features/catnip_cafe/CafePage.tsx
 #: src/features/channel/components/bottomsheets/CreateDMBottomSheet.tsx
 #: src/features/channel/components/MentionEveryonePopout.tsx
 #: src/features/channel/components/modals/ChannelDeleteModal.tsx
@@ -7377,6 +7414,7 @@ msgstr "无法在此上传文件"
 #: src/features/moderation/components/modals/RemoveTimeoutModal.tsx
 #: src/features/moderation/components/modals/TimeoutMemberModal.tsx
 #: src/features/p2p/P2PShareCard.tsx
+#: src/features/theme_presets/CustomImageThemeModal.tsx
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 #: src/features/user/components/modals/BouncedEmailChangeModal.tsx
 #: src/features/user/components/modals/EmailChangeModal.tsx
@@ -7519,6 +7557,10 @@ msgstr "卡片对齐方式控件"
 msgid "Catalan"
 msgstr ""
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Catch the Lucky Cat"
+msgstr ""
+
 #. Heading above the category filter list in the Explore search sidebar.
 #: src/features/discovery/discovery/DiscoverySearchFilters.tsx
 msgid "Categories"
@@ -7583,6 +7625,14 @@ msgstr "类别选项"
 #: src/features/user/components/settings_utils/ChannelSettingsConstants.ts
 msgid "Category settings"
 msgstr "类别设置"
+
+#. Heading on a profile card for the person's Catnip Café game score
+#. Sidebar button that opens the Catnip Café idle cat game.
+#: src/features/catnip_cafe/CafeButton.tsx
+#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeProfileLine.tsx
+msgid "Catnip Café"
+msgstr ""
 
 #. Markdown alert label for a caution callout when copied as plaintext.
 #. Short label in the messaging block elements. Keep it concise. Keep the tone plain and specific.
@@ -9142,7 +9192,7 @@ msgstr "已关闭克隆功能"
 #. Button that closes the fullscreen PDF viewer.
 #. Native Window menu item that closes the focused desktop window.
 #: src/features/channel/components/embeds/attachments/PdfAttachmentPreview.tsx
-#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+#: src/features/game_player/GameWindow.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/image_editor/ImageEditor.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -9164,6 +9214,10 @@ msgstr "关闭与 {displayName} 的私信"
 msgid "Close DM"
 msgstr "关闭私信"
 
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "Close it and play"
+msgstr ""
+
 #. Accessible label for the dedicated close button at the top of the media viewer modal.
 #: src/features/messaging/components/modals/media_modal/shared.ts
 msgid "Close media viewer"
@@ -9173,6 +9227,10 @@ msgstr "关闭媒体查看器"
 #: src/features/messaging/components/modals/media_modal/shared.ts
 msgid "Close modal"
 msgstr "关闭弹窗"
+
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "Close the other game?"
+msgstr ""
 
 #. Body of the close confirmation alert for a group DM. Reassures that the DM can be reopened.
 #: src/features/channel/components/direct_message/useDMListItemHandlers.tsx
@@ -9430,6 +9488,11 @@ msgstr ""
 msgid "Colour must look like #ff8800."
 msgstr ""
 
+#. Help text in the theme-from-picture dialog.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Colours are picked from your picture. The picture is saved inside the theme on this device."
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Combobox"
 msgstr "组合框"
@@ -9533,6 +9596,7 @@ msgstr "你之后加入的社群将使用此设置。你当前的社群将保留
 #. Field label in the follow announcement channel dialog. The user picks the community that receives updates.
 #. Generic label for a community. Used as a field label, filter label, or fallback community name.
 #. Tag shown next to messages copied from a followed announcement channel. Keep it one short word.
+#: src/features/catnip_cafe/CafePage.tsx
 #: src/features/channel/components/ChannelUserTag.tsx
 #: src/features/channel/components/modals/ChannelFollowModal.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -11340,6 +11404,10 @@ msgstr ""
 msgid "Couldn't load the game. Try again."
 msgstr ""
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Couldn't load the leaderboard."
+msgstr ""
+
 #. Notice when the incoming Operator Pass offer could not be loaded.
 #: src/features/premium/components/operator_pass/OperatorPassOfferModal.tsx
 msgid "Couldn't load the offer. Try again later."
@@ -11406,6 +11474,10 @@ msgstr "无法打开搜索结果"
 #: src/features/premium/utils/PremiumMessageDescriptors.ts
 msgid "Couldn't open the billing portal"
 msgstr "无法打开账单门户"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Couldn't open your café. Try again in a moment."
+msgstr ""
 
 #. Shown when a 3D model preview fails.
 #: src/features/channel/components/embeds/attachments/ModelAttachmentPreview.tsx
@@ -11543,6 +11615,11 @@ msgstr "无法保存入场音效"
 msgid "Couldn't save the tag: {detail}"
 msgstr "无法保存标签：{detail}"
 
+#. Toast when saving a theme from a picture fails.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Couldn't save the theme."
+msgstr ""
+
 #: src/features/user/components/modals/tabs/VirusTotalTab.tsx
 msgid "Couldn't save the VirusTotal key."
 msgstr ""
@@ -11612,6 +11689,11 @@ msgstr "无法发送转交请求。请重试。"
 #: src/features/auth/hooks/useVerifyEmailAction.tsx
 msgid "Couldn't send the verification email"
 msgstr "无法发送验证邮件"
+
+#. Error in the Slug Mode dialog when the account could not be tied to the device.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Couldn’t set up Slug Mode. Please try again."
+msgstr ""
 
 #. Toast when preparing a peer-to-peer file share fails. {name} is the file name.
 #: src/features/p2p/P2PCommands.ts
@@ -11767,6 +11849,11 @@ msgstr "无法上传头像"
 #: src/features/user/components/modals/tabs/my_profile_tab/BannerUploader.tsx
 msgid "Couldn't upload banner"
 msgstr "无法上传横幅"
+
+#. Shown when a picture for a theme could not be read.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Couldn't use that picture. Try a PNG, JPEG, WebP or GIF."
+msgstr ""
 
 #. Desktop handoff flow error shown when verifying the pairing code fails for an unexpected reason.
 #: src/features/auth/flow/auth_login_core/useDesktopHandoffFlow.ts
@@ -12028,6 +12115,11 @@ msgstr "创建标签"
 #: src/features/channel/components/modals/UnaddableRecipientsConfirmModal.tsx
 msgid "Create the group DM with the remaining {addableCount, plural, one {# recipient} other {# recipients}} and skip the others?"
 msgstr "要创建包含其余 {addableCount, plural, other {# 位收件人}}的群聊，并跳过其他人吗？"
+
+#. Saves and turns on the theme made from a picture.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Create theme"
+msgstr ""
 
 #. Action that opens the new thread pane for a channel or a message.
 #: src/features/threads/utils/ThreadMessageDescriptors.ts
@@ -12615,9 +12707,11 @@ msgstr "危险区域"
 msgid "Danish"
 msgstr "丹麦语"
 
+#. Dark option in the theme-from-picture dialog.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Tells that a preset theme is based on the dark theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/CustomImageThemeModal.tsx
 #: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Dark"
@@ -14797,6 +14891,11 @@ msgstr "抢先试用新功能"
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Early upload"
 msgstr "提前上传"
+
+#. placeholder {0}: formatPurrs(nextAt)
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Earn {0} purrs in total to gain your next Life."
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts
@@ -19065,6 +19164,10 @@ msgstr "帮助中心按钮"
 msgid "Help translate {PRODUCT_NAME} into your language on <0>{I18N_WEBLATE_DOMAIN}</0>."
 msgstr "在 <0>{I18N_WEBLATE_DOMAIN}</0> 上帮助我们把 {PRODUCT_NAME} 翻译成你的语言。"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Helpers"
+msgstr ""
+
 #. Settings search synonym. Codec name; keep literal. Used to match this term in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/VoiceVideoIndex.ts
 msgid "HEVC"
@@ -19491,6 +19594,11 @@ msgstr "此实例的登录方式已无法更改。"
 #. Help text of the corner rounding slider in Settings > Themes.
 #: src/features/theme_presets/PresetThemesSection.tsx
 msgid "How rounded the corners of panels, buttons, messages and images are. 0% is square, 100% is the theme as designed. Round things like avatars stay round. Only changes this device."
+msgstr ""
+
+#. Help text of the panel tint slider in Settings > Themes.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "How solid the panels behind chat and lists are. Higher makes text easier to read, lower shows more of the background image. Only changes this device."
 msgstr ""
 
 #. Link under the Operators' wall settings. It opens the question about the wall on the Operator Pass page.
@@ -21013,6 +21121,10 @@ msgstr "加入 {labsName}"
 msgid "Join a community"
 msgstr "加入社区"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Join a community to compare cafés."
+msgstr ""
+
 #. Title of the dialog shown before joining a peer-to-peer call, where audio and video go directly between participants.
 #: src/features/voice/utils/VoiceMessageDescriptors.ts
 msgid "Join a P2P call?"
@@ -21146,6 +21258,11 @@ msgstr "在未读频道之间跳转"
 #: src/features/input/state/input_keybind/shared.ts
 msgid "Jump between unread channels with mentions"
 msgstr "在有提及的未读频道之间跳转"
+
+#. One-line introduction at the top of the Slug Mode dialog.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Jump in with just a name. Your account stays on this device."
+msgstr ""
 
 #. Tooltip / aria label on a button that jumps to the channel. {channelSourceLabel} is the channel or DM name.
 #: src/features/voice/components/voice_connection_status/VoiceConnectionStatusInner.tsx
@@ -21613,6 +21730,10 @@ msgstr "可用时对 AV1 和 VP9 使用分层编码。"
 msgid "Layout"
 msgstr "布局"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Leaderboard"
+msgstr ""
+
 #. Accessible label for the screen-share picker footer info button.
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx
 msgid "Learn about screen share previews"
@@ -21884,9 +22005,11 @@ msgstr "永久"
 msgid "Lifetime {premiumProductName}"
 msgstr "终身 {premiumProductName}"
 
+#. Light option in the theme-from-picture dialog.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Tells that a preset theme is based on the light theme.
 #: src/features/expressions/components/modals/sticker_form/StickerPreview.tsx
+#: src/features/theme_presets/CustomImageThemeModal.tsx
 #: src/features/theme_presets/PresetThemesSection.tsx
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Light"
@@ -22164,6 +22287,12 @@ msgstr "实时预览"
 msgid "Live region"
 msgstr "实时区域"
 
+#. placeholder {0}: Math.round(LIFE_BONUS * 100)
+#. placeholder {1}: Cafe.livesAvailable
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Lives give +{0}% purrs each, for good. {1} left to spend on perks."
+msgstr ""
+
 #. Completion in the quick CSS editor that inserts an @font-face rule. Assets are files uploaded under "Assets".
 #: src/features/theme_settings/editor/CssCompletions.ts
 msgid "Load a font from your assets"
@@ -22259,6 +22388,7 @@ msgid "Loading..."
 msgstr "正在加载…"
 
 #. Combobox popup status shown while options are loading.
+#: src/features/catnip_cafe/CafePage.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
@@ -22392,6 +22522,10 @@ msgstr "低"
 #: src/features/voice/utils/VoiceMessageDescriptors.ts
 msgid "Lower latency."
 msgstr "低延迟。"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Lucky Cat! Click it."
+msgstr ""
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -22857,6 +22991,10 @@ msgstr "成人内容覆盖"
 msgid "Mature media"
 msgstr "成人媒体"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Max"
+msgstr ""
+
 #. Label above the max-uses dropdown in the invite link settings.
 #: src/features/invite/components/modals/InviteModal.tsx
 msgid "Max number of uses"
@@ -22869,6 +23007,10 @@ msgstr "最大文件大小：{BACKGROUND_MEDIA_MAX_SIZE_LABEL}。"
 #: src/features/user/components/modals/tabs/component_gallery_tab/IndicatorsTab.tsx
 msgid "Max visible count"
 msgstr "最大可见数量"
+
+#: src/features/game_player/GameWindow.tsx
+msgid "Maximize"
+msgstr ""
 
 #. Short label in the app layout native titlebar.
 #: src/features/app/components/layout/NativeWindowControls.tsx
@@ -23688,6 +23830,7 @@ msgstr "24 小时制"
 
 #. Native Window menu item that minimizes the focused desktop window. Imperative verb.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/game_player/GameWindow.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Minimize"
@@ -24526,6 +24669,7 @@ msgstr "name"
 #. Form label for the editable webhook display name.
 #. Form label for the name that messages from a followed announcement channel are posted under.
 #. Label for the instance name field in the setup wizard.
+#. Label of the theme name field in the theme-from-picture dialog.
 #. Review row label for the instance name.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the branding section. Keep it concise.
@@ -24538,6 +24682,7 @@ msgstr "name"
 #: src/features/expressions/components/modals/meme_form/MemeFormFields.tsx
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx
+#: src/features/theme_presets/CustomImageThemeModal.tsx
 #: src/features/theme_settings/components/ThemeDetailsModal.tsx
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 #: src/features/user/utils/UserMessageDescriptors.ts
@@ -24920,6 +25065,10 @@ msgstr "新创建的帖子在不活跃一段时间后将不再显示在频道列
 msgid "New tupper"
 msgstr ""
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "New upgrades appear as your café grows."
+msgstr ""
+
 #. Invite page subtext shown during raid protection. Explains that account actions still work, but joining is paused.
 #: src/features/invite/utils/InviteMessageDescriptors.ts
 msgid "New users can't join right now. You can still create an account or sign in, then try this link again later."
@@ -24977,6 +25126,10 @@ msgstr "昵称已更新"
 #: src/features/user/components/modals/user_profile_modal/MutualGuildItem.tsx
 msgid "Nickname: "
 msgstr "昵称： "
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Nine Lives"
+msgstr ""
 
 #. Answer to a yes or no question in the setup wizard.
 #: src/features/app/components/setup/SetupPolicySteps.tsx
@@ -25199,6 +25352,11 @@ msgstr "未找到显示器"
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx
 msgid "No email address set"
 msgstr "未设置邮箱地址"
+
+#. Slug Mode advantage.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "No email or password needed"
+msgstr ""
 
 #: src/features/user/components/modals/tabs/EmbedDebuggerTab.tsx
 msgid "No embeds returned"
@@ -25699,6 +25857,10 @@ msgstr "任何人都无法自行注册。你在管理面板中创建注册链接
 msgid "Nobody has reacted with this yet."
 msgstr "还没有人使用此反应。"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Nobody here has a café yet. Be the first!"
+msgstr ""
+
 #: src/features/channel/components/guild_members_page/MembersTableEmptyState.tsx
 msgid "Nobody matches that search."
 msgstr "没有匹配的成员。"
@@ -25931,6 +26093,11 @@ msgstr "没有匹配项"
 #: src/features/theme_settings/components/ColorsAndFontsSection.tsx
 msgid "Nothing matches \"{searchQuery}\"."
 msgstr "未找到与“{searchQuery}”匹配的内容。"
+
+#. Slug Mode advantage.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Nothing personal to hand over"
+msgstr ""
 
 #. Empty-state heading in Explore shown when no communities are listed at all.
 #: src/features/discovery/discovery/DiscoveryEmptyState.tsx
@@ -27122,6 +27289,10 @@ msgstr "打开设置"
 msgid "Opened the thread again"
 msgstr "重新打开了此帖子"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Opening the café…"
+msgstr ""
+
 #. Report flow: screen reader hint on answers that open an external page.
 #: src/features/moderation/components/report_flow/ReportFlowCopy.ts
 msgid "Opens in a new tab"
@@ -27534,6 +27705,11 @@ msgstr "上翻页"
 #: src/features/premium/components/operator_pass/OperatorPassPurchasesSection.tsx
 msgid "Paid {date}. Not delivered yet."
 msgstr "已于 {date} 付款。尚未交付。"
+
+#. Label of the slider in Settings > Themes that makes the see-through panels of a preset theme more solid (darker on dark themes, lighter on light ones).
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Panel tint"
+msgstr ""
 
 #. Hint shown beside filename:. Sentence case, no trailing punctuation.
 #: src/features/search/utils/SearchUtils.ts
@@ -28174,6 +28350,19 @@ msgstr "个人笔记已经是空的"
 msgid "Personal sticker of {owner}"
 msgstr ""
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Pet the cat"
+msgstr ""
+
+#. placeholder {0}: formatPurrs(Cafe.petValue)
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Pet the cat! Each pet: {0}"
+msgstr ""
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Petting frenzy!"
+msgstr ""
+
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
 #: src/features/ui/keybind_hint/KeybindHint.tsx
 msgid "PgDn"
@@ -28248,6 +28437,11 @@ msgstr "在应用中选择元素"
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "Pick an emoji"
 msgstr "选择表情符号"
+
+#. Description on the card that makes a theme from the user's own image.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Pick an image and get a theme in its colours."
+msgstr ""
 
 #. Validation error when the user advances with all inclusion toggles off in the custom scope.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx
@@ -34263,6 +34457,10 @@ msgstr "是否删除旧附件以节省磁盘空间？"
 msgid "Should people have personal notes?"
 msgstr "大家可以使用个人笔记吗？"
 
+#: src/features/channel/components/embeds/attachments/RomAttachment.tsx
+msgid "Show"
+msgstr ""
+
 #. Sensitive media filter option meaning the media is shown as-is. One of three mutually exclusive values (Show, Blur, Block); keep all three in the same grammatical form.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/SensitiveContentTab.tsx
 msgctxt "sensitive-media-filter-level"
@@ -35170,6 +35368,11 @@ msgstr "正在登录…"
 msgid "Signing out failed. Try again in a moment."
 msgstr "退出登录失败。请稍后重试。"
 
+#. Slug Mode drawback: the account is gone for good.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Signing out or clearing cookies deletes it"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
 msgid "Silence"
@@ -35464,6 +35667,11 @@ msgstr "慢速模式模拟"
 msgid "Slowmode time remaining"
 msgstr "慢速模式剩余时间"
 
+#. Title of the Slug Mode dialog.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Slug Mode"
+msgstr ""
+
 #. Short label in the selections tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx
 msgid "Small"
@@ -35565,6 +35773,10 @@ msgstr "部分用户无法添加"
 
 #: src/features/personal_expression/PersonalExpressionInfoSection.tsx
 msgid "someone"
+msgstr ""
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Someone"
 msgstr ""
 
 #. Plutonium page hero subtitle for gifted members. date is a formatted calendar date.
@@ -36143,6 +36355,15 @@ msgstr "在私信或群聊中发起通话"
 #: src/features/input/state/input_keybind/shared.ts
 msgid "Start a group DM"
 msgstr "发起群聊"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Start a new life"
+msgstr ""
+
+#. placeholder {0}: gain === 1 ? 'Life' : 'Lives'
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Start a new life now to gain {gain} {0}. You lose your purrs, helpers and upgrades, but keep Lives, perks and achievements."
+msgstr ""
 
 #. Confirm dialog body before starting a 1:1 video call.
 #: src/features/voice/utils/CallUtils.tsx
@@ -36804,6 +37025,11 @@ msgstr "移除跟踪"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Strip tracking parameters from URLs"
 msgstr "移除链接跟踪参数"
+
+#. Label of the dark/light choice in the theme-from-picture dialog.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Style"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
@@ -38311,6 +38537,11 @@ msgstr "主题 CSS"
 msgid "Theme files"
 msgstr "主题文件"
 
+#. Title of the dialog that makes a theme from an image.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Theme from your picture"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/ThemesSections.ts
 msgid "Theme library"
@@ -39109,6 +39340,11 @@ msgstr "已禁用"
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx
 msgid "This is how messages appear"
 msgstr "消息显示效果"
+
+#. Sample message in the preview of the theme-from-picture dialog.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "This is how messages will look."
+msgstr ""
 
 #. Text under the heading of the sign-up step where a new person picks their display name and username.
 #: src/features/auth/flow/identifier_first/AuthIdentifierProfileStep.tsx
@@ -41735,6 +41971,10 @@ msgstr "升级到 {premiumProductName}"
 msgid "Upgrade to store up to 15 custom backgrounds and unlock HD video quality, higher frame rates, and more."
 msgstr "升级后可存储多达 15 个自定义背景，并解锁高清视频画质、更高帧率等。"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Upgrades"
+msgstr ""
+
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx
 msgid "Upload"
@@ -42250,6 +42490,11 @@ msgstr "使用通行密钥，无需密码即可登录"
 msgid "Use selection"
 msgstr "使用所选内容"
 
+#. Login page button that creates an account kept only on this device.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Use Slug Mode"
+msgstr ""
+
 #. Permission description in the channel-scoped permissions editor for the Use External Stickers permission. "Other communities" means stickers uploaded in a different Fluxer community.
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts
 msgid "Use stickers from other communities in this channel."
@@ -42283,6 +42528,11 @@ msgstr "使用官方 Fluxer 实例"
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
 msgid "Use the operating system's window chrome"
 msgstr "使用操作系统的窗口边框"
+
+#. Button that puts back the accent colour taken from the picture.
+#: src/features/theme_presets/CustomImageThemeModal.tsx
+msgid "Use the picture’s colour"
+msgstr ""
 
 #. Switch above the certificate name fields when buying more than one Operator Pass. A page is a page of the Operator certificate PDF, one page per pass, so use the same word for page as in "Download page {number} ({name})". When on, one name goes on every page of the certificate.
 #: src/features/premium/components/operator_pass/OperatorPassCertificateNamesField.tsx
@@ -44584,6 +44834,11 @@ msgstr "没有此权限时，必须使用按住说话。"
 msgid "Wordmark"
 msgstr "文字标志"
 
+#. Slug Mode drawback.
+#: src/features/slug_mode/SlugModeEntry.tsx
+msgid "Works only on this device and browser"
+msgstr ""
+
 #. Hint under a shortcut on Linux when the desktop owns system-wide shortcuts. The key shown here only works inside the app. {productName} is the app name.
 #: src/features/user/components/modals/tabs/keybinds_tab/SystemShortcutRowHint.tsx
 msgid "Works while {productName} is focused"
@@ -44678,6 +44933,10 @@ msgstr "是，我有 SMTP 信息"
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ActiveNowTab.tsx
 msgid "Yes, share with all friends"
 msgstr "是的，与所有好友分享"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Yes, start over"
+msgstr ""
 
 #. Privacy > Active now: confirm button label when turning sharing off.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ActiveNowTab.tsx
@@ -46222,6 +46481,11 @@ msgstr "你的选项"
 msgid "Your other passes are all on offer. This is your last one."
 msgstr "你的其他通行证都已在转交中。这是你的最后一张。"
 
+#. Card at the end of the preset themes that makes a theme from an image the user picks.
+#: src/features/theme_presets/PresetThemesSection.tsx
+msgid "Your own picture"
+msgstr ""
+
 #. Text under the heading Your Operator certificate on a slide in the Operator Pass checkout dialog. The certificate is a PDF with one page for each pass, and each page has its own number, the name chosen at checkout and the date and time of payment. Always call it a certificate, never a diploma, card, collectible, token or license, and never suggest it can be resold or has cash value. Keep Operator in English. Checkout is where you pay. Settings are the app settings, where each certificate page has its own private link. The last two sentences tell a buyer who buys a pass as a gift to type the other person's name on that page. Calm and plain.
 #: src/features/premium/components/operator_pass/checkout/OperatorPassShowcaseSlides.ts
 msgid "Your pass comes with this certificate. It's a PDF with one page for each pass, and each page has its own number, the name you choose at checkout and the date and time you paid. We email it to you, and in settings each page has its own link that you can open, print or share. Buying for someone else? Put their name on their certificate."
@@ -46535,3 +46799,7 @@ msgstr "放大"
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts
 msgid "Zoom out"
 msgstr "缩小"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Zoomies!"
+msgstr ""

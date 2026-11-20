@@ -19,6 +19,7 @@ import {DonationController} from '@app/api/donation/DonationController';
 import {DownloadController} from '@app/api/download/DownloadController';
 import {ExperimentController} from '@app/api/experiment/ExperimentController';
 import {FavoriteGifController} from '@app/api/favorite_gif/FavoriteGifController';
+import {CatGameController} from '@app/api/sparkcord/CatGameController';
 import {PlatformController} from '@app/api/sparkcord/PlatformController';
 import {SlugModeController} from '@app/api/sparkcord/SlugModeController';
 import {YouTubeInfoController} from '@app/api/sparkcord/YouTubeInfoController';
@@ -83,6 +84,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	TupperController(routes);
 	PlatformController(routes);
 	SlugModeController(routes);
+	CatGameController(routes);
 	YouTubeInfoController(routes);
 	NameFontController(routes);
 	GroupNameColorController(routes);

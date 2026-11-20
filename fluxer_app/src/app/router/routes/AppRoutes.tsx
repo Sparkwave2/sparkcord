@@ -37,7 +37,7 @@ import MobileLayout from '@app/features/ui/state/MobileLayout';
 import {ME} from '@fluxer/constants/src/AppConstants';
 import {ChannelTypes} from '@fluxer/constants/src/ChannelConstants';
 import {observer} from 'mobx-react-lite';
-import {type ReactNode, useEffect, useState} from 'react';
+import {lazy, Suspense, type ReactNode, useEffect, useState} from 'react';
 
 type AppRouteComponentProps = Record<string, unknown>;
 
@@ -248,6 +248,18 @@ const discoverRoute = createRoute({
 	),
 	component: () => <DiscoveryLayout data-flx="app.router.app-routes.discovery-layout" />,
 });
+// Sparkcord: the Catnip Café game (loaded on first visit).
+const LazyCafePage = lazy(() => import('@app/features/catnip_cafe/CafePage'));
+const cafeRoute = createRoute({
+	getParentRoute: () => guildsLayoutRoute,
+	id: 'catnipCafe',
+	path: Routes.CATNIP_CAFE,
+	component: () => (
+		<Suspense fallback={null}>
+			<LazyCafePage />
+		</Suspense>
+	),
+});
 const legacyDiscoverRoute = createRoute({
 	getParentRoute: () => guildsLayoutRoute,
 	id: 'legacyDiscover',
@@ -418,6 +430,7 @@ export const appRouteTree = appLayoutRoute.addChildren([
 		mentionsRoute,
 		meRoute,
 		discoverRoute,
+		cafeRoute,
 		legacyDiscoverRoute,
 		plutoniumRoute,
 		legacyPlutoniumRoute,
