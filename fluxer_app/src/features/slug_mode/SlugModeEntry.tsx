@@ -28,31 +28,29 @@ import type {AuthLoginMethodAction} from '@app/features/auth/flow/auth_login_cor
 import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
+import {CheckCircleIcon, WarningCircleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useMemo, useState} from 'react';
 
 const BUTTON = msg({message: 'Use Slug Mode', comment: 'Login page button that creates an account kept only on this device.'});
 const TITLE = msg({message: 'Slug Mode', comment: 'Title of the Slug Mode dialog.'});
-const EXPLAIN = msg({
-	message:
-		'Slug Mode makes an account that only exists on this device. Its key is kept in a cookie in this browser, so:',
-	comment: 'First paragraph of the Slug Mode dialog.',
+const INTRO = msg({
+	message: 'Jump in with just a name. Your account stays on this device.',
+	comment: 'One-line introduction at the top of the Slug Mode dialog.',
 });
-const POINT_DEVICE = msg({
-	message: 'You can’t sign in to it on any other device.',
-	comment: 'Slug Mode rule.',
+const PROS_TITLE = msg({message: 'Good', comment: 'Heading of the advantages list in the Slug Mode dialog.'});
+const CONS_TITLE = msg({message: 'Keep in mind', comment: 'Heading of the drawbacks list in the Slug Mode dialog.'});
+const PRO_FAST = msg({message: 'No email or password needed', comment: 'Slug Mode advantage.'});
+const PRO_PRIVATE = msg({message: 'Nothing personal to hand over', comment: 'Slug Mode advantage.'});
+const CON_DEVICE = msg({message: 'Works only on this device and browser', comment: 'Slug Mode drawback.'});
+const CON_GONE = msg({
+	message: 'Signing out or clearing cookies deletes it',
+	comment: 'Slug Mode drawback: the account is gone for good.',
 });
-const POINT_COOKIE = msg({
-	message: 'Clearing this site’s cookies, or signing out, deletes the account for good.',
-	comment: 'Slug Mode rule.',
-});
-const POINT_IDLE = msg({
-	message: 'If it isn’t opened for 400 days, it is deleted.',
-	comment: 'Slug Mode rule.',
-});
-const POINT_CONVERT = msg({
-	message: 'You can add an email later to turn it into a normal account.',
-	comment: 'Slug Mode rule.',
+const CON_BADGE = msg({message: 'Others see a snail badge on your profile', comment: 'Slug Mode drawback.'});
+const TIP = msg({
+	message: 'Add an email later to keep it for good.',
+	comment: 'Tip at the bottom of the Slug Mode dialog: adding an email turns it into a normal account.',
 });
 const FAILED = msg({
 	message: 'Couldn’t set up Slug Mode. Please try again.',
@@ -132,13 +130,36 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 			<Modal.Header title={i18n._(TITLE)} />
 			<Modal.Content>
 				<Modal.ContentLayout>
-					<p className={styles.text}>{i18n._(EXPLAIN)}</p>
-					<ul className={styles.points}>
-						<li>{i18n._(POINT_DEVICE)}</li>
-						<li>{i18n._(POINT_COOKIE)}</li>
-						<li>{i18n._(POINT_IDLE)}</li>
-						<li>{i18n._(POINT_CONVERT)}</li>
-					</ul>
+					<p className={styles.text}>{i18n._(INTRO)}</p>
+					<div className={styles.lists}>
+						<div className={styles.list}>
+							<span className={styles.listTitle}>{i18n._(PROS_TITLE)}</span>
+							<span className={styles.pro}>
+								<CheckCircleIcon size={18} weight="fill" />
+								{i18n._(PRO_FAST)}
+							</span>
+							<span className={styles.pro}>
+								<CheckCircleIcon size={18} weight="fill" />
+								{i18n._(PRO_PRIVATE)}
+							</span>
+						</div>
+						<div className={styles.list}>
+							<span className={styles.listTitle}>{i18n._(CONS_TITLE)}</span>
+							<span className={styles.con}>
+								<WarningCircleIcon size={18} weight="fill" />
+								{i18n._(CON_DEVICE)}
+							</span>
+							<span className={styles.con}>
+								<WarningCircleIcon size={18} weight="fill" />
+								{i18n._(CON_GONE)}
+							</span>
+							<span className={styles.con}>
+								<WarningCircleIcon size={18} weight="fill" />
+								{i18n._(CON_BADGE)}
+							</span>
+						</div>
+					</div>
+					<p className={styles.tip}>{i18n._(TIP)}</p>
 					{failure && <p className={styles.error}>{failure}</p>}
 					<InstantAccountForm
 						initialName=""
