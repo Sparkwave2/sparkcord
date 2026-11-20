@@ -39,7 +39,8 @@ async function mayBeSlugToken(token: string): Promise<boolean> {
 	const account = Accounts.getAllAccounts().find((entry) => entry.token === token);
 	if (!account) return true;
 	if (isSlugUser(account.userId)) return true;
-	return account.userData != null && !account.userData.email;
+	// No saved profile yet (a just-created account) also counts as "maybe".
+	return !account.userData?.email;
 }
 
 async function fetchProof(token: string): Promise<string | null> {
@@ -79,5 +80,6 @@ export async function slugIdentifyToken(token: string): Promise<string> {
 		proofs.delete(token);
 		return token;
 	}
+	console.info('[slug] connecting with the Slug proof');
 	return `${token}#slug:${value}`;
 }
