@@ -10,6 +10,7 @@ import {
 	assertInstantAccountAvailable,
 	assertRegistrationConsent,
 	createAccount,
+	isSlugSignUpRequest,
 	type RegistrationDependencies,
 	resolveInstantAccountAvailabilityFor,
 } from '@app/api/auth/AuthRegistration';
@@ -80,7 +81,9 @@ export async function instantAccountChallengeSteps(
 	registrationUrlCode: string | null = null,
 ) {
 	const repository = getInstanceConfigRepository();
-	assertInstantAccountAvailable(await resolveInstantAccountAvailabilityFor(repository, registrationUrlCode));
+	assertInstantAccountAvailable(
+		await resolveInstantAccountAvailabilityFor(repository, registrationUrlCode, isSlugSignUpRequest(request)),
+	);
 	const auth = await repository.getAuthConfig();
 	return await instantAccountCaptchaSteps(budgetEnvFor(ctx.services, request), {
 		clientIp,

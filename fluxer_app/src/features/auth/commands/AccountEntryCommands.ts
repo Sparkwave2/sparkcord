@@ -143,7 +143,8 @@ export async function createInstantAccount({
 	inviteCode,
 	registrationUrlCode,
 	snapshot,
-}: InstantAccountRequest): Promise<AccountEntryResult> {
+	slug = false,
+}: InstantAccountRequest & {readonly slug?: boolean}): Promise<AccountEntryResult> {
 	const response = await instanceRequest<EntryTokenResponse | RegistrationPendingApprovalResponse>({
 		method: 'POST',
 		path: Endpoints.AUTH_REGISTER,
@@ -154,7 +155,8 @@ export async function createInstantAccount({
 			...(inviteCode === null ? {} : {invite_code: inviteCode}),
 			...(registrationUrlCode === null ? {} : {registration_url_code: registrationUrlCode}),
 		},
-		headers: localeHeaders(),
+		// Sparkcord Slug Mode: the server ties the new account to this device (cookie).
+		headers: slug ? {...localeHeaders(), 'X-Sparkcord-Slug': '1'} : localeHeaders(),
 	});
 	return toEntryResult(response.body, snapshot);
 }

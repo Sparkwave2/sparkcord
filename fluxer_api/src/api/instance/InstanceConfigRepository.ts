@@ -2991,6 +2991,8 @@ export class InstanceConfigRepository {
 
 	async getInstantAccountAvailability(
 		registrationUrl: {approvalRequired: boolean} | null = null,
+		// Sparkcord Slug Mode: Slug sign-ups don't depend on the instant-accounts switch.
+		options: {ignoreInstantSwitch?: boolean} = {},
 	): Promise<InstantAccountAvailability> {
 		const [auth, captcha, registration, identityMode] = await Promise.all([
 			this.getAuthConfig(),
@@ -2999,7 +3001,7 @@ export class InstanceConfigRepository {
 			this.getAccountIdentityMode(),
 		]);
 		return resolveInstantAccountAvailability({
-			enabled: auth.instant_accounts.enabled,
+			enabled: options.ignoreInstantSwitch === true || auth.instant_accounts.enabled,
 			captchaProvider: captcha.provider,
 			registrationMode: registration.mode,
 			registrationUrl,

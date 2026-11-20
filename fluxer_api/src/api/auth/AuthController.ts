@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {finishSlugSignUp} from '@app/api/sparkcord/SlugModeController';
 import {addressLookupCaptchaSteps, budgetEnvFor} from '@app/api/auth/AccountBudgets';
 import {normalizeEmailKey} from '@app/api/auth/AccountCodes';
 import * as AuthEmail from '@app/api/auth/AuthEmail';
@@ -9,6 +10,7 @@ import * as AuthPassword from '@app/api/auth/AuthPassword';
 import {
 	assertAccountCreationPastSetup,
 	instantAccountsAvailable,
+	isSlugSignUpRequest,
 	isInstantAccountRequest,
 } from '@app/api/auth/AuthRegistration';
 import * as AuthSession from '@app/api/auth/AuthSession';
@@ -94,7 +96,9 @@ async function registrationCaptchaSteps(ctx: Context<HonoEnv>): Promise<number> 
 	const clientIp = requireRequestClientIp(ctx);
 	if (isInstantAccountRequest(data, {usernameMode: usesUsernameSignIn()})) {
 		const registrationUrlCode = optionalString(fields.registration_url_code);
-		if (!(await instantAccountsAvailable(ctx.get('instanceConfigRepository'), registrationUrlCode))) return 0;
+		// Sparkcord Slug Mode sign-ups get the same proof-of-work even when instant accounts are off.
+		const slug = isSlugSignUpRequest(ctx.req.raw);
+		if (!(await instantAccountsAvailable(ctx.get('instanceConfigRepository'), registrationUrlCode, slug))) return 0;
 		if (optionalString(fields.setup_token) === null) {
 			await assertAccountCreationPastSetup(ctx.get('apiContext'), ctx.get('instanceConfigRepository'), clientIp);
 		}
@@ -190,6 +194,8 @@ export function AuthController(app: HonoApp) {
 				requestCache: ctx.get('requestCache'),
 				tierContext: tierContextFrom(ctx),
 			});
+			// Sparkcord Slug Mode: tie the new account to this device right away.
+			if (isSlugSignUpRequest(ctx.req.raw)) await finishSlugSignUp(ctx, result);
 			return ctx.json(result);
 		},
 	);

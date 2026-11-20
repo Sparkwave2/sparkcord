@@ -61,14 +61,20 @@ const FAILED = msg({
 	comment: 'Error in the Slug Mode dialog when the account could not be tied to the device.',
 });
 
-async function enableSlugMode(token: string, snapshot: RuntimeConfigSnapshot): Promise<void> {
-	await instanceRequest({
-		method: 'POST',
-		path: Endpoints.SPARKCORD_SLUG,
-		target: instanceTargetFromSnapshot(snapshot),
-		auth: 'none',
-		headers: {Authorization: token},
-	});
+async function isSlugAccount(token: string, snapshot: RuntimeConfigSnapshot): Promise<boolean> {
+	try {
+		const response = await instanceRequest<{slug: boolean}>({
+			method: 'GET',
+			path: Endpoints.SPARKCORD_SLUG,
+			target: instanceTargetFromSnapshot(snapshot),
+			auth: 'none',
+			headers: {Authorization: token},
+		});
+		return response.body?.slug === true;
+	} catch (error) {
+		console.warn('[slug] checking the account failed', error);
+		return false;
+	}
 }
 
 /** Signs a half-made account out again (which deletes it, as it has no way back in). */
@@ -101,15 +107,14 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 				inviteCode: null,
 				registrationUrlCode: null,
 				snapshot: runtimeSnapshot,
+				slug: true,
 			});
 			if (result.type !== 'success') {
 				setFailure(i18n._(FAILED));
 				return;
 			}
-			try {
-				await enableSlugMode(result.payload.token, runtimeSnapshot);
-			} catch (error) {
-				console.warn('[slug] enabling failed', error);
+			// The sign-up response set the device-key cookie; check the account is really tied.
+			if (!(await isSlugAccount(result.payload.token, runtimeSnapshot))) {
 				await abandon(result.payload.token, runtimeSnapshot);
 				setFailure(i18n._(FAILED));
 				return;

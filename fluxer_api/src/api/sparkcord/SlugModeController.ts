@@ -17,7 +17,8 @@ import {
 	slugKeyHash,
 	slugSetCookie,
 } from '@app/api/sparkcord/SlugMode';
-import type {HonoApp} from '@app/api/types/HonoEnv';
+import type {HonoApp, HonoEnv} from '@app/api/types/HonoEnv';
+import type {Context} from 'hono';
 import {snowflakeToDate} from '@fluxer/snowflake/src/Snowflake';
 import {z} from 'zod';
 
@@ -25,6 +26,20 @@ import {z} from 'zod';
 const MAX_ACCOUNT_AGE_MS = 15 * 60 * 1000;
 
 const SlugStatusResponse = z.object({slug: z.boolean()});
+
+/**
+ * Called after a sign-up that asked for Slug Mode (X-Sparkcord-Slug: 1): makes the new
+ * account a Slug account and sets the device-key cookie on the sign-up response. Only an
+ * account without email or password qualifies; anything else stays a normal account.
+ */
+export async function finishSlugSignUp(ctx: Context<HonoEnv>, result: unknown): Promise<void> {
+	if (typeof result !== 'object' || result === null || !('user_id' in result) || !('token' in result)) return;
+	const userId = String((result as {user_id: unknown}).user_id);
+	const user = await ctx.get('apiContext').services.users.findUnique(BigInt(userId) as never);
+	if (!user || user.email !== null || user.passwordHash !== null) return;
+	const key = await markSlugAccount(ctx.get('apiContext').services.kv, userId);
+	ctx.header('Set-Cookie', slugSetCookie(userId, key, requestIsSecure(ctx.req.raw)), {append: true});
+}
 const SlugProofResponse = z.object({proof: z.string()});
 
 const security: Array<'sessionToken'> = ['sessionToken'];

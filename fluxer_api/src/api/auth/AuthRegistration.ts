@@ -127,6 +127,8 @@ interface AccountCreationInput {
 	olderAppEmail?: string | null;
 	locale?: string | null;
 	setupToken?: string | null;
+	/** Sparkcord Slug Mode sign-up: allowed even when instant accounts are switched off. */
+	sparkcordSlug?: boolean;
 }
 
 interface AccountCreationParams {
@@ -151,20 +153,23 @@ export type AccountCreationResult =
 export async function resolveInstantAccountAvailabilityFor(
 	repository: InstanceConfigRepository,
 	registrationUrlCode: string | null | undefined,
+	slug = false,
 ): Promise<InstantAccountAvailability> {
 	const code = registrationUrlCode?.trim();
 	const registrationUrl = code ? await repository.resolveRegistrationUrlCode(code) : null;
 	return await repository.getInstantAccountAvailability(
 		registrationUrl ? {approvalRequired: registrationUrl.approval_required} : null,
+		{ignoreInstantSwitch: slug},
 	);
 }
 
 export async function instantAccountsAvailable(
 	repository: InstanceConfigRepository,
 	registrationUrlCode: string | null = null,
+	slug = false,
 ): Promise<boolean> {
 	return (
-		(await resolveInstantAccountAvailabilityFor(repository, registrationUrlCode)) ===
+		(await resolveInstantAccountAvailabilityFor(repository, registrationUrlCode, slug)) ===
 		InstantAccountAvailability.AVAILABLE
 	);
 }
@@ -195,6 +200,11 @@ export function assertRegistrationConsent(
 	return {requiresTermsConsent, requiresPrivacyConsent};
 }
 
+/** Sparkcord Slug Mode: the app marks a Slug sign-up with this header. */
+export function isSlugSignUpRequest(request: Request): boolean {
+	return request.headers.get('x-sparkcord-slug') === '1';
+}
+
 export function isInstantAccountRequest(
 	data: {email?: string | null; password?: string | null},
 	{usernameMode}: {usernameMode: boolean},
@@ -223,6 +233,7 @@ export async function register(
 			theme: data.theme,
 			olderAppEmail: data.email ?? null,
 			setupToken: data.setup_token,
+			sparkcordSlug: isSlugSignUpRequest(request),
 		},
 		request,
 		clientIp,
@@ -328,7 +339,13 @@ async function createAccountUnlocked(
 		} else if (registrationAccess.registrationUrl) {
 			approvalOverride = {approvalRequired: registrationAccess.registrationUrl.approval_required};
 		}
-		assertInstantAccountAvailable(await instanceConfigRepository.getInstantAccountAvailability(approvalOverride));
+		// Sparkcord Slug Mode is its own sign-up option: it ignores the instant-accounts switch
+		// (but not closed registration, approval, or the captcha requirement).
+		assertInstantAccountAvailable(
+			await instanceConfigRepository.getInstantAccountAvailability(approvalOverride, {
+				ignoreInstantSwitch: input.sparkcordSlug === true,
+			}),
+		);
 	}
 	const geoipResult = await lookupGeoip(clientIp);
 	const dateOfBirthResult = resolveRegistrationDateOfBirth({
