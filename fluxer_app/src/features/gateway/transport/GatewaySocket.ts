@@ -1133,13 +1133,27 @@ export class GatewaySocket extends EventEmitter<GatewaySocketEvents> {
 		}, delay);
 	}
 
+	/** Sparkcord Slug Mode: the token with its gateway proof, once resolved (see SlugGateway). */
+	private identifyToken: string | null = null;
+
 	private sendIdentify(): void {
+		if (this.identifyToken === null) {
+			const socket = this.socket;
+			void import('@app/features/slug_mode/SlugGateway')
+				.then((module) => module.slugIdentifyToken(this.options.token))
+				.catch(() => this.options.token)
+				.then((token) => {
+					this.identifyToken = token;
+					if (this.socket === socket) this.sendIdentify();
+				});
+			return;
+		}
 		this.log.info('Sending IDENTIFY to gateway');
 		const flags = this.options.identifyFlags ?? 0;
 		this.sendPayload({
 			op: GatewayOpcodes.IDENTIFY,
 			d: {
-				token: this.options.token,
+				token: this.identifyToken,
 				properties: this.options.properties,
 				...(this.options.presence && {presence: this.options.presence}),
 				flags,
@@ -1158,7 +1172,7 @@ export class GatewaySocket extends EventEmitter<GatewaySocketEvents> {
 		this.sendPayload({
 			op: GatewayOpcodes.RESUME,
 			d: {
-				token: this.options.token,
+				token: this.identifyToken ?? this.options.token,
 				session_id: this.activeSessionId,
 				seq: this.lastSequenceNumber,
 			},

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {isSlugAccount, SLUG_INACTIVE_DAYS} from '@app/api/sparkcord/SlugMode';
 import {revokeAllAuthSessions} from '@app/api/auth/AuthSessionRevocation';
 import type {UserID} from '@app/api/BrandedTypes';
 import {Config} from '@app/api/Config';
@@ -98,6 +99,7 @@ function sweepsAbandonedAccounts(cleanup: AccountCleanupConfig): boolean {
 
 interface ProcessUserDeps {
 	cleanup: AccountCleanupConfig;
+	kvClient: IKVProvider;
 	userRepository: UserRepository;
 	deletionQueueService: KVAccountDeletionQueueService;
 	gatewayService: IGatewayService;
@@ -169,6 +171,33 @@ async function processUser(
 		prefetchedActivity !== undefined ? prefetchedActivity : await activityTracker.getActivity(userId);
 	const now = new Date();
 	const userInactiveMs = lastActivity ? now.getTime() - lastActivity.getTime() : Infinity;
+	// Sparkcord Slug Mode: a Slug account is deleted after SLUG_INACTIVE_DAYS without a visit
+	// (by then its device cookie has run out), whatever the instance's own cleanup settings.
+	const slug = user.email === null && (await isSlugAccount(deps.kvClient, userId.toString()).catch(() => false));
+	if (slug) {
+		const lastKnownActivity = lastActivity ?? user.lastActiveAt ?? snowflakeToDate(BigInt(userId));
+		if (now.getTime() - lastKnownActivity.getTime() >= daysMs(SLUG_INACTIVE_DAYS)) {
+			const current = await userRepository.findUnique(userId);
+			if (
+				current !== null &&
+				!current.pendingDeletionAt &&
+				!(await deletionEligibilityService.isProtectedFromSystemDeletion(current))
+			) {
+				await scheduleSystemDeletion(
+					{users: userRepository, gateway: gatewayService, deletionQueue: deletionQueueService},
+					current,
+					{
+						reasonCode: DeletionReasons.UNCLAIMED_ACCOUNT_ABANDONED,
+						delayMs: AccountCleanupDefaults.SCHEDULED_DELETION_GRACE_MS,
+						cancelledBySignIn: true,
+						endSessions: true,
+					},
+				);
+				result.deletionsScheduled++;
+			}
+		}
+		return;
+	}
 	if (sweepsAbandonedAccounts(deps.cleanup)) {
 		const lastKnownActivity = lastActivity ?? user.lastActiveAt ?? snowflakeToDate(BigInt(userId));
 		const abandonedInactiveMs = now.getTime() - lastKnownActivity.getTime();
@@ -312,6 +341,7 @@ export async function processInactivityDeletionsCore(
 	}
 	const userDeps: ProcessUserDeps = {
 		cleanup,
+		kvClient: deps.kvClient,
 		userRepository,
 		deletionQueueService,
 		gatewayService,

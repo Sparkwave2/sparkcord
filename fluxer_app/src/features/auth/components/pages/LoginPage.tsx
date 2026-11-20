@@ -19,6 +19,7 @@ import {
 	SIGN_IN_DESCRIPTOR,
 } from '@app/features/i18n/utils/CommonMessageDescriptors';
 import * as RouterUtils from '@app/features/navigation/utils/RouterUtils';
+import {SlugModeEntry} from '@app/features/slug_mode/SlugModeEntry';
 import {useLocation} from '@app/features/platform/components/router/RouterReact';
 import {hasPurchaseIntent} from '@app/features/premium/state/PurchaseIntent';
 import {getPremiumProductName} from '@app/features/premium/utils/PremiumUtils';
@@ -80,7 +81,7 @@ const LoginPage = observer(function LoginPage({onBackActionChange}: LoginPagePro
 			inviteCode={null}
 			desktopHandoff={isHandoff}
 			excludeCurrentUser={false}
-			extraTopContent={null}
+			extraTopContent={<SlugModeEntry runtimeSnapshot={runtimeTarget.snapshot ?? null} />}
 			forgotPasswordAction={null}
 			showTitle={true}
 			title={

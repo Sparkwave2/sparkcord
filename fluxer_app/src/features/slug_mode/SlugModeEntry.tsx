@@ -1,0 +1,177 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Sparkcord Slug Mode on the login page: makes an account that only exists on this device.
+// It is created like an instant account (display name only), then tied to this device by
+// the server with a device-key cookie (see fluxer_api sparkcord/SlugMode.ts). It can't be
+// signed into anywhere else; adding an email later turns it into a normal account.
+
+import * as Modal from '@app/features/app/components/dialogs/Modal';
+import {Endpoints} from '@app/features/app/constants/Endpoints';
+import type {RuntimeConfigSnapshot} from '@app/features/app/state/InstanceSnapshotStore';
+import * as AccountEntryCommands from '@app/features/auth/commands/AccountEntryCommands';
+import * as AuthenticationCommands from '@app/features/auth/commands/AuthenticationCommands';
+import {
+	InstantAccountForm,
+	instantAccountErrors,
+	NO_INSTANT_ACCOUNT_ERRORS,
+} from '@app/features/auth/flow/InstantAccountForm';
+import {getRegistrationLegalConsentConfig} from '@app/features/auth/flow/RegistrationLegalNotice';
+import {markSlugUser} from '@app/features/slug_mode/SlugGateway';
+import styles from '@app/features/slug_mode/SlugModeEntry.module.css';
+import {instanceRequest, instanceTargetFromSnapshot} from '@app/features/platform/transport/InstanceHTTP';
+import {Button} from '@app/features/ui/button/Button';
+import {isDesktop} from '@app/features/ui/utils/NativeUtils';
+import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
+import {modal} from '@app/features/ui/commands/ModalCommands';
+import {msg} from '@lingui/core/macro';
+import {useLingui} from '@lingui/react/macro';
+import {CookieIcon} from '@phosphor-icons/react';
+import {observer} from 'mobx-react-lite';
+import {useMemo, useState} from 'react';
+
+const BUTTON = msg({message: 'Use Slug Mode', comment: 'Login page button that creates an account kept only on this device.'});
+const BUTTON_HINT = msg({
+	message: 'No email or password. The account lives on this device only.',
+	comment: 'Short explanation under the Slug Mode button on the login page.',
+});
+const TITLE = msg({message: 'Slug Mode', comment: 'Title of the Slug Mode dialog.'});
+const EXPLAIN = msg({
+	message:
+		'Slug Mode makes an account that only exists on this device. Its key is kept in a cookie in this browser, so:',
+	comment: 'First paragraph of the Slug Mode dialog.',
+});
+const POINT_DEVICE = msg({
+	message: 'You can’t sign in to it on any other device.',
+	comment: 'Slug Mode rule.',
+});
+const POINT_COOKIE = msg({
+	message: 'Clearing this site’s cookies, or signing out, deletes the account for good.',
+	comment: 'Slug Mode rule.',
+});
+const POINT_IDLE = msg({
+	message: 'If it isn’t opened for 400 days, it is deleted.',
+	comment: 'Slug Mode rule.',
+});
+const POINT_CONVERT = msg({
+	message: 'You can add an email later to turn it into a normal account.',
+	comment: 'Slug Mode rule.',
+});
+const FAILED = msg({
+	message: 'Couldn’t set up Slug Mode. Please try again.',
+	comment: 'Error in the Slug Mode dialog when the account could not be tied to the device.',
+});
+
+async function enableSlugMode(token: string, snapshot: RuntimeConfigSnapshot): Promise<void> {
+	await instanceRequest({
+		method: 'POST',
+		path: Endpoints.SPARKCORD_SLUG,
+		target: instanceTargetFromSnapshot(snapshot),
+		auth: 'none',
+		headers: {Authorization: token},
+	});
+}
+
+/** Signs a half-made account out again (which deletes it, as it has no way back in). */
+async function abandon(token: string, snapshot: RuntimeConfigSnapshot): Promise<void> {
+	await instanceRequest({
+		method: 'POST',
+		path: Endpoints.AUTH_LOGOUT,
+		target: instanceTargetFromSnapshot(snapshot),
+		auth: 'none',
+		headers: {Authorization: token},
+	}).catch(() => {});
+}
+
+const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtimeSnapshot: RuntimeConfigSnapshot}) {
+	const {i18n} = useLingui();
+	const consentConfig = useMemo(() => getRegistrationLegalConsentConfig(runtimeSnapshot), [runtimeSnapshot]);
+	const [submitting, setSubmitting] = useState(false);
+	const [errors, setErrors] = useState(NO_INSTANT_ACCOUNT_ERRORS);
+	const [failure, setFailure] = useState<string | null>(null);
+
+	const submit = async (globalName: string) => {
+		if (submitting) return;
+		setSubmitting(true);
+		setErrors(NO_INSTANT_ACCOUNT_ERRORS);
+		setFailure(null);
+		try {
+			const result = await AccountEntryCommands.createInstantAccount({
+				globalName,
+				consent: true,
+				inviteCode: null,
+				registrationUrlCode: null,
+				snapshot: runtimeSnapshot,
+			});
+			if (result.type !== 'success') {
+				setFailure(i18n._(FAILED));
+				return;
+			}
+			try {
+				await enableSlugMode(result.payload.token, runtimeSnapshot);
+			} catch (error) {
+				console.warn('[slug] enabling failed', error);
+				await abandon(result.payload.token, runtimeSnapshot);
+				setFailure(i18n._(FAILED));
+				return;
+			}
+			markSlugUser(result.payload.userId);
+			ModalCommands.pop();
+			await AuthenticationCommands.completeLogin({...result.payload, runtimeSnapshot}, {redirectPath: '/channels/@me'});
+		} catch (caught) {
+			setErrors(instantAccountErrors(caught, i18n));
+		} finally {
+			setSubmitting(false);
+		}
+	};
+
+	return (
+		<Modal.Root size="small" centered data-flx="slug-mode.modal">
+			<Modal.Header title={i18n._(TITLE)} />
+			<Modal.Content>
+				<Modal.ContentLayout>
+					<p className={styles.text}>{i18n._(EXPLAIN)}</p>
+					<ul className={styles.points}>
+						<li>{i18n._(POINT_DEVICE)}</li>
+						<li>{i18n._(POINT_COOKIE)}</li>
+						<li>{i18n._(POINT_IDLE)}</li>
+						<li>{i18n._(POINT_CONVERT)}</li>
+					</ul>
+					{failure && <p className={styles.error}>{failure}</p>}
+					<InstantAccountForm
+						initialName=""
+						consentConfig={consentConfig}
+						submitting={submitting}
+						errors={errors}
+						onEdit={() => setErrors(NO_INSTANT_ACCOUNT_ERRORS)}
+						onSubmit={(globalName) => void submit(globalName)}
+						data-flx="slug-mode.form"
+					/>
+				</Modal.ContentLayout>
+			</Modal.Content>
+		</Modal.Root>
+	);
+});
+
+/** The Slug Mode button shown on the login page. */
+export const SlugModeEntry = observer(function SlugModeEntry({
+	runtimeSnapshot,
+}: {
+	runtimeSnapshot: RuntimeConfigSnapshot | null;
+}) {
+	const {i18n} = useLingui();
+	// The desktop app's server proxy doesn't carry cookies yet, so Slug Mode is web-only for now.
+	if (runtimeSnapshot === null || isDesktop()) return null;
+	return (
+		<div className={styles.entry}>
+			<Button
+				variant="secondary"
+				leftIcon={<CookieIcon size={18} weight="fill" />}
+				onClick={() => ModalCommands.push(modal(() => <SlugModeModal runtimeSnapshot={runtimeSnapshot} />))}
+				data-flx="slug-mode.open"
+			>
+				{i18n._(BUTTON)}
+			</Button>
+			<span className={styles.hint}>{i18n._(BUTTON_HINT)}</span>
+		</div>
+	);
+});

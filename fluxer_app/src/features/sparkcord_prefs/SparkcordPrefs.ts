@@ -36,6 +36,8 @@ interface Prefs {
 	hideAvatarCosmetics: boolean;
 	/** The desktop app version whose "update available" notice was dismissed. */
 	dismissedUpdateVersion: string;
+	/** Sparkcord Slug Mode: comma-separated ids of this device's Slug accounts (not secret). */
+	slugUserIds: string;
 }
 
 const DEFAULTS: Prefs = {
@@ -52,6 +54,7 @@ const DEFAULTS: Prefs = {
 	simpleRoleColors: false,
 	hideAvatarCosmetics: false,
 	dismissedUpdateVersion: '',
+	slugUserIds: '',
 };
 
 function readStored(): Prefs {

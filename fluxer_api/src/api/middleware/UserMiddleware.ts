@@ -9,6 +9,7 @@ import {Logger} from '@app/api/Logger';
 import {hashRequestToken, recordAuthFailure} from '@app/api/middleware/RequestErrorTelemetry';
 import {getApplicationRepository} from '@app/api/middleware/ServiceSingletons';
 import type {User} from '@app/api/models/User';
+import {checkSlugAccess, requestIsSecure, slugKeyFromCookieHeader, slugSetCookie} from '@app/api/sparkcord/SlugMode';
 import type {HonoEnv} from '@app/api/types/HonoEnv';
 import {isSignInRefused} from '@app/api/user/UserHelpers';
 import {getRequestClientIp} from '@app/api/utils/RequestClientIp';
@@ -143,6 +144,18 @@ export const UserMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 		const authSession = await AuthSession.getAuthSessionByToken(apiContext, token);
 		if (authSession) {
 			const user = await apiContext.services.users.findUnique(authSession.userId);
+			// Sparkcord Slug Mode: a Slug account's token only works with its device-key cookie.
+			const cookieHeader = ctx.req.header('cookie');
+			const slugAccess = user ? await checkSlugAccess(apiContext.services.kv, user, cookieHeader) : 'not-slug';
+			if (user && slugAccess === 'refused') {
+				recordAuthFailure(resolvedClientIp, tokenHash);
+				await next();
+				return;
+			}
+			if (user && slugAccess === 'allowed') {
+				const key = slugKeyFromCookieHeader(cookieHeader, user.id.toString());
+				if (key) ctx.header('Set-Cookie', slugSetCookie(user.id.toString(), key, requestIsSecure(ctx.req.raw)), {append: true});
+			}
 			if (user && !isSignInRefused(user)) {
 				void AuthSession.updateAuthSessionLastUsed(apiContext, authSession.sessionIdHash, ctx.req.raw);
 				ctx.set('authSession', authSession);

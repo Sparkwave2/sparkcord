@@ -20,6 +20,7 @@ import {DownloadController} from '@app/api/download/DownloadController';
 import {ExperimentController} from '@app/api/experiment/ExperimentController';
 import {FavoriteGifController} from '@app/api/favorite_gif/FavoriteGifController';
 import {PlatformController} from '@app/api/sparkcord/PlatformController';
+import {SlugModeController} from '@app/api/sparkcord/SlugModeController';
 import {YouTubeInfoController} from '@app/api/sparkcord/YouTubeInfoController';
 import {TupperController} from '@app/api/tupper/TupperController';
 import {NameFontController} from '@app/api/name_font/NameFontController';
@@ -81,6 +82,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	FavoriteMemeController(routes);
 	TupperController(routes);
 	PlatformController(routes);
+	SlugModeController(routes);
 	YouTubeInfoController(routes);
 	NameFontController(routes);
 	GroupNameColorController(routes);

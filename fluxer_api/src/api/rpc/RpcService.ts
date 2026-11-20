@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {slugGatewayProofAccepted, splitSlugGatewayToken} from '@app/api/sparkcord/SlugMode';
 import {createHash} from 'node:crypto';
 import type {ApiContext} from '@app/api/ApiContext';
 import * as AuthSession from '@app/api/auth/AuthSession';
@@ -844,7 +845,9 @@ export class RpcService {
 		guildVisitsCapable = false,
 	}: HandleSessionRequestParams): Promise<RpcResponseSessionData> {
 		const timings = new RpcTimingRecorder();
-		const normalizedToken = timings.timeSync('normalize_session_token', () => this.normalizeSessionToken(token));
+		// Sparkcord Slug Mode: Slug accounts identify with "<token>#slug:<proof>".
+		const {token: plainToken, proof: slugProof} = splitSlugGatewayToken(token);
+		const normalizedToken = timings.timeSync('normalize_session_token', () => this.normalizeSessionToken(plainToken));
 		const tokenHash = timings.timeSync('hash_session_token', () =>
 			createHash('sha256').update(normalizedToken).digest('hex'),
 		);
@@ -930,6 +933,14 @@ export class RpcService {
 				},
 				'RPC session user lookup failed',
 			);
+			throw new UnauthorizedError();
+		}
+		// Sparkcord Slug Mode: a Slug account's token only works with its device-key cookie.
+		if (
+			tokenType === 'user' &&
+			!(await slugGatewayProofAccepted(this.apiContext.services.kv, userData.user, slugProof))
+		) {
+			Logger.warn({tokenType, tokenHashPrefix, userId: userId.toString()}, 'RPC session refused: Slug proof missing or wrong');
 			throw new UnauthorizedError();
 		}
 		if (tokenType === 'user' && isSignInRefused(userData.user)) {

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {isSlugAccount} from '@app/api/sparkcord/SlugMode';
 import type {ApiContext} from '@app/api/ApiContext';
 import {revokeAllAuthSessions} from '@app/api/auth/AuthSessionRevocation';
 import {SYSTEM_USER_ID} from '@app/api/constants/Core';
@@ -51,7 +52,9 @@ export async function scheduleSystemDeletion(
 
 export async function scheduleAbandonedOnLastLogout(ctx: ApiContext, user: User): Promise<void> {
 	const cleanup = getCachedAccountsConfig().unclaimed_account_cleanup;
-	if (cleanup.on_last_session_end !== LastSessionCleanupModes.AFTER_GRACE) return;
+	// Sparkcord Slug Mode: signing out of a Slug account always ends it (it can't sign in again).
+	const slug = user.email === null && (await isSlugAccount(ctx.services.kv, user.id.toString()));
+	if (!slug && cleanup.on_last_session_end !== LastSessionCleanupModes.AFTER_GRACE) return;
 	if (user.isBot || user.pendingDeletionAt !== null) return;
 	if (await hasWayBackIn(ctx.services, user)) return;
 	if ((await ctx.services.users.listAuthSessions(user.id)).length > 0) return;
