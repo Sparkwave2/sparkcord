@@ -53,6 +53,8 @@ interface AuthLoginMethodStepProps {
 	readonly legacyPasskeyHost: string | null;
 	readonly passkeyAvailableForInstance: boolean;
 	readonly registerLink: ReactElement<Record<string, unknown>>;
+	/** Sparkcord: more sign-in options, shown after the built-in secondary ones. */
+	readonly extraMethodActions?: ReadonlyArray<AuthLoginMethodAction>;
 	readonly showBrowserOption: boolean;
 	readonly showPasskeyOption: boolean;
 	readonly showTitle: boolean;
@@ -74,6 +76,7 @@ export function AuthLoginMethodStep({
 	legacyPasskeyHost,
 	passkeyAvailableForInstance,
 	registerLink,
+	extraMethodActions = [],
 	showBrowserOption,
 	showPasskeyOption,
 	showTitle,
@@ -234,7 +237,7 @@ export function AuthLoginMethodStep({
 					submitting: false,
 					variant: ButtonVariant.PRIMARY,
 				}}
-				secondaryActions={secondaryActions}
+				secondaryActions={[...secondaryActions, ...extraMethodActions]}
 				registerAction={methodRegisterLink}
 				footerAction={renderFooterAction()}
 				data-flx="auth.flow.auth-login-core.auth-login-method-step.auth-login-method-picker"

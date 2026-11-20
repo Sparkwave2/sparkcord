@@ -18,22 +18,20 @@ import {
 import {getRegistrationLegalConsentConfig} from '@app/features/auth/flow/RegistrationLegalNotice';
 import {markSlugUser} from '@app/features/slug_mode/SlugGateway';
 import styles from '@app/features/slug_mode/SlugModeEntry.module.css';
+import {SnailIcon} from '@app/features/slug_mode/SnailIcon';
 import {instanceRequest, instanceTargetFromSnapshot} from '@app/features/platform/transport/InstanceHTTP';
-import {Button} from '@app/features/ui/button/Button';
+import {ButtonVariant} from '@app/features/ui/button/Button';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
+import type {AuthLoginMethodAction} from '@app/features/auth/flow/auth_login_core/AuthLoginMethodPicker';
+import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {CookieIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useMemo, useState} from 'react';
 
 const BUTTON = msg({message: 'Use Slug Mode', comment: 'Login page button that creates an account kept only on this device.'});
-const BUTTON_HINT = msg({
-	message: 'No email or password. The account lives on this device only.',
-	comment: 'Short explanation under the Slug Mode button on the login page.',
-});
 const TITLE = msg({message: 'Slug Mode', comment: 'Title of the Slug Mode dialog.'});
 const EXPLAIN = msg({
 	message:
@@ -157,26 +155,30 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 	);
 });
 
-/** The Slug Mode button shown on the login page. */
-export const SlugModeEntry = observer(function SlugModeEntry({
-	runtimeSnapshot,
-}: {
-	runtimeSnapshot: RuntimeConfigSnapshot | null;
-}) {
-	const {i18n} = useLingui();
-	// The desktop app's server proxy doesn't carry cookies yet, so Slug Mode is web-only for now.
+/** Opens the Slug Mode dialog. */
+export function openSlugModeDialog(runtimeSnapshot: RuntimeConfigSnapshot): void {
+	ModalCommands.push(modal(() => <SlugModeModal runtimeSnapshot={runtimeSnapshot} />));
+}
+
+/**
+ * Slug Mode as a secondary option in the login page's method picker, or null where it
+ * isn't offered (no instance yet, or the desktop app, whose server proxy doesn't carry
+ * cookies yet).
+ */
+export function slugModeMethodAction(
+	i18n: I18n,
+	runtimeSnapshot: RuntimeConfigSnapshot | null,
+	disabled = false,
+): AuthLoginMethodAction | null {
 	if (runtimeSnapshot === null || isDesktop()) return null;
-	return (
-		<div className={styles.entry}>
-			<Button
-				variant="secondary"
-				leftIcon={<CookieIcon size={18} weight="fill" />}
-				onClick={() => ModalCommands.push(modal(() => <SlugModeModal runtimeSnapshot={runtimeSnapshot} />))}
-				data-flx="slug-mode.open"
-			>
-				{i18n._(BUTTON)}
-			</Button>
-			<span className={styles.hint}>{i18n._(BUTTON_HINT)}</span>
-		</div>
-	);
-});
+	return {
+		disabled,
+		id: 'sparkcord-slug-mode',
+		label: i18n._(BUTTON),
+		icon: <SnailIcon size={16} />,
+		onSelect: () => openSlugModeDialog(runtimeSnapshot),
+		stepFocus: false,
+		submitting: false,
+		variant: ButtonVariant.SECONDARY,
+	};
+}

@@ -156,3 +156,26 @@ export function requestIsSecure(request: Request): boolean {
 	if (forwarded) return forwarded.split(',')[0]?.trim() === 'https';
 	return new URL(request.url).protocol === 'https:';
 }
+
+/** The profile badge every Slug user shows to others (it can't be hidden). */
+export function slugProfileBadge(staticCdn: string): {
+	key: string;
+	kind: string;
+	label: string;
+	asset: null;
+	asset_url: string;
+	aspect_ratio: null;
+	caption: null;
+	href: null;
+} {
+	return {
+		key: 'sparkcord_slug',
+		kind: 'sparkcord_slug',
+		label: 'Slug Mode user: this account lives on one device',
+		asset: null,
+		asset_url: `${staticCdn.replace(/\/+$/, '')}/assets/sparkcord-badges/slug-mode.svg`,
+		aspect_ratio: null,
+		caption: null,
+		href: null,
+	};
+}

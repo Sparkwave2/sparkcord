@@ -19,7 +19,7 @@ import {
 	SIGN_IN_DESCRIPTOR,
 } from '@app/features/i18n/utils/CommonMessageDescriptors';
 import * as RouterUtils from '@app/features/navigation/utils/RouterUtils';
-import {SlugModeEntry} from '@app/features/slug_mode/SlugModeEntry';
+import {slugModeMethodAction} from '@app/features/slug_mode/SlugModeEntry';
 import {useLocation} from '@app/features/platform/components/router/RouterReact';
 import {hasPurchaseIntent} from '@app/features/premium/state/PurchaseIntent';
 import {getPremiumProductName} from '@app/features/premium/utils/PremiumUtils';
@@ -75,13 +75,16 @@ const LoginPage = observer(function LoginPage({onBackActionChange}: LoginPagePro
 	const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
 	const safeRedirect = safeRedirectTarget(params.get('redirect_to'));
 	const isHandoff = isHandoffRequest(params);
+	// Sparkcord Slug Mode: a secondary sign-in option (not on a desktop handoff).
+	const slugAction = isHandoff ? null : slugModeMethodAction(i18n, runtimeTarget.snapshot ?? null);
+	const slugActions = slugAction === null ? [] : [slugAction];
 	return (
 		<AuthLoginLayout
 			redirectPath={resolveLoginRedirectPath(isHandoff, safeRedirect, runtimeTarget)}
 			inviteCode={null}
 			desktopHandoff={isHandoff}
 			excludeCurrentUser={false}
-			extraTopContent={<SlugModeEntry runtimeSnapshot={runtimeTarget.snapshot ?? null} />}
+			extraTopContent={null}
 			forgotPasswordAction={null}
 			showTitle={true}
 			title={
@@ -97,6 +100,7 @@ const LoginPage = observer(function LoginPage({onBackActionChange}: LoginPagePro
 			ssoRedirectPath={null}
 			suppressInlineBackButtons={true}
 			initialIdentifier={params.get('login') ?? params.get('email')}
+			extraMethodActions={slugActions}
 			registerLink={
 				<AuthRouterLink
 					to="/register"

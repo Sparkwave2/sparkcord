@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import type {AuthLoginMethodAction} from '@app/features/auth/flow/auth_login_core/AuthLoginMethodPicker';
 import {Routes} from '@app/app/Routes';
 import {detectDomainMigrationInstallKind} from '@app/features/app/domain_migration/DomainMigrationBrowser';
 import type {RuntimeConfigSnapshot} from '@app/features/app/state/InstanceSnapshotStore';
@@ -134,6 +135,8 @@ export interface AuthLoginLayoutProps {
 	readonly showTitle?: boolean;
 	readonly title?: ReactNode;
 	readonly registerLink: ReactElement<Record<string, unknown>>;
+	/** Sparkcord: more sign-in options for the method picker (Slug Mode). */
+	readonly extraMethodActions?: ReadonlyArray<AuthLoginMethodAction>;
 	readonly onLoginComplete?: ((payload: LoginSuccessPayload) => Promise<void> | void) | null;
 	readonly onBackActionChange?: ((action: (() => void) | null) => void) | null;
 	readonly onStepTitleChange?: StepTitleChangeHandler | null;
@@ -433,6 +436,7 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 	showTitle = true,
 	title = null,
 	registerLink,
+	extraMethodActions,
 	onLoginComplete = null,
 	onBackActionChange = null,
 	onStepTitleChange = null,
@@ -948,6 +952,7 @@ export const AuthLoginLayout = observer(function AuthLoginLayout({
 				disabled={passkeyControlsDisabled || isStartingSso}
 				passkeyAvailableForInstance={isPasskeyAvailableForCurrentClient(resolvedAuthRuntimeSnapshot)}
 				registerLink={registerLink}
+				extraMethodActions={extraMethodActions}
 				showBrowserOption={resolveShouldOfferBrowserStep() && resolvedAuthRuntimeSnapshot != null}
 				showPasskeyOption={showPasskeyOption}
 				onBrowserLogin={handleShowBrowserStep}

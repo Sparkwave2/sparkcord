@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {Config} from '@app/api/Config';
+import {getKVClient} from '@app/api/middleware/ServiceRegistry';
+import {isSlugAccount, slugProfileBadge} from '@app/api/sparkcord/SlugMode';
 import * as AuthEmailRevert from '@app/api/auth/AuthEmailRevert';
 import {requireSudoMode, type SudoVerificationResult} from '@app/api/auth/services/SudoVerificationService';
 import {createChannelID, createGuildID, type UserID} from '@app/api/BrandedTypes';
@@ -433,6 +436,14 @@ export class UserAccountRequestService {
 			profileHidden: hidden,
 		};
 		const profileBadges = buildProfileBadges(badgeInput);
+		// Sparkcord Slug Mode: Slug users always show the snail badge.
+		if (
+			!profileUser.isBot &&
+			profileUser.email === null &&
+			(await isSlugAccount(getKVClient(), profileUser.id.toString()).catch(() => false))
+		) {
+			profileBadges.push(slugProfileBadge(Config.endpoints.staticCdn));
+		}
 		const hiddenProfileBadgeCount = viewerIsSelf
 			? buildOwnProfileBadges(badgeInput).filter((badge) => badge.hidden).length
 			: undefined;
