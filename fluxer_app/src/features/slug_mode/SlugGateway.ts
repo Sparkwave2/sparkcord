@@ -2,14 +2,15 @@
 //
 // Sparkcord Slug Mode, gateway side. The gateway can't see the device-key cookie, so before
 // a Slug account connects, the app asks the API for a proof (the request carries the cookie)
-// and identifies with "<token>#slug:<proof>". The proof is kept in memory only. Which
-// accounts on this device are Slug accounts is remembered (not secret) so normal accounts
-// never wait for this.
+// and identifies with "<token>#slug:<proof>". The proof is kept in memory only. Accounts
+// with an email are never Slug accounts, so they never wait for this.
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
 import SparkcordPrefs from '@app/features/sparkcord_prefs/SparkcordPrefs';
 
 const proofs = new Map<string, Promise<string | null>>();
+/** Tokens known not to be Slug accounts (asked once per app run). */
+const notSlug = new Set<string>();
 
 function slugUserIds(): Set<string> {
 	return new Set(
@@ -29,12 +30,21 @@ export function isSlugUser(userId: string | null | undefined): boolean {
 	return userId != null && slugUserIds().has(userId);
 }
 
-async function userIdForToken(token: string): Promise<string | null> {
+/**
+ * Whether a token may belong to a Slug account: its account has no email (Slug accounts
+ * never do), or it isn't in the account list yet (just created).
+ */
+async function mayBeSlugToken(token: string): Promise<boolean> {
 	const {default: Accounts} = await import('@app/features/auth/state/Accounts');
-	return Accounts.getAllAccounts().find((account) => account.token === token)?.userId ?? null;
+	const account = Accounts.getAllAccounts().find((entry) => entry.token === token);
+	if (!account) return true;
+	if (isSlugUser(account.userId)) return true;
+	return account.userData != null && !account.userData.email;
 }
 
 async function fetchProof(token: string): Promise<string | null> {
+	// Returns null when there is no proof; marks the token when the server says it isn't a
+	// Slug account, so it isn't asked again this run.
 	const {instanceRequest, instanceTargetFromSnapshot} = await import('@app/features/platform/transport/InstanceHTTP');
 	const {default: RuntimeConfig} = await import('@app/features/app/state/RuntimeConfig');
 	const snapshot = RuntimeConfig.getSnapshotOrNull();
@@ -49,16 +59,16 @@ async function fetchProof(token: string): Promise<string | null> {
 		});
 		return typeof response.body?.proof === 'string' ? response.body.proof : null;
 	} catch (error) {
-		console.warn('[slug] could not get the gateway proof', error);
+		if ((error as {status?: number} | null)?.status === 404) notSlug.add(token);
+		else console.warn('[slug] could not get the gateway proof', error);
 		return null;
 	}
 }
 
 /** The token to identify with: the plain token, or with the Slug proof for Slug accounts. */
 export async function slugIdentifyToken(token: string): Promise<string> {
-	if (slugUserIds().size === 0) return token;
-	const userId = await userIdForToken(token);
-	if (!isSlugUser(userId)) return token;
+	// The server answers "not a Slug account" (404) for the others, so asking is harmless.
+	if (notSlug.has(token) || !(await mayBeSlugToken(token))) return token;
 	let proof = proofs.get(token);
 	if (!proof) {
 		proof = fetchProof(token);
