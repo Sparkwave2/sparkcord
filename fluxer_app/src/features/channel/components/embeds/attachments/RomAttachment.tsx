@@ -7,91 +7,37 @@
 //
 // Flash files (.swf) use the same card and viewer, but are played by Ruffle
 // (self-hosted under /assets/ruffle/), which runs them cut off from the network.
+//
+// The viewer itself is GameWindow (one game at a time, kept outside the message so a
+// minimized game keeps running while you move around the app).
 
 import {fetchAttachmentBytes} from '@app/features/channel/components/embeds/attachments/AttachmentBytes';
-import pdfStyles from '@app/features/channel/components/embeds/attachments/PdfAttachmentPreview.module.css';
 import styles from '@app/features/channel/components/embeds/attachments/RomAttachment.module.css';
-import {FLASH_CORE, type RomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
-import mediaStyles from '@app/features/messaging/components/modals/MediaModal.module.css';
+import type {RomSystem} from '@app/features/channel/components/embeds/attachments/RomSystems';
+import {ConfirmModal} from '@app/features/app/components/dialogs/ConfirmModal';
+import GamePlayer from '@app/features/game_player/GamePlayer';
 import {downloadFile} from '@app/features/messaging/utils/FileDownloadUtils';
 import {formatFileSize} from '@app/features/messaging/utils/FileUtils';
+import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
+import {modal} from '@app/features/ui/commands/ModalCommands';
 import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
 import {getFormattingLocale} from '@app/features/user/utils/LocaleUtils';
 import type {MessageAttachment} from '@fluxer/schema/src/domains/message/MessageResponseSchemas';
 import {Trans, useLingui} from '@lingui/react/macro';
-import {DownloadSimpleIcon, GameControllerIcon, PlayIcon, XIcon} from '@phosphor-icons/react';
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {createPortal} from 'react-dom';
+import {ArrowsOutSimpleIcon, DownloadSimpleIcon, GameControllerIcon, PlayIcon} from '@phosphor-icons/react';
+import {observer} from 'mobx-react-lite';
+import {useEffect, useRef, useState} from 'react';
 
-function RomPlayer({romUrl, system, fileName, onClose}: {romUrl: string; system: RomSystem; fileName: string; onClose: () => void}) {
-	const {t} = useLingui();
-	const [closing, setClosing] = useState(false);
-	const frameRef = useRef<HTMLIFrameElement>(null);
-	const requestClose = useCallback(() => {
-		setClosing(true);
-		window.setTimeout(onClose, 200);
-	}, [onClose]);
-
-	useEffect(() => {
-		// Esc only reaches this window when the game doesn't have focus.
-		const onKey = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') {
-				event.stopPropagation();
-				requestClose();
-			}
-		};
-		window.addEventListener('keydown', onKey, true);
-		frameRef.current?.focus();
-		return () => window.removeEventListener('keydown', onKey, true);
-	}, [requestClose]);
-
-	const accent = getComputedStyle(document.documentElement).getPropertyValue('--brand-primary').trim() || '#a855f7';
-	const src =
-		system.core === FLASH_CORE
-			? `/assets/ruffle/player.html?${new URLSearchParams({swf: romUrl}).toString()}`
-			: `/assets/emulatorjs/player.html?${new URLSearchParams({
-					core: system.core,
-					name: fileName,
-					rom: romUrl,
-					color: accent,
-				}).toString()}`;
-
-	return createPortal(
-		<div
-			className={closing ? `${pdfStyles.fullscreenRoot} ${pdfStyles.fullscreenClosing}` : pdfStyles.fullscreenRoot}
-			role="dialog"
-			aria-modal="true"
-			aria-label={fileName}
-		>
-			<div className={pdfStyles.fullscreenBlur} aria-hidden="true" />
-			<div className={`${mediaStyles.modalBackdrop} ${pdfStyles.fullscreenTint}`} aria-hidden="true" onClick={requestClose} />
-			<div className={`${styles.playerFrameWrap} ${pdfStyles.fullscreenFade}`}>
-				<div className={styles.playerHeader}>
-					<GameControllerIcon size={18} weight="fill" />
-					<span className={styles.playerTitle}>{fileName}</span>
-					<span className={styles.playerSystem}>{system.label}</span>
-					<button type="button" className={styles.closeButton} onClick={requestClose} aria-label={t`Close`} title={t`Close`}>
-						<XIcon size={18} weight="bold" />
-					</button>
-				</div>
-				<iframe
-					ref={frameRef}
-					className={styles.playerFrame}
-					src={src}
-					title={fileName}
-					allow="gamepad; fullscreen; autoplay"
-					allowFullScreen
-				/>
-			</div>
-		</div>,
-		document.body,
-	);
-}
-
-export function RomAttachment({attachment, system}: {attachment: MessageAttachment; system: RomSystem}) {
+export const RomAttachment = observer(function RomAttachment({
+	attachment,
+	system,
+}: {
+	attachment: MessageAttachment;
+	system: RomSystem;
+}) {
 	const {t} = useLingui();
 	const fileName = attachment.title || attachment.filename;
-	const [romUrl, setRomUrl] = useState<string | null>(null);
+	const playing = GamePlayer.isPlaying(attachment.id);
 	const [loading, setLoading] = useState(false);
 	const abortRef = useRef<AbortController | null>(null);
 
@@ -102,7 +48,7 @@ export function RomAttachment({attachment, system}: {attachment: MessageAttachme
 		[],
 	);
 
-	const play = async () => {
+	const start = async () => {
 		if (!attachment.url || loading) return;
 		setLoading(true);
 		const controller = new AbortController();
@@ -110,7 +56,12 @@ export function RomAttachment({attachment, system}: {attachment: MessageAttachme
 		try {
 			const bytes = await fetchAttachmentBytes(attachment.url, controller.signal);
 			if (controller.signal.aborted) return;
-			setRomUrl(URL.createObjectURL(new Blob([bytes], {type: 'application/octet-stream'})));
+			GamePlayer.open({
+				romUrl: URL.createObjectURL(new Blob([bytes], {type: 'application/octet-stream'})),
+				system,
+				fileName,
+				attachmentId: attachment.id,
+			});
 		} catch (error) {
 			if (!controller.signal.aborted) ToastCommands.error(t`Couldn't load the game. Try again.`);
 			void error;
@@ -119,12 +70,38 @@ export function RomAttachment({attachment, system}: {attachment: MessageAttachme
 		}
 	};
 
-	const close = useCallback(() => {
-		setRomUrl((url) => {
-			if (url) URL.revokeObjectURL(url);
-			return null;
-		});
-	}, []);
+	const play = () => {
+		if (playing) {
+			GamePlayer.maximize();
+			return;
+		}
+		const current = GamePlayer.game;
+		if (!current) {
+			void start();
+			return;
+		}
+		// One game at a time: starting this one ends the other.
+		ModalCommands.push(
+			modal(() => (
+				<ConfirmModal
+					title={<Trans>Close the other game?</Trans>}
+					description={
+						<Trans>
+							<strong>{current.fileName}</strong> is still running. Starting this game closes it, and anything not
+							saved in it is lost.
+						</Trans>
+					}
+					primaryText={<Trans>Close it and play</Trans>}
+					primaryVariant="primary"
+					onPrimary={() => {
+						GamePlayer.close();
+						void start();
+					}}
+					data-flx="rom.confirm-replace"
+				/>
+			)),
+		);
+	};
 
 	return (
 		<div className={styles.card}>
@@ -139,9 +116,9 @@ export function RomAttachment({attachment, system}: {attachment: MessageAttachme
 					{system.label} · {formatFileSize(getFormattingLocale(), attachment.size)}
 				</span>
 			</div>
-			<button type="button" className={styles.playButton} onClick={() => void play()} disabled={loading}>
-				<PlayIcon size={16} weight="fill" />
-				{loading ? <Trans>Loading…</Trans> : <Trans>Play</Trans>}
+			<button type="button" className={styles.playButton} onClick={play} disabled={loading}>
+				{playing ? <ArrowsOutSimpleIcon size={16} weight="bold" /> : <PlayIcon size={16} weight="fill" />}
+				{loading ? <Trans>Loading…</Trans> : playing ? <Trans>Show</Trans> : <Trans>Play</Trans>}
 			</button>
 			<button
 				type="button"
@@ -155,7 +132,6 @@ export function RomAttachment({attachment, system}: {attachment: MessageAttachme
 			>
 				<DownloadSimpleIcon size={18} />
 			</button>
-			{romUrl && <RomPlayer romUrl={romUrl} system={system} fileName={fileName} onClose={close} />}
 		</div>
 	);
-}
+});
