@@ -38,8 +38,6 @@ const INTRO = msg({
 	message: 'Jump in with just a name. Your account stays on this device.',
 	comment: 'One-line introduction at the top of the Slug Mode dialog.',
 });
-const PROS_TITLE = msg({message: 'Good', comment: 'Heading of the advantages list in the Slug Mode dialog.'});
-const CONS_TITLE = msg({message: 'Keep in mind', comment: 'Heading of the drawbacks list in the Slug Mode dialog.'});
 const PRO_FAST = msg({message: 'No email or password needed', comment: 'Slug Mode advantage.'});
 const PRO_PRIVATE = msg({message: 'Nothing personal to hand over', comment: 'Slug Mode advantage.'});
 const CON_DEVICE = msg({message: 'Works only on this device and browser', comment: 'Slug Mode drawback.'});
@@ -47,7 +45,6 @@ const CON_GONE = msg({
 	message: 'Signing out or clearing cookies deletes it',
 	comment: 'Slug Mode drawback: the account is gone for good.',
 });
-const CON_BADGE = msg({message: 'Others see a snail badge on your profile', comment: 'Slug Mode drawback.'});
 const TIP = msg({
 	message: 'Add an email later to keep it for good.',
 	comment: 'Tip at the bottom of the Slug Mode dialog: adding an email turns it into a normal account.',
@@ -133,7 +130,6 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 					<p className={styles.text}>{i18n._(INTRO)}</p>
 					<div className={styles.lists}>
 						<div className={styles.list}>
-							<span className={styles.listTitle}>{i18n._(PROS_TITLE)}</span>
 							<span className={styles.pro}>
 								<CheckCircleIcon size={18} weight="fill" />
 								{i18n._(PRO_FAST)}
@@ -144,7 +140,6 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 							</span>
 						</div>
 						<div className={styles.list}>
-							<span className={styles.listTitle}>{i18n._(CONS_TITLE)}</span>
 							<span className={styles.con}>
 								<WarningCircleIcon size={18} weight="fill" />
 								{i18n._(CON_DEVICE)}
@@ -152,10 +147,6 @@ const SlugModeModal = observer(function SlugModeModal({runtimeSnapshot}: {runtim
 							<span className={styles.con}>
 								<WarningCircleIcon size={18} weight="fill" />
 								{i18n._(CON_GONE)}
-							</span>
-							<span className={styles.con}>
-								<WarningCircleIcon size={18} weight="fill" />
-								{i18n._(CON_BADGE)}
 							</span>
 						</div>
 					</div>
