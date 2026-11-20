@@ -45,23 +45,30 @@ async function mayBeSlugToken(token: string): Promise<boolean> {
 
 async function fetchProof(token: string): Promise<string | null> {
 	// Returns null when there is no proof; marks the token when the server says it isn't a
-	// Slug account, so it isn't asked again this run.
-	const {instanceRequest, instanceTargetFromSnapshot} = await import('@app/features/platform/transport/InstanceHTTP');
+	// Slug account, so it isn't asked again this run. This is a plain request on purpose: the
+	// app's own request channel cancels requests while it switches accounts, which is exactly
+	// when a new account first connects.
 	const {default: RuntimeConfig} = await import('@app/features/app/state/RuntimeConfig');
 	const snapshot = RuntimeConfig.getSnapshotOrNull();
 	if (!snapshot) return null;
 	try {
-		const response = await instanceRequest<{proof: string}>({
-			method: 'GET',
-			path: Endpoints.SPARKCORD_SLUG_PROOF,
-			target: instanceTargetFromSnapshot(snapshot),
-			auth: 'none',
+		const response = await fetch(`${snapshot.apiEndpoint.replace(/\/+$/, '')}/v1${Endpoints.SPARKCORD_SLUG_PROOF}`, {
 			headers: {Authorization: token},
+			credentials: 'same-origin',
+			cache: 'no-store',
 		});
-		return typeof response.body?.proof === 'string' ? response.body.proof : null;
+		if (response.status === 404) {
+			notSlug.add(token);
+			return null;
+		}
+		if (!response.ok) {
+			console.warn('[slug] could not get the gateway proof', response.status);
+			return null;
+		}
+		const body = (await response.json()) as {proof?: unknown};
+		return typeof body.proof === 'string' ? body.proof : null;
 	} catch (error) {
-		if ((error as {status?: number} | null)?.status === 404) notSlug.add(token);
-		else console.warn('[slug] could not get the gateway proof', error);
+		console.warn('[slug] could not get the gateway proof', error);
 		return null;
 	}
 }
