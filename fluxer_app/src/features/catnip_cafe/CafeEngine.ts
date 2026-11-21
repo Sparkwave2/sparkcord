@@ -4,6 +4,8 @@
 // time away (page closed, or another device) earns at a reduced rate when you come back,
 // while the garden keeps growing and resident cats keep bonding in real time.
 // Progress is saved to the server (every 30 s while playing, and when leaving the page).
+// Each save names the version it builds on; if another tab or device saved since, the server
+// refuses it and this café switches to that newer progress instead of overwriting it.
 
 import {
 	ACHIEVEMENT_BONUS,
@@ -64,6 +66,7 @@ import {
 	traitStrength,
 } from '@app/features/catnip_cafe/CafeWorld';
 import {http} from '@app/features/platform/transport/RestTransport';
+import {HttpError} from '@app/features/platform/types/EndpointError';
 import {makeAutoObservable, runInAction} from 'mobx';
 
 const SAVE_VERSION = 2;
@@ -404,11 +407,15 @@ class CafeEngine {
 	private timer: ReturnType<typeof setInterval> | null = null;
 	private nextId = 1;
 	private loadPromise: Promise<void> | null = null;
+	/** The server's version (updated_at) of the save this café builds on; null when there is none. */
+	private version: number | null = null;
+	/** The save in flight, so saves never overlap (they would refuse each other). */
+	private saving: Promise<void> | null = null;
 
 	constructor() {
-		makeAutoObservable<this, 'timer' | 'loadPromise' | 'ownerId'>(
+		makeAutoObservable<this, 'timer' | 'loadPromise' | 'ownerId' | 'saving'>(
 			this,
-			{timer: false, loadPromise: false, ownerId: false},
+			{timer: false, loadPromise: false, ownerId: false, saving: false},
 			{autoBind: true},
 		);
 	}
@@ -1294,7 +1301,11 @@ class CafeEngine {
 			if (pps > this.state.stats.bestPps) this.state.stats.bestPps = pps;
 			this.checkAchievements();
 		}
-		if (this.dirty && now - this.lastSave > SAVE_EVERY_MS) void this.save();
+		// A hidden café doesn't autosave: it saved when it was hidden, and another tab or device
+		// may be playing meanwhile.
+		if (this.dirty && now - this.lastSave > SAVE_EVERY_MS && document.visibilityState !== 'hidden') {
+			void this.save();
+		}
 	}
 
 	/** Earnings for time away: a share of the base rate, capped. */
@@ -1337,12 +1348,13 @@ class CafeEngine {
 			this.lastTick = now;
 			this.timer = setInterval(() => this.tick(), TICK_MS);
 		});
-		const onHide = () => {
+		const onVisibility = () => {
 			if (document.visibilityState === 'hidden') void this.save();
+			else void this.refresh();
 		};
-		document.addEventListener('visibilitychange', onHide);
+		document.addEventListener('visibilitychange', onVisibility);
 		return () => {
-			document.removeEventListener('visibilitychange', onHide);
+			document.removeEventListener('visibilitychange', onVisibility);
 			if (this.timer !== null) clearInterval(this.timer);
 			this.timer = null;
 			this.lucky = null;
@@ -1354,9 +1366,12 @@ class CafeEngine {
 	load(): Promise<void> {
 		this.loadPromise ??= (async () => {
 			try {
-				const response = await http.get<{save: string | null}>('/sparkcord/catgame/save');
+				const response = await http.get<{save: string | null; updated_at: number | null}>(
+					'/sparkcord/catgame/save',
+				);
 				runInAction(() => {
 					this.state = readSave(response.body?.save ?? null);
+					this.version = response.body?.updated_at ?? null;
 					this.loaded = true;
 				});
 			} catch (error) {
@@ -1371,24 +1386,86 @@ class CafeEngine {
 		return this.loadPromise;
 	}
 
-	async save(): Promise<void> {
+	save(): Promise<void> {
+		// One save at a time; a save asked for meanwhile runs right after, with the new version.
+		const run = async () => {
+			if (this.saving) await this.saving.catch(() => undefined);
+			await this.saveNow();
+		};
+		const next = run().finally(() => {
+			if (this.saving === next) this.saving = null;
+		});
+		this.saving = next;
+		return next;
+	}
+
+	private async saveNow(): Promise<void> {
 		if (!this.loaded) return;
+		const owner = this.ownerId;
 		this.lastSave = Date.now();
 		this.dirty = false;
 		this.state.savedAt = Date.now();
 		this.state.v = SAVE_VERSION;
 		try {
-			await http.put('/sparkcord/catgame/save', {
+			const response = await http.put<{updated_at: number | null}>('/sparkcord/catgame/save', {
 				body: {
 					save: JSON.stringify(this.state),
 					lifetime_purrs: this.state.lifetimeAll,
 					lives: this.state.livesEarned,
+					base_updated_at: this.version,
 				},
 			});
+			if (this.ownerId !== owner) return;
+			const updatedAt = response.body?.updated_at;
+			if (typeof updatedAt === 'number') this.version = updatedAt;
 		} catch (error) {
+			if (this.ownerId !== owner) return;
+			if (error instanceof HttpError && error.status === 409) {
+				const body = error.body as {save?: string | null; updated_at?: number | null} | undefined;
+				this.adoptSave(body?.save ?? null, body?.updated_at ?? null);
+				return;
+			}
 			console.warn('[cafe] saving failed', error);
 			this.dirty = true;
 		}
+	}
+
+	/** When the café is shown again, picks up progress another tab or device saved meanwhile. */
+	async refresh(): Promise<void> {
+		if (!this.loaded) return;
+		const owner = this.ownerId;
+		try {
+			const response = await http.get<{save: string | null; updated_at: number | null}>(
+				'/sparkcord/catgame/save',
+			);
+			const updatedAt = response.body?.updated_at ?? null;
+			if (this.ownerId !== owner || !this.loaded) return;
+			// A save of our own may have landed while this was asked.
+			if (this.saving) await this.saving.catch(() => undefined);
+			if (this.ownerId !== owner || updatedAt === this.version) return;
+			this.adoptSave(response.body?.save ?? null, updatedAt);
+		} catch (error) {
+			console.warn('[cafe] checking for newer progress failed', error);
+		}
+	}
+
+	/** Switches to the newer save another tab or device stored; time since counts as away. */
+	private adoptSave(save: string | null, updatedAt: number | null): void {
+		this.state = readSave(save);
+		this.version = updatedAt;
+		this.dirty = false;
+		this.rhythm = 0;
+		this.lucky = null;
+		this.mouse = null;
+		this.welcome = null;
+		this.ensureGoals();
+		if (this.timer !== null) {
+			const now = Date.now();
+			this.lastTick = Math.min(now, this.state.savedAt);
+			this.tick();
+			this.lastTick = now;
+		}
+		this.notify('Picked up the progress you made in another tab or on another device.');
 	}
 
 	/** Forgets the loaded save (on account switch). */
@@ -1399,6 +1476,7 @@ class CafeEngine {
 		this.loaded = false;
 		this.loadFailed = false;
 		this.loadPromise = null;
+		this.version = null;
 		this.welcome = null;
 		this.rhythm = 0;
 	}

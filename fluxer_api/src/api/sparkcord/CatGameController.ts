@@ -33,6 +33,10 @@ const SaveRequest = z.object({
 	save: z.string().max(MAX_SAVE_BYTES),
 	lifetime_purrs: finite,
 	lives: finite,
+	// The version (updated_at) the client last loaded or stored. When the stored save has moved
+	// on since (another tab or device saved), the write is refused with 409 and the newer save,
+	// so one copy of the game never overwrites another's progress. Older clients leave it out.
+	base_updated_at: z.number().nullable().optional(),
 });
 const SaveResponse = z.object({save: z.string().nullable(), updated_at: z.number().nullable()});
 const StatsEntry = z.object({purrs: z.number(), lives: z.number()});
@@ -92,21 +96,39 @@ export function CatGameController(app: HonoApp) {
 		OpenAPI({
 			operationId: 'put_catgame_save',
 			summary: 'Store Catnip Café save',
-			responseSchema: null,
-			statusCode: 204,
+			responseSchema: SaveResponse,
+			statusCode: 200,
 			security,
 			tags,
-			description: "Stores the current user's Catnip Café save and their public totals.",
+			description:
+				"Stores the current user's Catnip Café save and their public totals. With base_updated_at, refuses (409, with the stored save) when the stored save is newer than that.",
 		}),
 		async (ctx) => {
-			const {save, lifetime_purrs, lives} = ctx.req.valid('json');
+			const {save, lifetime_purrs, lives, base_updated_at} = ctx.req.valid('json');
 			const userId = ctx.get('user').id.toString();
 			const kv = ctx.get('apiContext').services.kv;
-			const now = Date.now();
+			if (base_updated_at !== undefined) {
+				const raw = await kv.get(SAVE_KEY(userId));
+				let stored: {save: string; updated_at: number} | null = null;
+				try {
+					stored = raw ? (JSON.parse(raw) as {save: string; updated_at: number}) : null;
+				} catch {
+					stored = null;
+				}
+				const storedAt = stored?.updated_at ?? null;
+				if (storedAt !== base_updated_at) {
+					return ctx.json(
+						{code: 'CATGAME_SAVE_CONFLICT', save: stored?.save ?? null, updated_at: storedAt},
+						409,
+					);
+				}
+			}
+			// Strictly increasing, so two saves in the same millisecond still differ.
+			const now = Math.max(Date.now(), (base_updated_at ?? 0) + 1);
 			await kv.set(SAVE_KEY(userId), JSON.stringify({save, updated_at: now}));
 			const stats: PublicStats = {purrs: Math.floor(lifetime_purrs), lives: Math.floor(lives), updated_at: now};
 			await kv.set(STATS_KEY(userId), JSON.stringify(stats));
-			return ctx.body(null, 204);
+			return ctx.json({save: null, updated_at: now});
 		},
 	);
 
