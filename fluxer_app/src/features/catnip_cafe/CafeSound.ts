@@ -58,7 +58,6 @@ const FALLBACK: Partial<Record<CafeSoundName, CafeSoundName | null>> = {
 
 const SOUND_BASE = '/assets/catnip-cafe/sounds/';
 const EXTENSION_ORDER = ['ogg', 'mp3', 'opus', 'webm', 'm4a', 'wav', 'flac'];
-const PET_VARIANTS = 4;
 const STORAGE_KEY = 'sparkcord:catnip-cafe:sound';
 /** Rapid petting would stack dozens of sounds; keep a short gap and a cap. */
 const MIN_GAP_MS: Partial<Record<CafeSoundName, number>> = {pet: 45, buy: 40};
@@ -119,7 +118,9 @@ class CafeSoundPlayer {
 	/** Start fetching the sounds so the first pet isn't late. */
 	preload(): void {
 		for (const name of ALL_SOUNDS) void this.load(name);
-		for (let i = 1; i <= PET_VARIANTS; i++) void this.load(`pet-${i}`);
+		void this.petVariants().then((names) => {
+			for (const name of names) void this.load(name);
+		});
 	}
 
 	play(name: CafeSoundName): void {
@@ -161,9 +162,10 @@ class CafeSoundPlayer {
 	/** The sound to play for a name: a random pet variant, the file itself, or its fallback. */
 	private async bufferFor(name: CafeSoundName): Promise<AudioBuffer | null> {
 		if (name === 'pet') {
-			const variants = (
-				await Promise.all(Array.from({length: PET_VARIANTS}, (_, i) => this.load(`pet-${i + 1}`)))
-			).filter((b): b is AudioBuffer => b !== null);
+			const names = await this.petVariants();
+			const variants = (await Promise.all(names.map((variant) => this.load(variant)))).filter(
+				(b): b is AudioBuffer => b !== null,
+			);
 			if (variants.length > 0) return variants[Math.floor(Math.random() * variants.length)];
 			return this.load('pet');
 		}
@@ -203,6 +205,12 @@ class CafeSoundPlayer {
 		})();
 		this.buffers.set(file, promise);
 		return promise;
+	}
+
+	/** The pet sound's variants in the folder (pet-1, pet-2, ...), however many there are. */
+	private async petVariants(): Promise<Array<string>> {
+		const index = await this.loadIndex();
+		return [...index.keys()].filter((name) => /^pet-\d+$/.test(name));
 	}
 
 	private loadIndex(): Promise<Map<string, string>> {

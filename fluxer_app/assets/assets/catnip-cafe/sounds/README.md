@@ -8,7 +8,7 @@ file triggers a rebuild; refresh the café afterwards.
 | File name      | Plays when                                   |
 | -------------- | -------------------------------------------- |
 | `pet`          | you pet the cat                              |
-| `pet-1` … `pet-4` | optional variants of the pet sound; one is picked at random (used instead of `pet` when present) |
+| `pet-1`, `pet-2`, … | optional variants of the pet sound, as many as you like; one is picked at random (used instead of `pet` when present) |
 | `buy`          | you buy a helper                             |
 | `upgrade`      | you buy an upgrade or a Nine Lives perk      |
 | `lucky-appear` | the Lucky Cat shows up                       |
