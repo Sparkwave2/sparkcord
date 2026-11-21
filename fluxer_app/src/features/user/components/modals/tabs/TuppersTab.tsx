@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
+import {TupperChannelAutoproxyList} from '@app/features/tupper/TupperChannelAutoproxyList';
 import {setTupperNames, setTupperSettings} from '@app/features/tupper/TupperNames';
 import {
 	formatProxyTag,
@@ -410,7 +411,7 @@ const TuppersTab: React.FC = observer(() => {
 					/>
 				</div>
 				<label className={styles.selectLabel}>
-					<Trans>Autoproxy</Trans>
+					<Trans>Default autoproxy (for channels without their own)</Trans>
 					<select
 						className={styles.select}
 						value={settings.autoproxy_mode}
@@ -448,6 +449,7 @@ const TuppersTab: React.FC = observer(() => {
 						</select>
 					</label>
 				)}
+				<TupperChannelAutoproxyList tuppers={tuppers} />
 			</section>
 
 			<section className={styles.section}>

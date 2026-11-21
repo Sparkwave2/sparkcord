@@ -277,6 +277,8 @@ export const Endpoints = {
 	SPARKCORD_SLUG_PROOF: '/sparkcord/slug/proof',
 	USER_TUPPER_SYSTEM: (userId: string) => `/users/${userId}/tuppers/system`,
 	USER_TUPPER_SETTINGS: '/users/@me/tuppers/settings',
+	USER_TUPPER_AUTOPROXY_CHANNELS: '/users/@me/tuppers/autoproxy/channels',
+	USER_TUPPER_AUTOPROXY_CHANNEL: (channelId: string) => `/users/@me/tuppers/autoproxy/channels/${channelId}`,
 	USER_TUPPERS_IMPORT: '/users/@me/tuppers/import',
 	USER_TUPPERS_EXPORT: '/users/@me/tuppers/export',
 	USER_FAVORITE_MEME: (query = ME, memeId: string) => `/users/${query}/memes/${memeId}`,

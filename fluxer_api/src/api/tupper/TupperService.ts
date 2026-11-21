@@ -18,6 +18,14 @@ import {
 	type TupperImportSource,
 	TupperImportFormatError,
 } from '@app/api/tupper/TupperImport';
+import {
+	type ChannelAutoproxy,
+	forgetTupperInChannels,
+	getChannelAutoproxy,
+	listChannelAutoproxy,
+	setChannelAutoproxy,
+	setChannelLatch,
+} from '@app/api/tupper/TupperChannelAutoproxy';
 import {matchProxyTags, normalizeProxyTag, type ProxyTag} from '@app/api/tupper/TupperProxyMatcher';
 import {getTupperRepository, type TupperRepository} from '@app/api/tupper/TupperRepository';
 import type {
@@ -221,6 +229,23 @@ export function toSettingsResponse(row: TupperSettingsRow): TupperSettingsRespon
 	};
 }
 
+export interface ChannelAutoproxyResponse {
+	channel_id: string;
+	/** The channel's own mode; null means it follows the default. */
+	mode: AutoproxyMode | null;
+	tupper_id: string | null;
+	latch_tupper_id: string | null;
+}
+
+function toChannelAutoproxyResponse(channelId: string, record: ChannelAutoproxy): ChannelAutoproxyResponse {
+	return {
+		channel_id: channelId,
+		mode: record.mode,
+		tupper_id: record.tupperId?.toString() ?? null,
+		latch_tupper_id: record.latchTupperId?.toString() ?? null,
+	};
+}
+
 export function toMessageProxyResponse(row: TupperMessageRow): MessageProxyResponse {
 	return {
 		tupper_id: row.tupper_id.toString(),
@@ -416,6 +441,31 @@ export class TupperService {
 				updated_at: new Date(),
 			});
 		}
+		await forgetTupperInChannels(userId, row.tupper_id);
+	}
+
+	/** Channels with an autoproxy mode of their own (the rest follow the default). */
+	async listChannelAutoproxy(userId: UserID): Promise<Array<ChannelAutoproxyResponse>> {
+		return (await listChannelAutoproxy(userId)).map((entry) => toChannelAutoproxyResponse(entry.channelId, entry));
+	}
+
+	/** Gives a channel its own autoproxy mode; a null mode goes back to the default. */
+	async setChannelAutoproxy(
+		userId: UserID,
+		channelId: string,
+		input: {mode: AutoproxyMode | null; tupper_id?: string | null},
+	): Promise<ChannelAutoproxyResponse> {
+		if (!/^\d{1,20}$/.test(channelId)) throw InputValidationError.create('channel_id', 'Invalid channel id.');
+		if (input.mode !== null && !AUTOPROXY_MODES.has(input.mode)) {
+			throw InputValidationError.create('mode', 'Mode must be off, front or latch.');
+		}
+		let tupperId: TupperID | null = null;
+		if (input.mode === 'front') {
+			if (!input.tupper_id) throw InputValidationError.create('tupper_id', 'Front mode needs a tupper.');
+			tupperId = (await this.get(userId, input.tupper_id)).tupper_id;
+		}
+		const record = await setChannelAutoproxy(userId, channelId, input.mode, tupperId);
+		return toChannelAutoproxyResponse(channelId, record);
 	}
 
 	async getSettings(userId: UserID): Promise<TupperSettingsRow> {
@@ -567,6 +617,7 @@ export class TupperService {
 	 */
 	async resolveProxy(params: {
 		userId: UserID;
+		channelId: ChannelID;
 		content: string | undefined;
 		hasAttachments: boolean;
 	}): Promise<ResolvedProxy | null> {
@@ -577,9 +628,14 @@ export class TupperService {
 		const tuppers = await this.repo.listByUser(params.userId);
 		if (tuppers.length === 0) return null;
 		const effective = settings ?? defaultSettings(params.userId);
+		// The channel's own autoproxy mode, if it has one, else the account default. Latch mode
+		// remembers its tupper per channel.
+		const channel = await getChannelAutoproxy(params.userId, params.channelId);
+		const mode = channel.mode ?? effective.autoproxy_mode;
+		const frontId = channel.mode !== null ? channel.tupperId : effective.autoproxy_tupper_id;
 		if (content.startsWith('\\')) {
-			if (content.startsWith('\\\\') && effective.autoproxy_mode === 'latch' && effective.latch_tupper_id !== null) {
-				await this.repo.upsertSettings({...effective, latch_tupper_id: null, updated_at: new Date()});
+			if (content.startsWith('\\\\') && mode === 'latch' && channel.latchTupperId !== null) {
+				await setChannelLatch(params.userId, params.channelId, null);
 			}
 			return null;
 		}
@@ -589,17 +645,12 @@ export class TupperService {
 			{allowEmptyContent: params.hasAttachments},
 		);
 		if (match) {
-			if (effective.autoproxy_mode === 'latch' && effective.latch_tupper_id !== match.tupper.tupper_id) {
-				await this.repo.upsertSettings({...effective, latch_tupper_id: match.tupper.tupper_id, updated_at: new Date()});
+			if (mode === 'latch' && channel.latchTupperId !== match.tupper.tupper_id) {
+				await setChannelLatch(params.userId, params.channelId, match.tupper.tupper_id);
 			}
 			return {tupper: match.tupper, content: match.content, settings: effective};
 		}
-		const autoId =
-			effective.autoproxy_mode === 'front'
-				? effective.autoproxy_tupper_id
-				: effective.autoproxy_mode === 'latch'
-					? effective.latch_tupper_id
-					: null;
+		const autoId = mode === 'front' ? frontId : mode === 'latch' ? channel.latchTupperId : null;
 		if (autoId === null) return null;
 		const tupper = tuppers.find((row) => row.tupper_id === autoId);
 		return tupper ? {tupper, content, settings: effective} : null;

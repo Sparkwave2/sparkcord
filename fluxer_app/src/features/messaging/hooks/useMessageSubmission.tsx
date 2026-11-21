@@ -160,7 +160,7 @@ export const useMessageSubmission = ({
 			);
 			// Sparkcord: show the message as the tupper it will be proxied as right away; the
 			// original text (with proxy tags) is still what gets sent.
-			const predicted = predictTupperProxy(message.content, hasAttachmentsFinal);
+			const predicted = predictTupperProxy(message.content, hasAttachmentsFinal, channel.id);
 			MessageCommands.createOptimistic(channel.id, {
 				...message.toJSON(),
 				...(predicted ? {content: predicted.content, proxy: predicted.proxy} : {}),

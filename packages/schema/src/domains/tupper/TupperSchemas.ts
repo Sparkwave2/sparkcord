@@ -113,6 +113,24 @@ export const TupperSettingsUpdateRequest = z.object({
 });
 export type TupperSettingsUpdateRequest = z.infer<typeof TupperSettingsUpdateRequest>;
 
+// Sparkcord: autoproxy per channel. A channel with no mode of its own follows the account
+// default (autoproxy_mode in the tupper settings); latch mode remembers its tupper per channel.
+export const TupperChannelAutoproxyResponse = z.object({
+	channel_id: z.string(),
+	mode: TupperAutoproxyMode.nullable().describe('The channel’s own mode; null follows the default'),
+	tupper_id: z.string().nullable(),
+	latch_tupper_id: z.string().nullable(),
+});
+export const TupperChannelAutoproxyListResponse = z.array(TupperChannelAutoproxyResponse);
+export const TupperChannelAutoproxyUpdateRequest = z.object({
+	mode: TupperAutoproxyMode.nullable().describe('null goes back to the default'),
+	tupper_id: z
+		.string()
+		.regex(/^\d{1,20}$/)
+		.nullish(),
+});
+export type TupperChannelAutoproxyUpdateRequest = z.infer<typeof TupperChannelAutoproxyUpdateRequest>;
+
 export const TupperImportRequest = z.object({
 	data: z.unknown().describe('The parsed contents of a Tupperbox or PluralKit JSON export'),
 	replace: z.boolean().optional().describe('Delete all existing tuppers before importing'),

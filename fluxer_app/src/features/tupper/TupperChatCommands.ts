@@ -21,7 +21,8 @@ const HELP = [
 	'`tp!rename <name> <new name>` rename',
 	'`tp!displayname <name> <display name|clear>` name shown on messages',
 	'`tp!remove <name>` delete',
-	'`tp!auto off|latch|<name>` autoproxy: off, keep the last tupper used, or always one tupper',
+	'`tp!auto off|latch|<name>` autoproxy in this channel: off, keep the last tupper used, or always one tupper',
+	'`tp!auto default` this channel goes back to your default; `tp!auto default off|latch|<name>` sets the default',
 	'`tp!systag <tag|clear>` tag shown after every tupper name',
 	'`tp!proxy on|off` turn proxying on or off',
 	'All of these also work as slash commands: type `/tp-` to pick one.',
@@ -145,17 +146,38 @@ export async function runTupperCommand(channelId: string, content: string): Prom
 			}
 			case 'auto':
 			case 'autoproxy': {
-				need(args, 1, 'tp!auto off|latch|<name>');
-				const mode = args.join(' ');
+				// Autoproxy is per channel: tp!auto <mode> sets this channel, tp!auto default puts
+				// it back on the account default, and tp!auto default <mode> changes that default.
+				need(args, 1, 'tp!auto off|latch|<name>|default');
+				const isDefault = args[0]!.toLowerCase() === 'default';
+				if (isDefault && args.length === 1) {
+					await http.put(Endpoints.USER_TUPPER_AUTOPROXY_CHANNEL(channelId), {body: {mode: null}});
+					reply(channelId, 'This channel follows your default autoproxy again.');
+					return;
+				}
+				const mode = (isDefault ? args.slice(1) : args).join(' ');
+				const where = isDefault ? 'By default (in channels without their own setting)' : 'In this channel';
 				if (mode === 'off' || mode === 'latch') {
-					await http.patch(Endpoints.USER_TUPPER_SETTINGS, {body: {autoproxy_mode: mode}});
-					reply(channelId, mode === 'off' ? 'Autoproxy is off.' : 'Autoproxy latches onto the last tupper you use.');
+					if (isDefault) await http.patch(Endpoints.USER_TUPPER_SETTINGS, {body: {autoproxy_mode: mode}});
+					else await http.put(Endpoints.USER_TUPPER_AUTOPROXY_CHANNEL(channelId), {body: {mode}});
+					reply(
+						channelId,
+						mode === 'off'
+							? `${where}, autoproxy is off.`
+							: `${where}, autoproxy latches onto the last tupper you use there.`,
+					);
 				} else {
 					const tupper = await findTupper(mode);
-					await http.patch(Endpoints.USER_TUPPER_SETTINGS, {
-						body: {autoproxy_mode: 'front', autoproxy_tupper_id: tupper.id},
-					});
-					reply(channelId, `Every message is now sent as **${tupper.name}** until \`tp!auto off\`.`);
+					if (isDefault) {
+						await http.patch(Endpoints.USER_TUPPER_SETTINGS, {
+							body: {autoproxy_mode: 'front', autoproxy_tupper_id: tupper.id},
+						});
+					} else {
+						await http.put(Endpoints.USER_TUPPER_AUTOPROXY_CHANNEL(channelId), {
+							body: {mode: 'front', tupper_id: tupper.id},
+						});
+					}
+					reply(channelId, `${where}, every message is sent as **${tupper.name}**.`);
 				}
 				return;
 			}

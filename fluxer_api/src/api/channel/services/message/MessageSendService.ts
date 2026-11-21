@@ -264,13 +264,18 @@ export class MessageSendService {
 		}
 	}
 
-	private async resolveTupperProxy(user: User, data: MessageRequest): Promise<ResolvedProxy | null> {
+	private async resolveTupperProxy(
+		user: User,
+		channelId: ChannelID,
+		data: MessageRequest,
+	): Promise<ResolvedProxy | null> {
 		const hasAttachments = (data.attachments?.length ?? 0) > 0 || (data.sticker_ids?.length ?? 0) > 0;
 		// Attachment-only messages have no content but should still be proxied.
 		if ((data.content === undefined || data.content === null) && !hasAttachments) return null;
 		try {
 			return await getTupperService().resolveProxy({
 				userId: user.id,
+				channelId,
 				content: data.content ?? '',
 				hasAttachments,
 			});
@@ -695,7 +700,7 @@ export class MessageSendService {
 		// Sparkcord: tuppers. Strip proxy tags and remember which tupper this message is sent as.
 		const tupperProxy =
 			!user.isBot && user.id !== SYSTEM_USER_ID && !isForwardMessage && !forumStarter
-				? await this.resolveTupperProxy(user, data)
+				? await this.resolveTupperProxy(user, channelId, data)
 				: null;
 		if (tupperProxy) data = {...data, content: tupperProxy.content};
 		return this.deps.operationsHelpers.sendOncePerNonce({

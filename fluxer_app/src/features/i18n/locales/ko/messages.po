@@ -4875,6 +4875,11 @@ msgstr "다른 마커 위치 지정."
 msgid "Always"
 msgstr "항상"
 
+#. placeholder {0}: tupper.name
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Always {0}"
+msgstr ""
+
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
 msgid "Always animate"
@@ -4884,6 +4889,10 @@ msgstr "항상 애니메이션 사용"
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
 msgid "Always animating despite reduced motion."
 msgstr "동작 줄이기 설정에도 항상 애니메이션 재생."
+
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Always one tupper"
+msgstr ""
 
 #. Label in the display tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/DisplayTab.tsx
@@ -6152,13 +6161,9 @@ msgstr "선택 시 GIF 자동 전송"
 msgid "Autoplay"
 msgstr "자동 재생"
 
-#: src/features/user/components/modals/tabs/TuppersTab.tsx
-msgid "Autoproxy"
-msgstr ""
-
-#. Slash-command description for /tp-auto (autoproxy, like PluralKit).
+#. Slash-command description for /tp-auto (autoproxy, like PluralKit). It applies to the current channel only.
 #: src/features/tupper/TupperSlashCommands.ts
-msgid "Autoproxy: send untagged messages as a tupper."
+msgid "Autoproxy in this channel: send untagged messages as a tupper."
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -8496,6 +8501,10 @@ msgstr "채널"
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts
 msgid "Channels I moderate"
 msgstr "내가 관리하는 채널"
+
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Channels with their own autoproxy"
+msgstr ""
 
 #. Character counter status indicating the input exceeds the limit by a number of characters.
 #: src/features/ui/character_counter/CharacterCountMessages.ts
@@ -11678,6 +11687,10 @@ msgstr ""
 msgid "Couldn't load your Operator Pass purchases."
 msgstr "Operator Pass 구매 내역을 불러오지 못했습니다."
 
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Couldn't load your per-channel autoproxy."
+msgstr ""
+
 #: src/features/user/components/modals/tabs/SoundboardTab.tsx
 msgid "Couldn't load your sounds."
 msgstr ""
@@ -11785,6 +11798,10 @@ msgstr "이 이모티콘의 이름을 변경할 수 없습니다"
 #: src/features/guild/components/modals/guild_tabs/GuildRolesTab.tsx
 msgid "Couldn't reset hoist order"
 msgstr "호이스트 순서를 재설정할 수 없습니다"
+
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Couldn't reset that channel. Try again in a moment."
+msgstr ""
 
 #. Error toast when replacing the private link to an Operator certificate page failed.
 #: src/features/premium/components/operator_pass/OperatorPassPurchasesSection.tsx
@@ -13214,6 +13231,20 @@ msgstr "기본"
 msgctxt "device-option"
 msgid "Default"
 msgstr "기본"
+
+#. Autoproxy choice: this channel goes back to the account-wide default autoproxy.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Default (follow my default)"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/TuppersTab.tsx
+msgid "Default autoproxy (for channels without their own)"
+msgstr ""
+
+#. Slash-command description for /tp-auto-default: the account-wide default autoproxy mode.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Default autoproxy, for channels without their own setting."
+msgstr ""
 
 #. Fallback label for the system default camera in the screen-share devices tab.
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx
@@ -21958,9 +21989,19 @@ msgstr ""
 msgid "Last used"
 msgstr "최근 사용"
 
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Latch"
+msgstr ""
+
+#. Autoproxy mode choice: latch.
 #. Autoproxy mode choice: latch.
 #: src/features/tupper/TupperSlashCommands.ts
 msgid "Latch (last tupper used)"
+msgstr ""
+
+#. placeholder {0}: latched.name
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Latch (now {0})"
 msgstr ""
 
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
@@ -26285,6 +26326,10 @@ msgstr "사용 안 함"
 msgid "None (normal behavior)"
 msgstr "없음 (기본 동작)"
 
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "None yet: every channel follows the default."
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -26634,6 +26679,7 @@ msgstr "사물"
 
 #. Activity log value meaning the explicit content filter of a community is turned off.
 #. Autoproxy mode choice: off.
+#. Autoproxy mode choice: off.
 #. Channel overview settings tab label, control, or validation message (name, topic, slowmode, voice region, mature content gate).
 #. Choice: turn tupper proxying off.
 #. Explicit content filter option in the community moderation settings tab. Short standalone label meaning disabled.
@@ -26647,6 +26693,7 @@ msgstr "사물"
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/SlowmodeControl.tsx
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
 #: src/features/tupper/TupperSlashCommands.ts
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Off"
@@ -26656,6 +26703,11 @@ msgstr "꺼짐"
 #: src/features/user/components/modals/tabs/operator_pass_tab/OperatorPassWallSettings.tsx
 msgid "Off the wall while your badge and Operator role are removed."
 msgstr "배지와 Operator 역할이 제거된 동안에는 벽에 표시되지 않습니다."
+
+#. Slash-command option for the autoproxy mode in the current channel.
+#: src/features/tupper/TupperSlashCommands.ts
+msgid "Off, latch (the last tupper you used), always one tupper, or your default."
+msgstr ""
 
 #. Slash-command option for the autoproxy mode.
 #: src/features/tupper/TupperSlashCommands.ts
@@ -41528,6 +41580,10 @@ msgstr "2단계 인증 백업 코드"
 msgid "Type a color (hex, rgb(), hsl(), or name) or use the picker."
 msgstr "색상(hex, rgb(), hsl() 또는 이름)을 입력하거나 선택 도구를 사용하세요."
 
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
+msgid "Type tp!auto off, tp!auto latch or tp!auto followed by a tupper's name in a channel to give it its own autoproxy; tp!auto default puts it back on the default above."
+msgstr ""
+
 #. Label in the inputs tab.
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
 msgid "Type your message here…"
@@ -41888,6 +41944,7 @@ msgstr "알 수 없는 채널"
 #. Reason spoken by screen readers when a slash-command argument does not match any channel.
 #: src/features/channel/utils/ChannelMessageDescriptors.ts
 #: src/features/lexical/composer/nodes/SlashSlotNode.ts
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
 msgid "Unknown channel"
 msgstr "알 수 없는 채널"
 
@@ -42971,6 +43028,7 @@ msgstr "앱 전체에 다크 테마 사용"
 
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts
+#: src/features/tupper/TupperChannelAutoproxyList.tsx
 msgid "Use default"
 msgstr "기본값 사용"
 

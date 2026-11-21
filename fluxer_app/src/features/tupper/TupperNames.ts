@@ -23,6 +23,17 @@ let settings: TupperSettingsWire | null = null;
 let names: ReadonlyArray<string> = EMPTY;
 let loadedAt = 0;
 let pending: Promise<void> | null = null;
+
+/** A channel's own autoproxy (set with tp!auto there); channels not listed follow the default. */
+interface ChannelAutoproxyWire {
+	channel_id: string;
+	mode: 'off' | 'front' | 'latch' | null;
+	tupper_id: string | null;
+	latch_tupper_id: string | null;
+}
+let channelAutoproxy = new Map<string, ChannelAutoproxyWire>();
+/** The tupper latch mode last used in each channel, as far as this client knows. */
+const channelLatches = new Map<string, string | null>();
 const listeners = new Set<() => void>();
 
 function emit(): void {
@@ -44,9 +55,14 @@ export function refreshTupperNames(): Promise<void> {
 	pending ??= Promise.all([
 		http.get<Array<TupperWire>>(Endpoints.USER_TUPPERS),
 		http.get<TupperSettingsWire>(Endpoints.USER_TUPPER_SETTINGS),
+		http.get<Array<ChannelAutoproxyWire>>(Endpoints.USER_TUPPER_AUTOPROXY_CHANNELS).catch(() => null),
 	])
-		.then(([list, current]) => {
+		.then(([list, current, channels]) => {
 			settings = current.body;
+			if (channels?.body) {
+				channelAutoproxy = new Map(channels.body.map((entry) => [entry.channel_id, entry]));
+				for (const entry of channels.body) channelLatches.set(entry.channel_id, entry.latch_tupper_id);
+			}
 			setTupperNames(list.body);
 		})
 		.catch(() => {})
@@ -78,13 +94,16 @@ export function useTupperNames(): ReadonlyArray<string> {
 export function predictTupperProxy(
 	content: string,
 	hasAttachments: boolean,
+	channelId: string,
 ): {proxy: MessageProxyResponse; content: string} | null {
 	if (tuppers.length === 0 || settings === null || !settings.proxy_enabled) return null;
 	if (content.length === 0 && !hasAttachments) return null;
+	// Autoproxy is per channel: the channel's own mode, else the account default.
+	const own = channelAutoproxy.get(channelId);
+	const mode = own?.mode ?? settings.autoproxy_mode;
+	const frontId = own?.mode != null ? own.tupper_id : settings.autoproxy_tupper_id;
 	if (content.startsWith('\\')) {
-		if (content.startsWith('\\\\') && settings.autoproxy_mode === 'latch') {
-			settings = {...settings, latch_tupper_id: null};
-		}
+		if (content.startsWith('\\\\') && mode === 'latch') channelLatches.set(channelId, null);
 		return null;
 	}
 	let tupper: TupperWire | undefined;
@@ -93,14 +112,9 @@ export function predictTupperProxy(
 	if (match) {
 		tupper = match.tupper;
 		proxiedContent = match.content;
-		if (settings.autoproxy_mode === 'latch') settings = {...settings, latch_tupper_id: tupper.id};
+		if (mode === 'latch') channelLatches.set(channelId, tupper.id);
 	} else {
-		const autoId =
-			settings.autoproxy_mode === 'front'
-				? settings.autoproxy_tupper_id
-				: settings.autoproxy_mode === 'latch'
-					? settings.latch_tupper_id
-					: null;
+		const autoId = mode === 'front' ? frontId : mode === 'latch' ? (channelLatches.get(channelId) ?? null) : null;
 		tupper = autoId === null ? undefined : tuppers.find((t) => t.id === autoId);
 	}
 	if (!tupper) return null;

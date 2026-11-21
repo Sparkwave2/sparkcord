@@ -11,6 +11,9 @@ import {Validator} from '@app/api/Validator';
 import {SnowflakeType} from '@fluxer/schema/src/primitives/SchemaPrimitives';
 import {
 	TupperCardResponse,
+	TupperChannelAutoproxyListResponse,
+	TupperChannelAutoproxyResponse,
+	TupperChannelAutoproxyUpdateRequest,
 	TupperCreateRequest,
 	TupperImportRequest,
 	TupperImportResponse,
@@ -26,6 +29,7 @@ import {z} from 'zod';
 const TupperIdParam = z.object({tupper_id: z.string().regex(/^\d{1,20}$/)});
 const TupperCardParam = z.object({user_id: SnowflakeType, tupper_id: z.string().regex(/^\d{1,20}$/)});
 const TupperSystemParam = z.object({user_id: SnowflakeType});
+const ChannelParam = z.object({channel_id: SnowflakeType});
 const security: Array<'bearerToken' | 'sessionToken'> = ['bearerToken', 'sessionToken'];
 const tags = ['Tuppers'];
 
@@ -142,6 +146,49 @@ export function TupperController(app: HonoApp) {
 		async (ctx) =>
 			ctx.json(
 				toSettingsResponse(await getTupperService().updateSettings(ctx.get('user').id, ctx.req.valid('json'))),
+			),
+	);
+
+	app.get(
+		'/users/@me/tuppers/autoproxy/channels',
+		RateLimitMiddleware(RateLimitConfigs.TUPPER_READ),
+		LoginRequired,
+		DefaultUserOnly,
+		OpenAPI({
+			operationId: 'list_tupper_channel_autoproxy',
+			summary: 'List per-channel autoproxy',
+			responseSchema: TupperChannelAutoproxyListResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description: 'Channels where autoproxy has a mode of its own instead of the default.',
+		}),
+		async (ctx) => ctx.json(await getTupperService().listChannelAutoproxy(ctx.get('user').id)),
+	);
+
+	app.put(
+		'/users/@me/tuppers/autoproxy/channels/:channel_id',
+		RateLimitMiddleware(RateLimitConfigs.TUPPER_WRITE),
+		LoginRequired,
+		DefaultUserOnly,
+		Validator('param', ChannelParam),
+		Validator('json', TupperChannelAutoproxyUpdateRequest),
+		OpenAPI({
+			operationId: 'set_tupper_channel_autoproxy',
+			summary: 'Set autoproxy for a channel',
+			responseSchema: TupperChannelAutoproxyResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description: 'Gives a channel its own autoproxy mode; a null mode goes back to the default.',
+		}),
+		async (ctx) =>
+			ctx.json(
+				await getTupperService().setChannelAutoproxy(
+					ctx.get('user').id,
+					String(ctx.req.valid('param').channel_id),
+					ctx.req.valid('json'),
+				),
 			),
 	);
 

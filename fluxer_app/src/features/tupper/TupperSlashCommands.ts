@@ -140,8 +140,40 @@ export const TUPPER_SLASH_COMMANDS: Readonly<Record<string, TupperCommandSpec>> 
 	'/tp-auto': {
 		sub: 'auto',
 		description: msg({
-			message: 'Autoproxy: send untagged messages as a tupper.',
-			comment: 'Slash-command description for /tp-auto (autoproxy, like PluralKit).',
+			message: 'Autoproxy in this channel: send untagged messages as a tupper.',
+			comment: 'Slash-command description for /tp-auto (autoproxy, like PluralKit). It applies to the current channel only.',
+		}),
+		options: [
+			{
+				name: 'mode',
+				kind: 'choice',
+				required: true,
+				description: msg({
+					message: 'Off, latch (the last tupper you used), always one tupper, or your default.',
+					comment: 'Slash-command option for the autoproxy mode in the current channel.',
+				}),
+				choices: [
+					{name: msg({message: 'Off', comment: 'Autoproxy mode choice: off.'}), value: 'off'},
+					{
+						name: msg({message: 'Latch (last tupper used)', comment: 'Autoproxy mode choice: latch.'}),
+						value: 'latch',
+					},
+					{
+						name: msg({
+							message: 'Default (follow my default)',
+							comment: 'Autoproxy choice: this channel goes back to the account-wide default autoproxy.',
+						}),
+						value: 'default',
+					},
+				],
+			},
+		],
+	},
+	'/tp-auto-default': {
+		sub: 'auto default',
+		description: msg({
+			message: 'Default autoproxy, for channels without their own setting.',
+			comment: 'Slash-command description for /tp-auto-default: the account-wide default autoproxy mode.',
 		}),
 		options: [
 			{
@@ -232,7 +264,7 @@ export function buildTupperCommandText(
 
 /** Parses typed (not autocompleted) "/tp-name args" text into tp! text. */
 export function plainTupperCommandText(content: string): string | null {
-	const match = /^(\/tp-[a-z]+)(?:\s+([\s\S]*))?$/i.exec(content.trim());
+	const match = /^(\/tp-[a-z]+(?:-[a-z]+)*)(?:\s+([\s\S]*))?$/i.exec(content.trim());
 	if (!match || !isTupperSlashCommand(match[1]!.toLowerCase())) return null;
 	const spec = TUPPER_SLASH_COMMANDS[match[1]!.toLowerCase()]!;
 	return `tp!${spec.sub}${match[2] ? ` ${match[2]}` : ''}`;
