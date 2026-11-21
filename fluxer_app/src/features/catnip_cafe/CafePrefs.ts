@@ -8,6 +8,10 @@ import {makeAutoObservable} from 'mobx';
 
 const STORAGE_KEY = 'sparkcord:catnip-cafe:prefs';
 
+/** How big numbers are written: 1.23M, 1.234 million, 1,234,567, 1.23e6 or 45.6e9. */
+export type NumberFormat = 'short' | 'long' | 'full' | 'scientific' | 'engineering';
+export const NUMBER_FORMATS: ReadonlyArray<NumberFormat> = ['short', 'long', 'full', 'scientific', 'engineering'];
+
 export interface CafePrefsData {
 	/** Blinking, ear twitches, the swishing tail and eyes that follow the pointer. */
 	catAnimations: boolean;
@@ -19,6 +23,7 @@ export interface CafePrefsData {
 	rollingNumbers: boolean;
 	/** The sound when you pet the cat. */
 	petSound: boolean;
+	numberFormat: NumberFormat;
 }
 
 const DEFAULTS: CafePrefsData = {
@@ -27,6 +32,7 @@ const DEFAULTS: CafePrefsData = {
 	confetti: true,
 	rollingNumbers: true,
 	petSound: true,
+	numberFormat: 'short',
 };
 
 function readPrefs(): CafePrefsData {
@@ -36,7 +42,12 @@ function readPrefs(): CafePrefsData {
 			const parsed = JSON.parse(raw) as Partial<Record<keyof CafePrefsData, unknown>>;
 			const prefs = {...DEFAULTS};
 			for (const key of Object.keys(DEFAULTS) as Array<keyof CafePrefsData>) {
-				if (typeof parsed[key] === 'boolean') prefs[key] = parsed[key];
+				const value = parsed[key];
+				if (key === 'numberFormat') {
+					if (NUMBER_FORMATS.includes(value as NumberFormat)) prefs.numberFormat = value as NumberFormat;
+				} else if (typeof value === 'boolean') {
+					prefs[key] = value;
+				}
 			}
 			return prefs;
 		}
@@ -50,6 +61,7 @@ class CafePrefs implements CafePrefsData {
 	confetti = DEFAULTS.confetti;
 	rollingNumbers = DEFAULTS.rollingNumbers;
 	petSound = DEFAULTS.petSound;
+	numberFormat = DEFAULTS.numberFormat;
 
 	constructor() {
 		Object.assign(this, readPrefs());
@@ -57,7 +69,7 @@ class CafePrefs implements CafePrefsData {
 	}
 
 	set<K extends keyof CafePrefsData>(key: K, value: CafePrefsData[K]): void {
-		this[key] = value;
+		(this as CafePrefsData)[key] = value;
 		try {
 			const data: CafePrefsData = {
 				catAnimations: this.catAnimations,
@@ -65,6 +77,7 @@ class CafePrefs implements CafePrefsData {
 				confetti: this.confetti,
 				rollingNumbers: this.rollingNumbers,
 				petSound: this.petSound,
+				numberFormat: this.numberFormat,
 			};
 			getProtectedLocalStorage()?.setItem(STORAGE_KEY, JSON.stringify(data));
 		} catch {}

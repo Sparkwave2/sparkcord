@@ -2,6 +2,7 @@
 
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {SpoilerOverlay} from '@app/features/app/components/shared/SpoilerOverlay';
+import {parseCafeCard} from '@app/features/catnip_cafe/CafeShareData';
 import styles from '@app/features/channel/components/embeds/ChannelEmbed.module.css';
 import {BlueskyEmbed} from '@app/features/channel/components/embeds/channel_embed/BlueskyEmbed';
 import {
@@ -47,7 +48,7 @@ import {XIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
-import {type FC, useCallback, useMemo} from 'react';
+import {type FC, lazy, Suspense, useCallback, useMemo} from 'react';
 
 const mediaFocusRingClass = messageStyles.mediaFocusRing;
 
@@ -78,6 +79,9 @@ function withFreshEmbedUrls(embed: MessageEmbed): MessageEmbed {
 	}
 	return {...embed, url, image, thumbnail, video, audio, author, footer};
 }
+
+// Sparkcord: shared Catnip Café cards (/cafe) are drawn by the café, loaded only when one shows up.
+const LazyCafeShareCard = lazy(() => import('@app/features/catnip_cafe/CafeShareCard'));
 
 export const Embed: FC<EmbedProps> = observer((props: EmbedProps) => {
 	const {message, embedIndex, contextualEmbeds, contextualContent, onDelete, isPreview} = props;
@@ -197,6 +201,14 @@ export const Embed: FC<EmbedProps> = observer((props: EmbedProps) => {
 			</div>,
 		);
 	if (isDuplicateEmbed) return null;
+	const cafeCard = parseCafeCard(embed);
+	if (cafeCard) {
+		return (
+			<Suspense fallback={null}>
+				<LazyCafeShareCard card={cafeCard} title={embed.title ?? ''} />
+			</Suspense>
+		);
+	}
 	const hasRichContent = hasRichEmbedContent(embed);
 	if (!hasRichContent) {
 		if (embed.type === MessageEmbedTypes.AUDIO && embed.audio?.proxy_url) {

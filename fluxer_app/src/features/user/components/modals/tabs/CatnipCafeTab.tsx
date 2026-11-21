@@ -8,7 +8,7 @@ import {SettingsSection} from '@app/features/app/components/dialogs/shared/Setti
 import {SettingsTabContainer} from '@app/features/app/components/dialogs/shared/SettingsTabLayout';
 import Cafe, {type SlotSummary, type SlotsInfo} from '@app/features/catnip_cafe/CafeEngine';
 import {formatDuration, formatPurrs} from '@app/features/catnip_cafe/CafeFormat';
-import {type CafePrefsData, cafePrefs} from '@app/features/catnip_cafe/CafePrefs';
+import {type CafePrefsData, cafePrefs, type NumberFormat} from '@app/features/catnip_cafe/CafePrefs';
 import {cafeSound} from '@app/features/catnip_cafe/CafeSound';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
@@ -16,6 +16,7 @@ import * as ToastCommands from '@app/features/ui/commands/ToastCommands';
 import {Button} from '@app/features/ui/button/Button';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
 import {Slider} from '@app/features/ui/components/Slider';
+import {RadioGroup, type RadioOption} from '@app/features/ui/radio_group/RadioGroup';
 import styles from '@app/features/user/components/modals/tabs/CatnipCafeTab.module.css';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {clsx} from 'clsx';
@@ -28,7 +29,7 @@ const PrefSwitch = observer(function PrefSwitch({
 	label,
 	description,
 }: {
-	pref: keyof CafePrefsData;
+	pref: Exclude<keyof CafePrefsData, 'numberFormat'>;
 	label: React.ReactNode;
 	description: React.ReactNode;
 }) {
@@ -154,6 +155,17 @@ const CatnipCafeTab: React.FC = observer(() => {
 		);
 	};
 
+	// Each style shows how it writes the same two numbers.
+	const example = (format: NumberFormat) =>
+		`${formatPurrs(1_234_567, format)} · ${formatPurrs(45_600_000_000_000, format)}`;
+	const numberOptions: ReadonlyArray<RadioOption<NumberFormat>> = [
+		{value: 'short', name: t`Short`, desc: example('short')},
+		{value: 'long', name: t`Long words`, desc: example('long')},
+		{value: 'full', name: t`Full numbers`, desc: example('full')},
+		{value: 'scientific', name: t`Scientific`, desc: example('scientific')},
+		{value: 'engineering', name: t`Engineering`, desc: example('engineering')},
+	];
+
 	const volume = Math.round(cafeSound.volume * 100);
 	return (
 		<SettingsTabContainer data-flx="user.catnip-cafe-tab.settings-tab-container">
@@ -217,6 +229,19 @@ const CatnipCafeTab: React.FC = observer(() => {
 					pref="rollingNumbers"
 					label={<Trans>Rolling numbers</Trans>}
 					description={<Trans>Big changes to your purrs count up instead of jumping straight to the new number.</Trans>}
+				/>
+			</SettingsSection>
+			<SettingsSection
+				id="catnip-cafe-numbers"
+				title={<Trans>Numbers</Trans>}
+				description={<Trans>How big numbers are written in the café and on shared café cards.</Trans>}
+				data-flx="user.catnip-cafe-tab.section.numbers"
+			>
+				<RadioGroup
+					aria-label={t`Number style`}
+					options={numberOptions}
+					value={cafePrefs.numberFormat}
+					onChange={(value) => cafePrefs.set('numberFormat', value)}
 				/>
 			</SettingsSection>
 			<SettingsSection

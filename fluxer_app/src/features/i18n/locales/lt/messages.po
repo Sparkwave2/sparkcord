@@ -61,8 +61,10 @@ msgstr "[Originali žinutė ištrinta]"
 msgid "{0, plural, one {# member} other {# members}}"
 msgstr "{0, plural, one {# narys} few {# nariai} other {# narių}}"
 
+#. placeholder {0}: card.streak
 #. placeholder {0}: s.stats.longestStreak
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "{0} days"
 msgstr ""
 
@@ -81,6 +83,11 @@ msgstr ""
 #. placeholder {0}: sounds.length
 #: src/features/soundboard/SoundManager.tsx
 msgid "{0} of {max} sounds"
+msgstr ""
+
+#. placeholder {0}: formatPurrs(card.pets)
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "{0} pets and counting"
 msgstr ""
 
 #. placeholder {0}: formatPurrs(Cafe.pps)
@@ -3329,6 +3336,7 @@ msgid "Achievement unlocked:"
 msgstr ""
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Achievements"
 msgstr ""
 
@@ -7802,6 +7810,7 @@ msgstr ""
 
 #: src/features/catnip_cafe/CafeGardenTab.tsx
 #: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Cats"
 msgstr ""
 
@@ -12893,6 +12902,10 @@ msgstr ""
 msgid "Daily goals done"
 msgstr ""
 
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Daily streak"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Danger"
 msgstr "Pavojus"
@@ -16048,6 +16061,10 @@ msgstr "Galinis taškas"
 msgid "Endpoint:"
 msgstr "Galinis taškas:"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Engineering"
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "English"
@@ -18368,6 +18385,10 @@ msgstr "Visas vardas ir pavardė pagal asmens dokumentą (nebūtina pranešant a
 msgid "Full name"
 msgstr "Vardas ir pavardė"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Full numbers"
+msgstr ""
+
 #. Title of the row in the Refunds section of the Payments settings where the user can get all the money back for their recent Plutonium purchases.
 #: src/features/app/components/dialogs/components/plutonium/RefundsSection.tsx
 msgid "Full refund"
@@ -19818,6 +19839,10 @@ msgstr "Užveskite pelės žymeklį ant mygtukų, kad pamatytumėte patarimus sk
 #: src/features/auth/flow/AuthRegisterFormCore.tsx
 msgid "How about:"
 msgstr "O gal:"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "How big numbers are written in the café and on shared café cards."
+msgstr ""
 
 #. Help text of the background blur slider in Settings > Themes.
 #: src/features/theme_presets/PresetThemesSection.tsx
@@ -22573,6 +22598,7 @@ msgid "Live region"
 msgstr "Tiesioginė sritis"
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Lives"
 msgstr ""
 
@@ -22774,6 +22800,10 @@ msgstr "Ilga data"
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Long time"
 msgstr "Ilgas laikas"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Long words"
+msgstr ""
 
 #. Short label in the inputs tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
@@ -26579,6 +26609,14 @@ msgstr ""
 msgid "Number of passes"
 msgstr "Leidimų skaičius"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Number style"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Numbers"
+msgstr ""
+
 #: src/features/input/utils/KeybindUtils.ts
 msgctxt "keyboard-key-name"
 msgid "Numpad {keyName}"
@@ -27618,6 +27656,10 @@ msgstr "Atidaryti su {accountName} per {instanceName}"
 msgid "Open your browser, sign in, then enter the code below to link your account."
 msgstr "Atidarykite naršyklę, prisijunkite, tada įveskite toliau pateiktą kodą, kad susietumėte paskyrą."
 
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Open your café"
+msgstr ""
+
 #: src/features/auth/flow/BrowserLoginHandoffModal.tsx
 msgid "Open your old {PRODUCT_NAME} app and choose Link a new device, then enter the code below."
 msgstr "Atidarykite savo senąją „{PRODUCT_NAME}“ programėlę ir pasirinkite „Susieti naują įrenginį“, tada įveskite žemiau pateiktą kodą."
@@ -28555,6 +28597,10 @@ msgstr "Žmonės, turintys kvietimo nuorodą, prieš prisijungdami gali skaityti
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/VoiceSettings.tsx
 msgid "Per member, across all devices."
 msgstr "Kiekvienam nariui, visuose įrenginiuose."
+
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Per second"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts
@@ -29991,6 +30037,10 @@ msgstr "Išvalyti šį lipduką iš saugyklos ir CDN"
 #: src/features/channel/components/direct_message/DirectMessageList.tsx
 msgid "Purged {deletedCount, plural, one {# message} other {# messages}} from personal notes"
 msgstr "{deletedCount, plural, one {Ištrinta # žinutė} few {Ištrintos # žinutės} many {Ištrinta # žinutės} other {Ištrinta # žinučių}} iš asmeninių užrašų"
+
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Purrs earned"
+msgstr ""
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Purrs ever"
@@ -32847,6 +32897,10 @@ msgstr "Suplanuotos priežiūros pranešimų juosta"
 msgid "Science & technology"
 msgstr "Mokslas ir technologijos"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Scientific"
+msgstr ""
+
 #. Filter category label in the mobile channel search sheet for the search scope selector.
 #. Summary row label on the confirm step showing the user-picked scope.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -34738,6 +34792,11 @@ msgstr "Pateikite tai, ko mūsų komandai reikia šiam atvejui įvertinti."
 msgid "Share with a friend"
 msgstr "Bendrinti su draugu"
 
+#. Description for the /cafe command. Catnip Café is the name of the idle cat game; keep it.
+#: src/features/devtools/hooks/useCommands.ts
+msgid "Share your Catnip Café stats and cat in this chat."
+msgstr ""
+
 #. Title of the modal shown on web before the browser screen picker opens. The user picks stream quality here first.
 #. Voice control button or tooltip label for starting screen sharing.
 #: src/features/voice/components/modals/screen_share_picker_modal/WebStreamSetupModal.tsx
@@ -34826,6 +34885,10 @@ msgstr "Shift"
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Shift expand"
 msgstr "Shift išskleidimas"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Short"
+msgstr ""
 
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx

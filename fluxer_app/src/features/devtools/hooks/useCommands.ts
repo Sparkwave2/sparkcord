@@ -8,6 +8,10 @@ import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {useMemo} from 'react';
 
+const SHARE_CAFE_DESCRIPTOR = msg({
+	message: 'Share your Catnip Café stats and cat in this chat.',
+	comment: 'Description for the /cafe command. Catnip Café is the name of the idle cat game; keep it.',
+});
 const APPENDS_TO_YOUR_MESSAGE_DESCRIPTOR = msg({
 	message: 'Appends ¯\\_(ツ)_/¯ to your message.',
 	comment: "Slash-command description for /shrug. Appends a kaomoji to the user's message.",
@@ -327,6 +331,7 @@ export function useCommands(): Array<Command> {
 				],
 			},
 		];
+		commands.push({type: 'action', name: '/cafe', description: i18n._(SHARE_CAFE_DESCRIPTOR), options: []});
 		commands.push(...tupperCommands);
 		return directMessagesDisabled ? commands.filter((command) => command.name !== '/msg') : commands;
 	}, [i18n.locale, directMessagesDisabled, tupperCommands]);

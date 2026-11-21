@@ -61,8 +61,10 @@ msgstr "[原始訊息已刪除]"
 msgid "{0, plural, one {# member} other {# members}}"
 msgstr "{0, plural, one {# 位成員} other {# 位成員}}"
 
+#. placeholder {0}: card.streak
 #. placeholder {0}: s.stats.longestStreak
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "{0} days"
 msgstr ""
 
@@ -81,6 +83,11 @@ msgstr ""
 #. placeholder {0}: sounds.length
 #: src/features/soundboard/SoundManager.tsx
 msgid "{0} of {max} sounds"
+msgstr ""
+
+#. placeholder {0}: formatPurrs(card.pets)
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "{0} pets and counting"
 msgstr ""
 
 #. placeholder {0}: formatPurrs(Cafe.pps)
@@ -3329,6 +3336,7 @@ msgid "Achievement unlocked:"
 msgstr ""
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Achievements"
 msgstr ""
 
@@ -7802,6 +7810,7 @@ msgstr ""
 
 #: src/features/catnip_cafe/CafeGardenTab.tsx
 #: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Cats"
 msgstr ""
 
@@ -12893,6 +12902,10 @@ msgstr ""
 msgid "Daily goals done"
 msgstr ""
 
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Daily streak"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Danger"
 msgstr "危險"
@@ -16048,6 +16061,10 @@ msgstr "端點"
 msgid "Endpoint:"
 msgstr "端點："
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Engineering"
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "English"
@@ -18368,6 +18385,10 @@ msgstr "法定全名（檢舉兒童性虐待時可選填）"
 msgid "Full name"
 msgstr "全名"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Full numbers"
+msgstr ""
+
 #. Title of the row in the Refunds section of the Payments settings where the user can get all the money back for their recent Plutonium purchases.
 #: src/features/app/components/dialogs/components/plutonium/RefundsSection.tsx
 msgid "Full refund"
@@ -19817,6 +19838,10 @@ msgstr "將滑鼠移到按鈕上方，即可查看不同位置的工具提示。
 #: src/features/auth/flow/AuthRegisterFormCore.tsx
 msgid "How about:"
 msgstr "試試這個："
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "How big numbers are written in the café and on shared café cards."
+msgstr ""
 
 #. Help text of the background blur slider in Settings > Themes.
 #: src/features/theme_presets/PresetThemesSection.tsx
@@ -22572,6 +22597,7 @@ msgid "Live region"
 msgstr "即時區域"
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
+#: src/features/catnip_cafe/CafeShareCard.tsx
 msgid "Lives"
 msgstr ""
 
@@ -22773,6 +22799,10 @@ msgstr "完整日期"
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx
 msgid "Long time"
 msgstr "完整時間"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Long words"
+msgstr ""
 
 #. Short label in the inputs tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabInputsTab.tsx
@@ -26578,6 +26608,14 @@ msgstr ""
 msgid "Number of passes"
 msgstr "通行證數量"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Number style"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Numbers"
+msgstr ""
+
 #: src/features/input/utils/KeybindUtils.ts
 msgctxt "keyboard-key-name"
 msgid "Numpad {keyName}"
@@ -27617,6 +27655,10 @@ msgstr "在 {instanceName} 上以 {accountName} 開啟"
 msgid "Open your browser, sign in, then enter the code below to link your account."
 msgstr "開啟您的瀏覽器，登入後輸入以下代碼，即可連結您的帳號。"
 
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Open your café"
+msgstr ""
+
 #: src/features/auth/flow/BrowserLoginHandoffModal.tsx
 msgid "Open your old {PRODUCT_NAME} app and choose Link a new device, then enter the code below."
 msgstr "開啟您的舊版 {PRODUCT_NAME} 應用程式，選擇「連結新裝置」，然後輸入下方的代碼。"
@@ -28554,6 +28596,10 @@ msgstr "擁有邀請連結的使用者可以在加入前閱讀 @everyone 可見�
 #: src/features/channel/components/modals/channel_tabs/channel_overview_tab/VoiceSettings.tsx
 msgid "Per member, across all devices."
 msgstr "每位成員，涵蓋所有裝置。"
+
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Per second"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts
@@ -29990,6 +30036,10 @@ msgstr "從儲存空間和 CDN 清除此貼圖"
 #: src/features/channel/components/direct_message/DirectMessageList.tsx
 msgid "Purged {deletedCount, plural, one {# message} other {# messages}} from personal notes"
 msgstr "已從個人記事中清除 {deletedCount, plural, one {# 則訊息} other {# 則訊息}}"
+
+#: src/features/catnip_cafe/CafeShareCard.tsx
+msgid "Purrs earned"
+msgstr ""
 
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Purrs ever"
@@ -32846,6 +32896,10 @@ msgstr "排程維護提示列"
 msgid "Science & technology"
 msgstr "科學與科技"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Scientific"
+msgstr ""
+
 #. Filter category label in the mobile channel search sheet for the search scope selector.
 #. Summary row label on the confirm step showing the user-picked scope.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -34737,6 +34791,11 @@ msgstr "提供我們的團隊評估此事所需的資訊。"
 msgid "Share with a friend"
 msgstr "分享給好友"
 
+#. Description for the /cafe command. Catnip Café is the name of the idle cat game; keep it.
+#: src/features/devtools/hooks/useCommands.ts
+msgid "Share your Catnip Café stats and cat in this chat."
+msgstr ""
+
 #. Title of the modal shown on web before the browser screen picker opens. The user picks stream quality here first.
 #. Voice control button or tooltip label for starting screen sharing.
 #: src/features/voice/components/modals/screen_share_picker_modal/WebStreamSetupModal.tsx
@@ -34825,6 +34884,10 @@ msgstr "Shift"
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Shift expand"
 msgstr "Shift 展開"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Short"
+msgstr ""
 
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx

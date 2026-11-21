@@ -79,6 +79,10 @@ export type ParsedCommand =
 			content: string;
 	  }
 	| {
+			/** Sparkcord: /cafe shares your Catnip Café card in the channel. */
+			type: 'cafe';
+	  }
+	| {
 			type: 'unknown';
 	  };
 
@@ -87,6 +91,9 @@ export function parseCommand(content: string): ParsedCommand {
 	const tupperText = plainTupperCommandText(trimmed);
 	if (tupperText !== null) {
 		return {type: 'tupper', content: tupperText};
+	}
+	if (trimmed === '/cafe') {
+		return {type: 'cafe'};
 	}
 	if (trimmed === '/nick') {
 		return {type: 'nick', nickname: ''};
@@ -195,6 +202,7 @@ export function isCommand(content: string): boolean {
 	const trimmed = content.trim();
 	return (
 		plainTupperCommandText(trimmed) !== null ||
+		trimmed === '/cafe' ||
 		trimmed === '/nick' ||
 		trimmed.startsWith('/nick ') ||
 		trimmed.startsWith('/kick ') ||
@@ -367,6 +375,19 @@ export async function executeCommand(
 			break;
 		}
 		case 'spoiler': {
+			break;
+		}
+		case 'cafe': {
+			try {
+				const {sendCafeCard} = await import('@app/features/catnip_cafe/CafeShare');
+				await sendCafeCard(channelId);
+			} catch (error) {
+				logger.error('Failed to share the Catnip Café card', error);
+				MessageCommands.createOptimistic(
+					channelId,
+					createSystemMessage(channelId, "Couldn't share your Catnip Café. Try again in a moment.").toJSON(),
+				);
+			}
 			break;
 		}
 		case 'tupper': {

@@ -476,6 +476,16 @@ export const useTextareaSubmit = ({
 		} else if (lexicalCommand.status === LexicalMessageCommandResolutionStatus.VALID_COMMAND) {
 			parsedCommand = lexicalCommand.command;
 		}
+		// Sparkcord: /cafe has no options, so picking it inserts plain text rather than a command.
+		if (
+			parsedCommand === null &&
+			commandsEnabled &&
+			editingMessage === null &&
+			uploadAttachmentsLength === 0 &&
+			actualContent === '/cafe'
+		) {
+			parsedCommand = {type: 'cafe'};
+		}
 		const replaceCommand = commandsEnabled ? ReplaceCommandUtils.parseReplaceCommand(untrimmedContent) : null;
 		const reactionShorthand =
 			commandsEnabled && editingMessage === null && uploadAttachmentsLength === 0 && !hasPendingSticker

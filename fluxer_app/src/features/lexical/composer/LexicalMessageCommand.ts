@@ -195,6 +195,9 @@ function resolveCommand(structure: CommandStructure): Exclude<CommandUtils.Parse
 		const content = buildTupperCommandText(name, values);
 		return content == null ? null : {type: 'tupper', content};
 	}
+	if (name === '/cafe') {
+		return hasOnlySlots(slots, []) ? {type: 'cafe'} : null;
+	}
 	if (name === '/nick') {
 		if (!hasOnlySlots(slots, ['nickname'])) return null;
 		const nickname = readStringSlot(slots, 'nickname', true);
