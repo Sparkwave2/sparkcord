@@ -61,9 +61,20 @@ msgstr "[Original message deleted]"
 msgid "{0, plural, one {# member} other {# members}}"
 msgstr "{0, plural, one {# member} other {# members}}"
 
+#. placeholder {0}: s.stats.longestStreak
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "{0} days"
+msgstr "{0} days"
+
+#. placeholder {0}: tier.need - owned
+#. placeholder {1}: helper.name
+#: src/features/catnip_cafe/CafeShop.tsx
+msgid "{0} more until {1}s get their next upgrade"
+msgstr "{0} more until {1}s get their next upgrade"
+
 #. placeholder {0}: earned.size
 #. placeholder {1}: ACHIEVEMENTS.length
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "{0} of {1} earned. Each one adds 1% to all purrs."
 msgstr "{0} of {1} earned. Each one adds 1% to all purrs."
 
@@ -1681,6 +1692,10 @@ msgstr "{fps} FPS"
 msgid "{frameRate} FPS"
 msgstr "{frameRate} FPS"
 
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "{GOAL_CATNIP_REWARD} catnip"
+msgstr "{GOAL_CATNIP_REWARD} catnip"
+
 #. Short label in the app layout channel list content. Preserve {guildName}; it is inserted by code.
 #: src/features/app/components/layout/ChannelListContent.tsx
 msgid "{guildName} channels"
@@ -2334,6 +2349,11 @@ msgstr "{size} px"
 msgid "{start} to {end}"
 msgstr "{start} to {end}"
 
+#. placeholder {0}: Math.round(Cafe.streakBonus * 100)
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "{streak}-day streak · +{0}%"
+msgstr "{streak}-day streak · +{0}%"
+
 #. Header label above a focused remote screen share. {streamerDisplayName} is the streamer's display name; possessive form.
 #: src/features/voice/components/StreamFocusHeaderInfo.tsx
 msgid "{streamerDisplayName}'s screen"
@@ -2542,6 +2562,21 @@ msgstr "#operators"
 msgid "#operators in Fluxer Labs"
 msgstr "#operators in Fluxer Labs"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "+ Plant"
+msgstr "+ Plant"
+
+#. placeholder {0}: formatPurrs(each)
+#: src/features/catnip_cafe/CafeShop.tsx
+msgid "+{0}/s each"
+msgstr "+{0}/s each"
+
+#. placeholder {0}: formatPurrs(each)
+#. placeholder {1}: Math.round(share * 100)
+#: src/features/catnip_cafe/CafeShop.tsx
+msgid "+{0}/s each · {1}% of total"
+msgstr "+{0}/s each · {1}% of total"
+
 #. Badge on the forward modal preview thumbnail. count is the number of other attachments that the thumbnail does not show.
 #. Short count of badges that are not shown next to a name or on a profile, such as +3. Pressing it opens the full list. Keep it as short as possible.
 #: src/features/messaging/components/modals/ForwardMessagePreview.tsx
@@ -2620,6 +2655,18 @@ msgstr "<0>Forwarded from</0>{sourceInfo}"
 #: src/features/user/components/modals/tabs/appearance_tab/InterfaceTab.tsx
 msgid "<0>Kenji</0>, <1>Amara</1> and <2>Mateo</2> are typing..."
 msgstr "<0>Kenji</0>, <1>Amara</1> and <2>Mateo</2> are typing..."
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "🌿 {ready} plants are ready to harvest."
+msgstr "🌿 {ready} plants are ready to harvest."
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "🎯 {goals} daily goals are waiting."
+msgstr "🎯 {goals} daily goals are waiting."
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "🐈 Your cats grew a little closer."
+msgstr "🐈 Your cats grew a little closer."
 
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -2778,6 +2825,10 @@ msgstr "2FA backup"
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 msgid "2FA requirement"
 msgstr "2FA requirement"
+
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "3 Cookie Treats"
+msgstr "3 Cookie Treats"
 
 #. Ban duration option in the destructive ban-member modal for a three-day temporary ban.
 #. Thread auto archive duration option.
@@ -2958,6 +3009,10 @@ msgstr "A lower price is available. Switching takes effect on <0>{listPriceEffec
 #: src/features/channel/components/CallMessage.tsx
 msgid "a minute"
 msgstr "a minute"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "A mouse! Catch it!"
+msgstr "A mouse! Catch it!"
 
 #. Desktop updater modal body when the exact target version is unknown. productName is the app name.
 #: src/features/updater/commands/UpdaterModalCommands.tsx
@@ -3261,6 +3316,10 @@ msgid "Accounts"
 msgstr "Accounts"
 
 #: src/features/catnip_cafe/CafePage.tsx
+msgid "Achievement unlocked:"
+msgstr "Achievement unlocked:"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Achievements"
 msgstr "Achievements"
 
@@ -4207,6 +4266,19 @@ msgstr "Administrator"
 msgid "Admins paused invites. You can't join right now."
 msgstr "Admins paused invites. You can't join right now."
 
+#. placeholder {0}: formatPurrs(cost)
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Adopt a cat · 🐾 {0}"
+msgstr "Adopt a cat · 🐾 {0}"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Adopt a cat to live in your café. Each one has a trait that helps, and grows closer (stronger) the longer it lives here. Lucky Cats sometimes bring strays."
+msgstr "Adopt a cat to live in your café. Each one has a trait that helps, and grows closer (stronger) the longer it lives here. Lucky Cats sometimes bring strays."
+
+#: src/features/catnip_cafe/CafeWardrobe.tsx
+msgid "Adopt a cat with a coat to unlock it here."
+msgstr "Adopt a cat with a coat to unlock it here."
+
 #. Collapsed-by-default group at the end of the community overview tab holding less common settings.
 #. Disclosure button label in the voice connection status popout. Reveals technical bandwidth and network stats.
 #. User settings tab for power-user and experimental application preferences.
@@ -4258,6 +4330,10 @@ msgstr "After your account is deleted, you will not be able to delete the messag
 #: src/features/user/components/modals/tabs/privacy_safety_tab/AgeRangeSection.tsx
 msgid "Age range from your Apple or Google account"
 msgstr "Age range from your Apple or Google account"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "ago"
+msgstr "ago"
 
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
@@ -6207,6 +6283,10 @@ msgstr "Back to list"
 msgid "Back to overrides"
 msgstr "Back to overrides"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Back to petting"
+msgstr "Back to petting"
+
 #. Button that saves an answer and returns to the setup wizard review screen.
 #: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx
 msgid "Back to review"
@@ -6500,6 +6580,10 @@ msgstr "Belgium"
 msgid "Benefits"
 msgstr "Benefits"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Best purrs per second"
+msgstr "Best purrs per second"
+
 #. CTA card title in the screen-share picker promoting the desktop app for richer screen sharing.
 #: src/features/voice/components/modals/screen_share_picker_modal/DesktopDownloadCta.tsx
 msgid "Best with the desktop app"
@@ -6508,6 +6592,14 @@ msgstr "Best with the desktop app"
 #: src/features/ui/components/form/UsernameValidationRules.tsx
 msgid "Between 1 and 32 characters"
 msgstr "Between 1 and 32 characters"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Biggest Lucky Cat gift"
+msgstr "Biggest Lucky Cat gift"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Biggest single pet"
+msgstr "Biggest single pet"
 
 #. Plutonium subscription card text for an App Store or Google Play subscription. {storeName} is the store brand name, App Store or Google Play, and must not be translated.
 #: src/features/app/components/dialogs/components/plutonium/SubscriptionDescription.tsx
@@ -6569,6 +6661,14 @@ msgstr "Biometrics"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Bitrate"
 msgstr "Bitrate"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Bliss"
+msgstr "Bliss"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Bliss!"
+msgstr "Bliss!"
 
 #. Generic destructive action label that blocks a user.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -6714,6 +6814,10 @@ msgstr "Blur strength"
 #: src/features/lexical/composer/SelectionFormattingToolbar.tsx
 msgid "Bold"
 msgstr "Bold"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Bonuses on all purrs"
+msgstr "Bonuses on all purrs"
 
 #. Folder icon option in the community-folder settings modal: a bookmark shape. Refers to the bookmark icon glyph, not the saved-message bookmarks feature.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -6905,6 +7009,10 @@ msgstr "Brightness"
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
 msgid "Bring custom emojis and stickers from any of your communities into every chat and community you're in."
 msgstr "Bring custom emojis and stickers from any of your communities into every chat and community you're in."
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Bring to café"
+msgstr "Bring to café"
 
 #. Title of the modal shown when the browser autoplay policy blocks voice audio until the user interacts.
 #: src/features/voice/components/modals/AudioPlaybackPermissionModal.tsx
@@ -7171,6 +7279,10 @@ msgstr "Bypass mention suppression"
 msgid "Bypass slowmode"
 msgstr "Bypass slowmode"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Café"
+msgstr "Café"
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Café sound volume"
 msgstr "Café sound volume"
@@ -7392,7 +7504,8 @@ msgstr "Can't upload files here"
 #: src/features/auth/components/modals/PasskeyPinModal.tsx
 #: src/features/auth/components/modals/SudoVerificationModal.tsx
 #: src/features/auth/flow/BrowserLoginHandoffModal.tsx
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 #: src/features/channel/components/bottomsheets/CreateDMBottomSheet.tsx
 #: src/features/channel/components/MentionEveryonePopout.tsx
 #: src/features/channel/components/modals/ChannelDeleteModal.tsx
@@ -7556,6 +7669,10 @@ msgstr "Card alignment"
 msgid "Card alignment controls"
 msgstr "Card alignment controls"
 
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Cat name"
+msgstr "Cat name"
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Catalan"
@@ -7564,6 +7681,10 @@ msgstr "Catalan"
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Catch the Lucky Cat"
 msgstr "Catch the Lucky Cat"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Catch the mouse"
+msgstr "Catch the mouse"
 
 #. Heading above the category filter list in the Explore search sidebar.
 #: src/features/discovery/discovery/DiscoverySearchFilters.tsx
@@ -7630,6 +7751,10 @@ msgstr "Category options"
 msgid "Category settings"
 msgstr "Category settings"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "catnip"
+msgstr "catnip"
+
 #. Heading on a profile card for the person's Catnip Café game score
 #. Sidebar button that opens the Catnip Café idle cat game.
 #: src/features/catnip_cafe/CafeButton.tsx
@@ -7637,6 +7762,19 @@ msgstr "Category settings"
 #: src/features/catnip_cafe/CafeProfileLine.tsx
 msgid "Catnip Café"
 msgstr "Catnip Café"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Catnip grown"
+msgstr "Catnip grown"
+
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Cats"
+msgstr "Cats"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Cats adopted"
+msgstr "Cats adopted"
 
 #. Markdown alert label for a caution callout when copied as plaintext.
 #. Short label in the messaging block elements. Keep it concise. Keep the tone plain and specific.
@@ -8846,10 +8984,18 @@ msgstr "Choose your language"
 msgid "Choose your profile accent color"
 msgstr "Choose your profile accent color"
 
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Claim"
+msgstr "Claim"
+
 #. Generic account action label that opens or submits the flow to secure an unclaimed account.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 msgid "Claim account"
 msgstr "Claim account"
+
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Claim all three goals to open it: a Golden Sardine, a new cat, and +1 day on your streak."
+msgstr "Claim all three goals to open it: a Golden Sardine, a new cat, and +1 day on your streak."
 
 #. Action label on the gift redemption flow.
 #. Primary button label on a redeemable gift code embed.
@@ -9313,6 +9459,10 @@ msgstr "Coal"
 msgid "Coal theme"
 msgstr "Coal theme"
 
+#: src/features/catnip_cafe/CafeWardrobe.tsx
+msgid "Coats"
+msgstr "Coats"
+
 #. Generic field label for a short verification or backup code the user types in.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/invite/components/InviteListItem.tsx
@@ -9419,6 +9569,15 @@ msgstr "Collapse unread messages for {channelHeading}"
 #: src/features/app/components/layout/sidebar_nav/GuildFolderItem.tsx
 msgid "collapsed"
 msgstr "collapsed"
+
+#: src/features/catnip_cafe/CafeWardrobe.tsx
+msgid "Collars"
+msgstr "Collars"
+
+#. placeholder {0}: Cafe.state.cats.length
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Collection ({0}/{COLLECTION_LIMIT})"
+msgstr "Collection ({0}/{COLLECTION_LIMIT})"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts
@@ -9600,7 +9759,7 @@ msgstr "Communities you join from now on will use this. Your current communities
 #. Field label in the follow announcement channel dialog. The user picks the community that receives updates.
 #. Generic label for a community. Used as a field label, filter label, or fallback community name.
 #. Tag shown next to messages copied from a followed announcement channel. Keep it one short word.
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 #: src/features/channel/components/ChannelUserTag.tsx
 #: src/features/channel/components/modals/ChannelFollowModal.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
@@ -11408,7 +11567,7 @@ msgstr "Couldn't load the community's sounds."
 msgid "Couldn't load the game. Try again."
 msgstr "Couldn't load the game. Try again."
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Couldn't load the leaderboard."
 msgstr "Couldn't load the leaderboard."
 
@@ -12681,6 +12840,14 @@ msgstr "Czech"
 msgid "Czech Republic"
 msgstr "Czech Republic"
 
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Daily chest"
+msgstr "Daily chest"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Daily goals done"
+msgstr "Daily goals done"
+
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 msgid "Danger"
 msgstr "Danger"
@@ -13854,6 +14021,14 @@ msgstr "Different sizes (status supported)"
 msgid "Different sizes & member counts"
 msgstr "Different sizes & member counts"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Dig up"
+msgstr "Dig up"
+
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Dig up and plant something else"
+msgstr "Dig up and plant something else"
+
 #. Toggle label and settings search entry for slightly muting text formatted with Markdown strikethrough.
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Dim strikethrough text"
@@ -14505,6 +14680,7 @@ msgstr "Donate instead"
 #. Generic action or status label indicating that the current flow is complete.
 #: src/features/auth/components/modals/RecoveryKitModal.tsx
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthSuccessState.tsx
+#: src/features/catnip_cafe/CafeWardrobe.tsx
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
 #: src/features/input/components/KeybindRecorder.tsx
 #: src/features/moderation/components/report/ReportBreadcrumbs.tsx
@@ -14841,6 +15017,11 @@ msgstr "e.g., YubiKey, iPhone, work computer"
 msgid "Each code works once in place of your authenticator app."
 msgstr "Each code works once in place of your authenticator app."
 
+#. placeholder {0}: Math.round(STREAK_BONUS * 100)
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Each day in a row with every goal done adds {0}% to all purrs (up to {STREAK_CAP} days)."
+msgstr "Each day in a row with every goal done adds {0}% to all purrs (up to {STREAK_CAP} days)."
+
 #. Note under the list of system-wide shortcuts on Linux. The desktop cannot assign one key to two actions.
 #: src/features/user/components/modals/tabs/components/SystemShortcutsSection.tsx
 msgid "Each key can run only one system-wide keybind."
@@ -14897,7 +15078,7 @@ msgid "Early upload"
 msgstr "Early upload"
 
 #. placeholder {0}: formatPurrs(nextAt)
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Earn {0} purrs in total to gain your next Life."
 msgstr "Earn {0} purrs in total to gain your next Life."
 
@@ -18268,6 +18449,11 @@ msgstr "Gaming"
 msgid "Gap"
 msgstr "Gap"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Garden"
+msgstr "Garden"
+
 #. Short label in the temporary invite requires presence modal.
 #: src/features/invite/commands/InviteCommands.tsx
 msgid "Gateway connection required"
@@ -18805,6 +18991,10 @@ msgstr "Go to sixth community"
 msgid "Go to third community"
 msgstr "Go to third community"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Goals"
+msgstr "Goals"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Google Lens"
@@ -19007,6 +19197,10 @@ msgstr "Group updated"
 msgid "Grouping"
 msgstr "Grouping"
 
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Grows closer while living in your café"
+msgstr "Grows closer while living in your café"
+
 #. Option label for the screen-share codec select while the HEVC opt-in is off and the option is disabled. H.265 is a codec name and should stay literal.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedVideoControls.tsx
 msgid "H.265 (requires opt-in)"
@@ -19049,9 +19243,15 @@ msgid "Hardware key"
 msgstr "Hardware key"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/catnip_cafe/CafeGardenTab.tsx
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts
 msgid "Harvest"
 msgstr "Harvest"
+
+#. placeholder {0}: Cafe.readyPlots
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Harvest all ({0})"
+msgstr "Harvest all ({0})"
 
 #. Filter category label in the mobile channel search sheet for the has: content type filter.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx
@@ -19066,6 +19266,10 @@ msgstr "Has ever purchased"
 #: src/features/channel/components/channel_header_components/developer_tools/AccountPremiumMenu.tsx
 msgid "Has ever purchased override"
 msgstr "Has ever purchased override"
+
+#: src/features/catnip_cafe/CafeWardrobe.tsx
+msgid "Hats"
+msgstr "Hats"
 
 #. Plutonium page hero text on an instance where the paid tier cannot be bought, only redeemed. premiumProductName is the paid tier name.
 #: src/features/premium/components/plutonium_page/PlutoniumPageMessages.ts
@@ -19168,7 +19372,7 @@ msgstr "Help center button in the sidebar"
 msgid "Help translate {PRODUCT_NAME} into your language on <0>{I18N_WEBLATE_DOMAIN}</0>."
 msgstr "Help translate {PRODUCT_NAME} into your language on <0>{I18N_WEBLATE_DOMAIN}</0>."
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeShop.tsx
 msgid "Helpers"
 msgstr "Helpers"
 
@@ -20218,6 +20422,11 @@ msgstr "In"
 msgid "In \"Operating system\" mode, dictionaries listed above are advisory. {PRODUCT_NAME} will pass these language tags to your OS spellchecker when supported. Tags it doesn't recognize are ignored."
 msgstr "In \"Operating system\" mode, dictionaries listed above are advisory. {PRODUCT_NAME} will pass these language tags to your OS spellchecker when supported. Tags it doesn't recognize are ignored."
 
+#. placeholder {0}: formatDuration(seconds * 1000)
+#: src/features/catnip_cafe/CafeShop.tsx
+msgid "in {0}"
+msgstr "in {0}"
+
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx
 msgid "In a browser, push-to-talk only works while the {PRODUCT_NAME} tab is focused. Install the desktop app for system-wide push-to-talk."
 msgstr "In a browser, push-to-talk only works while the {PRODUCT_NAME} tab is focused. Install the desktop app for system-wide push-to-talk."
@@ -21125,7 +21334,7 @@ msgstr "Join {labsName}"
 msgid "Join a community"
 msgstr "Join a community"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Join a community to compare cafés."
 msgstr "Join a community to compare cafés."
 
@@ -21383,6 +21592,10 @@ msgctxt "us-state"
 msgid "Kansas"
 msgstr "Kansas"
 
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Keep"
+msgstr "Keep"
+
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts
 msgid "Keep {productName} running when the window is closed"
@@ -21431,6 +21644,10 @@ msgstr "Keep Neko still"
 #: src/features/premium/components/operator_pass/OperatorPassWithdrawModal.tsx
 msgid "Keep pass"
 msgstr "Keep pass"
+
+#: src/features/catnip_cafe/CafeShop.tsx
+msgid "keep petting"
+msgstr "keep petting"
 
 #: src/features/user/components/modals/tabs/TuppersTab.tsx
 msgid "Keep proxy tags in the message"
@@ -21734,10 +21951,6 @@ msgstr "Layering for AV1 and VP9 when available."
 msgid "Layout"
 msgstr "Layout"
 
-#: src/features/catnip_cafe/CafePage.tsx
-msgid "Leaderboard"
-msgstr "Leaderboard"
-
 #. Accessible label for the screen-share picker footer info button.
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx
 msgid "Learn about screen share previews"
@@ -21988,6 +22201,10 @@ msgstr "Lets you sign in to this account with {providerName}."
 #: src/features/ui/components/form/UsernameValidationRules.tsx
 msgid "Letters (a-z, A-Z), numbers (0-9), and underscores (_) only"
 msgstr "Letters (a-z, A-Z), numbers (0-9), and underscores (_) only"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Level {level}"
+msgstr "Level {level}"
 
 #. Error modal body shown when entrance sound library quota is reached.
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts
@@ -22291,11 +22508,21 @@ msgstr "Live preview"
 msgid "Live region"
 msgstr "Live region"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Lives"
+msgstr "Lives"
+
 #. placeholder {0}: Math.round(LIFE_BONUS * 100)
 #. placeholder {1}: Cafe.livesAvailable
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Lives give +{0}% purrs each, for good. {1} left to spend on perks."
 msgstr "Lives give +{0}% purrs each, for good. {1} left to spend on perks."
+
+#. placeholder {0}: residents.length
+#. placeholder {1}: Cafe.residentSlots
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Living in your café ({0}/{1})"
+msgstr "Living in your café ({0}/{1})"
 
 #. Completion in the quick CSS editor that inserts an @font-face rule. Assets are files uploaded under "Assets".
 #: src/features/theme_settings/editor/CssCompletions.ts
@@ -22392,7 +22619,7 @@ msgid "Loading..."
 msgstr "Loading..."
 
 #. Combobox popup status shown while options are loading.
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 #: src/features/channel/components/embeds/attachments/RomAttachment.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/ui/components/form/FormCombobox.tsx
@@ -22485,6 +22712,10 @@ msgstr "Long time"
 msgid "Long-form content"
 msgstr "Long-form content"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Longest streak"
+msgstr "Longest streak"
+
 #. Review row label for the theme color and images.
 #: src/features/app/components/setup/SetupWizardSteps.tsx
 msgid "Look"
@@ -22530,6 +22761,10 @@ msgstr "Lower latency."
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Lucky Cat! Click it."
 msgstr "Lucky Cat! Click it."
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Lucky Cats caught"
+msgstr "Lucky Cats caught"
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -22995,7 +23230,7 @@ msgstr "Mature content override"
 msgid "Mature media"
 msgstr "Mature media"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeShop.tsx
 msgid "Max"
 msgstr "Max"
 
@@ -23767,6 +24002,10 @@ msgstr "Mic"
 msgid "Mic test"
 msgstr "Mic test"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Mice caught"
+msgstr "Mice caught"
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -24231,6 +24470,10 @@ msgstr "Move the line up or down when the cursor isn't on a number"
 #: src/features/ui/action_menu/FavoritesChannelContextMenu.tsx
 msgid "Move to"
 msgstr "Move to"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Move to collection"
+msgstr "Move to collection"
 
 #. Submenu label that moves the selected participant or content into another channel.
 #. Submenu label that moves the selected participant or content into another channel.
@@ -24834,6 +25077,11 @@ msgstr "Nebraska"
 msgid "Need an account?"
 msgstr "Need an account?"
 
+#. placeholder {0}: RESEARCH_BY_ID.get(seed.research ?? '')?.name ?? ''
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Needs the {0} research"
+msgstr "Needs the {0} research"
+
 #. Settings search synonym. Proper name of the optional cat sprite that chases the cursor.
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Neko"
@@ -24974,6 +25222,11 @@ msgstr "New email"
 msgid "New email form"
 msgstr "New email form"
 
+#. placeholder {0}: formatDuration(msUntilMidnight(Cafe.now))
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "New goals in {0}"
+msgstr "New goals in {0}"
+
 #: src/features/channel/components/bottomsheets/channel_details_bottom_sheet/DMMembersList.tsx
 msgid "New group"
 msgstr "New group"
@@ -25024,6 +25277,10 @@ msgstr "New microphone"
 msgid "New password"
 msgstr "New password"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "New plot"
+msgstr "New plot"
+
 #. Button in a forum channel that opens the composer for a new post.
 #: src/features/forum/utils/ForumMessageDescriptors.ts
 msgid "New post"
@@ -25073,7 +25330,7 @@ msgstr "New threads will stop showing in the channel list after this period of i
 msgid "New tupper"
 msgstr "New tupper"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeShop.tsx
 msgid "New upgrades appear as your café grows."
 msgstr "New upgrades appear as your café grows."
 
@@ -25865,9 +26122,13 @@ msgstr "Nobody can sign up on their own. You make registration links in the admi
 msgid "Nobody has reacted with this yet."
 msgstr "Nobody has reacted with this yet."
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Nobody here has a café yet. Be the first!"
 msgstr "Nobody here has a café yet. Be the first!"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Nobody lives here yet."
+msgstr "Nobody lives here yet."
 
 #: src/features/channel/components/guild_members_page/MembersTableEmptyState.tsx
 msgid "Nobody matches that search."
@@ -25907,6 +26168,7 @@ msgstr "Non-convert"
 #. Summary row value on the confirm step when no items in the category were selected.
 #: src/features/app/components/setup/SetupEmailSteps.tsx
 #: src/features/avatar_cosmetics/AvatarCosmeticPicker.tsx
+#: src/features/catnip_cafe/CafeWardrobe.tsx
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogSharedMessages.ts
@@ -26696,6 +26958,7 @@ msgstr "Opacity"
 
 #. Action button on a Linux desktop notification. Imperative verb: opens the message the notification is about.
 #. Button label that opens the source settings section for an advanced setting.
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
 #: src/features/platform/utils/DesktopLocaleBridge.ts
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedSettingRow.tsx
 msgid "Open"
@@ -27296,6 +27559,10 @@ msgstr "Open your settings"
 #: src/features/guild/utils/guild_tabs/audit_log/AuditLogThreadPresentation.ts
 msgid "Opened the thread again"
 msgstr "Opened the thread again"
+
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Opened. Come back tomorrow!"
+msgstr "Opened. Come back tomorrow!"
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Opening the café…"
@@ -28362,14 +28629,26 @@ msgstr "Personal sticker of {owner}"
 msgid "Pet the cat"
 msgstr "Pet the cat"
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Pet the cat in a steady rhythm to raise its mood. Full mood sets off Bliss."
+msgstr "Pet the cat in a steady rhythm to raise its mood. Full mood sets off Bliss."
+
 #. placeholder {0}: formatPurrs(Cafe.petValue)
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Pet the cat! Each pet: {0}"
 msgstr "Pet the cat! Each pet: {0}"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Pets"
+msgstr "Pets"
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting frenzy!"
 msgstr "Petting frenzy!"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Petting rhythm"
+msgstr "Petting rhythm"
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
 #: src/features/ui/keybind_hint/KeybindHint.tsx
@@ -28653,6 +28932,14 @@ msgstr "Plan"
 #: src/features/premium/components/plutonium_page/PlutoniumPageLinkCard.tsx
 msgid "Plans, perks, gifts and your subscription are all on one page."
 msgstr "Plans, perks, gifts and your subscription are all on one page."
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Plants harvested"
+msgstr "Plants harvested"
+
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Plants keep growing while you're away. Harvested plots are replanted with the same seed."
+msgstr "Plants keep growing while you're away. Harvested plots are replanted with the same seed."
 
 #: src/features/auth/flow/HandoffApprovalFlow.tsx
 msgid "Platform"
@@ -29609,6 +29896,14 @@ msgstr "Purge this sticker from storage and CDN"
 msgid "Purged {deletedCount, plural, one {# message} other {# messages}} from personal notes"
 msgstr "Purged {deletedCount, plural, one {# message} other {# messages}} from personal notes"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Purrs ever"
+msgstr "Purrs ever"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Purrs this life"
+msgstr "Purrs this life"
+
 #. Settings search entry label. Names the settings search entry in the settings UI.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Push notification inactive timeout"
@@ -29861,6 +30156,10 @@ msgstr "Rainbow"
 #: src/features/group_name_color/GroupNameColorPicker.tsx
 msgid "Random (picked for you)"
 msgstr "Random (picked for you)"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Ranks"
+msgstr "Ranks"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
@@ -30368,6 +30667,15 @@ msgstr "Regular button clicked."
 msgctxt "code-editor"
 msgid "Regular expression"
 msgstr "Regular expression"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Rehome"
+msgstr "Rehome"
+
+#. placeholder {0}: rarity?.catnip ?? 0
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Rehome for {0} catnip"
+msgstr "Rehome for {0} catnip"
 
 #. Button label for rejecting an incoming direct call.
 #: src/features/voice/utils/VoiceMessageDescriptors.ts
@@ -30948,6 +31256,7 @@ msgstr "Removing permissions could limit the bot's features."
 msgid "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, react, and join voice channels again."
 msgstr "Removing the timeout will allow <0>{targetUserTag}</0> to send messages, react, and join voice channels again."
 
+#: src/features/catnip_cafe/CafeCatsTab.tsx
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
@@ -31333,6 +31642,10 @@ msgstr "Requires a verified email address."
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx
 msgid "Requires everything in medium, plus being a member of the community for at least 10 minutes."
 msgstr "Requires everything in medium, plus being a member of the community for at least 10 minutes."
+
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Research"
+msgstr "Research"
 
 #: src/features/auth/components/modals/BackupCodesViewModal.tsx
 #: src/features/auth/components/modals/ClaimAccountModal.tsx
@@ -31963,6 +32276,10 @@ msgstr "Revoked {permissions}"
 msgid "Revoked ban for {0}"
 msgstr "Revoked ban for {0}"
 
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Reward:"
+msgstr "Reward:"
+
 #. Tooltip / aria label on the rewind button in the standalone audio player. {defaultSeekAmount} is an integer second count.
 #: src/features/voice/components/media_player/components/AudioPlayer.tsx
 msgid "Rewind {defaultSeekAmount} seconds"
@@ -32225,6 +32542,7 @@ msgstr "Saturation"
 #. Save button in the community-folder settings modal footer.
 #: src/features/app/components/dialogs/shared/MobileSettingsComponents.tsx
 #: src/features/auth/components/modals/PasskeyNameModal.tsx
+#: src/features/catnip_cafe/CafeCatsTab.tsx
 #: src/features/channel/components/modals/EditGroupModal.tsx
 #: src/features/channel/components/modals/RenameChannelModal.tsx
 #: src/features/connection/components/modals/EditConnectionModal.tsx
@@ -35783,7 +36101,7 @@ msgstr "Some users can't be added"
 msgid "someone"
 msgstr "someone"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Someone"
 msgstr "Someone"
 
@@ -36222,6 +36540,10 @@ msgstr "Spellcheck engine"
 msgid "Spelling"
 msgstr "Spelling"
 
+#: src/features/catnip_cafe/CafeGardenTab.tsx
+msgid "Spend catnip on lasting improvements. They stay through Nine Lives."
+msgstr "Spend catnip on lasting improvements. They stay through Nine Lives."
+
 #. Short label in the guild invite splash upload field. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildInviteSplashUploadField.tsx
 msgid "Splash"
@@ -36364,14 +36686,14 @@ msgstr "Start a call in a DM or group"
 msgid "Start a group DM"
 msgstr "Start a group DM"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Start a new life"
 msgstr "Start a new life"
 
 #. placeholder {0}: gain === 1 ? 'Life' : 'Lives'
-#: src/features/catnip_cafe/CafePage.tsx
-msgid "Start a new life now to gain {gain} {0}. You lose your purrs, helpers and upgrades, but keep Lives, perks and achievements."
-msgstr "Start a new life now to gain {gain} {0}. You lose your purrs, helpers and upgrades, but keep Lives, perks and achievements."
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Start a new life now to gain {gain} {0}. You lose your purrs, helpers and upgrades, but keep Lives, perks, achievements, cats, the garden, research and goals."
+msgstr "Start a new life now to gain {gain} {0}. You lose your purrs, helpers and upgrades, but keep Lives, perks, achievements, cats, the garden, research and goals."
 
 #. Confirm dialog body before starting a 1:1 video call.
 #: src/features/voice/utils/CallUtils.tsx
@@ -36531,6 +36853,10 @@ msgstr "Startup"
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts
 msgid "Static Neko"
 msgstr "Static Neko"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Stats"
+msgstr "Stats"
 
 #. Tray menu submenu title for the user presence status picker.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -37199,10 +37525,18 @@ msgstr "SVC"
 msgid "SVC mode"
 msgstr "SVC mode"
 
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Swap"
+msgstr "Swap"
+
 #. Settings search entry description. One-line summary of what the settings search entry controls.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts
 msgid "Swap common text faces such as :) and <3 for emoji when sending messages"
 msgstr "Swap common text faces such as :) and <3 for emoji when sending messages"
+
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Swap this goal for another one (once a day)"
+msgstr "Swap this goal for another one (once a day)"
 
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
@@ -39430,6 +39764,10 @@ msgstr "This is your own account, and it can change every setting on this instan
 msgid "This key works while {productName} is focused. Your desktop sets the system-wide key, under {settingsTabName} > {sectionName}."
 msgstr "This key works while {productName} is focused. Your desktop sets the system-wide key, under {settingsTabName} > {sectionName}."
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "This life started"
+msgstr "This life started"
+
 #. Extra file-too-large alert sentence shown when premium upload-limit upgrades are unavailable.
 #: src/features/messaging/components/alerts/FileSizeTooLargeModal.tsx
 msgid "This limit is configured by your instance administrator."
@@ -40042,6 +40380,10 @@ msgstr "Time out {tag}"
 msgid "Time out members"
 msgstr "Time out members"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Time played"
+msgstr "Time played"
+
 #. Form label for the dropdown that picks between all-time and a custom date range.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Time range"
@@ -40082,6 +40424,10 @@ msgstr "Timeout duration"
 #: src/features/channel/components/MessageTimeoutIndicator.tsx
 msgid "Timeout until {timeoutDate}"
 msgstr "Timeout until {timeoutDate}"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Times in Bliss"
+msgstr "Times in Bliss"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts
@@ -40348,6 +40694,10 @@ msgctxt "channel-topic-field"
 msgid "Topic"
 msgstr "Topic"
 
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Total"
+msgstr "Total"
+
 #. Developer debug summary label for total message markdown parsing duration.
 #: src/features/devtools/components/debug/MessageDebugModal.tsx
 msgid "Total parsing time:"
@@ -40450,6 +40800,14 @@ msgstr "Tray icon"
 msgid "Tray icon changes only apply after a restart on Linux because the system tray protocol doesn't reliably let apps add or remove icons at runtime. Restart now to apply your change."
 msgstr "Tray icon changes only apply after a restart on Linux because the system tray protocol doesn't reliably let apps add or remove icons at runtime. Restart now to apply your change."
 
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Treats"
+msgstr "Treats"
+
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
+msgid "Treats fed"
+msgstr "Treats fed"
+
 #. Short label in the channel and chat gif picker grid. Keep it concise.
 #. Short label in the channel and chat gif picker header. Keep it concise.
 #: src/features/channel/components/pickers/gif/GifPickerGrid.tsx
@@ -40470,6 +40828,10 @@ msgstr "Trim entrance sound"
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx
 msgid "Trimmed clip is over the {limit} size limit. Try a shorter selection."
 msgstr "Trimmed clip is over the {limit} size limit. Try a shorter selection."
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Trophies"
+msgstr "Trophies"
 
 #. Native Help submenu title that groups recovery actions like reload and reset.
 #: src/features/platform/utils/DesktopLocaleBridge.ts
@@ -40677,6 +41039,10 @@ msgstr "TTS command"
 #: src/features/user/components/settings_utils/section_registry/AccessibilitySections.ts
 msgid "TTS speed"
 msgstr "TTS speed"
+
+#: src/features/catnip_cafe/CafeGoalsTab.tsx
+msgid "Tuna Flakes"
+msgstr "Tuna Flakes"
 
 #. Description for the custom option in the voice processing settings radio group.
 #: src/features/voice/components/voice_connection_status/AudioProcessingModal.tsx
@@ -43816,6 +44182,11 @@ msgctxt "keyboard-key-name"
 msgid "Wake up"
 msgstr "Wake up"
 
+#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeWardrobe.tsx
+msgid "Wardrobe"
+msgstr "Wardrobe"
+
 #. Markdown alert label for a warning callout when copied as plaintext.
 #. Warning text in the messaging block elements. Keep the tone plain and specific.
 #: src/features/messaging/components/markdown/renderers/common/BlockElements.tsx
@@ -44309,6 +44680,10 @@ msgstr "Welcome"
 #: src/features/auth/flow/AuthLoginLayout.tsx
 msgid "Welcome back"
 msgstr "Welcome back"
+
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Welcome back!"
+msgstr "Welcome back!"
 
 #. Randomly selected welcome message that appears as a system message when a user joins a community. Plural placeholder is the new member username. Tone is friendly and warm; keep variety across these strings.
 #: src/features/messaging/utils/SystemMessageUtils.tsx
@@ -44946,7 +45321,7 @@ msgstr "Yes, I have SMTP details"
 msgid "Yes, share with all friends"
 msgstr "Yes, share with all friends"
 
-#: src/features/catnip_cafe/CafePage.tsx
+#: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Yes, start over"
 msgstr "Yes, start over"
 
@@ -45711,6 +46086,11 @@ msgstr "You sign in with this username. Pick one you will remember."
 msgid "You signed in to a different account. Sign in with the account you're using here."
 msgstr "You signed in to a different account. Sign in with the account you're using here."
 
+#. placeholder {0}: formatDuration(welcome.awayMs)
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "You were away for {0}."
+msgstr "You were away for {0}."
+
 #. Voice chat status tooltip for the current user. A moderator deafened them so they cannot hear voice chat.
 #: src/features/voice/utils/VoiceMessageDescriptors.ts
 msgid "You were deafened by moderators"
@@ -46195,6 +46575,11 @@ msgstr "Your browser lets you choose whether to include audio when you pick what
 msgid "Your browser requires user interaction before audio can be played. Click the button below to enable voice chat."
 msgstr "Your browser requires user interaction before audio can be played. Click the button below to enable voice chat."
 
+#. placeholder {0}: formatDuration(Cafe.awayCapMs)
+#: src/features/catnip_cafe/CafePage.tsx
+msgid "Your café earns for up to {0} while you're away."
+msgstr "Your café earns for up to {0} while you're away."
+
 #. Line in the dialog where you pick who gets one of your Operator Passes. The certificate is the Operator certificate PDF with the name chosen at checkout, and passing the pass on does not change it.
 #: src/features/premium/components/operator_pass/OperatorPassPassItOnModal.tsx
 msgid "Your certificate doesn't change."
@@ -46227,6 +46612,10 @@ msgstr "Your code"
 #: src/features/auth/flow/HandoffCodeDisplay.tsx
 msgid "Your code is ready"
 msgstr "Your code is ready"
+
+#: src/features/catnip_cafe/CafeCatsTab.tsx
+msgid "Your collection is full"
+msgstr "Your collection is full"
 
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx
 msgid "Your community is listed in Explore. You can update your listing details below or withdraw to remove it."

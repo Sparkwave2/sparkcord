@@ -18,7 +18,42 @@ export type CafeSoundName =
 	| 'lucky-appear'
 	| 'lucky-catch'
 	| 'achievement'
-	| 'new-life';
+	| 'new-life'
+	| 'mouse-appear'
+	| 'mouse-catch'
+	| 'treat'
+	| 'harvest'
+	| 'adopt'
+	| 'goal'
+	| 'bliss';
+
+const ALL_SOUNDS: ReadonlyArray<CafeSoundName> = [
+	'pet',
+	'buy',
+	'upgrade',
+	'lucky-appear',
+	'lucky-catch',
+	'achievement',
+	'new-life',
+	'mouse-appear',
+	'mouse-catch',
+	'treat',
+	'harvest',
+	'adopt',
+	'goal',
+	'bliss',
+];
+
+/** Sounds that borrow another one until a file of their own is added (null: stay silent). */
+const FALLBACK: Partial<Record<CafeSoundName, CafeSoundName | null>> = {
+	'mouse-appear': null,
+	'mouse-catch': 'buy',
+	treat: 'pet',
+	harvest: 'buy',
+	adopt: 'achievement',
+	goal: 'upgrade',
+	bliss: 'lucky-appear',
+};
 
 const SOUND_BASE = '/assets/catnip-cafe/sounds/';
 const EXTENSION_ORDER = ['ogg', 'mp3', 'opus', 'webm', 'm4a', 'wav', 'flac'];
@@ -82,9 +117,7 @@ class CafeSoundPlayer {
 
 	/** Start fetching the sounds so the first pet isn't late. */
 	preload(): void {
-		for (const name of ['pet', 'buy', 'upgrade', 'lucky-appear', 'lucky-catch', 'achievement', 'new-life']) {
-			void this.load(name);
-		}
+		for (const name of ALL_SOUNDS) void this.load(name);
 		for (let i = 1; i <= PET_VARIANTS; i++) void this.load(`pet-${i}`);
 	}
 
@@ -101,15 +134,7 @@ class CafeSoundPlayer {
 	private async playFile(name: CafeSoundName): Promise<void> {
 		const context = this.ensureContext();
 		if (!context || !this.gain) return;
-		let buffer: AudioBuffer | null = null;
-		if (name === 'pet') {
-			const variants = (
-				await Promise.all(Array.from({length: PET_VARIANTS}, (_, i) => this.load(`pet-${i + 1}`)))
-			).filter((b): b is AudioBuffer => b !== null);
-			buffer = variants.length > 0 ? variants[Math.floor(Math.random() * variants.length)] : await this.load('pet');
-		} else {
-			buffer = await this.load(name);
-		}
+		const buffer = await this.bufferFor(name);
 		if (!buffer || this.muted) return;
 		if (context.state === 'suspended') {
 			try {
@@ -121,7 +146,7 @@ class CafeSoundPlayer {
 		const source = context.createBufferSource();
 		source.buffer = buffer;
 		// A little pitch wobble keeps repeated pets and purchases from sounding robotic.
-		if (name === 'pet' || name === 'buy') source.playbackRate.value = 0.93 + Math.random() * 0.14;
+		if (name === 'pet' || name === 'buy' || name === 'treat') source.playbackRate.value = 0.93 + Math.random() * 0.14;
 		source.connect(this.gain);
 		this.playing++;
 		source.onended = () => {
@@ -129,6 +154,21 @@ class CafeSoundPlayer {
 			source.disconnect();
 		};
 		source.start();
+	}
+
+	/** The sound to play for a name: a random pet variant, the file itself, or its fallback. */
+	private async bufferFor(name: CafeSoundName): Promise<AudioBuffer | null> {
+		if (name === 'pet') {
+			const variants = (
+				await Promise.all(Array.from({length: PET_VARIANTS}, (_, i) => this.load(`pet-${i + 1}`)))
+			).filter((b): b is AudioBuffer => b !== null);
+			if (variants.length > 0) return variants[Math.floor(Math.random() * variants.length)];
+			return this.load('pet');
+		}
+		const own = await this.load(name);
+		if (own) return own;
+		const fallback = FALLBACK[name];
+		return fallback ? this.bufferFor(fallback) : null;
 	}
 
 	private ensureContext(): AudioContext | null {

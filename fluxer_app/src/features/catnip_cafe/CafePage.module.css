@@ -43,7 +43,8 @@
 	background:
 		radial-gradient(circle at 50% 55%, color-mix(in srgb, #ffb86b 22%, transparent) 0%, transparent 60%),
 		var(--background-secondary);
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	user-select: none;
 }
 
@@ -92,7 +93,7 @@
 }
 
 .cat {
-	width: min(15rem, 60vw);
+	width: min(14rem, 60vw, 34vh);
 	height: auto;
 	filter: drop-shadow(0 8px 18px rgb(0 0 0 / 0.35));
 }
@@ -135,11 +136,17 @@
 	animation: cafeSlideIn 0.25s ease-out;
 }
 
-/* Top right of the stage, on its own row above the title: mute button and volume. */
-.sound {
-	align-self: flex-end;
+/* The row above the title: wardrobe on the left, mute button and volume on the right. */
+.stageTop {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	align-self: stretch;
 	z-index: 3;
-	margin: calc(-1 * var(--spacing-2)) calc(-1 * var(--spacing-1)) 0 0;
+	margin: calc(-1 * var(--spacing-2)) calc(-1 * var(--spacing-1)) 0;
+}
+
+.sound {
 	display: flex;
 	align-items: center;
 	gap: 0.25rem;
@@ -186,6 +193,7 @@
 
 .tabs {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 0.25rem;
 	padding: 0.375rem;
 	border-bottom: 1px solid var(--background-modifier-accent);
@@ -201,6 +209,7 @@
 	font: inherit;
 	font-size: 0.8125rem;
 	font-weight: 600;
+	white-space: nowrap;
 	cursor: pointer;
 }
 
@@ -261,6 +270,8 @@
 .affordable {
 	opacity: 1;
 	cursor: pointer;
+	/* A soft glow the moment something becomes affordable. */
+	animation: cafeGlow 1.1s ease-out;
 }
 
 .affordable:hover {
@@ -284,6 +295,13 @@
 	width: 2rem;
 	font-size: 1.5rem;
 	text-align: center;
+}
+
+img.upgradeEmoji,
+img.helperEmoji {
+	height: 1.75rem;
+	padding: 0 0.125rem;
+	object-fit: contain;
 }
 
 .upgradeText,
@@ -551,13 +569,13 @@
 	}
 }
 
+/* Entrance animations start visible: the app pauses all animations while its window is
+   unfocused, and a paused fade-in would leave things invisible. */
 @keyframes cafeSlideIn {
 	from {
-		opacity: 0;
 		transform: translateY(8px);
 	}
 	to {
-		opacity: 1;
 		transform: translateY(0);
 	}
 }
@@ -580,12 +598,988 @@
 	}
 }
 
+@keyframes cafeGlow {
+	0% {
+		box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-primary) 70%, transparent);
+	}
+	100% {
+		box-shadow: 0 0 0 10px transparent;
+	}
+}
+
+/* ----- the cat's own animations ----- */
+
+.catEyes {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: cafeBlink 5.3s infinite;
+}
+
+.catEar {
+	transform-box: fill-box;
+	transform-origin: 70% 90%;
+	animation: cafeEarTwitch 7.7s infinite;
+}
+
+.catTail {
+	transform-box: fill-box;
+	transform-origin: 0% 100%;
+	animation: cafeTail 2.6s ease-in-out infinite alternate;
+}
+
+.catBliss .cat {
+	filter: drop-shadow(0 0 18px #ff9ad5) drop-shadow(0 8px 18px rgb(0 0 0 / 0.35));
+}
+
+@keyframes cafeBlink {
+	0%,
+	93%,
+	100% {
+		transform: scaleY(1);
+	}
+	95% {
+		transform: scaleY(0.1);
+	}
+	97% {
+		transform: scaleY(1);
+	}
+}
+
+@keyframes cafeEarTwitch {
+	0%,
+	88%,
+	100% {
+		transform: rotate(0);
+	}
+	90% {
+		transform: rotate(-14deg);
+	}
+	92% {
+		transform: rotate(4deg);
+	}
+	94% {
+		transform: rotate(-8deg);
+	}
+}
+
+@keyframes cafeTail {
+	from {
+		transform: rotate(-8deg);
+	}
+	to {
+		transform: rotate(10deg);
+	}
+}
+
+/* ----- stage extras ----- */
+
+.buffBliss {
+	background: #ff7eb6;
+	color: #2b0a1d;
+}
+
+.moodRow {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: min(18rem, 100%);
+	margin-top: 0.25rem;
+	font-size: 0.8125rem;
+}
+
+.moodLabel {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	min-width: 5.5rem;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.moodBar {
+	flex: 1;
+	height: 0.5rem;
+	border-radius: var(--radius-full);
+	background: var(--background-modifier-accent);
+	overflow: hidden;
+}
+
+.moodFill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(90deg, #ffb86b, #ff7eb6);
+	transition: width 0.25s ease;
+}
+
+.moodBliss .moodFill {
+	background: linear-gradient(90deg, #ff7eb6, #c3a6ff, #4cc9f0, #ff7eb6);
+	background-size: 300% 100%;
+	animation: cafeRainbow 2s linear infinite;
+}
+
+@keyframes cafeRainbow {
+	to {
+		background-position: 300% 0;
+	}
+}
+
+.rhythm {
+	min-width: 3rem;
+	color: var(--text-secondary);
+	font-weight: 700;
+	text-align: end;
+	font-variant-numeric: tabular-nums;
+}
+
+.rhythmFull {
+	color: #ff7eb6;
+	animation: cafePulse 0.4s ease-in-out infinite alternate;
+}
+
+.inlineEmoji {
+	display: inline-block;
+	width: 1.1em;
+	height: 1.1em;
+	vertical-align: -0.2em;
+	object-fit: contain;
+}
+
+.treats {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	margin-top: var(--spacing-2);
+}
+
+.treat {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.25rem 0.5rem;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: var(--radius-full);
+	background: var(--background-primary);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.75rem;
+	font-weight: 700;
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.treat.affordable:hover {
+	border-color: var(--brand-primary);
+}
+
+.treatEmoji {
+	width: 1.25rem;
+	height: 1.25rem;
+	object-fit: contain;
+}
+
+.treatCount {
+	font-variant-numeric: tabular-nums;
+}
+
+.treatHint {
+	color: var(--text-tertiary);
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.particle {
+	position: absolute;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	color: #ffd08a;
+	font-size: 1rem;
+	animation: cafeBurst 0.8s ease-out forwards;
+}
+
+.particleHeart {
+	color: #ff7eb6;
+	font-size: 1.125rem;
+}
+
+@keyframes cafeBurst {
+	from {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(0.6);
+	}
+	to {
+		opacity: 0;
+		transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1);
+	}
+}
+
+.mouse {
+	position: absolute;
+	z-index: 2;
+	padding: 0.25rem;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+}
+
+.mouseEmoji {
+	width: 2rem;
+	height: 2rem;
+}
+
+.mouseRight {
+	left: 0;
+	animation-name: cafeMouseRight;
+}
+
+.mouseRight .mouseEmoji {
+	transform: scaleX(-1);
+}
+
+.mouseLeft {
+	left: 0;
+	animation-name: cafeMouseLeft;
+}
+
+@keyframes cafeMouseRight {
+	0% {
+		left: -2.5rem;
+	}
+	45% {
+		left: 45%;
+	}
+	55% {
+		left: 52%;
+	}
+	100% {
+		left: 105%;
+	}
+}
+
+@keyframes cafeMouseLeft {
+	0% {
+		left: 105%;
+	}
+	45% {
+		left: 52%;
+	}
+	55% {
+		left: 45%;
+	}
+	100% {
+		left: -2.5rem;
+	}
+}
+
+.luckyEmoji {
+	width: 2.75rem;
+	height: 2.75rem;
+}
+
+/* ----- welcome back and celebrations ----- */
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	display: grid;
+	place-items: center;
+	padding: var(--spacing-3);
+	background: color-mix(in srgb, var(--background-secondary) 75%, transparent);
+	backdrop-filter: blur(4px);
+}
+
+.welcome {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.375rem;
+	max-width: 20rem;
+	padding: var(--spacing-4);
+	border-radius: var(--radius-lg);
+	background: var(--background-primary);
+	text-align: center;
+	box-shadow: 0 12px 32px rgb(0 0 0 / 0.35);
+	animation: cafePop 0.3s ease-out;
+}
+
+.welcomeCat {
+	width: 6rem;
+	height: auto;
+}
+
+.welcomeTitle {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 800;
+}
+
+.welcomeLine {
+	margin: 0;
+	color: var(--text-secondary);
+	font-size: 0.875rem;
+}
+
+.welcomeBig {
+	margin: 0.25rem 0;
+	font-size: 1.75rem;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+}
+
+.welcomeList {
+	margin: 0 0 0.5rem;
+	padding: 0;
+	color: var(--text-secondary);
+	font-size: 0.8125rem;
+	list-style: none;
+}
+
+.celebration {
+	position: absolute;
+	inset: 0;
+	z-index: 4;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.confetti {
+	position: absolute;
+	top: -10px;
+	width: 7px;
+	height: 12px;
+	border-radius: 2px;
+	animation: cafeConfetti 1.8s ease-in forwards;
+}
+
+@keyframes cafeConfetti {
+	from {
+		transform: translate(0, 0) rotate(0);
+		opacity: 1;
+	}
+	to {
+		transform: translate(var(--drift), 70vh) rotate(540deg);
+		opacity: 0;
+	}
+}
+
+.celebrationBanner {
+	position: absolute;
+	top: 3.25rem;
+	left: 50%;
+	padding: 0.5rem 0.875rem;
+	border-radius: var(--radius-full);
+	background: linear-gradient(90deg, #ffd166, #ff7eb6);
+	color: #2b1a00;
+	font-size: 0.8125rem;
+	white-space: nowrap;
+	box-shadow: 0 6px 18px rgb(0 0 0 / 0.3);
+	transform: translateX(-50%);
+	animation: cafeBanner 3.5s ease forwards;
+}
+
+@keyframes cafeBanner {
+	0% {
+		opacity: 1;
+		transform: translate(-50%, -12px) scale(0.9);
+	}
+	10%,
+	85% {
+		opacity: 1;
+		transform: translate(-50%, 0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -8px);
+	}
+}
+
+@keyframes cafePop {
+	from {
+		transform: scale(0.94);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+/* ----- wardrobe ----- */
+
+.wardrobe {
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	background: var(--background-secondary);
+	animation: cafePop 0.2s ease-out;
+}
+
+.wardrobeHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--spacing-3);
+	border-bottom: 1px solid var(--background-modifier-accent);
+}
+
+.wardrobeBody {
+	flex: 1;
+	min-height: 0;
+	padding: 0 var(--spacing-3) var(--spacing-3);
+	overflow-y: auto;
+}
+
+.wardrobeGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+	gap: 0.375rem;
+}
+
+.wardrobeItem {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.125rem;
+	padding: 0.375rem;
+	border: 2px solid transparent;
+	border-radius: var(--radius-md);
+	background: var(--background-primary);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.6875rem;
+	text-align: center;
+	cursor: pointer;
+}
+
+.wardrobeItem:hover {
+	border-color: var(--background-modifier-accent);
+}
+
+.wardrobeActive,
+.wardrobeActive:hover {
+	border-color: var(--brand-primary);
+}
+
+.wardrobeLocked {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.wardrobePreview {
+	width: 3.75rem;
+	height: auto;
+}
+
+/* ----- shared bits for the tabs ----- */
+
+.tabBadge {
+	display: inline-grid;
+	place-items: center;
+	min-width: 1.1rem;
+	height: 1.1rem;
+	margin-inline-start: 0.25rem;
+	padding: 0 0.25rem;
+	border-radius: var(--radius-full);
+	background: var(--status-danger);
+	color: #fff;
+	font-size: 0.6875rem;
+	font-weight: 800;
+}
+
+.sectionTitle {
+	margin: var(--spacing-3) 0 var(--spacing-2);
+	font-size: 0.875rem;
+	font-weight: 800;
+}
+
+.priceColumn {
+	display: flex;
+	flex-shrink: 0;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.waitHint {
+	color: var(--text-tertiary);
+	font-size: 0.6875rem;
+	font-weight: 500;
+}
+
+.helperInfo {
+	color: var(--text-secondary);
+	font-size: 0.6875rem;
+}
+
+.tierBar {
+	display: block;
+	width: 100%;
+	height: 0.25rem;
+	margin-top: 0.25rem;
+	border-radius: var(--radius-full);
+	background: var(--background-modifier-accent);
+	overflow: hidden;
+}
+
+.tierFill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--brand-primary);
+	transition: width 0.3s ease;
+}
+
+.smallButton {
+	padding: 0.1875rem 0.5rem;
+	border: 0;
+	border-radius: var(--radius-sm);
+	background: var(--background-modifier-hover);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.75rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.smallButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.smallDanger {
+	background: var(--status-danger);
+	color: #fff;
+}
+
+.buttonDisabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.glow {
+	animation: cafeGlowLoop 1.4s ease-in-out infinite;
+}
+
+@keyframes cafeGlowLoop {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-primary) 60%, transparent);
+	}
+	50% {
+		box-shadow: 0 0 0 6px transparent;
+	}
+}
+
+.segmented {
+	display: inline-flex;
+	gap: 0.125rem;
+	margin-bottom: var(--spacing-3);
+	padding: 0.125rem;
+	border-radius: var(--radius-md);
+	background: var(--background-primary);
+}
+
+/* ----- cats tab ----- */
+
+.adoptBox {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.5rem;
+	padding: var(--spacing-3);
+	border-radius: var(--radius-md);
+	background: var(--background-primary);
+	font-size: 0.8125rem;
+}
+
+.adoptBox p {
+	margin: 0;
+	color: var(--text-secondary);
+}
+
+.catGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 0.375rem;
+}
+
+.catCard {
+	display: flex;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	border: 2px solid var(--background-modifier-accent);
+	border-radius: var(--radius-md);
+	background: var(--background-primary);
+}
+
+.rarity_uncommon {
+	border-color: #3ba55d;
+}
+
+.rarity_rare {
+	border-color: #4c8dff;
+}
+
+.rarity_legendary {
+	border-color: #ffb020;
+	background: linear-gradient(135deg, color-mix(in srgb, #ffb020 12%, var(--background-primary)), var(--background-primary));
+}
+
+.catResident {
+	box-shadow: inset 0 0 0 1px var(--brand-primary);
+}
+
+.catCardFace {
+	flex-shrink: 0;
+	width: 3.75rem;
+	height: auto;
+}
+
+.catCardText {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 0.125rem;
+	min-width: 0;
+}
+
+.catName {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 800;
+	text-align: start;
+	cursor: text;
+}
+
+.catMeta {
+	color: var(--text-tertiary);
+	font-size: 0.6875rem;
+}
+
+.catTrait {
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.catActions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin-top: 0.25rem;
+}
+
+.renameRow {
+	display: flex;
+	gap: 0.25rem;
+}
+
+.renameInput {
+	flex: 1;
+	min-width: 0;
+	padding: 0.125rem 0.375rem;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: var(--radius-sm);
+	background: var(--background-secondary);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.8125rem;
+}
+
+/* ----- garden tab ----- */
+
+.gardenHeader,
+.goalsHeader {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-bottom: var(--spacing-2);
+	font-size: 0.8125rem;
+}
+
+.catnipCount {
+	font-size: 1.125rem;
+	font-weight: 800;
+}
+
+.plotGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+	gap: 0.375rem;
+}
+
+.plot {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+	min-height: 7.5rem;
+	padding: 0.5rem;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: var(--radius-md);
+	background:
+		linear-gradient(180deg, transparent 55%, color-mix(in srgb, #8a5a2b 35%, transparent) 55%),
+		var(--background-primary);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.75rem;
+}
+
+.plotEmpty {
+	border-style: dashed;
+}
+
+.plotReady {
+	border-color: #3ba55d;
+	box-shadow: 0 0 12px color-mix(in srgb, #3ba55d 45%, transparent);
+}
+
+.plotBuy {
+	border-style: dashed;
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.plotEmoji {
+	width: 2.25rem;
+	height: 2.25rem;
+}
+
+.plotGrowing {
+	opacity: 0.7;
+	animation: cafeSway 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes cafeSway {
+	from {
+		transform: rotate(-5deg);
+	}
+	to {
+		transform: rotate(5deg);
+	}
+}
+
+.plotName {
+	font-weight: 700;
+}
+
+.plotClear {
+	position: absolute;
+	top: 0.125rem;
+	right: 0.25rem;
+	padding: 0 0.25rem;
+	border: 0;
+	background: none;
+	color: var(--text-tertiary);
+	font: inherit;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.plotClear:hover {
+	color: var(--status-danger);
+}
+
+.plantButton {
+	padding: 0.375rem 0.75rem;
+	border: 0;
+	border-radius: var(--radius-md);
+	background: var(--background-modifier-hover);
+	color: var(--text-primary);
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.seedList {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	width: 100%;
+}
+
+.seedButton {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	padding: 0.25rem;
+	border: 0;
+	border-radius: var(--radius-sm);
+	background: var(--background-secondary);
+	color: var(--text-primary);
+	font: inherit;
+	font-size: 0.75rem;
+	text-align: start;
+	cursor: pointer;
+}
+
+.seedButton:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.seedEmoji {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.seedMeta {
+	display: block;
+	color: var(--text-tertiary);
+	font-size: 0.6875rem;
+}
+
+.researchColumns {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	gap: var(--spacing-3);
+}
+
+.researchBranch {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+}
+
+.branchTitle {
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.researchLocked {
+	opacity: 0.3;
+}
+
+/* ----- goals tab ----- */
+
+.streak {
+	padding: 0.125rem 0.5rem;
+	border-radius: var(--radius-full);
+	background: color-mix(in srgb, #ff8c42 20%, transparent);
+	font-weight: 700;
+}
+
+.goalList {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+}
+
+.goal,
+.chest {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	padding: 0.625rem;
+	border-radius: var(--radius-md);
+	background: var(--background-primary);
+}
+
+.goalClaimed {
+	opacity: 0.6;
+}
+
+.goalText {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 0.125rem;
+	min-width: 0;
+}
+
+.goalCheck {
+	color: var(--status-online, #3ba55d);
+	font-size: 1.25rem;
+	font-weight: 800;
+}
+
+.chest {
+	margin-top: var(--spacing-3);
+	border: 1px dashed var(--background-modifier-accent);
+}
+
+.chestReady {
+	border: 1px solid #ffb020;
+	box-shadow: 0 0 14px color-mix(in srgb, #ffb020 40%, transparent);
+}
+
+.chestEmoji {
+	width: 2.25rem;
+	height: 2.25rem;
+}
+
+/* ----- trophies tab ----- */
+
+.statList {
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+	margin: 0;
+}
+
+.statRow {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--spacing-2);
+	padding: 0.3125rem 0.5rem;
+	border-radius: var(--radius-sm);
+	background: var(--background-primary);
+	font-size: 0.8125rem;
+}
+
+.statRow dt {
+	color: var(--text-secondary);
+}
+
+.statRow dd {
+	margin: 0;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.statTotal {
+	outline: 1px solid var(--brand-primary);
+}
+
+img.achievementIcon {
+	height: 1.5rem;
+	object-fit: contain;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.catButton,
 	.floater,
+	.particle,
 	.notice,
 	.buff,
-	.lucky {
+	.lucky,
+	.affordable,
+	.glow,
+	.catEyes,
+	.catEar,
+	.catTail,
+	.plotGrowing,
+	.rhythmFull,
+	.moodBliss .moodFill,
+	.welcome,
+	.wardrobe,
+	.confetti {
 		animation: none;
 	}
 }

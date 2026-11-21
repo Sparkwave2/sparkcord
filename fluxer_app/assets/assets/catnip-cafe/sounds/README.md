@@ -15,6 +15,13 @@ file triggers a rebuild; refresh the café afterwards.
 | `lucky-catch`  | you catch the Lucky Cat                      |
 | `achievement`  | you unlock an achievement                    |
 | `new-life`     | you start a new life (Nine Lives)            |
+| `mouse-appear` | a mouse starts running across (silent without a file) |
+| `mouse-catch`  | you catch a mouse (uses `buy` without a file) |
+| `treat`        | you feed the cat a treat (uses `pet` without a file) |
+| `harvest`      | you harvest catnip (uses `buy` without a file) |
+| `adopt`        | a new cat joins (uses `achievement` without a file) |
+| `goal`         | a daily goal is done (uses `upgrade` without a file) |
+| `bliss`        | the cat reaches Bliss (uses `lucky-appear` without a file) |
 
 Keep them short (under a second or two, except `new-life` and `achievement`) and small.
 Pet and buy sounds are played with a slight random pitch change so repeats don't sound identical.

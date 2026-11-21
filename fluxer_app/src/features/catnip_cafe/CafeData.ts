@@ -4,6 +4,8 @@
 // upgrades multiply them, achievements add a little everywhere, and Nine Lives perks carry
 // over when you start over.
 
+import type {Progress} from '@app/features/catnip_cafe/CafeWorld';
+
 export interface HelperDef {
 	id: string;
 	name: string;
@@ -109,7 +111,7 @@ export const UPGRADES: ReadonlyArray<UpgradeDef> = [
 		(n): UpgradeDef => ({
 			id: `pet-share-${n}`,
 			name: ['Belly Rub (Risky)', 'Slow Blink', 'Head Bonk', 'Biscuit Kneading', 'Loaf Mode', 'Ancient Purr'][n - 1],
-			emoji: ['🫃', '😌', '🤕', '🍞', '🍞', '🔮'][n - 1],
+			emoji: ['🫃', '😌', '🤕', '🍪', '🍞', '🔮'][n - 1],
 			description: 'Each pet also earns 1% of your purrs per second.',
 			cost: 10 ** (4 + n * 2),
 			effect: {kind: 'petShare', share: 0.01},
@@ -197,14 +199,7 @@ export interface AchievementDef {
 	id: string;
 	name: string;
 	description: string;
-	check: (s: {
-		lifetimeAll: number;
-		owned: Record<string, number>;
-		pets: number;
-		luckyCaught: number;
-		lives: number;
-		pps: number;
-	}) => boolean;
+	check: (s: Progress) => boolean;
 }
 
 function achievements(): Array<AchievementDef> {
@@ -272,6 +267,27 @@ function achievements(): Array<AchievementDef> {
 			check: (s) => s.lives >= need,
 		});
 	});
+	const counted = (
+		prefix: string,
+		names: Array<string>,
+		needs: Array<number>,
+		value: (s: Progress) => number,
+		describe: (need: number) => string,
+	) => {
+		needs.forEach((need, index) => {
+			list.push({id: `${prefix}-${index}`, name: names[index], description: describe(need), check: (s) => value(s) >= need});
+		});
+	};
+	const plural = (need: number, one: string, many: string) => `${need.toLocaleString('en')} ${need === 1 ? one : many}`;
+	counted('cats', ['First Friend', 'Cat Lady', 'Full House', 'Crazy Cat Person'], [1, 5, 15, 30], (s) => s.catsAdopted, (n) => `Adopt ${plural(n, 'cat', 'cats')}.`);
+	counted('legend', ['Living Legend'], [1], (s) => s.legendaryCats, () => 'Adopt a legendary cat.');
+	counted('mice', ['Mouser', 'Exterminator', 'Pied Piper'], [1, 25, 100], (s) => s.miceCaught, (n) => `Catch ${plural(n, 'mouse', 'mice')}.`);
+	counted('harvest', ['First Harvest', 'Green Paws', 'Catnip Baron'], [1, 25, 100], (s) => s.harvests, (n) => `Harvest ${plural(n, 'plant', 'plants')}.`);
+	counted('treats', ['Spoiled', 'Treat Yourself'], [10, 100], (s) => s.treatsEaten, (n) => `Feed ${plural(n, 'treat', 'treats')}.`);
+	counted('bliss', ['Pure Bliss', 'Bliss Addict'], [1, 25], (s) => s.blissCount, (n) => `Reach Bliss ${plural(n, 'time', 'times')}.`);
+	counted('goals', ['Goal Getter', 'Dedicated', 'Unstoppable'], [3, 30, 150], (s) => s.goalsDone, (n) => `Finish ${plural(n, 'daily goal', 'daily goals')}.`);
+	counted('streak', ['Habit Forming', 'A Week of Purrs', 'Monthly Devotion'], [3, 7, 30], (s) => s.longestStreak, (n) => `Finish all daily goals ${n} days in a row.`);
+	counted('research', ['Curious Cat', 'Scholar', 'Know-It-All'], [1, 8, 17], (s) => s.research, (n) => `Finish ${plural(n, 'research project', 'research projects')}.`);
 	return list;
 }
 
