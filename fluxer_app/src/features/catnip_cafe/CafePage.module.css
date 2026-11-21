@@ -766,6 +766,10 @@ img.helperEmoji {
 	font: inherit;
 	font-size: 0.75rem;
 	font-weight: 700;
+	cursor: pointer;
+}
+
+.treat:disabled {
 	opacity: 0.55;
 	cursor: not-allowed;
 }

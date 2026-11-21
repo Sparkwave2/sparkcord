@@ -2303,8 +2303,8 @@ export const GuildsLayout = observer(({children}: {children: React.ReactNode}) =
 		afterBootReveal(preloadMacPermissionsModal);
 	}, []);
 	const shouldShowSidebarDivider = !mobileLayout.enabled;
-	// The Catnip Café has no channel list, so there's no sidebar to resize (the handle would only
-	// stretch the user bar over the café).
+	// The Catnip Café has no channel list, so there is no sidebar: no divider line across the café
+	// and no resize handle (which would only stretch the user bar).
 	const isCatnipCafe = location.pathname === Routes.CATNIP_CAFE;
 	return (
 		<div
@@ -2335,7 +2335,7 @@ export const GuildsLayout = observer(({children}: {children: React.ReactNode}) =
 					<OutlineFrame
 						className={clsx(styles.outlineFrame, isVoiceCallFullscreenActive && styles.outlineFrameFullscreen)}
 						cornerCap={!isVoiceCallFullscreenActive}
-						sidebarDivider={!isVoiceCallFullscreenActive && shouldShowSidebarDivider}
+						sidebarDivider={!isVoiceCallFullscreenActive && shouldShowSidebarDivider && !isCatnipCafe}
 						sidebarResizeHandle={!isVoiceCallFullscreenActive && shouldShowSidebarDivider && !isCatnipCafe}
 						nagbar={
 							isVoiceCallFullscreenActive ? null : (
