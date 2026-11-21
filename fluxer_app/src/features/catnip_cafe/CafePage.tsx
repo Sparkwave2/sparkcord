@@ -224,6 +224,19 @@ export const CafePage = observer(function CafePage() {
 	useEffect(() => () => {
 		if (petTimer.current) clearTimeout(petTimer.current);
 	}, []);
+	// The eyes follow the pointer anywhere in the window, not just over the cat's panel.
+	useEffect(() => {
+		const onPointerMove = (event: PointerEvent) => {
+			const cat = catRef.current?.getBoundingClientRect();
+			if (!cat) return;
+			const clamp = (value: number) => Math.max(-1, Math.min(1, value));
+			const x = clamp((event.clientX - (cat.left + cat.width / 2)) / (cat.width * 0.8));
+			const y = clamp((event.clientY - (cat.top + cat.height * 0.45)) / (cat.height * 0.8));
+			setLook((look) => (Math.abs(x - look.x) > 0.05 || Math.abs(y - look.y) > 0.05 ? {x, y} : look));
+		};
+		window.addEventListener('pointermove', onPointerMove, {passive: true});
+		return () => window.removeEventListener('pointermove', onPointerMove);
+	}, []);
 
 	if (Cafe.loadFailed) {
 		return (
@@ -250,14 +263,6 @@ export const CafePage = observer(function CafePage() {
 		if (petTimer.current) clearTimeout(petTimer.current);
 		petTimer.current = setTimeout(() => setJustPetted(false), 450);
 	};
-	const onPointerMove = (event: React.PointerEvent) => {
-		const cat = catRef.current?.getBoundingClientRect();
-		if (!cat) return;
-		const clamp = (value: number) => Math.max(-1, Math.min(1, value));
-		const x = clamp((event.clientX - (cat.left + cat.width / 2)) / (cat.width * 0.8));
-		const y = clamp((event.clientY - (cat.top + cat.height * 0.45)) / (cat.height * 0.8));
-		if (Math.abs(x - look.x) > 0.05 || Math.abs(y - look.y) > 0.05) setLook({x, y});
-	};
 
 	const buff = Cafe.activeBuff;
 	const bliss = Cafe.blissActive;
@@ -281,7 +286,7 @@ export const CafePage = observer(function CafePage() {
 
 	return (
 		<div className={styles.page}>
-			<div className={styles.stage} ref={stageRef} onPointerMove={onPointerMove}>
+			<div className={styles.stage} ref={stageRef}>
 				<div className={styles.stageTop}>
 					<button
 						type="button"

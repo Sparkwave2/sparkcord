@@ -245,7 +245,8 @@ export function CafeCat({
 	const clipId = `cafe-head-${uid}`;
 	const earFill = coat.points ?? coat.furDark;
 	return (
-		<svg viewBox="-20 -40 240 250" className={className} aria-hidden="true">
+		// overflow: the swishing tail reaches past the right edge of the drawing area.
+		<svg viewBox="-20 -40 240 250" className={className} overflow="visible" aria-hidden="true">
 			<defs>
 				<radialGradient id={furId} cx="50%" cy="40%" r="65%">
 					<stop offset="0%" stopColor={coat.fur} />
