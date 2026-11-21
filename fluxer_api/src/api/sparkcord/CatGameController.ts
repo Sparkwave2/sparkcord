@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 //
-// Sparkcord Catnip Café (the idle cat game): keeps each player's save on the server so it
-// follows them between devices, plus the public numbers others may see (purrs earned in
+// Sparkcord Catnip Café (the idle cat game): keeps each player's saves on the server so they
+// follow them between devices, plus the public numbers others may see (purrs earned in
 // total, Lives), for the per-community leaderboard and the line on profiles. The game runs
 // in the app; the server only stores what it is given, after basic sanity checks.
+//
+// Each player has 3 save slots. The slot they play is the "active" one (kept here so all
+// their devices agree), and only the active slot's numbers are public.
 
 import {LoginRequired} from '@app/api/middleware/AuthMiddleware';
 import {RateLimitMiddleware} from '@app/api/middleware/RateLimitMiddleware';
@@ -12,10 +15,15 @@ import {getGuildRepository} from '@app/api/middleware/ServiceSingletons';
 import {RateLimitConfigs} from '@app/api/RateLimitConfig';
 import type {HonoApp} from '@app/api/types/HonoEnv';
 import {Validator} from '@app/api/Validator';
+import type {IKVProvider} from '@pkgs/kv_client/src/IKVProvider';
 import {z} from 'zod';
 
-const SAVE_KEY = (userId: string) => `sparkcord:catgame:save:${userId}`;
+// Slot 1 keeps the key the game used before it had slots.
+const SAVE_KEY = (userId: string, slot: number) =>
+	slot === 1 ? `sparkcord:catgame:save:${userId}` : `sparkcord:catgame:save:${userId}:${slot}`;
+const ACTIVE_KEY = (userId: string) => `sparkcord:catgame:active:${userId}`;
 const STATS_KEY = (userId: string) => `sparkcord:catgame:stats:${userId}`;
+const SLOTS = [1, 2, 3] as const;
 const MAX_SAVE_BYTES = 64 * 1024;
 const MAX_QUERY_USERS = 100;
 const MAX_LEADERBOARD_MEMBERS = 2000;
@@ -27,18 +35,41 @@ interface PublicStats {
 	updated_at: number;
 }
 
+interface StoredSave {
+	save: string;
+	updated_at: number;
+	purrs?: number;
+	lives?: number;
+}
+
 const finite = z.number().finite().min(0).max(1e300);
+const Slot = z.number().int().min(1).max(3);
+const SlotQuery = z.object({slot: z.enum(['1', '2', '3']).optional()});
 
 const SaveRequest = z.object({
 	save: z.string().max(MAX_SAVE_BYTES),
 	lifetime_purrs: finite,
 	lives: finite,
+	// The slot to store into; the active slot when left out (older clients).
+	slot: Slot.optional(),
 	// The version (updated_at) the client last loaded or stored. When the stored save has moved
 	// on since (another tab or device saved), the write is refused with 409 and the newer save,
 	// so one copy of the game never overwrites another's progress. Older clients leave it out.
 	base_updated_at: z.number().nullable().optional(),
 });
-const SaveResponse = z.object({save: z.string().nullable(), updated_at: z.number().nullable()});
+const SaveResponse = z.object({
+	save: z.string().nullable(),
+	updated_at: z.number().nullable(),
+	slot: Slot,
+});
+const SlotSummary = z.object({
+	slot: Slot,
+	updated_at: z.number().nullable(),
+	purrs: z.number(),
+	lives: z.number(),
+});
+const SlotsResponse = z.object({active: Slot, slots: z.array(SlotSummary)});
+const ActiveSlotRequest = z.object({slot: Slot});
 const StatsEntry = z.object({purrs: z.number(), lives: z.number()});
 const StatsQueryRequest = z.object({user_ids: z.array(z.string().regex(/^\d{1,20}$/)).max(MAX_QUERY_USERS)});
 const StatsQueryResponse = z.object({stats: z.record(z.string(), StatsEntry)});
@@ -49,6 +80,37 @@ const LeaderboardResponse = z.object({
 
 const security: Array<'sessionToken'> = ['sessionToken'];
 const tags = ['Sparkcord'];
+
+function parseStored(raw: string | null): StoredSave | null {
+	if (!raw) return null;
+	try {
+		const value = JSON.parse(raw) as Partial<StoredSave>;
+		if (typeof value.save !== 'string' || typeof value.updated_at !== 'number') return null;
+		return value as StoredSave;
+	} catch {
+		return null;
+	}
+}
+
+/** Purrs and Lives of a stored save (older records only have them inside the save itself). */
+function storedTotals(stored: StoredSave): {purrs: number; lives: number} {
+	if (typeof stored.purrs === 'number' && typeof stored.lives === 'number') {
+		return {purrs: stored.purrs, lives: stored.lives};
+	}
+	try {
+		const game = JSON.parse(stored.save) as {lifetimeAll?: unknown; livesEarned?: unknown};
+		const purrs = typeof game.lifetimeAll === 'number' && Number.isFinite(game.lifetimeAll) ? game.lifetimeAll : 0;
+		const lives = typeof game.livesEarned === 'number' && Number.isFinite(game.livesEarned) ? game.livesEarned : 0;
+		return {purrs: Math.floor(purrs), lives: Math.floor(lives)};
+	} catch {
+		return {purrs: 0, lives: 0};
+	}
+}
+
+function parseSlot(raw: string | null): number {
+	const slot = Number(raw);
+	return slot === 2 || slot === 3 ? slot : 1;
+}
 
 function parseStats(raw: string | null): PublicStats | null {
 	if (!raw) return null;
@@ -61,11 +123,35 @@ function parseStats(raw: string | null): PublicStats | null {
 	}
 }
 
+/** Makes the public numbers match a slot (or clears them when it is empty). */
+async function publishSlot(kv: IKVProvider, userId: string, stored: StoredSave | null): Promise<void> {
+	if (!stored) {
+		await kv.del(STATS_KEY(userId));
+		return;
+	}
+	const totals = storedTotals(stored);
+	const stats: PublicStats = {purrs: totals.purrs, lives: totals.lives, updated_at: Date.now()};
+	await kv.set(STATS_KEY(userId), JSON.stringify(stats));
+}
+
+async function listSlots(kv: IKVProvider, userId: string) {
+	const [activeRaw, ...raws] = await kv.mget(ACTIVE_KEY(userId), ...SLOTS.map((slot) => SAVE_KEY(userId, slot)));
+	return {
+		active: parseSlot(activeRaw ?? null),
+		slots: SLOTS.map((slot, index) => {
+			const stored = parseStored(raws[index] ?? null);
+			const totals = stored ? storedTotals(stored) : {purrs: 0, lives: 0};
+			return {slot, updated_at: stored?.updated_at ?? null, ...totals};
+		}),
+	};
+}
+
 export function CatGameController(app: HonoApp) {
 	app.get(
 		'/sparkcord/catgame/save',
 		RateLimitMiddleware(RateLimitConfigs.SPARKCORD_PLATFORM_READ),
 		LoginRequired,
+		Validator('query', SlotQuery),
 		OpenAPI({
 			operationId: 'get_catgame_save',
 			summary: 'Get Catnip Café save',
@@ -73,18 +159,16 @@ export function CatGameController(app: HonoApp) {
 			statusCode: 200,
 			security,
 			tags,
-			description: "The current user's Catnip Café save, or null when they haven't played.",
+			description:
+				"One of the current user's Catnip Café save slots (the active one unless `slot` is given); save is null for an empty slot.",
 		}),
 		async (ctx) => {
 			const kv = ctx.get('apiContext').services.kv;
-			const raw = await kv.get(SAVE_KEY(ctx.get('user').id.toString()));
-			if (!raw) return ctx.json({save: null, updated_at: null});
-			try {
-				const stored = JSON.parse(raw) as {save: string; updated_at: number};
-				return ctx.json({save: stored.save, updated_at: stored.updated_at});
-			} catch {
-				return ctx.json({save: null, updated_at: null});
-			}
+			const userId = ctx.get('user').id.toString();
+			const query = ctx.req.valid('query');
+			const slot = query.slot ? Number(query.slot) : parseSlot(await kv.get(ACTIVE_KEY(userId)));
+			const stored = parseStored(await kv.get(SAVE_KEY(userId, slot)));
+			return ctx.json({save: stored?.save ?? null, updated_at: stored?.updated_at ?? null, slot});
 		},
 	);
 
@@ -101,34 +185,30 @@ export function CatGameController(app: HonoApp) {
 			security,
 			tags,
 			description:
-				"Stores the current user's Catnip Café save and their public totals. With base_updated_at, refuses (409, with the stored save) when the stored save is newer than that.",
+				"Stores one of the current user's Catnip Café save slots (and, for the active slot, their public totals). With base_updated_at, refuses (409, with the stored save) when the stored save is newer than that.",
 		}),
 		async (ctx) => {
-			const {save, lifetime_purrs, lives, base_updated_at} = ctx.req.valid('json');
+			const {save, lifetime_purrs, lives, slot: askedSlot, base_updated_at} = ctx.req.valid('json');
 			const userId = ctx.get('user').id.toString();
 			const kv = ctx.get('apiContext').services.kv;
+			const active = parseSlot(await kv.get(ACTIVE_KEY(userId)));
+			const slot = askedSlot ?? active;
 			if (base_updated_at !== undefined) {
-				const raw = await kv.get(SAVE_KEY(userId));
-				let stored: {save: string; updated_at: number} | null = null;
-				try {
-					stored = raw ? (JSON.parse(raw) as {save: string; updated_at: number}) : null;
-				} catch {
-					stored = null;
-				}
+				const stored = parseStored(await kv.get(SAVE_KEY(userId, slot)));
 				const storedAt = stored?.updated_at ?? null;
 				if (storedAt !== base_updated_at) {
 					return ctx.json(
-						{code: 'CATGAME_SAVE_CONFLICT', save: stored?.save ?? null, updated_at: storedAt},
+						{code: 'CATGAME_SAVE_CONFLICT', save: stored?.save ?? null, updated_at: storedAt, slot},
 						409,
 					);
 				}
 			}
 			// Strictly increasing, so two saves in the same millisecond still differ.
 			const now = Math.max(Date.now(), (base_updated_at ?? 0) + 1);
-			await kv.set(SAVE_KEY(userId), JSON.stringify({save, updated_at: now}));
-			const stats: PublicStats = {purrs: Math.floor(lifetime_purrs), lives: Math.floor(lives), updated_at: now};
-			await kv.set(STATS_KEY(userId), JSON.stringify(stats));
-			return ctx.json({save: null, updated_at: now});
+			const record: StoredSave = {save, updated_at: now, purrs: Math.floor(lifetime_purrs), lives: Math.floor(lives)};
+			await kv.set(SAVE_KEY(userId, slot), JSON.stringify(record));
+			if (slot === active) await publishSlot(kv, userId, record);
+			return ctx.json({save: null, updated_at: now, slot});
 		},
 	);
 
@@ -136,6 +216,7 @@ export function CatGameController(app: HonoApp) {
 		'/sparkcord/catgame/save',
 		RateLimitMiddleware(RateLimitConfigs.SPARKCORD_PLATFORM_WRITE),
 		LoginRequired,
+		Validator('query', SlotQuery),
 		OpenAPI({
 			operationId: 'delete_catgame_save',
 			summary: 'Delete Catnip Café save',
@@ -143,12 +224,60 @@ export function CatGameController(app: HonoApp) {
 			statusCode: 204,
 			security,
 			tags,
-			description: "Wipes the current user's Catnip Café progress and public totals.",
+			description:
+				"Empties one of the current user's Catnip Café save slots (the active one unless `slot` is given). Emptying the active slot also clears their public totals.",
 		}),
 		async (ctx) => {
 			const userId = ctx.get('user').id.toString();
-			await ctx.get('apiContext').services.kv.del(SAVE_KEY(userId), STATS_KEY(userId));
+			const kv = ctx.get('apiContext').services.kv;
+			const query = ctx.req.valid('query');
+			const active = parseSlot(await kv.get(ACTIVE_KEY(userId)));
+			const slot = query.slot ? Number(query.slot) : active;
+			await kv.del(SAVE_KEY(userId, slot));
+			if (slot === active) await kv.del(STATS_KEY(userId));
 			return ctx.body(null, 204);
+		},
+	);
+
+	app.get(
+		'/sparkcord/catgame/slots',
+		RateLimitMiddleware(RateLimitConfigs.SPARKCORD_PLATFORM_READ),
+		LoginRequired,
+		OpenAPI({
+			operationId: 'list_catgame_slots',
+			summary: 'List Catnip Café save slots',
+			responseSchema: SlotsResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description: "The current user's 3 Catnip Café save slots, with their totals, and which one is active.",
+		}),
+		async (ctx) => {
+			return ctx.json(await listSlots(ctx.get('apiContext').services.kv, ctx.get('user').id.toString()));
+		},
+	);
+
+	app.put(
+		'/sparkcord/catgame/slots/active',
+		RateLimitMiddleware(RateLimitConfigs.SPARKCORD_PLATFORM_WRITE),
+		LoginRequired,
+		Validator('json', ActiveSlotRequest),
+		OpenAPI({
+			operationId: 'set_catgame_active_slot',
+			summary: 'Switch Catnip Café save slot',
+			responseSchema: SlotsResponse,
+			statusCode: 200,
+			security,
+			tags,
+			description: "Makes a save slot the active one; the user's public totals follow it.",
+		}),
+		async (ctx) => {
+			const {slot} = ctx.req.valid('json');
+			const userId = ctx.get('user').id.toString();
+			const kv = ctx.get('apiContext').services.kv;
+			await kv.set(ACTIVE_KEY(userId), String(slot));
+			await publishSlot(kv, userId, parseStored(await kv.get(SAVE_KEY(userId, slot))));
+			return ctx.json(await listSlots(kv, userId));
 		},
 	);
 

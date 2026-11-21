@@ -43,6 +43,11 @@ const AUTHORIZED_APPLICATIONS_DESCRIPTOR = msg({
 	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',
 });
 
+const CATNIP_CAFE_DESCRIPTOR = msg({
+	message: 'Catnip Café',
+	comment: 'Settings section for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.',
+});
+
 const TUPPERS_DESCRIPTOR = msg({
 	message: 'Tuppers',
 	comment: 'Settings section for proxy members (tuppers), like Tupperbox or PluralKit. Keep the word Tuppers.',
@@ -164,6 +169,13 @@ export const generalSettingsSections = [
 		tabType: 'soundboard',
 		label: SOUNDBOARD_DESCRIPTOR,
 		keywords: ['sound', 'soundboard', 'audio', 'volume'],
+		isAdvanced: false,
+	},
+	{
+		id: 'catnip-cafe',
+		tabType: 'catnip_cafe',
+		label: CATNIP_CAFE_DESCRIPTOR,
+		keywords: ['cat', 'cafe', 'game', 'save', 'slot', 'volume'],
 		isAdvanced: false,
 	},
 	{

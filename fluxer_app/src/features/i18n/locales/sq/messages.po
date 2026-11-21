@@ -2657,8 +2657,17 @@ msgstr ""
 msgid "🎯 {goals} daily goals are waiting."
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐈 {lives} Lives"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "🐈 Your cats grew a little closer."
+msgstr ""
+
+#. placeholder {0}: formatPurrs(purrs)
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐾 {0} purrs in total"
 msgstr ""
 
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
@@ -6586,6 +6595,10 @@ msgstr ""
 msgid "Between 1 and 32 characters"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Big changes to your purrs count up instead of jumping straight to the new number."
+msgstr ""
+
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Biggest Lucky Cat gift"
 msgstr ""
@@ -6653,6 +6666,10 @@ msgstr ""
 #. Short label in the video tab for the screen share video bitrate select. Keep it concise. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Bitrate"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Blinking, ear twitches, the swishing tail and eyes that follow your pointer."
 msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
@@ -7280,6 +7297,14 @@ msgstr ""
 msgid "Café sound volume"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café sounds"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café volume"
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -7662,6 +7687,10 @@ msgstr ""
 msgid "Card alignment controls"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Cat animations"
+msgstr ""
+
 #: src/features/catnip_cafe/CafeCatsTab.tsx
 msgid "Cat name"
 msgstr ""
@@ -7749,10 +7778,14 @@ msgid "catnip"
 msgstr ""
 
 #. Heading on a profile card for the person's Catnip Café game score
+#. Settings section for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
+#. Settings tab for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
 #. Sidebar button that opens the Catnip Café idle cat game.
 #: src/features/catnip_cafe/CafeButton.tsx
 #: src/features/catnip_cafe/CafePage.tsx
 #: src/features/catnip_cafe/CafeProfileLine.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
 msgid "Catnip Café"
 msgstr ""
 
@@ -10041,6 +10074,14 @@ msgstr ""
 msgid "Compressing"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti when you unlock an achievement (the banner still shows)."
+msgstr ""
+
 #. Button label that opens a dedicated advanced settings modal for configuring screen-share encoder controls.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Configure"
@@ -11610,6 +11651,10 @@ msgstr ""
 #. Toast shown when the two-factor backup codes for the recovery kit cannot be loaded.
 #: src/features/auth/components/modals/RecoveryKitModal.tsx
 msgid "Couldn't load your backup codes."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Couldn't load your café saves."
 msgstr ""
 
 #. Muted line in settings when the list of paid Operator Pass purchases could not be loaded. A Try again button follows. Operator Pass is a product name.
@@ -13289,6 +13334,7 @@ msgstr ""
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
@@ -13505,6 +13551,10 @@ msgstr ""
 #: src/features/channel/components/MobileMemesPicker.tsx
 #: src/features/channel/components/pickers/memes/DeleteMemeConfirmation.tsx
 msgid "Delete saved media"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Delete slot {slot}?"
 msgstr ""
 
 #. Destructive action that deletes the selected sticker.
@@ -15671,6 +15721,10 @@ msgstr ""
 #. Short label in the app layout favorites channel list content.
 #: src/features/app/components/layout/FavoritesChannelListContent.tsx
 msgid "Empty favorites"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Empty. Playing it starts a brand new café."
 msgstr ""
 
 #. Button or menu action label in the invites disable invites button. Keep it concise.
@@ -19322,6 +19376,10 @@ msgstr ""
 msgid "Heart"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Hearts, paw prints and floating numbers when you pet the cat."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Hebrew"
@@ -21859,6 +21917,11 @@ msgstr ""
 msgid "Last changed: never"
 msgstr ""
 
+#. placeholder {0}: formatDuration(Math.max(0, Date.now() - summary.updated_at))
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Last saved {0} ago"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/DevicesTab.tsx
 msgid "Last used"
 msgstr ""
@@ -22599,6 +22662,10 @@ msgstr ""
 
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 msgid "Loading theme..."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Loading your saves…"
 msgstr ""
 
 #. Accessible status while the setup wizard loads the saved answers.
@@ -26480,6 +26547,10 @@ msgctxt "short-relative-time"
 msgid "now"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Now playing slot {slot}."
+msgstr ""
+
 #: src/features/input/utils/KeybindUtils.ts
 msgctxt "keyboard-key-name"
 msgid "Num lock"
@@ -28635,12 +28706,20 @@ msgstr ""
 msgid "Pets"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting effects"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting frenzy!"
 msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting rhythm"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting sound"
 msgstr ""
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
@@ -28956,6 +29035,10 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play a sound each time you pet the cat."
+msgstr ""
+
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
 msgid "Play animated emojis"
@@ -28977,6 +29060,14 @@ msgstr ""
 
 #: src/features/user/components/modals/tabs/SoundboardTab.tsx
 msgid "Play short sounds for everyone in your voice channel from the speaker button in the voice panel (or the \"Toggle the soundboard\" keybind). Your personal sounds work in any voice channel; communities can have their own sounds too."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play the café's sound effects."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play this slot"
 msgstr ""
 
 #. Play-button label on the inline video player thumbnail before playback starts.
@@ -29013,6 +29104,10 @@ msgstr ""
 #. Tooltip / aria label on the playback rate button in the media player. {formattedRate} is the current rate, e.g. 1.5x.
 #: src/features/voice/components/media_player/components/MediaPlaybackRate.tsx
 msgid "Playback speed: {formattedRate}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Playing"
 msgstr ""
 
 #. Description shown when an animation setting overrides reduced motion.
@@ -32418,6 +32513,10 @@ msgstr ""
 msgid "Roles updated successfully"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Rolling numbers"
+msgstr ""
+
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
 msgid "Romania"
@@ -32629,6 +32728,10 @@ msgstr ""
 
 #: src/features/user/components/modals/tabs/VirusTotalTab.tsx
 msgid "Save key"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Save slots"
 msgstr ""
 
 #. Button or menu action label in the channel and chat memes picker view. Keep it concise.
@@ -35863,6 +35966,15 @@ msgstr ""
 msgid "Sliders"
 msgstr ""
 
+#. placeholder {0}: summary.slot
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {0}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {slot} deleted."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Slovak"
@@ -36279,6 +36391,10 @@ msgstr ""
 #. Title of the mobile search sort mode bottom sheet.
 #: src/features/search/components/search/SortModeSheet.tsx
 msgid "Sort results by"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Sound"
 msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -38256,6 +38372,10 @@ msgstr ""
 msgid "That code is not valid on {instanceHost}. Check the code in the {productName} app and try again."
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "That didn't work. Try again in a moment."
+msgstr ""
+
 #. Body of the passkey page after the passkey prompt failed or was dismissed. Keep plain.
 #: src/features/auth/passkey_migration/PasskeyBridgePage.tsx
 msgid "That didn't work. Try again or cancel."
@@ -39455,6 +39575,14 @@ msgstr ""
 #. Title of the error modal shown when a custom emoji was deleted before the rename was saved.
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "This emoji no longer exists"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}, the one you're playing, and starts it over as a new café. It can't be undone."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}. It can't be undone."
 msgstr ""
 
 #. Title of the error modal shown when the source emoji or sticker no longer exists.
@@ -43872,6 +44000,10 @@ msgstr ""
 msgid "Visual indicators showing user status, rendered using the same masked status badges as avatars: online, idle, do not disturb, invisible, and offline."
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Visuals"
+msgstr ""
+
 #. Channel type chip label for a voice channel.
 #. Channel type option in the create channel modal.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -44084,6 +44216,7 @@ msgstr ""
 #. Generic media-player / voice control: volume slider label.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Volume"
 msgstr ""
@@ -45875,6 +46008,10 @@ msgstr ""
 #. Modal body shown when the favorite-memes limit is reached on a self-hosted instance with no Plutonium upgrade path. {count} is the saved media cap.
 #: src/features/app/components/alerts/MaxFavoriteMemesModal.tsx
 msgid "You have {count, plural, one {# saved media item} other {# saved media items}}, the most your instance admin allows."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "You have 3 separate cafés. The one you play is saved automatically, and only it counts on leaderboards and your profile."
 msgstr ""
 
 #. Body of the error modal shown when the user is banned from a community in Explore.

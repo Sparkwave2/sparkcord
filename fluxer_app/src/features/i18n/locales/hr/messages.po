@@ -2664,8 +2664,17 @@ msgstr ""
 msgid "🎯 {goals} daily goals are waiting."
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐈 {lives} Lives"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "🐈 Your cats grew a little closer."
+msgstr ""
+
+#. placeholder {0}: formatPurrs(purrs)
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐾 {0} purrs in total"
 msgstr ""
 
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
@@ -6593,6 +6602,10 @@ msgstr "Najbolje uz desktop aplikaciju"
 msgid "Between 1 and 32 characters"
 msgstr "Između 1 i 32 znaka"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Big changes to your purrs count up instead of jumping straight to the new number."
+msgstr ""
+
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Biggest Lucky Cat gift"
 msgstr ""
@@ -6661,6 +6674,10 @@ msgstr "Biometrija"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Bitrate"
 msgstr "Brzina prijenosa podataka"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Blinking, ear twitches, the swishing tail and eyes that follow your pointer."
+msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Bliss"
@@ -7287,6 +7304,14 @@ msgstr ""
 msgid "Café sound volume"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café sounds"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café volume"
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -7669,6 +7694,10 @@ msgstr "Poravnanje kartice"
 msgid "Card alignment controls"
 msgstr "Kontrole poravnanja kartice"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Cat animations"
+msgstr ""
+
 #: src/features/catnip_cafe/CafeCatsTab.tsx
 msgid "Cat name"
 msgstr ""
@@ -7756,10 +7785,14 @@ msgid "catnip"
 msgstr ""
 
 #. Heading on a profile card for the person's Catnip Café game score
+#. Settings section for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
+#. Settings tab for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
 #. Sidebar button that opens the Catnip Café idle cat game.
 #: src/features/catnip_cafe/CafeButton.tsx
 #: src/features/catnip_cafe/CafePage.tsx
 #: src/features/catnip_cafe/CafeProfileLine.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
 msgid "Catnip Café"
 msgstr ""
 
@@ -10048,6 +10081,14 @@ msgstr "Fokusiranje sastavljača"
 msgid "Compressing"
 msgstr "Komprimiranje"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti when you unlock an achievement (the banner still shows)."
+msgstr ""
+
 #. Button label that opens a dedicated advanced settings modal for configuring screen-share encoder controls.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Configure"
@@ -11618,6 +11659,10 @@ msgstr "Nije moguće učitati glasovne regije"
 #: src/features/auth/components/modals/RecoveryKitModal.tsx
 msgid "Couldn't load your backup codes."
 msgstr "Nismo mogli učitati vaše sigurnosne kodove."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Couldn't load your café saves."
+msgstr ""
 
 #. Muted line in settings when the list of paid Operator Pass purchases could not be loaded. A Try again button follows. Operator Pass is a product name.
 #: src/features/premium/components/operator_pass/OperatorPassPurchasesSection.tsx
@@ -13296,6 +13341,7 @@ msgstr "Delaware"
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
@@ -13513,6 +13559,10 @@ msgstr "Izbriši ulogu"
 #: src/features/channel/components/pickers/memes/DeleteMemeConfirmation.tsx
 msgid "Delete saved media"
 msgstr "Izbriši spremljene medije"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Delete slot {slot}?"
+msgstr ""
 
 #. Destructive action that deletes the selected sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
@@ -15679,6 +15729,10 @@ msgstr "Prazna izmjena"
 #: src/features/app/components/layout/FavoritesChannelListContent.tsx
 msgid "Empty favorites"
 msgstr "Prazni favoriti"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Empty. Playing it starts a brand new café."
+msgstr ""
 
 #. Button or menu action label in the invites disable invites button. Keep it concise.
 #. Primary button label in the enable-invites confirmation modal.
@@ -19329,6 +19383,10 @@ msgstr "Poslušajte oglednu rečenicu izgovorenu odabranom brzinom."
 msgid "Heart"
 msgstr "Srce"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Hearts, paw prints and floating numbers when you pet the cat."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Hebrew"
@@ -21866,6 +21924,11 @@ msgstr "Zadnja promjena: {0}"
 msgid "Last changed: never"
 msgstr "Zadnja promjena: nikad"
 
+#. placeholder {0}: formatDuration(Math.max(0, Date.now() - summary.updated_at))
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Last saved {0} ago"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/DevicesTab.tsx
 msgid "Last used"
 msgstr "Posljednja upotreba"
@@ -22607,6 +22670,10 @@ msgstr "Stanja učitavanja"
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 msgid "Loading theme..."
 msgstr "Učitavanje teme..."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Loading your saves…"
+msgstr ""
 
 #. Accessible status while the setup wizard loads the saved answers.
 #: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx
@@ -26487,6 +26554,10 @@ msgctxt "short-relative-time"
 msgid "now"
 msgstr "sad"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Now playing slot {slot}."
+msgstr ""
+
 #: src/features/input/utils/KeybindUtils.ts
 msgctxt "keyboard-key-name"
 msgid "Num lock"
@@ -28642,12 +28713,20 @@ msgstr ""
 msgid "Pets"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting effects"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting frenzy!"
 msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting rhythm"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting sound"
 msgstr ""
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
@@ -28963,6 +29042,10 @@ msgstr ""
 msgid "Play"
 msgstr "Reproduciraj"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play a sound each time you pet the cat."
+msgstr ""
+
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
 msgid "Play animated emojis"
@@ -28984,6 +29067,14 @@ msgstr "Reproduciraj odabir"
 
 #: src/features/user/components/modals/tabs/SoundboardTab.tsx
 msgid "Play short sounds for everyone in your voice channel from the speaker button in the voice panel (or the \"Toggle the soundboard\" keybind). Your personal sounds work in any voice channel; communities can have their own sounds too."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play the café's sound effects."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play this slot"
 msgstr ""
 
 #. Play-button label on the inline video player thumbnail before playback starts.
@@ -29021,6 +29112,10 @@ msgstr "Brzina reprodukcije"
 #: src/features/voice/components/media_player/components/MediaPlaybackRate.tsx
 msgid "Playback speed: {formattedRate}"
 msgstr "Brzina reprodukcije: {formattedRate}"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Playing"
+msgstr ""
 
 #. Description shown when an animation setting overrides reduced motion.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
@@ -32425,6 +32520,10 @@ msgstr "Uloge i članovi"
 msgid "Roles updated successfully"
 msgstr "Uloge su uspješno ažurirane"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Rolling numbers"
+msgstr ""
+
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
 msgid "Romania"
@@ -32636,6 +32735,10 @@ msgstr "Spremi ikonu"
 
 #: src/features/user/components/modals/tabs/VirusTotalTab.tsx
 msgid "Save key"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Save slots"
 msgstr ""
 
 #. Button or menu action label in the channel and chat memes picker view. Keep it concise.
@@ -35870,6 +35973,15 @@ msgstr "Klizač s koracima"
 msgid "Sliders"
 msgstr "Klizači"
 
+#. placeholder {0}: summary.slot
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {0}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {slot} deleted."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Slovak"
@@ -36287,6 +36399,10 @@ msgstr "Način sortiranja: {label}"
 #: src/features/search/components/search/SortModeSheet.tsx
 msgid "Sort results by"
 msgstr "Sortiraj rezultate po"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Sound"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
@@ -38263,6 +38379,10 @@ msgstr "Taj račun trenutačno ne može primiti propusnicu, na primjer zato što
 msgid "That code is not valid on {instanceHost}. Check the code in the {productName} app and try again."
 msgstr "Taj kod nije valjan na {instanceHost}. Provjerite kod u aplikaciji {productName} i pokušajte ponovno."
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "That didn't work. Try again in a moment."
+msgstr ""
+
 #. Body of the passkey page after the passkey prompt failed or was dismissed. Keep plain.
 #: src/features/auth/passkey_migration/PasskeyBridgePage.tsx
 msgid "That didn't work. Try again or cancel."
@@ -39463,6 +39583,14 @@ msgstr "Ovaj emoji je iz"
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "This emoji no longer exists"
 msgstr "Ovaj emoji više ne postoji"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}, the one you're playing, and starts it over as a new café. It can't be undone."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}. It can't be undone."
+msgstr ""
 
 #. Title of the error modal shown when the source emoji or sticker no longer exists.
 #: src/features/app/components/alerts/ExpressionCloneFailedModal.tsx
@@ -43879,6 +44007,10 @@ msgstr "Vizualno"
 msgid "Visual indicators showing user status, rendered using the same masked status badges as avatars: online, idle, do not disturb, invisible, and offline."
 msgstr "Vizualni indikatori koji prikazuju status korisnika, prikazani pomoću istih maskiranih znački statusa kao i avatari: na mreži, neaktivan, ne uznemiravaj, nevidljiv i izvan mreže."
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Visuals"
+msgstr ""
+
 #. Channel type chip label for a voice channel.
 #. Channel type option in the create channel modal.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -44091,6 +44223,7 @@ msgstr "Glas koristi vaš sistemski izlazni uređaj u ovom pregledniku. Promijen
 #. Generic media-player / voice control: volume slider label.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Volume"
 msgstr "Glasnoća"
@@ -45883,6 +46016,10 @@ msgstr "Dosegnuli ste besplatno ograničenje od {count, plural, one {# spremljen
 #: src/features/app/components/alerts/MaxFavoriteMemesModal.tsx
 msgid "You have {count, plural, one {# saved media item} other {# saved media items}}, the most your instance admin allows."
 msgstr "Dosegnuli ste ograničenje od {count, plural, one {# spremljene medijske stavke} few {# spremljene medijske stavke} other {# spremljenih medijskih stavki}}. Ovo ograničenje postavlja administrator vaše instance."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "You have 3 separate cafés. The one you play is saved automatically, and only it counts on leaderboards and your profile."
+msgstr ""
 
 #. Body of the error modal shown when the user is banned from a community in Explore.
 #: src/features/discovery/commands/DiscoveryJoinCommands.tsx

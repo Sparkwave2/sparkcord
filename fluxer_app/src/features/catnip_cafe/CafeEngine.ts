@@ -177,6 +177,25 @@ export interface Notice {
 	text: string;
 }
 
+interface SaveResponse {
+	save: string | null;
+	updated_at: number | null;
+	slot?: number;
+}
+
+export interface SlotSummary {
+	slot: number;
+	/** When it was last saved; null for an empty slot. */
+	updated_at: number | null;
+	purrs: number;
+	lives: number;
+}
+
+export interface SlotsInfo {
+	active: number;
+	slots: Array<SlotSummary>;
+}
+
 export interface Welcome {
 	awayMs: number;
 	purrs: number;
@@ -409,6 +428,8 @@ class CafeEngine {
 	private loadPromise: Promise<void> | null = null;
 	/** The server's version (updated_at) of the save this café builds on; null when there is none. */
 	private version: number | null = null;
+	/** The save slot being played (1 to 3). */
+	slot = 1;
 	/** The save in flight, so saves never overlap (they would refuse each other). */
 	private saving: Promise<void> | null = null;
 
@@ -1366,12 +1387,11 @@ class CafeEngine {
 	load(): Promise<void> {
 		this.loadPromise ??= (async () => {
 			try {
-				const response = await http.get<{save: string | null; updated_at: number | null}>(
-					'/sparkcord/catgame/save',
-				);
+				const response = await http.get<SaveResponse>('/sparkcord/catgame/save');
 				runInAction(() => {
 					this.state = readSave(response.body?.save ?? null);
 					this.version = response.body?.updated_at ?? null;
+					this.slot = response.body?.slot ?? 1;
 					this.loaded = true;
 				});
 			} catch (error) {
@@ -1402,6 +1422,7 @@ class CafeEngine {
 	private async saveNow(): Promise<void> {
 		if (!this.loaded) return;
 		const owner = this.ownerId;
+		const slot = this.slot;
 		this.lastSave = Date.now();
 		this.dirty = false;
 		this.state.savedAt = Date.now();
@@ -1412,17 +1433,18 @@ class CafeEngine {
 					save: JSON.stringify(this.state),
 					lifetime_purrs: this.state.lifetimeAll,
 					lives: this.state.livesEarned,
+					slot,
 					base_updated_at: this.version,
 				},
 			});
-			if (this.ownerId !== owner) return;
+			if (this.ownerId !== owner || this.slot !== slot) return;
 			const updatedAt = response.body?.updated_at;
 			if (typeof updatedAt === 'number') this.version = updatedAt;
 		} catch (error) {
-			if (this.ownerId !== owner) return;
+			if (this.ownerId !== owner || this.slot !== slot) return;
 			if (error instanceof HttpError && error.status === 409) {
 				const body = error.body as {save?: string | null; updated_at?: number | null} | undefined;
-				this.adoptSave(body?.save ?? null, body?.updated_at ?? null);
+				this.adoptSave(body?.save ?? null, body?.updated_at ?? null, slot);
 				return;
 			}
 			console.warn('[cafe] saving failed', error);
@@ -1430,34 +1452,42 @@ class CafeEngine {
 		}
 	}
 
-	/** When the café is shown again, picks up progress another tab or device saved meanwhile. */
+	/**
+	 * When the café is shown again, picks up progress another tab or device saved meanwhile
+	 * (or the slot it switched to).
+	 */
 	async refresh(): Promise<void> {
 		if (!this.loaded) return;
 		const owner = this.ownerId;
 		try {
-			const response = await http.get<{save: string | null; updated_at: number | null}>(
-				'/sparkcord/catgame/save',
-			);
+			const response = await http.get<SaveResponse>('/sparkcord/catgame/save');
 			const updatedAt = response.body?.updated_at ?? null;
+			const slot = response.body?.slot ?? 1;
 			if (this.ownerId !== owner || !this.loaded) return;
 			// A save of our own may have landed while this was asked.
 			if (this.saving) await this.saving.catch(() => undefined);
-			if (this.ownerId !== owner || updatedAt === this.version) return;
-			this.adoptSave(response.body?.save ?? null, updatedAt);
+			if (this.ownerId !== owner || (slot === this.slot && updatedAt === this.version)) return;
+			const switched = slot !== this.slot;
+			this.adoptSave(response.body?.save ?? null, updatedAt, slot);
+			if (switched) this.notify(`Switched to save slot ${slot}, as chosen on another device.`);
 		} catch (error) {
 			console.warn('[cafe] checking for newer progress failed', error);
 		}
 	}
 
 	/** Switches to the newer save another tab or device stored; time since counts as away. */
-	private adoptSave(save: string | null, updatedAt: number | null): void {
+	private adoptSave(save: string | null, updatedAt: number | null, slot: number, quiet = false): void {
+		const sameSlot = slot === this.slot;
 		this.state = readSave(save);
 		this.version = updatedAt;
+		this.slot = slot;
 		this.dirty = false;
 		this.rhythm = 0;
 		this.lucky = null;
 		this.mouse = null;
 		this.welcome = null;
+		this.celebration = null;
+		this.floaters = [];
 		this.ensureGoals();
 		if (this.timer !== null) {
 			const now = Date.now();
@@ -1465,7 +1495,36 @@ class CafeEngine {
 			this.tick();
 			this.lastTick = now;
 		}
-		this.notify('Picked up the progress you made in another tab or on another device.');
+		if (!quiet && sameSlot) this.notify('Picked up the progress you made in another tab or on another device.');
+	}
+
+	// ----- save slots -----
+
+	/** The 3 save slots, with their totals, and which one is active. */
+	async listSlots(): Promise<SlotsInfo> {
+		const response = await http.get<SlotsInfo>('/sparkcord/catgame/slots');
+		return response.body;
+	}
+
+	/** Saves the slot being played, then plays another one (an empty slot starts a new café). */
+	async switchSlot(slot: number): Promise<SlotsInfo> {
+		if (this.loaded) await this.save();
+		const response = await http.put<SlotsInfo>('/sparkcord/catgame/slots/active', {body: {slot}});
+		if (this.loaded) {
+			const save = await http.get<SaveResponse>('/sparkcord/catgame/save', {query: {slot: String(slot)}});
+			runInAction(() => this.adoptSave(save.body?.save ?? null, save.body?.updated_at ?? null, slot, true));
+		}
+		return response.body;
+	}
+
+	/** Empties a save slot; when it's the one being played, the café starts over in it. */
+	async deleteSlot(slot: number): Promise<SlotsInfo> {
+		if (this.saving) await this.saving.catch(() => undefined);
+		await http.delete('/sparkcord/catgame/save', {query: {slot: String(slot)}});
+		if (this.loaded && slot === this.slot) {
+			runInAction(() => this.adoptSave(null, null, slot, true));
+		}
+		return this.listSlots();
 	}
 
 	/** Forgets the loaded save (on account switch). */
@@ -1477,6 +1536,7 @@ class CafeEngine {
 		this.loadFailed = false;
 		this.loadPromise = null;
 		this.version = null;
+		this.slot = 1;
 		this.welcome = null;
 		this.rhythm = 0;
 	}

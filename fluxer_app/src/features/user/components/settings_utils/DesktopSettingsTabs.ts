@@ -21,6 +21,7 @@ import PaymentsTab from '@app/features/user/components/modals/tabs/PaymentsTab';
 import PlutoniumTab from '@app/features/user/components/modals/tabs/PlutoniumTab';
 import PrivacySafetyTab from '@app/features/user/components/modals/tabs/PrivacySafetyTab';
 import SubscriptionsTab from '@app/features/user/components/modals/tabs/SubscriptionsTab';
+import CatnipCafeTab from '@app/features/user/components/modals/tabs/CatnipCafeTab';
 import TuppersTab from '@app/features/user/components/modals/tabs/TuppersTab';
 import PersonalExpressionsTab from '@app/features/user/components/modals/tabs/PersonalExpressionsTab';
 import SoundboardTab from '@app/features/user/components/modals/tabs/SoundboardTab';
@@ -43,6 +44,7 @@ const DESKTOP_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Componen
 	devices: AccountSecurityTab,
 	linked_accounts: LinkedAccountsTab,
 	tuppers: TuppersTab,
+	catnip_cafe: CatnipCafeTab,
 	personal_expressions: PersonalExpressionsTab,
 	soundboard: SoundboardTab,
 	virustotal: VirusTotalTab,

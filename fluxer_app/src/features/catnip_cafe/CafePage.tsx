@@ -15,6 +15,7 @@ import {GoalsTab} from '@app/features/catnip_cafe/CafeGoalsTab';
 import {LeaderboardTab, LivesTab, TrophiesTab} from '@app/features/catnip_cafe/CafeMoreTabs';
 import styles from '@app/features/catnip_cafe/CafePage.module.css';
 import {HelperShop, UpgradesTab} from '@app/features/catnip_cafe/CafeShop';
+import {cafePrefs} from '@app/features/catnip_cafe/CafePrefs';
 import {cafeSound} from '@app/features/catnip_cafe/CafeSound';
 import {CafeWardrobe} from '@app/features/catnip_cafe/CafeWardrobe';
 import {MAX_RHYTHM, MOOD_MAX, MOUSE_RUN_MS, TREATS} from '@app/features/catnip_cafe/CafeWorld';
@@ -62,7 +63,7 @@ function useRollingNumber(target: number): number {
 	useEffect(() => {
 		const from = shownRef.current;
 		// Small steady changes (the tick) show directly; big jumps roll for a moment.
-		if (Math.abs(target - from) <= Math.max(1, Math.abs(from) * 0.02)) {
+		if (!cafePrefs.rollingNumbers || Math.abs(target - from) <= Math.max(1, Math.abs(from) * 0.02)) {
 			shownRef.current = target;
 			setShown(target);
 			return;
@@ -180,7 +181,8 @@ const Celebration = observer(function Celebration() {
 	if (!celebration) return null;
 	return (
 		<div key={celebration.id} className={styles.celebration} aria-live="polite">
-			{Array.from({length: 18}, (_, index) => (
+			{cafePrefs.confetti &&
+				Array.from({length: 18}, (_, index) => (
 				<span
 					key={index}
 					className={styles.confetti}
@@ -330,13 +332,14 @@ export const CafePage = observer(function CafePage() {
 						hat={Cafe.state.outfit.hat}
 						collar={Cafe.state.outfit.collar}
 						expression={expression}
-						look={look}
-						animated
+						look={cafePrefs.catAnimations ? look : undefined}
+						animated={cafePrefs.catAnimations}
 					/>
 				</button>
 				<div className={styles.petHint}>{t`Pet the cat! Each pet: ${formatPurrs(Cafe.petValue)}`}</div>
 				<TreatBar />
-				{Cafe.floaters.map((floater) => (
+				{cafePrefs.particles &&
+					Cafe.floaters.map((floater) => (
 					<span
 						key={floater.id}
 						className={clsx(

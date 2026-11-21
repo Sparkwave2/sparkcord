@@ -8,6 +8,7 @@
 // one is picked at random each time. Mute and volume are remembered on this device.
 
 // The app removes window.localStorage at startup; this is the handle it kept.
+import {cafePrefs} from '@app/features/catnip_cafe/CafePrefs';
 import {getProtectedLocalStorage} from '@app/features/platform/state/ProtectedWebStorage';
 import {makeAutoObservable} from 'mobx';
 
@@ -105,7 +106,7 @@ class CafeSoundPlayer {
 	setMuted(muted: boolean): void {
 		this.muted = muted;
 		this.persist();
-		if (!muted) this.play('pet');
+		if (!muted) this.play(cafePrefs.petSound ? 'pet' : 'buy');
 	}
 
 	setVolume(volume: number): void {
@@ -123,6 +124,7 @@ class CafeSoundPlayer {
 
 	play(name: CafeSoundName): void {
 		if (this.muted || this.volume <= 0) return;
+		if (name === 'pet' && !cafePrefs.petSound) return;
 		const now = performance.now();
 		const gap = MIN_GAP_MS[name];
 		if (gap && now - (this.lastPlayed.get(name) ?? 0) < gap) return;

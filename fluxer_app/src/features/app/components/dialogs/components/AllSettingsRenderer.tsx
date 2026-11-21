@@ -16,6 +16,7 @@ import {AppearanceInlineContent} from '@app/features/user/components/modals/tabs
 import {AccountSecurityInlineTab} from '@app/features/user/components/modals/tabs/account_security_tab/AccountSecurityTabInline';
 import ApplicationsTab from '@app/features/user/components/modals/tabs/applications_tab';
 import {ChatSettingsInlineContent} from '@app/features/user/components/modals/tabs/ChatSettingsTab';
+import CatnipCafeTab from '@app/features/user/components/modals/tabs/CatnipCafeTab';
 import DesktopSettingsTab from '@app/features/user/components/modals/tabs/DesktopSettingsTab';
 import GiftInventoryTab from '@app/features/user/components/modals/tabs/GiftInventoryTab';
 import KeybindsTab from '@app/features/user/components/modals/tabs/KeybindsTab';
@@ -86,6 +87,7 @@ const INLINE_TAB_COMPONENTS: Partial<Record<UserSettingsTabType, React.Component
 	keybinds: KeybindsTab,
 	linked_accounts: LinkedAccountsTab,
 	tuppers: TuppersTab,
+	catnip_cafe: CatnipCafeTab,
 	personal_expressions: PersonalExpressionsTab,
 	soundboard: SoundboardTab,
 	virustotal: VirusTotalTab,

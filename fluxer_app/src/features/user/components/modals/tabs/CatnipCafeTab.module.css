@@ -1,0 +1,88 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.volume {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.volumeLabel {
+	color: var(--text-primary);
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.loading {
+	color: var(--text-secondary);
+	font-size: 0.875rem;
+}
+
+.slots {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+	gap: 0.75rem;
+}
+
+.slot {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.875rem;
+	border: 1px solid var(--background-modifier-accent);
+	border-radius: var(--radius-lg, 0.5rem);
+	background: var(--background-secondary);
+}
+
+.slotActive {
+	border-color: var(--brand-primary);
+	box-shadow: 0 0 0 1px var(--brand-primary);
+}
+
+.slotHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.slotName {
+	color: var(--text-primary);
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.badge {
+	padding: 0.125rem 0.5rem;
+	border-radius: var(--radius-full, 999px);
+	background: var(--brand-primary);
+	color: var(--white, #fff);
+	font-size: 0.6875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.slotStats {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	color: var(--text-primary);
+	font-size: 0.8125rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.slotWhen,
+.slotEmpty {
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+}
+
+.slotEmpty {
+	margin: 0;
+}
+
+.slotActions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: auto;
+}

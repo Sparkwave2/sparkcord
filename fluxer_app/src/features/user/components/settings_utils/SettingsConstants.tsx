@@ -57,6 +57,7 @@ import {
 	AtomIcon,
 	BellIcon,
 	ChatCircleIcon,
+	CatIcon,
 	CodeIcon,
 	DesktopIcon,
 	DevicesIcon,
@@ -241,6 +242,15 @@ const ALL_TABS_DESCRIPTORS: Array<SettingsTabDescriptor> = [
 			comment: 'Settings tab for your soundboard sounds and soundboard volume.',
 		}),
 		icon: SpeakerHighIcon,
+	},
+	{
+		type: 'catnip_cafe',
+		category: 'user_settings',
+		label: msg({
+			message: 'Catnip Café',
+			comment: 'Settings tab for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.',
+		}),
+		icon: CatIcon,
 	},
 	{
 		type: 'virustotal',

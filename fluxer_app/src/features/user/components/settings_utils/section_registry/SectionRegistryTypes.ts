@@ -40,6 +40,7 @@ export type UserSettingsTabType =
 	| 'tuppers'
 	| 'personal_expressions'
 	| 'soundboard'
+	| 'catnip_cafe'
 	| 'virustotal';
 
 export interface SectionDefinition extends SettingsMetadata {

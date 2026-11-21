@@ -2664,8 +2664,17 @@ msgstr ""
 msgid "🎯 {goals} daily goals are waiting."
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐈 {lives} Lives"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "🐈 Your cats grew a little closer."
+msgstr ""
+
+#. placeholder {0}: formatPurrs(purrs)
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "🐾 {0} purrs in total"
 msgstr ""
 
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
@@ -6593,6 +6602,10 @@ msgstr "데스크톱 앱 사용을 권장합니다"
 msgid "Between 1 and 32 characters"
 msgstr "1~32자"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Big changes to your purrs count up instead of jumping straight to the new number."
+msgstr ""
+
 #: src/features/catnip_cafe/CafeMoreTabs.tsx
 msgid "Biggest Lucky Cat gift"
 msgstr ""
@@ -6661,6 +6674,10 @@ msgstr "생체 인식"
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Bitrate"
 msgstr "비트 전송률"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Blinking, ear twitches, the swishing tail and eyes that follow your pointer."
+msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Bliss"
@@ -7287,6 +7304,14 @@ msgstr ""
 msgid "Café sound volume"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café sounds"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Café volume"
+msgstr ""
+
 #. US state name, shown next to the country name in the mature content gate.
 #: src/features/user/utils/UserGeo.ts
 msgctxt "us-state"
@@ -7669,6 +7694,10 @@ msgstr "카드 정렬"
 msgid "Card alignment controls"
 msgstr "카드 정렬 컨트롤"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Cat animations"
+msgstr ""
+
 #: src/features/catnip_cafe/CafeCatsTab.tsx
 msgid "Cat name"
 msgstr ""
@@ -7756,10 +7785,14 @@ msgid "catnip"
 msgstr ""
 
 #. Heading on a profile card for the person's Catnip Café game score
+#. Settings section for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
+#. Settings tab for the Catnip Café idle cat game: sounds, effects and save slots. Keep the name Catnip Café.
 #. Sidebar button that opens the Catnip Café idle cat game.
 #: src/features/catnip_cafe/CafeButton.tsx
 #: src/features/catnip_cafe/CafePage.tsx
 #: src/features/catnip_cafe/CafeProfileLine.tsx
+#: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts
+#: src/features/user/components/settings_utils/SettingsConstants.tsx
 msgid "Catnip Café"
 msgstr ""
 
@@ -10048,6 +10081,14 @@ msgstr "입력창 자동 활성화"
 msgid "Compressing"
 msgstr "압축 중"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Confetti when you unlock an achievement (the banner still shows)."
+msgstr ""
+
 #. Button label that opens a dedicated advanced settings modal for configuring screen-share encoder controls.
 #: src/features/user/utils/UserMessageDescriptors.ts
 msgid "Configure"
@@ -11618,6 +11659,10 @@ msgstr "음성 지역을 불러올 수 없습니다"
 #: src/features/auth/components/modals/RecoveryKitModal.tsx
 msgid "Couldn't load your backup codes."
 msgstr "백업 코드를 불러올 수 없습니다."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Couldn't load your café saves."
+msgstr ""
 
 #. Muted line in settings when the list of paid Operator Pass purchases could not be loaded. A Try again button follows. Operator Pass is a product name.
 #: src/features/premium/components/operator_pass/OperatorPassPurchasesSection.tsx
@@ -13296,6 +13341,7 @@ msgstr "델라웨어"
 #: src/features/soundboard/SoundboardPopout.tsx
 #: src/features/soundboard/SoundManager.tsx
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/ComponentGalleryTabButtonsTab.tsx
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx
 #: src/features/user/components/modals/tabs/PersonalExpressionsTab.tsx
@@ -13513,6 +13559,10 @@ msgstr "역할 삭제"
 #: src/features/channel/components/pickers/memes/DeleteMemeConfirmation.tsx
 msgid "Delete saved media"
 msgstr "저장된 미디어 삭제"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Delete slot {slot}?"
+msgstr ""
 
 #. Destructive action that deletes the selected sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx
@@ -15679,6 +15729,10 @@ msgstr "빈 편집 내용"
 #: src/features/app/components/layout/FavoritesChannelListContent.tsx
 msgid "Empty favorites"
 msgstr "즐겨찾기 없음"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Empty. Playing it starts a brand new café."
+msgstr ""
 
 #. Button or menu action label in the invites disable invites button. Keep it concise.
 #. Primary button label in the enable-invites confirmation modal.
@@ -19329,6 +19383,10 @@ msgstr "선택한 속도로 샘플 문장을 들어보세요."
 msgid "Heart"
 msgstr "하트"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Hearts, paw prints and floating numbers when you pet the cat."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Hebrew"
@@ -21866,6 +21924,11 @@ msgstr "마지막 변경: {0}"
 msgid "Last changed: never"
 msgstr "마지막 변경: 없음"
 
+#. placeholder {0}: formatDuration(Math.max(0, Date.now() - summary.updated_at))
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Last saved {0} ago"
+msgstr ""
+
 #: src/features/user/components/modals/tabs/DevicesTab.tsx
 msgid "Last used"
 msgstr "최근 사용"
@@ -22607,6 +22670,10 @@ msgstr "로딩 상태"
 #: src/features/theme/components/modals/ThemeAcceptModal.tsx
 msgid "Loading theme..."
 msgstr "테마 불러오는 중..."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Loading your saves…"
+msgstr ""
 
 #. Accessible status while the setup wizard loads the saved answers.
 #: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx
@@ -26487,6 +26554,10 @@ msgctxt "short-relative-time"
 msgid "now"
 msgstr "방금"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Now playing slot {slot}."
+msgstr ""
+
 #: src/features/input/utils/KeybindUtils.ts
 msgctxt "keyboard-key-name"
 msgid "Num lock"
@@ -28642,12 +28713,20 @@ msgstr ""
 msgid "Pets"
 msgstr ""
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting effects"
+msgstr ""
+
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting frenzy!"
 msgstr ""
 
 #: src/features/catnip_cafe/CafePage.tsx
 msgid "Petting rhythm"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Petting sound"
 msgstr ""
 
 #. Keyboard shortcut keycap label for Page Down. Keep the abbreviation compact.
@@ -28963,6 +29042,10 @@ msgstr ""
 msgid "Play"
 msgstr "재생"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play a sound each time you pet the cat."
+msgstr ""
+
 #. Short label in the animation tab. Keep it concise.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
 msgid "Play animated emojis"
@@ -28984,6 +29067,14 @@ msgstr "선택 영역 재생"
 
 #: src/features/user/components/modals/tabs/SoundboardTab.tsx
 msgid "Play short sounds for everyone in your voice channel from the speaker button in the voice panel (or the \"Toggle the soundboard\" keybind). Your personal sounds work in any voice channel; communities can have their own sounds too."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play the café's sound effects."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Play this slot"
 msgstr ""
 
 #. Play-button label on the inline video player thumbnail before playback starts.
@@ -29021,6 +29112,10 @@ msgstr "재생 속도"
 #: src/features/voice/components/media_player/components/MediaPlaybackRate.tsx
 msgid "Playback speed: {formattedRate}"
 msgstr "재생 속도: {formattedRate}"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Playing"
+msgstr ""
 
 #. Description shown when an animation setting overrides reduced motion.
 #: src/features/user/components/modals/tabs/accessibility_tab/AnimationTab.tsx
@@ -32425,6 +32520,10 @@ msgstr "역할 및 멤버"
 msgid "Roles updated successfully"
 msgstr "역할이 업데이트되었습니다"
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Rolling numbers"
+msgstr ""
+
 #. Country name. EU member state in the illegal-content report country dropdown.
 #: src/features/moderation/components/report/OptionDescriptors.ts
 msgid "Romania"
@@ -32636,6 +32735,10 @@ msgstr "아이콘 저장"
 
 #: src/features/user/components/modals/tabs/VirusTotalTab.tsx
 msgid "Save key"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Save slots"
 msgstr ""
 
 #. Button or menu action label in the channel and chat memes picker view. Keep it concise.
@@ -35870,6 +35973,15 @@ msgstr "단계 값 슬라이더"
 msgid "Sliders"
 msgstr "슬라이더"
 
+#. placeholder {0}: summary.slot
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {0}"
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Slot {slot} deleted."
+msgstr ""
+
 #. Short label in the language and locale names. Keep it concise.
 #: src/features/user/utils/LocaleUtils.ts
 msgid "Slovak"
@@ -36287,6 +36399,10 @@ msgstr "정렬 방식: {label}"
 #: src/features/search/components/search/SortModeSheet.tsx
 msgid "Sort results by"
 msgstr "정렬 기준"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Sound"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts
@@ -38263,6 +38379,10 @@ msgstr "해당 계정은 지금 패스를 받을 수 없습니다. 예를 들어
 msgid "That code is not valid on {instanceHost}. Check the code in the {productName} app and try again."
 msgstr "해당 코드는 {instanceHost}에서 유효하지 않습니다. {productName} 앱에서 코드를 확인한 후 다시 시도하세요."
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "That didn't work. Try again in a moment."
+msgstr ""
+
 #. Body of the passkey page after the passkey prompt failed or was dismissed. Keep plain.
 #: src/features/auth/passkey_migration/PasskeyBridgePage.tsx
 msgid "That didn't work. Try again or cancel."
@@ -39463,6 +39583,14 @@ msgstr "이 이모지는 다음 커뮤니티에서 가져왔습니다."
 #: src/features/emoji/components/emojis/EmojiListItem.tsx
 msgid "This emoji no longer exists"
 msgstr "이 이모티콘은 더 이상 존재하지 않습니다"
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}, the one you're playing, and starts it over as a new café. It can't be undone."
+msgstr ""
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "This erases everything in slot {slot}. It can't be undone."
+msgstr ""
 
 #. Title of the error modal shown when the source emoji or sticker no longer exists.
 #: src/features/app/components/alerts/ExpressionCloneFailedModal.tsx
@@ -43879,6 +44007,10 @@ msgstr "시각"
 msgid "Visual indicators showing user status, rendered using the same masked status badges as avatars: online, idle, do not disturb, invisible, and offline."
 msgstr "사용자 상태를 나타내는 시각적 표시입니다. 아바타와 동일한 마스크 처리된 상태 배지(온라인, 자리 비움, 방해 금지, 숨김, 오프라인)를 사용하여 렌더링됩니다."
 
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "Visuals"
+msgstr ""
+
 #. Channel type chip label for a voice channel.
 #. Channel type option in the create channel modal.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -44091,6 +44223,7 @@ msgstr "음성에는 이 브라우저의 시스템 출력 기기가 사용됩니
 #. Generic media-player / voice control: volume slider label.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts
 msgid "Volume"
 msgstr "볼륨"
@@ -45883,6 +46016,10 @@ msgstr "무료 한도인 저장된 미디어 항목 {count, plural, one {#개} o
 #: src/features/app/components/alerts/MaxFavoriteMemesModal.tsx
 msgid "You have {count, plural, one {# saved media item} other {# saved media items}}, the most your instance admin allows."
 msgstr "저장된 미디어 항목 {count, plural, one {#개} other {#개}} 한도에 도달했습니다. 이 한도는 인스턴스 관리자가 설정합니다."
+
+#: src/features/user/components/modals/tabs/CatnipCafeTab.tsx
+msgid "You have 3 separate cafés. The one you play is saved automatically, and only it counts on leaderboards and your profile."
+msgstr ""
 
 #. Body of the error modal shown when the user is banned from a community in Explore.
 #: src/features/discovery/commands/DiscoveryJoinCommands.tsx

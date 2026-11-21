@@ -111,7 +111,7 @@ export const UPGRADES: ReadonlyArray<UpgradeDef> = [
 		(n): UpgradeDef => ({
 			id: `pet-share-${n}`,
 			name: ['Belly Rub (Risky)', 'Slow Blink', 'Head Bonk', 'Biscuit Kneading', 'Loaf Mode', 'Ancient Purr'][n - 1],
-			emoji: ['🫃', '😌', '🤕', '🍪', '🍞', '🔮'][n - 1],
+			emoji: ['🙀', '😌', '🤕', '🍪', '🍞', '🔮'][n - 1],
 			description: 'Each pet also earns 1% of your purrs per second.',
 			cost: 10 ** (4 + n * 2),
 			effect: {kind: 'petShare', share: 0.01},
